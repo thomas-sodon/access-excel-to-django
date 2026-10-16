@@ -1,0 +1,5 @@
+app/.env
+app/staticfiles/
+app/media/
+test-results/
+playwright-report/
