@@ -1,0 +1,9 @@
+{
+  "args": [
+    "product_id"
+  ],
+  "choice": "subquery",
+  "function": "ProductToSell",
+  "rewrite": "Nz((SELECT Max(ft_s0.QuantityOnHand) FROM StockTake AS ft_s0 WHERE ft_s0.ProductID = {product_id} AND ft_s0.StockTakeDate = (SELECT Max(ft_s9.StockTakeDate) FROM StockTake AS ft_s9 WHERE ft_s9.ProductID = {product_id})), 0) + Nz((SELECT Sum(ft_pd.Quantity) FROM PurchaseOrderDetails AS ft_pd WHERE ft_pd.ProductID = {product_id} AND ft_pd.ReceivedDate >= IIf(IsNull((SELECT Max(ft_s1.StockTakeDate) FROM StockTake AS ft_s1 WHERE ft_s1.ProductID = {product_id})), IIf(IsNull((SELECT ft_p1.AddedOn FROM Products AS ft_p1 WHERE ft_p1.ProductID = {product_id})), Now(), (SELECT ft_p1.AddedOn FROM Products AS ft_p1 WHERE ft_p1.ProductID = {product_id})), (SELECT Max(ft_s1.StockTakeDate) FROM StockTake AS ft_s1 WHERE ft_s1.ProductID = {product_id}))), 0) - Nz((SELECT Sum(ft_od.Quantity) FROM OrderDetails AS ft_od WHERE ft_od.ProductID = {product_id} AND ft_od.OrderID IN (SELECT ft_o.OrderID FROM Orders AS ft_o WHERE ft_o.InvoiceDate >= IIf(IsNull((SELECT Max(ft_s2.StockTakeDate) FROM StockTake AS ft_s2 WHERE ft_s2.ProductID = {product_id})), IIf(IsNull((SELECT ft_p2.AddedOn FROM Products AS ft_p2 WHERE ft_p2.ProductID = {product_id})), Now(), (SELECT ft_p2.AddedOn FROM Products AS ft_p2 WHERE ft_p2.ProductID = {product_id})), (SELECT Max(ft_s2.StockTakeDate) FROM StockTake AS ft_s2 WHERE ft_s2.ProductID = {product_id})))), 0) - ProductAllocated({product_id})",
+  "rule": "R-inventory-005"
+}

@@ -1,0 +1,68 @@
+{
+  "format_version": 1,
+  "units": {
+    "qryEmployeeSupervisor": {
+      "keys": {},
+      "params": [
+        {
+          "name": "Forms!frmEmployeeList!EmployeeID",
+          "source": "form_control",
+          "type": "longinteger"
+        }
+      ],
+      "values": {
+        "seed-1": {
+          "Forms!frmEmployeeList!EmployeeID": "1"
+        },
+        "seed-2": {
+          "Forms!frmEmployeeList!EmployeeID": "1"
+        },
+        "seed-3": {
+          "Forms!frmEmployeeList!EmployeeID": "1"
+        }
+      }
+    },
+    "qrycboProducts": {
+      "keys": {},
+      "params": [
+        {
+          "name": "Form!cboProductCategories",
+          "source": "form_control",
+          "type": "longinteger"
+        }
+      ],
+      "values": {
+        "seed-1": {
+          "Form!cboProductCategories": "2"
+        },
+        "seed-2": {
+          "Form!cboProductCategories": "4"
+        },
+        "seed-3": {
+          "Form!cboProductCategories": "1"
+        }
+      }
+    },
+    "qrycboProducts_PO": {
+      "keys": {},
+      "params": [
+        {
+          "name": "Parent!VendorID",
+          "source": "form_control",
+          "type": "longinteger"
+        }
+      ],
+      "values": {
+        "seed-1": {
+          "Parent!VendorID": "1"
+        },
+        "seed-2": {
+          "Parent!VendorID": "3"
+        },
+        "seed-3": {
+          "Parent!VendorID": "1"
+        }
+      }
+    }
+  }
+}

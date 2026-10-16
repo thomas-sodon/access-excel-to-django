@@ -1,0 +1,4748 @@
+{
+  "engagement": "northwind-demo",
+  "format_version": 1,
+  "units": {
+    "qryCompanies": {
+      "area": "orders",
+      "canonical_version": 1,
+      "columns": [
+        {
+          "name": "CompanyID",
+          "type": "longinteger"
+        },
+        {
+          "name": "CompanyName",
+          "type": "text"
+        },
+        {
+          "name": "CompanyTypeID",
+          "type": "longinteger"
+        },
+        {
+          "name": "BusinessPhone",
+          "type": "text"
+        },
+        {
+          "name": "Address",
+          "type": "text"
+        },
+        {
+          "name": "City",
+          "type": "text"
+        },
+        {
+          "name": "StateAbbrev",
+          "type": "text"
+        },
+        {
+          "name": "Zip",
+          "type": "text"
+        },
+        {
+          "name": "Website",
+          "type": "hyperlink"
+        },
+        {
+          "name": "Notes",
+          "type": "memo"
+        },
+        {
+          "name": "StandardTaxStatusID",
+          "type": "integer"
+        },
+        {
+          "name": "AddedBy",
+          "type": "text"
+        },
+        {
+          "name": "AddedOn",
+          "type": "datetime"
+        },
+        {
+          "name": "ModifiedBy",
+          "type": "text"
+        },
+        {
+          "name": "ModifiedOn",
+          "type": "datetime"
+        },
+        {
+          "name": "BusinessAddress",
+          "type": "text"
+        }
+      ],
+      "datasets": {
+        "engagement": {
+          "digest": {
+            "alg": "hmac-sha256",
+            "value": "5f5ae454d6153838482591faac4785d82b94caa6782ccb62bd399e0ed24a5446"
+          },
+          "reason": null,
+          "rows": 13,
+          "status": "ok"
+        },
+        "seed-1": {
+          "digest": {
+            "alg": "sha256",
+            "value": "9c3e9dc715434a559b0a366ccffc5abf8ef2c6af773d2e0ab74403d9fb4e5bc7"
+          },
+          "expected": "synthetic/seed-1/expected/qryCompanies.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        },
+        "seed-2": {
+          "digest": {
+            "alg": "sha256",
+            "value": "2d3992255230e58e093e3f928dccac6b24f62d8611fca092364a48eecdea8bf4"
+          },
+          "expected": "synthetic/seed-2/expected/qryCompanies.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        },
+        "seed-3": {
+          "digest": {
+            "alg": "sha256",
+            "value": "4faca23bf89e7e53b49faab295929f0401770757d3014a82e355fb627a42261e"
+          },
+          "expected": "synthetic/seed-3/expected/qryCompanies.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        }
+      },
+      "kind": "saved_query",
+      "needs_access_confirmation": false,
+      "order_by": [
+        {
+          "column": "CompanyName",
+          "desc": false
+        }
+      ]
+    },
+    "qryCompanyList": {
+      "area": "orders",
+      "canonical_version": 1,
+      "columns": [
+        {
+          "name": "CompanyID",
+          "type": "longinteger"
+        },
+        {
+          "name": "CompanyName",
+          "type": "text"
+        },
+        {
+          "name": "CompanyType",
+          "type": "text"
+        },
+        {
+          "name": "BusinessPhone",
+          "type": "text"
+        },
+        {
+          "name": "Address",
+          "type": "text"
+        },
+        {
+          "name": "City",
+          "type": "text"
+        },
+        {
+          "name": "StateAbbrev",
+          "type": "text"
+        },
+        {
+          "name": "Zip",
+          "type": "text"
+        },
+        {
+          "name": "Website",
+          "type": "hyperlink"
+        },
+        {
+          "name": "Notes",
+          "type": "memo"
+        },
+        {
+          "name": "TaxStatus",
+          "type": "text"
+        },
+        {
+          "name": "AddedBy",
+          "type": "text"
+        },
+        {
+          "name": "AddedOn",
+          "type": "datetime"
+        },
+        {
+          "name": "ModifiedBy",
+          "type": "text"
+        },
+        {
+          "name": "ModifiedOn",
+          "type": "datetime"
+        },
+        {
+          "name": "BusinessAddress",
+          "type": "text"
+        },
+        {
+          "name": "CompanyTypeID",
+          "type": "longinteger"
+        },
+        {
+          "name": "StandardTaxStatusID",
+          "type": "integer"
+        }
+      ],
+      "datasets": {
+        "engagement": {
+          "digest": {
+            "alg": "hmac-sha256",
+            "value": "df3af0cf5b3a98d98df6e38e101e197153a14d4e6e1330c0c1c9e8b62fe110a2"
+          },
+          "reason": null,
+          "rows": 13,
+          "status": "ok"
+        },
+        "seed-1": {
+          "digest": {
+            "alg": "sha256",
+            "value": "43d798b58295130f5d7be2b89060b7a0a78a70bc7060298a53a345ed0762a292"
+          },
+          "expected": "synthetic/seed-1/expected/qryCompanyList.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        },
+        "seed-2": {
+          "digest": {
+            "alg": "sha256",
+            "value": "1c588d8db96296e2ac0c52049dfa537f87c9335a4aa80ed768694d403714b4fb"
+          },
+          "expected": "synthetic/seed-2/expected/qryCompanyList.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        },
+        "seed-3": {
+          "digest": {
+            "alg": "sha256",
+            "value": "11da8321390840d2f1ddf11c93f7a043590965dd4e88c465b174b24f9d8e52a6"
+          },
+          "expected": "synthetic/seed-3/expected/qryCompanyList.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        }
+      },
+      "kind": "saved_query",
+      "needs_access_confirmation": false,
+      "order_by": [
+        {
+          "column": "CompanyName",
+          "desc": false
+        }
+      ]
+    },
+    "qryContacts": {
+      "area": "orders",
+      "canonical_version": 1,
+      "columns": [
+        {
+          "name": "ContactID",
+          "type": "longinteger"
+        },
+        {
+          "name": "CompanyID",
+          "type": "longinteger"
+        },
+        {
+          "name": "LastName",
+          "type": "text"
+        },
+        {
+          "name": "FirstName",
+          "type": "text"
+        },
+        {
+          "name": "EmailAddress",
+          "type": "text"
+        },
+        {
+          "name": "JobTitle",
+          "type": "text"
+        },
+        {
+          "name": "PrimaryPhone",
+          "type": "text"
+        },
+        {
+          "name": "SecondaryPhone",
+          "type": "text"
+        },
+        {
+          "name": "Notes",
+          "type": "memo"
+        },
+        {
+          "name": "AddedBy",
+          "type": "text"
+        },
+        {
+          "name": "AddedOn",
+          "type": "datetime"
+        },
+        {
+          "name": "ModifiedBy",
+          "type": "text"
+        },
+        {
+          "name": "ModifiedOn",
+          "type": "datetime"
+        }
+      ],
+      "datasets": {
+        "engagement": {
+          "digest": {
+            "alg": "hmac-sha256",
+            "value": "09d787027f7ac317d535339f7d197b55ff512e3917e22b04f05ec32fd2262cf6"
+          },
+          "reason": null,
+          "rows": 6,
+          "status": "ok"
+        },
+        "seed-1": {
+          "digest": {
+            "alg": "sha256",
+            "value": "0ec653928ba53d218cdcebf6ece616252f9ff201e19681b06f5d886bd374a617"
+          },
+          "expected": "synthetic/seed-1/expected/qryContacts.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        },
+        "seed-2": {
+          "digest": {
+            "alg": "sha256",
+            "value": "54a7f9f6f16b4f835a385ed43c2c286572feb9bc569bd15eab1718b08bb1e14e"
+          },
+          "expected": "synthetic/seed-2/expected/qryContacts.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        },
+        "seed-3": {
+          "digest": {
+            "alg": "sha256",
+            "value": "2730b062029bee0aaa6ca832db568ca847b0dfef472c7c782894311059bea716"
+          },
+          "expected": "synthetic/seed-3/expected/qryContacts.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        }
+      },
+      "kind": "saved_query",
+      "needs_access_confirmation": false,
+      "order_by": [
+        {
+          "column": "LastName",
+          "desc": false
+        },
+        {
+          "column": "FirstName",
+          "desc": false
+        }
+      ]
+    },
+    "qryCustomerOrderList": {
+      "area": "orders",
+      "canonical_version": 1,
+      "columns": [
+        {
+          "name": "OrderID",
+          "type": "longinteger"
+        },
+        {
+          "name": "EmployeeID",
+          "type": "longinteger"
+        },
+        {
+          "name": "myCompanyID",
+          "type": "longinteger"
+        },
+        {
+          "name": "OrderDate",
+          "type": "datetime"
+        },
+        {
+          "name": "ShippedDate",
+          "type": "datetime"
+        },
+        {
+          "name": "ShipperID",
+          "type": "longinteger"
+        },
+        {
+          "name": "ShippingFee",
+          "type": "currency"
+        },
+        {
+          "name": "TaxRate",
+          "type": "single"
+        },
+        {
+          "name": "TaxStatusID",
+          "type": "integer"
+        },
+        {
+          "name": "PaymentMethod",
+          "type": "text"
+        },
+        {
+          "name": "PaidDate",
+          "type": "datetime"
+        },
+        {
+          "name": "Notes",
+          "type": "memo"
+        },
+        {
+          "name": "OrderStatusID",
+          "type": "longinteger"
+        },
+        {
+          "name": "AddedBy",
+          "type": "text"
+        },
+        {
+          "name": "AddedOn",
+          "type": "datetime"
+        },
+        {
+          "name": "ModifiedBy",
+          "type": "text"
+        },
+        {
+          "name": "ModifiedOn",
+          "type": "datetime"
+        },
+        {
+          "name": "EmployeeName",
+          "type": "text"
+        },
+        {
+          "name": "ShipperName",
+          "type": "text"
+        },
+        {
+          "name": "OrderTotal",
+          "type": "decimal"
+        },
+        {
+          "name": "OrderStatusName",
+          "type": "text"
+        }
+      ],
+      "datasets": {
+        "engagement": {
+          "digest": {
+            "alg": "hmac-sha256",
+            "value": "0be7f2d3396cb582ec469aae1d55f5fa3aaaf29434c9cf100975b37c3ba85d31"
+          },
+          "reason": null,
+          "rows": 52,
+          "status": "ok"
+        },
+        "seed-1": {
+          "digest": {
+            "alg": "sha256",
+            "value": "14bab0a0fad8da4e88f0361f8e3249336dbc90754e9a6f737e3072d098624b51"
+          },
+          "expected": "synthetic/seed-1/expected/qryCustomerOrderList.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        },
+        "seed-2": {
+          "digest": {
+            "alg": "sha256",
+            "value": "de973d78b073b29ccef50bef5539624c03a94c3bbb214e0d2f7f549190ce80b2"
+          },
+          "expected": "synthetic/seed-2/expected/qryCustomerOrderList.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        },
+        "seed-3": {
+          "digest": {
+            "alg": "sha256",
+            "value": "adf29844a5c842d942e0d8a3b562b5efcb68e6f02906e74df501919cddefe420"
+          },
+          "expected": "synthetic/seed-3/expected/qryCustomerOrderList.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        }
+      },
+      "kind": "saved_query",
+      "needs_access_confirmation": false,
+      "order_by": [
+        {
+          "column": "OrderID",
+          "desc": true
+        }
+      ]
+    },
+    "qryCustomers": {
+      "area": "orders",
+      "canonical_version": 1,
+      "columns": [
+        {
+          "name": "CompanyID",
+          "type": "longinteger"
+        },
+        {
+          "name": "CompanyName",
+          "type": "text"
+        },
+        {
+          "name": "CompanyTypeID",
+          "type": "longinteger"
+        },
+        {
+          "name": "BusinessPhone",
+          "type": "text"
+        },
+        {
+          "name": "Address",
+          "type": "text"
+        },
+        {
+          "name": "City",
+          "type": "text"
+        },
+        {
+          "name": "StateAbbrev",
+          "type": "text"
+        },
+        {
+          "name": "Zip",
+          "type": "text"
+        },
+        {
+          "name": "Website",
+          "type": "hyperlink"
+        },
+        {
+          "name": "Notes",
+          "type": "memo"
+        },
+        {
+          "name": "StandardTaxStatusID",
+          "type": "integer"
+        },
+        {
+          "name": "AddedBy",
+          "type": "text"
+        },
+        {
+          "name": "AddedOn",
+          "type": "datetime"
+        },
+        {
+          "name": "ModifiedBy",
+          "type": "text"
+        },
+        {
+          "name": "ModifiedOn",
+          "type": "datetime"
+        }
+      ],
+      "datasets": {
+        "engagement": {
+          "digest": {
+            "alg": "hmac-sha256",
+            "value": "c82d7db854106e01cad036b344b991b4b86dd0fe892ba812a51820d9dde219cd"
+          },
+          "reason": null,
+          "rows": 8,
+          "status": "ok"
+        },
+        "seed-1": {
+          "digest": {
+            "alg": "sha256",
+            "value": "be79aed4f76e0e2bc397e8d5f8a52ddf6d741aad72b0d3755f393948667ef749"
+          },
+          "expected": "synthetic/seed-1/expected/qryCustomers.csv",
+          "reason": null,
+          "rows": 9,
+          "status": "ok"
+        },
+        "seed-2": {
+          "digest": {
+            "alg": "sha256",
+            "value": "541616b6176ef35a8aaa10381267082050633bfac42db22092eac3b738c61306"
+          },
+          "expected": "synthetic/seed-2/expected/qryCustomers.csv",
+          "reason": null,
+          "rows": 10,
+          "status": "ok"
+        },
+        "seed-3": {
+          "digest": {
+            "alg": "sha256",
+            "value": "082dfb4756ddb22c169f5315e8050ac63f0c8bd2fd72892a1888dc200b7812af"
+          },
+          "expected": "synthetic/seed-3/expected/qryCustomers.csv",
+          "reason": null,
+          "rows": 20,
+          "status": "ok"
+        }
+      },
+      "kind": "saved_query",
+      "needs_access_confirmation": false,
+      "order_by": null
+    },
+    "qryEmployeeLogin": {
+      "area": "orders",
+      "canonical_version": 1,
+      "columns": [
+        {
+          "name": "EmployeeID",
+          "type": "longinteger"
+        },
+        {
+          "name": "FirstName",
+          "type": "text"
+        },
+        {
+          "name": "LastName",
+          "type": "text"
+        },
+        {
+          "name": "EmailAddress",
+          "type": "text"
+        },
+        {
+          "name": "JobTitle",
+          "type": "text"
+        },
+        {
+          "name": "WindowsUserName",
+          "type": "text"
+        },
+        {
+          "name": "FullName",
+          "type": "text"
+        }
+      ],
+      "datasets": {
+        "engagement": {
+          "digest": {
+            "alg": "hmac-sha256",
+            "value": "1e9ae34eb1cfb27ed27d4af86583f344f66ef5e2899f8e735d6a43226e6186af"
+          },
+          "reason": null,
+          "rows": 10,
+          "status": "ok"
+        },
+        "seed-1": {
+          "digest": {
+            "alg": "sha256",
+            "value": "cc6243b819afb6c8a3f4e06383db26884d7663d7519b8629bf26d3a42a9404a9"
+          },
+          "expected": "synthetic/seed-1/expected/qryEmployeeLogin.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        },
+        "seed-2": {
+          "digest": {
+            "alg": "sha256",
+            "value": "04ad20e5f510c1a0da1719293b3b8e12292be568517c4e73540269aef1e4857b"
+          },
+          "expected": "synthetic/seed-2/expected/qryEmployeeLogin.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        },
+        "seed-3": {
+          "digest": {
+            "alg": "sha256",
+            "value": "fa23fec4f22420c0ed69247b0a924777ba56294f0630ec99fc3cd9fa351b0c20"
+          },
+          "expected": "synthetic/seed-3/expected/qryEmployeeLogin.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        }
+      },
+      "kind": "saved_query",
+      "needs_access_confirmation": false,
+      "order_by": null
+    },
+    "qryEmployeePrivileges": {
+      "area": "orders",
+      "canonical_version": 1,
+      "columns": [
+        {
+          "name": "EmployeePrivilegeID",
+          "type": "longinteger"
+        },
+        {
+          "name": "EmployeeID",
+          "type": "longinteger"
+        },
+        {
+          "name": "PrivilegeID",
+          "type": "longinteger"
+        },
+        {
+          "name": "AddedBy",
+          "type": "text"
+        },
+        {
+          "name": "AddedOn",
+          "type": "datetime"
+        },
+        {
+          "name": "ModifiedBy",
+          "type": "text"
+        },
+        {
+          "name": "ModifiedOn",
+          "type": "datetime"
+        }
+      ],
+      "datasets": {
+        "engagement": {
+          "digest": {
+            "alg": "hmac-sha256",
+            "value": "a1bb113090e7aa3308703fbd5b8466a84c5ad7dcc9973d28a9d9bf32b3ab4458"
+          },
+          "reason": null,
+          "rows": 3,
+          "status": "ok"
+        },
+        "seed-1": {
+          "digest": {
+            "alg": "sha256",
+            "value": "a00a9d42526c7ed402bba25501ce718deaaeae36d621c4827b7f0c67e666b348"
+          },
+          "expected": "synthetic/seed-1/expected/qryEmployeePrivileges.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        },
+        "seed-2": {
+          "digest": {
+            "alg": "sha256",
+            "value": "c0e2f284523a34803f5d518251f74820fdf19b210131804fb84df523735d4681"
+          },
+          "expected": "synthetic/seed-2/expected/qryEmployeePrivileges.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        },
+        "seed-3": {
+          "digest": {
+            "alg": "sha256",
+            "value": "dcd76607cd97a13fb6a0895917b5a3721a1f05c20d8455014469cded63611bc1"
+          },
+          "expected": "synthetic/seed-3/expected/qryEmployeePrivileges.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        }
+      },
+      "kind": "saved_query",
+      "needs_access_confirmation": false,
+      "order_by": null
+    },
+    "qryEmployeeSupervisor": {
+      "area": "orders",
+      "canonical_version": 1,
+      "columns": [
+        {
+          "name": "EmployeeID",
+          "type": "longinteger"
+        },
+        {
+          "name": "Supervisor",
+          "type": "text"
+        }
+      ],
+      "datasets": {
+        "engagement": {
+          "digest": {
+            "alg": "hmac-sha256",
+            "value": "c59a15b3c22eac70d28486dd75bf5442d824249d4436afdde12c6bccaaf9217a"
+          },
+          "reason": null,
+          "rows": 9,
+          "status": "ok"
+        },
+        "seed-1": {
+          "digest": {
+            "alg": "sha256",
+            "value": "961eb70109ba9b2e6b387f84a03a1dfd6785316ade6e8e7536191a3da79110b8"
+          },
+          "expected": "synthetic/seed-1/expected/qryEmployeeSupervisor.csv",
+          "reason": null,
+          "rows": 49,
+          "status": "ok"
+        },
+        "seed-2": {
+          "digest": {
+            "alg": "sha256",
+            "value": "c5e86340e066dab11791d5b7dd043c4ad90f3479862bcaf33edf60f7e71f4651"
+          },
+          "expected": "synthetic/seed-2/expected/qryEmployeeSupervisor.csv",
+          "reason": null,
+          "rows": 49,
+          "status": "ok"
+        },
+        "seed-3": {
+          "digest": {
+            "alg": "sha256",
+            "value": "d3d807567a8c957100895e0c7d6b2fe360bfbfb80568a4fac12809fc5fdb7f92"
+          },
+          "expected": "synthetic/seed-3/expected/qryEmployeeSupervisor.csv",
+          "reason": null,
+          "rows": 49,
+          "status": "ok"
+        }
+      },
+      "kind": "saved_query",
+      "needs_access_confirmation": false,
+      "order_by": null
+    },
+    "qryEmployees": {
+      "area": "orders",
+      "canonical_version": 1,
+      "columns": [
+        {
+          "name": "EmployeeID",
+          "type": "longinteger"
+        },
+        {
+          "name": "FirstName",
+          "type": "text"
+        },
+        {
+          "name": "LastName",
+          "type": "text"
+        },
+        {
+          "name": "EmailAddress",
+          "type": "text"
+        },
+        {
+          "name": "JobTitle",
+          "type": "text"
+        },
+        {
+          "name": "PrimaryPhone",
+          "type": "text"
+        },
+        {
+          "name": "SecondaryPhone",
+          "type": "text"
+        },
+        {
+          "name": "Title",
+          "type": "text"
+        },
+        {
+          "name": "Notes",
+          "type": "memo"
+        },
+        {
+          "name": "Attachments",
+          "type": "text"
+        },
+        {
+          "name": "SupervisorID",
+          "type": "longinteger"
+        },
+        {
+          "name": "WindowsUserName",
+          "type": "text"
+        },
+        {
+          "name": "AddedBy",
+          "type": "text"
+        },
+        {
+          "name": "AddedOn",
+          "type": "datetime"
+        },
+        {
+          "name": "ModifiedBy",
+          "type": "text"
+        },
+        {
+          "name": "ModifiedOn",
+          "type": "datetime"
+        },
+        {
+          "name": "FullNameFNLN",
+          "type": "text"
+        },
+        {
+          "name": "FullNameLNFN",
+          "type": "text"
+        }
+      ],
+      "datasets": {
+        "engagement": {
+          "digest": {
+            "alg": "hmac-sha256",
+            "value": "aaf002326c2fd7f16663af98b270c33c8b75f43352a39bd94832d3ab5c451068"
+          },
+          "reason": null,
+          "rows": 10,
+          "status": "ok"
+        },
+        "seed-1": {
+          "digest": {
+            "alg": "sha256",
+            "value": "f0c8de5fc35e242119074d4ce64b6b059055ff6fdcb2ed17b24682684092640d"
+          },
+          "expected": "synthetic/seed-1/expected/qryEmployees.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        },
+        "seed-2": {
+          "digest": {
+            "alg": "sha256",
+            "value": "a70eab6a3d2c03b727ea4ad026b79ad40a5d2ebce2707b61648d30813f1b12c0"
+          },
+          "expected": "synthetic/seed-2/expected/qryEmployees.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        },
+        "seed-3": {
+          "digest": {
+            "alg": "sha256",
+            "value": "f20ba3280b3f24156ef15b5da6d963c45e1b8e02da63b50fe7136a048e01930b"
+          },
+          "expected": "synthetic/seed-3/expected/qryEmployees.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        }
+      },
+      "kind": "saved_query",
+      "needs_access_confirmation": false,
+      "order_by": [
+        {
+          "column": "FullNameLNFN",
+          "desc": false
+        }
+      ]
+    },
+    "qryInvoice": {
+      "area": "orders",
+      "canonical_version": 1,
+      "columns": [
+        {
+          "name": "CompanyName",
+          "type": "text"
+        },
+        {
+          "name": "Address",
+          "type": "text"
+        },
+        {
+          "name": "City",
+          "type": "text"
+        },
+        {
+          "name": "StateAbbrev",
+          "type": "text"
+        },
+        {
+          "name": "Zip",
+          "type": "text"
+        },
+        {
+          "name": "OrderID",
+          "type": "longinteger"
+        },
+        {
+          "name": "EmployeeID",
+          "type": "longinteger"
+        },
+        {
+          "name": "CustomerID",
+          "type": "longinteger"
+        },
+        {
+          "name": "OrderDate",
+          "type": "datetime"
+        },
+        {
+          "name": "InvoiceDate",
+          "type": "datetime"
+        },
+        {
+          "name": "ShippedDate",
+          "type": "datetime"
+        },
+        {
+          "name": "ShipperID",
+          "type": "longinteger"
+        },
+        {
+          "name": "ShippingFee",
+          "type": "currency"
+        },
+        {
+          "name": "TaxRate",
+          "type": "single"
+        },
+        {
+          "name": "TaxStatusID",
+          "type": "integer"
+        },
+        {
+          "name": "PaymentMethod",
+          "type": "text"
+        },
+        {
+          "name": "PaidDate",
+          "type": "datetime"
+        },
+        {
+          "name": "Notes",
+          "type": "memo"
+        },
+        {
+          "name": "OrderStatusID",
+          "type": "longinteger"
+        },
+        {
+          "name": "AddedBy",
+          "type": "text"
+        },
+        {
+          "name": "AddedOn",
+          "type": "datetime"
+        },
+        {
+          "name": "ModifiedBy",
+          "type": "text"
+        },
+        {
+          "name": "ModifiedOn",
+          "type": "datetime"
+        },
+        {
+          "name": "SalesPerson",
+          "type": "text"
+        },
+        {
+          "name": "ProductID",
+          "type": "longinteger"
+        },
+        {
+          "name": "Quantity",
+          "type": "integer"
+        },
+        {
+          "name": "UnitPrice",
+          "type": "currency"
+        },
+        {
+          "name": "Discount",
+          "type": "single"
+        },
+        {
+          "name": "ProductCode",
+          "type": "text"
+        },
+        {
+          "name": "ProductName",
+          "type": "text"
+        }
+      ],
+      "datasets": {
+        "engagement": {
+          "digest": {
+            "alg": "hmac-sha256",
+            "value": "ce64116823f61e8ffb017df67b3bb2ddc81d3876050a77ecc8a10588fddcdc39"
+          },
+          "reason": null,
+          "rows": 130,
+          "status": "ok"
+        },
+        "seed-1": {
+          "digest": {
+            "alg": "sha256",
+            "value": "05a24fc2dd12666d5c6b51c33f2d14e619f7ab7d9283db0d92b457dbc9cd1355"
+          },
+          "expected": "synthetic/seed-1/expected/qryInvoice.csv",
+          "reason": null,
+          "rows": 4,
+          "status": "ok"
+        },
+        "seed-2": {
+          "digest": {
+            "alg": "sha256",
+            "value": "91e2246690f83351eabe3eb6b07bb9ca6e934a761eaf2113cca68f4abb38ac03"
+          },
+          "expected": "synthetic/seed-2/expected/qryInvoice.csv",
+          "reason": null,
+          "rows": 7,
+          "status": "ok"
+        },
+        "seed-3": {
+          "digest": {
+            "alg": "sha256",
+            "value": "c3f3616f37adb9c4546597aaabef1d9312f5773210aa970f8528cc496da27606"
+          },
+          "expected": "synthetic/seed-3/expected/qryInvoice.csv",
+          "reason": null,
+          "rows": 11,
+          "status": "ok"
+        }
+      },
+      "kind": "saved_query",
+      "needs_access_confirmation": false,
+      "order_by": null
+    },
+    "qryOrder": {
+      "area": "orders",
+      "canonical_version": 1,
+      "columns": [
+        {
+          "name": "OrderID",
+          "type": "longinteger"
+        },
+        {
+          "name": "EmployeeID",
+          "type": "longinteger"
+        },
+        {
+          "name": "CustomerID",
+          "type": "longinteger"
+        },
+        {
+          "name": "OrderDate",
+          "type": "datetime"
+        },
+        {
+          "name": "InvoiceDate",
+          "type": "datetime"
+        },
+        {
+          "name": "ShippedDate",
+          "type": "datetime"
+        },
+        {
+          "name": "ShipperID",
+          "type": "longinteger"
+        },
+        {
+          "name": "ShippingFee",
+          "type": "currency"
+        },
+        {
+          "name": "TaxRate",
+          "type": "single"
+        },
+        {
+          "name": "TaxStatusID",
+          "type": "integer"
+        },
+        {
+          "name": "PaymentMethod",
+          "type": "text"
+        },
+        {
+          "name": "PaidDate",
+          "type": "datetime"
+        },
+        {
+          "name": "Notes",
+          "type": "memo"
+        },
+        {
+          "name": "OrderStatusID",
+          "type": "longinteger"
+        },
+        {
+          "name": "AddedBy",
+          "type": "text"
+        },
+        {
+          "name": "AddedOn",
+          "type": "datetime"
+        },
+        {
+          "name": "ModifiedBy",
+          "type": "text"
+        },
+        {
+          "name": "ModifiedOn",
+          "type": "datetime"
+        },
+        {
+          "name": "OrderStatusName",
+          "type": "text"
+        }
+      ],
+      "datasets": {
+        "engagement": {
+          "digest": {
+            "alg": "hmac-sha256",
+            "value": "3f0f0438a3a4af23cbad2a0506442fce775f97b566a6e545f369607af2b4856c"
+          },
+          "reason": null,
+          "rows": 52,
+          "status": "ok"
+        },
+        "seed-1": {
+          "digest": {
+            "alg": "sha256",
+            "value": "f05355434a59aae3bf99734804ef48c9bdd30b48b9cb8864e9e4b890c93d3bc5"
+          },
+          "expected": "synthetic/seed-1/expected/qryOrder.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        },
+        "seed-2": {
+          "digest": {
+            "alg": "sha256",
+            "value": "acab0d0ec39e4c720dba86ddb4cfa08b4a839be14e8446babe2250ef19b46a9e"
+          },
+          "expected": "synthetic/seed-2/expected/qryOrder.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        },
+        "seed-3": {
+          "digest": {
+            "alg": "sha256",
+            "value": "b0d341c350c04409bee58b8ba2eda79db58d7f80b9acb0c89d9137ca2d41d100"
+          },
+          "expected": "synthetic/seed-3/expected/qryOrder.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        }
+      },
+      "kind": "saved_query",
+      "needs_access_confirmation": false,
+      "order_by": null
+    },
+    "qryOrderLineItems": {
+      "area": "orders",
+      "canonical_version": 1,
+      "columns": [
+        {
+          "name": "OrderDetailID",
+          "type": "longinteger"
+        },
+        {
+          "name": "OrderID",
+          "type": "longinteger"
+        },
+        {
+          "name": "ProductID",
+          "type": "longinteger"
+        },
+        {
+          "name": "Quantity",
+          "type": "integer"
+        },
+        {
+          "name": "UnitPrice",
+          "type": "currency"
+        },
+        {
+          "name": "Discount",
+          "type": "single"
+        },
+        {
+          "name": "OrderDetailStatusID",
+          "type": "longinteger"
+        },
+        {
+          "name": "AddedBy",
+          "type": "text"
+        },
+        {
+          "name": "AddedOn",
+          "type": "datetime"
+        },
+        {
+          "name": "ModifiedBy",
+          "type": "text"
+        },
+        {
+          "name": "ModifiedOn",
+          "type": "datetime"
+        },
+        {
+          "name": "ProductName",
+          "type": "text"
+        },
+        {
+          "name": "ProductCategoryID",
+          "type": "longinteger"
+        },
+        {
+          "name": "ProductCategoryName",
+          "type": "text"
+        }
+      ],
+      "datasets": {
+        "engagement": {
+          "digest": {
+            "alg": "hmac-sha256",
+            "value": "32d4a96630fc7f8f046d0199f40b90c38136445592f97cff2931b1de2b1945bb"
+          },
+          "reason": null,
+          "rows": 130,
+          "status": "ok"
+        },
+        "seed-1": {
+          "digest": {
+            "alg": "sha256",
+            "value": "a92bf6b1266df34eda34bb2a54afb3d2679f785d45ae032f2e8eb9c0b74e1247"
+          },
+          "expected": "synthetic/seed-1/expected/qryOrderLineItems.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        },
+        "seed-2": {
+          "digest": {
+            "alg": "sha256",
+            "value": "ba5760b8c1ea99cbad8e6ad7d1e4492faf4149788dcda768cf2e6318cc9cd373"
+          },
+          "expected": "synthetic/seed-2/expected/qryOrderLineItems.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        },
+        "seed-3": {
+          "digest": {
+            "alg": "sha256",
+            "value": "0adc517bdfec01ab8de0e330d7071ee35c80cc33bef5acb077ac745fc5636be6"
+          },
+          "expected": "synthetic/seed-3/expected/qryOrderLineItems.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        }
+      },
+      "kind": "saved_query",
+      "needs_access_confirmation": false,
+      "order_by": [
+        {
+          "column": "OrderDetailID",
+          "desc": false
+        }
+      ]
+    },
+    "qryOrderList": {
+      "area": "orders",
+      "canonical_version": 1,
+      "columns": [
+        {
+          "name": "OrderID",
+          "type": "longinteger"
+        },
+        {
+          "name": "EmployeeID",
+          "type": "longinteger"
+        },
+        {
+          "name": "CustomerID",
+          "type": "longinteger"
+        },
+        {
+          "name": "OrderDate",
+          "type": "datetime"
+        },
+        {
+          "name": "InvoiceDate",
+          "type": "datetime"
+        },
+        {
+          "name": "ShippedDate",
+          "type": "datetime"
+        },
+        {
+          "name": "ShipperID",
+          "type": "longinteger"
+        },
+        {
+          "name": "ShippingFee",
+          "type": "currency"
+        },
+        {
+          "name": "TaxRate",
+          "type": "single"
+        },
+        {
+          "name": "TaxStatusID",
+          "type": "integer"
+        },
+        {
+          "name": "PaymentMethod",
+          "type": "text"
+        },
+        {
+          "name": "PaidDate",
+          "type": "datetime"
+        },
+        {
+          "name": "Notes",
+          "type": "memo"
+        },
+        {
+          "name": "OrderStatusID",
+          "type": "longinteger"
+        },
+        {
+          "name": "AddedBy",
+          "type": "text"
+        },
+        {
+          "name": "AddedOn",
+          "type": "datetime"
+        },
+        {
+          "name": "ModifiedBy",
+          "type": "text"
+        },
+        {
+          "name": "ModifiedOn",
+          "type": "datetime"
+        },
+        {
+          "name": "FullNameFNLN",
+          "type": "text"
+        },
+        {
+          "name": "CompanyName",
+          "type": "text"
+        },
+        {
+          "name": "OrderTotal",
+          "type": "decimal"
+        },
+        {
+          "name": "OrderStatusName",
+          "type": "text"
+        },
+        {
+          "name": "OrderDetailStatusName",
+          "type": "text"
+        },
+        {
+          "name": "OrderDateOnly",
+          "type": "datetime"
+        }
+      ],
+      "datasets": {
+        "engagement": {
+          "digest": {
+            "alg": "hmac-sha256",
+            "value": "e513b02782d9e6b63a97050c1db7bec79a4644c28838ac364e16211056a957d3"
+          },
+          "reason": null,
+          "rows": 52,
+          "status": "ok"
+        },
+        "seed-1": {
+          "digest": {
+            "alg": "sha256",
+            "value": "8eebff7925a34d7870d10e75f33be9b9a15377002c502b030d29ae766a4c91c5"
+          },
+          "expected": "synthetic/seed-1/expected/qryOrderList.csv",
+          "reason": null,
+          "rows": 9,
+          "status": "ok"
+        },
+        "seed-2": {
+          "digest": {
+            "alg": "sha256",
+            "value": "6261a793ba939a1d79db7eba346ae6ccf9bf5c69278f8d20d63e20d9fd8e518d"
+          },
+          "expected": "synthetic/seed-2/expected/qryOrderList.csv",
+          "reason": null,
+          "rows": 7,
+          "status": "ok"
+        },
+        "seed-3": {
+          "digest": {
+            "alg": "sha256",
+            "value": "9938750175c687f6a991057ae47aba50971aeb4c7f4672a87792cedfeff78d64"
+          },
+          "expected": "synthetic/seed-3/expected/qryOrderList.csv",
+          "reason": null,
+          "rows": 24,
+          "status": "ok"
+        }
+      },
+      "kind": "saved_query",
+      "needs_access_confirmation": true,
+      "order_by": [
+        {
+          "column": "OrderID",
+          "desc": true
+        }
+      ]
+    },
+    "qryOrderList_DetailStatus": {
+      "area": "orders",
+      "canonical_version": 1,
+      "columns": [
+        {
+          "name": "OrderID",
+          "type": "longinteger"
+        },
+        {
+          "name": "OrderDetailStatusName",
+          "type": "text"
+        }
+      ],
+      "datasets": {
+        "engagement": {
+          "digest": {
+            "alg": "hmac-sha256",
+            "value": "13fc418f104e247b3232bac632f411bd4be5870a54a1c1669b2aa5af29e44307"
+          },
+          "reason": null,
+          "rows": 52,
+          "status": "ok"
+        },
+        "seed-1": {
+          "digest": {
+            "alg": "sha256",
+            "value": "21a458fb21c8256b4b4b160779a9a6154a3458d513df5a35473198a25554e081"
+          },
+          "expected": "synthetic/seed-1/expected/qryOrderList_DetailStatus.csv",
+          "reason": null,
+          "rows": 29,
+          "status": "ok"
+        },
+        "seed-2": {
+          "digest": {
+            "alg": "sha256",
+            "value": "3124d936f2a79157ef8becab1c60af51b763d5ecd1748548ad99786bbd466ca9"
+          },
+          "expected": "synthetic/seed-2/expected/qryOrderList_DetailStatus.csv",
+          "reason": null,
+          "rows": 34,
+          "status": "ok"
+        },
+        "seed-3": {
+          "digest": {
+            "alg": "sha256",
+            "value": "2c700ee054fd1f954de9b35e97f0c183de4f270ea23b5b475516576e8fa3aa37"
+          },
+          "expected": "synthetic/seed-3/expected/qryOrderList_DetailStatus.csv",
+          "reason": null,
+          "rows": 29,
+          "status": "ok"
+        }
+      },
+      "kind": "saved_query",
+      "needs_access_confirmation": false,
+      "order_by": null
+    },
+    "qryOrderList_DetailStatus_Lowest": {
+      "area": "orders",
+      "canonical_version": 1,
+      "columns": [
+        {
+          "name": "OrderID",
+          "type": "longinteger"
+        },
+        {
+          "name": "MinOfSortOrder",
+          "type": "integer"
+        }
+      ],
+      "datasets": {
+        "engagement": {
+          "digest": {
+            "alg": "hmac-sha256",
+            "value": "4cb39398033928eafe3c69594287fb5ac489de036754f84de270313c7c771beb"
+          },
+          "reason": null,
+          "rows": 52,
+          "status": "ok"
+        },
+        "seed-1": {
+          "digest": {
+            "alg": "sha256",
+            "value": "5044b60d5446318e8bed05ad7d37307a6a9eb62bfcbd9ab6fe6bde99afc4bade"
+          },
+          "expected": "synthetic/seed-1/expected/qryOrderList_DetailStatus_Lowest.csv",
+          "reason": null,
+          "rows": 29,
+          "status": "ok"
+        },
+        "seed-2": {
+          "digest": {
+            "alg": "sha256",
+            "value": "35fc98609d8d2555ca48564ef59716718ac1bb6e8fbc858465a2aa9e3f2d8206"
+          },
+          "expected": "synthetic/seed-2/expected/qryOrderList_DetailStatus_Lowest.csv",
+          "reason": null,
+          "rows": 34,
+          "status": "ok"
+        },
+        "seed-3": {
+          "digest": {
+            "alg": "sha256",
+            "value": "eab38b915e9c1c226458acfb60f81fed5822d30eb568712b9cebb0a137f7e245"
+          },
+          "expected": "synthetic/seed-3/expected/qryOrderList_DetailStatus_Lowest.csv",
+          "reason": null,
+          "rows": 29,
+          "status": "ok"
+        }
+      },
+      "kind": "saved_query",
+      "needs_access_confirmation": false,
+      "order_by": [
+        {
+          "column": "OrderID",
+          "desc": false
+        },
+        {
+          "column": "MinOfSortOrder",
+          "desc": false
+        }
+      ]
+    },
+    "qryOrderTotal": {
+      "area": "orders",
+      "canonical_version": 1,
+      "columns": [
+        {
+          "name": "OrderID",
+          "type": "longinteger"
+        },
+        {
+          "name": "OrderTotal",
+          "type": "decimal"
+        }
+      ],
+      "datasets": {
+        "engagement": {
+          "digest": {
+            "alg": "hmac-sha256",
+            "value": "ec8c5d4f3c50d02a4c65bf38c425c9e702e6e1e26c76faf711c75357d4502dd8"
+          },
+          "reason": null,
+          "rows": 52,
+          "status": "ok"
+        },
+        "seed-1": {
+          "digest": {
+            "alg": "sha256",
+            "value": "97e0c14690f6461228c29c7a59320ead5ca77fbef40162e5c3c2368c58c10bd3"
+          },
+          "expected": "synthetic/seed-1/expected/qryOrderTotal.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        },
+        "seed-2": {
+          "digest": {
+            "alg": "sha256",
+            "value": "c2de209a8533a17156361fa127692c8211c07539f16a0b2f6a35b1baeedae445"
+          },
+          "expected": "synthetic/seed-2/expected/qryOrderTotal.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        },
+        "seed-3": {
+          "digest": {
+            "alg": "sha256",
+            "value": "c05e3ece55549970ea758f72a6dbea0f28b6528a5c8c4be659863b1674ca1307"
+          },
+          "expected": "synthetic/seed-3/expected/qryOrderTotal.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        }
+      },
+      "kind": "saved_query",
+      "needs_access_confirmation": false,
+      "order_by": null
+    },
+    "qryOrders_MostRecent": {
+      "area": "orders",
+      "canonical_version": 1,
+      "columns": [
+        {
+          "name": "OrderID",
+          "type": "longinteger"
+        },
+        {
+          "name": "EmployeeID",
+          "type": "longinteger"
+        },
+        {
+          "name": "CustomerID",
+          "type": "longinteger"
+        },
+        {
+          "name": "OrderDate",
+          "type": "datetime"
+        },
+        {
+          "name": "InvoiceDate",
+          "type": "datetime"
+        },
+        {
+          "name": "ShippedDate",
+          "type": "datetime"
+        },
+        {
+          "name": "ShipperID",
+          "type": "longinteger"
+        },
+        {
+          "name": "ShippingFee",
+          "type": "currency"
+        },
+        {
+          "name": "TaxRate",
+          "type": "single"
+        },
+        {
+          "name": "TaxStatusID",
+          "type": "integer"
+        },
+        {
+          "name": "PaymentMethod",
+          "type": "text"
+        },
+        {
+          "name": "PaidDate",
+          "type": "datetime"
+        },
+        {
+          "name": "Notes",
+          "type": "memo"
+        },
+        {
+          "name": "OrderStatusID",
+          "type": "longinteger"
+        },
+        {
+          "name": "AddedBy",
+          "type": "text"
+        },
+        {
+          "name": "AddedOn",
+          "type": "datetime"
+        },
+        {
+          "name": "ModifiedBy",
+          "type": "text"
+        },
+        {
+          "name": "ModifiedOn",
+          "type": "datetime"
+        },
+        {
+          "name": "FullNameFNLN",
+          "type": "text"
+        },
+        {
+          "name": "CompanyName",
+          "type": "text"
+        },
+        {
+          "name": "OrderTotal",
+          "type": "decimal"
+        },
+        {
+          "name": "OrderStatusName",
+          "type": "text"
+        },
+        {
+          "name": "OrderDetailStatusName",
+          "type": "text"
+        },
+        {
+          "name": "OrderDateOnly",
+          "type": "datetime"
+        }
+      ],
+      "datasets": {
+        "engagement": {
+          "digest": {
+            "alg": "hmac-sha256",
+            "value": "15eba5c369ed18bac3256d5d5a9a48833a7b5241b699590a589862560bfd5121"
+          },
+          "reason": null,
+          "rows": 20,
+          "status": "ok"
+        },
+        "seed-1": {
+          "digest": {
+            "alg": "sha256",
+            "value": "836da79b1688e2a7a2cdf1b1ab3bf8d883fd15a1f9cce835277c7bea8071f807"
+          },
+          "expected": "synthetic/seed-1/expected/qryOrders_MostRecent.csv",
+          "reason": null,
+          "rows": 9,
+          "status": "ok"
+        },
+        "seed-2": {
+          "digest": {
+            "alg": "sha256",
+            "value": "f961d0dbe4f1c48bb188d027fc254a6ed1c727418fff39411012b827d12ded6f"
+          },
+          "expected": "synthetic/seed-2/expected/qryOrders_MostRecent.csv",
+          "reason": null,
+          "rows": 7,
+          "status": "ok"
+        },
+        "seed-3": {
+          "digest": {
+            "alg": "sha256",
+            "value": "25121a2beb793bc7e12eef61e63cf13a46b859048a2daa7a8782a2b0adc70fc7"
+          },
+          "expected": "synthetic/seed-3/expected/qryOrders_MostRecent.csv",
+          "reason": null,
+          "rows": 20,
+          "status": "ok"
+        }
+      },
+      "kind": "saved_query",
+      "needs_access_confirmation": false,
+      "order_by": null
+    },
+    "qryPOProducts_ByStatus": {
+      "area": "inventory",
+      "canonical_version": 1,
+      "columns": [
+        {
+          "name": "StatusID",
+          "type": "longinteger"
+        },
+        {
+          "name": "ProductID",
+          "type": "longinteger"
+        },
+        {
+          "name": "Quantity",
+          "type": "longinteger"
+        }
+      ],
+      "datasets": {
+        "engagement": {
+          "digest": {
+            "alg": "hmac-sha256",
+            "value": "7909db545235879dd55e00686b0d23aa3a947bbc58ea59ef96ccd5b25d750594"
+          },
+          "reason": null,
+          "rows": 43,
+          "status": "ok"
+        },
+        "seed-1": {
+          "digest": {
+            "alg": "sha256",
+            "value": "d25983533a5e34fb9feff592fd0120a051d6dd350bd36fefa3a3e99efde13af3"
+          },
+          "expected": "synthetic/seed-1/expected/qryPOProducts_ByStatus.csv",
+          "reason": null,
+          "rows": 46,
+          "status": "ok"
+        },
+        "seed-2": {
+          "digest": {
+            "alg": "sha256",
+            "value": "6ebf7c0d47bb936a720a1caa3293a5365c1a90d929aaee61cd9384ec7cff8417"
+          },
+          "expected": "synthetic/seed-2/expected/qryPOProducts_ByStatus.csv",
+          "reason": null,
+          "rows": 42,
+          "status": "ok"
+        },
+        "seed-3": {
+          "digest": {
+            "alg": "sha256",
+            "value": "917055b56d8056fc8f6f5aa01c581d7c22a73df1e3e8896669551f1f6e1061c7"
+          },
+          "expected": "synthetic/seed-3/expected/qryPOProducts_ByStatus.csv",
+          "reason": null,
+          "rows": 37,
+          "status": "ok"
+        }
+      },
+      "kind": "saved_query",
+      "needs_access_confirmation": false,
+      "order_by": null
+    },
+    "qryPrivileges": {
+      "area": "orders",
+      "canonical_version": 1,
+      "columns": [
+        {
+          "name": "PrivilegeID",
+          "type": "longinteger"
+        },
+        {
+          "name": "PrivilegeName",
+          "type": "text"
+        }
+      ],
+      "datasets": {
+        "engagement": {
+          "digest": {
+            "alg": "hmac-sha256",
+            "value": "0bb06dedc1c744199878165bb773473bc05ec8d6ca673f758722db45e7939158"
+          },
+          "reason": null,
+          "rows": 1,
+          "status": "ok"
+        },
+        "seed-1": {
+          "digest": {
+            "alg": "sha256",
+            "value": "d52dc8da92da38208daf816cbbb027e9a09c45e70c40bcd8cfce72269369016e"
+          },
+          "expected": "synthetic/seed-1/expected/qryPrivileges.csv",
+          "reason": null,
+          "rows": 1,
+          "status": "ok"
+        },
+        "seed-2": {
+          "digest": {
+            "alg": "sha256",
+            "value": "0741a7d346d0ab06e871829c073cee6348fd2d9178e824e29d6c64675278065e"
+          },
+          "expected": "synthetic/seed-2/expected/qryPrivileges.csv",
+          "reason": null,
+          "rows": 1,
+          "status": "ok"
+        },
+        "seed-3": {
+          "digest": {
+            "alg": "sha256",
+            "value": "88c0cd386753bffe8d19003493831d5ab0d1505e89d1b5562952a10036ab2f41"
+          },
+          "expected": "synthetic/seed-3/expected/qryPrivileges.csv",
+          "reason": null,
+          "rows": 1,
+          "status": "ok"
+        }
+      },
+      "kind": "saved_query",
+      "needs_access_confirmation": false,
+      "order_by": [
+        {
+          "column": "PrivilegeName",
+          "desc": false
+        }
+      ]
+    },
+    "qryProductCategories": {
+      "area": "inventory",
+      "canonical_version": 1,
+      "columns": [
+        {
+          "name": "ProductCategoryID",
+          "type": "longinteger"
+        },
+        {
+          "name": "ProductCategoryName",
+          "type": "text"
+        },
+        {
+          "name": "ProductCategoryCode",
+          "type": "text"
+        },
+        {
+          "name": "ProductCategoryDesc",
+          "type": "text"
+        },
+        {
+          "name": "ProductCategoryImage",
+          "type": "text"
+        },
+        {
+          "name": "AddedBy",
+          "type": "text"
+        },
+        {
+          "name": "AddedOn",
+          "type": "datetime"
+        },
+        {
+          "name": "ModifiedBy",
+          "type": "text"
+        },
+        {
+          "name": "ModifiedOn",
+          "type": "datetime"
+        }
+      ],
+      "datasets": {
+        "engagement": {
+          "digest": {
+            "alg": "hmac-sha256",
+            "value": "84561c2eb3e85cd816d6f88f21805f0ae04f74f91c3ef714e985c246e6496570"
+          },
+          "reason": null,
+          "rows": 16,
+          "status": "ok"
+        },
+        "seed-1": {
+          "digest": {
+            "alg": "sha256",
+            "value": "c1d4af85d40a3a4d9261f0fe95b482a6a93f0059aeb5d08822c92fbd9dc8b072"
+          },
+          "expected": "synthetic/seed-1/expected/qryProductCategories.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        },
+        "seed-2": {
+          "digest": {
+            "alg": "sha256",
+            "value": "3cbec64a59d456a34b9c556a370ed60f5609144bd695d48a20352419a110cfc6"
+          },
+          "expected": "synthetic/seed-2/expected/qryProductCategories.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        },
+        "seed-3": {
+          "digest": {
+            "alg": "sha256",
+            "value": "8c726ef73c8353beb45784711f10b700594af975f1950c49158672ad3f3851ae"
+          },
+          "expected": "synthetic/seed-3/expected/qryProductCategories.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        }
+      },
+      "kind": "saved_query",
+      "needs_access_confirmation": false,
+      "order_by": null
+    },
+    "qryProductDetail": {
+      "area": "inventory",
+      "canonical_version": 1,
+      "columns": [
+        {
+          "name": "ProductID",
+          "type": "longinteger"
+        },
+        {
+          "name": "ProductCode",
+          "type": "text"
+        },
+        {
+          "name": "ProductName",
+          "type": "text"
+        },
+        {
+          "name": "ProductDescription",
+          "type": "memo"
+        },
+        {
+          "name": "StandardUnitCost",
+          "type": "currency"
+        },
+        {
+          "name": "UnitPrice",
+          "type": "currency"
+        },
+        {
+          "name": "ReorderLevel",
+          "type": "integer"
+        },
+        {
+          "name": "TargetLevel",
+          "type": "integer"
+        },
+        {
+          "name": "QuantityPerUnit",
+          "type": "text"
+        },
+        {
+          "name": "Discontinued",
+          "type": "yesno"
+        },
+        {
+          "name": "MinimumReorderQuantity",
+          "type": "integer"
+        },
+        {
+          "name": "ProductCategoryID",
+          "type": "longinteger"
+        },
+        {
+          "name": "AddedBy",
+          "type": "text"
+        },
+        {
+          "name": "AddedOn",
+          "type": "datetime"
+        },
+        {
+          "name": "ModifiedBy",
+          "type": "text"
+        },
+        {
+          "name": "ModifiedOn",
+          "type": "datetime"
+        }
+      ],
+      "datasets": {
+        "engagement": {
+          "digest": {
+            "alg": "hmac-sha256",
+            "value": "3582443436a245236b6954f9a10180778d7e19f4f9bbccf63f2cb953b1f6b70c"
+          },
+          "reason": null,
+          "rows": 43,
+          "status": "ok"
+        },
+        "seed-1": {
+          "digest": {
+            "alg": "sha256",
+            "value": "2340448ef07fa188e6f9dd7a1a8a9363a99c6bee0bc479d2a7caec0592597fdc"
+          },
+          "expected": "synthetic/seed-1/expected/qryProductDetail.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        },
+        "seed-2": {
+          "digest": {
+            "alg": "sha256",
+            "value": "37520bac0c6c4df4fd80ac069bbe8a092dd6e9c2f436412bdaaa2697a118511b"
+          },
+          "expected": "synthetic/seed-2/expected/qryProductDetail.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        },
+        "seed-3": {
+          "digest": {
+            "alg": "sha256",
+            "value": "746d2c918195549325a9f76015649c2df091c2bfb7d043b4ef3233c969052c6f"
+          },
+          "expected": "synthetic/seed-3/expected/qryProductDetail.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        }
+      },
+      "kind": "saved_query",
+      "needs_access_confirmation": false,
+      "order_by": null
+    },
+    "qryProductList": {
+      "area": "inventory",
+      "canonical_version": 1,
+      "columns": [
+        {
+          "name": "ProductID",
+          "type": "longinteger"
+        },
+        {
+          "name": "ProductCategoryName",
+          "type": "text"
+        },
+        {
+          "name": "ProductCode",
+          "type": "text"
+        },
+        {
+          "name": "ProductName",
+          "type": "text"
+        },
+        {
+          "name": "ProductDescription",
+          "type": "memo"
+        },
+        {
+          "name": "StandardUnitCost",
+          "type": "currency"
+        },
+        {
+          "name": "NoStock",
+          "type": "longinteger"
+        },
+        {
+          "name": "Allocated",
+          "type": "longinteger"
+        },
+        {
+          "name": "ToSell",
+          "type": "longinteger"
+        },
+        {
+          "name": "QuantityOnOrder",
+          "type": "longinteger"
+        },
+        {
+          "name": "MinimumReorderQuantity",
+          "type": "integer"
+        },
+        {
+          "name": "UnitPrice",
+          "type": "currency"
+        },
+        {
+          "name": "ReorderLevel",
+          "type": "integer"
+        },
+        {
+          "name": "TargetLevel",
+          "type": "integer"
+        },
+        {
+          "name": "QuantityPerUnit",
+          "type": "text"
+        },
+        {
+          "name": "Discontinued",
+          "type": "yesno"
+        },
+        {
+          "name": "ProductCategoryID",
+          "type": "longinteger"
+        },
+        {
+          "name": "AddedBy",
+          "type": "text"
+        },
+        {
+          "name": "AddedOn",
+          "type": "datetime"
+        },
+        {
+          "name": "ModifiedBy",
+          "type": "text"
+        },
+        {
+          "name": "ModifiedOn",
+          "type": "datetime"
+        }
+      ],
+      "datasets": {
+        "engagement": {
+          "digest": {
+            "alg": "hmac-sha256",
+            "value": "889eb2e8ece9b4839e4453e89f5ee6198ea80cbbaac6df0bfaff87a1c28e1bb3"
+          },
+          "reason": null,
+          "rows": 43,
+          "status": "ok"
+        },
+        "seed-1": {
+          "digest": {
+            "alg": "sha256",
+            "value": "81918ed3d6184262e8b67bc6184fb00c3eb88988cd92703f17decdc8b19d9461"
+          },
+          "expected": "synthetic/seed-1/expected/qryProductList.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        },
+        "seed-2": {
+          "digest": {
+            "alg": "sha256",
+            "value": "d712d4e020605dc5b0e6cc6bdbc4a72d5380fd7de336915470eb2313110544c8"
+          },
+          "expected": "synthetic/seed-2/expected/qryProductList.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        },
+        "seed-3": {
+          "digest": {
+            "alg": "sha256",
+            "value": "c25d31050affcc30f5f84690943863cb21b3eb68b3688b0debcb47209fba35cd"
+          },
+          "expected": "synthetic/seed-3/expected/qryProductList.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        }
+      },
+      "kind": "saved_query",
+      "needs_access_confirmation": true,
+      "order_by": null
+    },
+    "qryProductList_Export": {
+      "area": "inventory",
+      "canonical_version": 1,
+      "columns": [
+        {
+          "name": "Product ID",
+          "type": "longinteger"
+        },
+        {
+          "name": "Product Code",
+          "type": "text"
+        },
+        {
+          "name": "Product",
+          "type": "text"
+        },
+        {
+          "name": "Allocated Inventory",
+          "type": "double"
+        },
+        {
+          "name": "Inventory To Sell",
+          "type": "longinteger"
+        },
+        {
+          "name": "Qty On Order",
+          "type": "longinteger"
+        },
+        {
+          "name": "Reorder Level",
+          "type": "integer"
+        },
+        {
+          "name": "Target Level",
+          "type": "integer"
+        },
+        {
+          "name": "Min Reorder Qty",
+          "type": "integer"
+        },
+        {
+          "name": "Discontinued",
+          "type": "yesno"
+        }
+      ],
+      "datasets": {
+        "engagement": {
+          "digest": {
+            "alg": "hmac-sha256",
+            "value": "0101690bd1841426de418b7c633cffff187e5601643162b83264d8d1eaf64cdc"
+          },
+          "reason": null,
+          "rows": 43,
+          "status": "ok"
+        },
+        "seed-1": {
+          "digest": {
+            "alg": "sha256",
+            "value": "30e74fc618d3abd54dd8816b0e5dbb2010f1ec59f90b12814ee36dafa7cb867a"
+          },
+          "expected": "synthetic/seed-1/expected/qryProductList_Export.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        },
+        "seed-2": {
+          "digest": {
+            "alg": "sha256",
+            "value": "91bd12f28c66763509be5d244e13acb22cb6da33bc2359688ccbb1e46dcfabdf"
+          },
+          "expected": "synthetic/seed-2/expected/qryProductList_Export.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        },
+        "seed-3": {
+          "digest": {
+            "alg": "sha256",
+            "value": "4a36389e83f3543289318d3602f6eed284fdf0f3350e271b31e56b4ffdb91fb5"
+          },
+          "expected": "synthetic/seed-3/expected/qryProductList_Export.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        }
+      },
+      "kind": "saved_query",
+      "needs_access_confirmation": true,
+      "order_by": [
+        {
+          "column": "Product",
+          "desc": false
+        }
+      ]
+    },
+    "qryProductOrders": {
+      "area": "inventory",
+      "canonical_version": 1,
+      "columns": [
+        {
+          "name": "OrderID",
+          "type": "longinteger"
+        },
+        {
+          "name": "ProductID",
+          "type": "longinteger"
+        },
+        {
+          "name": "OrderDate",
+          "type": "datetime"
+        },
+        {
+          "name": "Quantity",
+          "type": "integer"
+        },
+        {
+          "name": "UnitPrice",
+          "type": "currency"
+        },
+        {
+          "name": "ExtendedPrice",
+          "type": "currency"
+        },
+        {
+          "name": "OrderStatus",
+          "type": "text"
+        },
+        {
+          "name": "ProductStatus",
+          "type": "text"
+        }
+      ],
+      "datasets": {
+        "engagement": {
+          "digest": {
+            "alg": "hmac-sha256",
+            "value": "b1700c5d11f1cec8421c55e4f3b9108a6743c509e16c7c56dc3bd7d81bac194c"
+          },
+          "reason": null,
+          "rows": 130,
+          "status": "ok"
+        },
+        "seed-1": {
+          "digest": {
+            "alg": "sha256",
+            "value": "a7effebeebd39c58545297aadba3da9fe47362f04eedb613fed01dcafd272232"
+          },
+          "expected": "synthetic/seed-1/expected/qryProductOrders.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        },
+        "seed-2": {
+          "digest": {
+            "alg": "sha256",
+            "value": "6c17b14a39f3bb99f7f5d25662c7b65294f7524bd528343982f1efdc5b915cad"
+          },
+          "expected": "synthetic/seed-2/expected/qryProductOrders.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        },
+        "seed-3": {
+          "digest": {
+            "alg": "sha256",
+            "value": "a29e91ab75e01faec62c74790d421c8f3900224b1498c522ae71e28f3515c454"
+          },
+          "expected": "synthetic/seed-3/expected/qryProductOrders.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        }
+      },
+      "kind": "saved_query",
+      "needs_access_confirmation": false,
+      "order_by": null
+    },
+    "qryProductPurchaseOrder": {
+      "area": "inventory",
+      "canonical_version": 1,
+      "columns": [
+        {
+          "name": "ProductID",
+          "type": "longinteger"
+        },
+        {
+          "name": "PurchaseOrderID",
+          "type": "longinteger"
+        },
+        {
+          "name": "StatusID",
+          "type": "longinteger"
+        },
+        {
+          "name": "StatusName",
+          "type": "text"
+        },
+        {
+          "name": "SortOrder",
+          "type": "integer"
+        },
+        {
+          "name": "Quantity",
+          "type": "integer"
+        },
+        {
+          "name": "UnitCost",
+          "type": "currency"
+        },
+        {
+          "name": "ExtendedCost",
+          "type": "currency"
+        },
+        {
+          "name": "CompanyName",
+          "type": "text"
+        },
+        {
+          "name": "SubmittedDate",
+          "type": "datetime"
+        },
+        {
+          "name": "ReceivedDate",
+          "type": "datetime"
+        }
+      ],
+      "datasets": {
+        "engagement": {
+          "digest": {
+            "alg": "hmac-sha256",
+            "value": "a70ca0afd515e5f3abb8cda3a2acb3a7d7e1e0d6f974adcb8921273554a7f52b"
+          },
+          "reason": null,
+          "rows": 43,
+          "status": "ok"
+        },
+        "seed-1": {
+          "digest": {
+            "alg": "sha256",
+            "value": "011c925518ea2952671574a19bd2d3022fd780b37a62104986f63fff495c743a"
+          },
+          "expected": "synthetic/seed-1/expected/qryProductPurchaseOrder.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        },
+        "seed-2": {
+          "digest": {
+            "alg": "sha256",
+            "value": "cfd1627c66a1c2b59f99662c46b9b09832592776e541bfbf32fd326d07f93554"
+          },
+          "expected": "synthetic/seed-2/expected/qryProductPurchaseOrder.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        },
+        "seed-3": {
+          "digest": {
+            "alg": "sha256",
+            "value": "f3e80d9a0671cf3d3142d4f1e49ac8a82a562572956bd0f660e9675e19739a9d"
+          },
+          "expected": "synthetic/seed-3/expected/qryProductPurchaseOrder.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        }
+      },
+      "kind": "saved_query",
+      "needs_access_confirmation": false,
+      "order_by": [
+        {
+          "column": "SortOrder",
+          "desc": false
+        },
+        {
+          "column": "SubmittedDate",
+          "desc": false
+        }
+      ]
+    },
+    "qryProductVendors": {
+      "area": "inventory",
+      "canonical_version": 1,
+      "columns": [
+        {
+          "name": "ProductVendorID",
+          "type": "longinteger"
+        },
+        {
+          "name": "ProductID",
+          "type": "longinteger"
+        },
+        {
+          "name": "VendorID",
+          "type": "longinteger"
+        },
+        {
+          "name": "AddedBy",
+          "type": "text"
+        },
+        {
+          "name": "AddedOn",
+          "type": "datetime"
+        },
+        {
+          "name": "ModifiedBy",
+          "type": "text"
+        },
+        {
+          "name": "ModifiedOn",
+          "type": "datetime"
+        }
+      ],
+      "datasets": {
+        "engagement": {
+          "digest": {
+            "alg": "hmac-sha256",
+            "value": "9a565dfb104bb80ecfa744a40886aabd53e895f229f7a16258ab368afa64faea"
+          },
+          "reason": null,
+          "rows": 47,
+          "status": "ok"
+        },
+        "seed-1": {
+          "digest": {
+            "alg": "sha256",
+            "value": "9034f91d5a899f5d9c247fe99ee3ed57445e672a9743f1e4e1cd95fd7f70ee90"
+          },
+          "expected": "synthetic/seed-1/expected/qryProductVendors.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        },
+        "seed-2": {
+          "digest": {
+            "alg": "sha256",
+            "value": "58f9252cd7d36d524bcc0d2d0d035fa6ddaf947a4d6d66c29c0f388b29a4a36b"
+          },
+          "expected": "synthetic/seed-2/expected/qryProductVendors.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        },
+        "seed-3": {
+          "digest": {
+            "alg": "sha256",
+            "value": "7a2f05617d9faae067c6f87fe23d87116ad1dff01cfbcfa5abea8ce6a451c94a"
+          },
+          "expected": "synthetic/seed-3/expected/qryProductVendors.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        }
+      },
+      "kind": "saved_query",
+      "needs_access_confirmation": false,
+      "order_by": null
+    },
+    "qryPurchaseOrder": {
+      "area": "purchasing",
+      "canonical_version": 1,
+      "columns": [
+        {
+          "name": "PurchaseOrderID",
+          "type": "longinteger"
+        },
+        {
+          "name": "VendorID",
+          "type": "longinteger"
+        },
+        {
+          "name": "SubmittedByID",
+          "type": "longinteger"
+        },
+        {
+          "name": "SubmittedDate",
+          "type": "datetime"
+        },
+        {
+          "name": "ApprovedByID",
+          "type": "longinteger"
+        },
+        {
+          "name": "ApprovedDate",
+          "type": "datetime"
+        },
+        {
+          "name": "StatusID",
+          "type": "longinteger"
+        },
+        {
+          "name": "ReceivedDate",
+          "type": "datetime"
+        },
+        {
+          "name": "ShippingFee",
+          "type": "currency"
+        },
+        {
+          "name": "TaxAmount",
+          "type": "currency"
+        },
+        {
+          "name": "PaymentDate",
+          "type": "datetime"
+        },
+        {
+          "name": "PaymentAmount",
+          "type": "currency"
+        },
+        {
+          "name": "PaymentMethod",
+          "type": "text"
+        },
+        {
+          "name": "Notes",
+          "type": "memo"
+        },
+        {
+          "name": "AddedBy",
+          "type": "text"
+        },
+        {
+          "name": "AddedOn",
+          "type": "datetime"
+        },
+        {
+          "name": "ModifiedBy",
+          "type": "text"
+        },
+        {
+          "name": "ModifiedOn",
+          "type": "datetime"
+        },
+        {
+          "name": "StatusName",
+          "type": "text"
+        },
+        {
+          "name": "SubmittedBy",
+          "type": "text"
+        },
+        {
+          "name": "ApprovedBy",
+          "type": "text"
+        }
+      ],
+      "datasets": {
+        "engagement": {
+          "digest": {
+            "alg": "hmac-sha256",
+            "value": "730dbfe5985d43e1470e1a9a675b8f5fb032e0e03ed7aa3a91c17df1a4884a40"
+          },
+          "reason": null,
+          "rows": 2,
+          "status": "ok"
+        },
+        "seed-1": {
+          "digest": {
+            "alg": "sha256",
+            "value": "0fd9f988bb8f3c2ffd5a30621cb4c1b4e87f26a9edda94a5980d82b693c7a08f"
+          },
+          "expected": "synthetic/seed-1/expected/qryPurchaseOrder.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        },
+        "seed-2": {
+          "digest": {
+            "alg": "sha256",
+            "value": "8c239a2b09509fb113cc36e484986363c7d3c8c01ad17741d864bf3c1940e9e4"
+          },
+          "expected": "synthetic/seed-2/expected/qryPurchaseOrder.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        },
+        "seed-3": {
+          "digest": {
+            "alg": "sha256",
+            "value": "af5afecaeb36825a8e88da5f95950b849c11e0b7453bd63a529b434f9ee77cc9"
+          },
+          "expected": "synthetic/seed-3/expected/qryPurchaseOrder.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        }
+      },
+      "kind": "saved_query",
+      "needs_access_confirmation": false,
+      "order_by": null
+    },
+    "qryPurchaseOrderCost": {
+      "area": "purchasing",
+      "canonical_version": 1,
+      "columns": [
+        {
+          "name": "PurchaseOrderID",
+          "type": "longinteger"
+        },
+        {
+          "name": "ExtendedCost",
+          "type": "currency"
+        }
+      ],
+      "datasets": {
+        "engagement": {
+          "digest": {
+            "alg": "hmac-sha256",
+            "value": "471eaa21ed1dd97b3223c10ce5a98ec1ff8683c99aa7a83d363667fa87118e67"
+          },
+          "reason": null,
+          "rows": 2,
+          "status": "ok"
+        },
+        "seed-1": {
+          "digest": {
+            "alg": "sha256",
+            "value": "4070eaee6b4a2d064b9432aaac767ffc559a62bdd8dcfa0bc6df110cb9e9ead5"
+          },
+          "expected": "synthetic/seed-1/expected/qryPurchaseOrderCost.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        },
+        "seed-2": {
+          "digest": {
+            "alg": "sha256",
+            "value": "eeddec9910d994bd0ab1f82fac779d4a7a6d9bf8cdb4077fa1e07760fc5141e8"
+          },
+          "expected": "synthetic/seed-2/expected/qryPurchaseOrderCost.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        },
+        "seed-3": {
+          "digest": {
+            "alg": "sha256",
+            "value": "4621a3b592653f18b3505ae5be1e6bfd8e36c5633187138117423fa78982b2fa"
+          },
+          "expected": "synthetic/seed-3/expected/qryPurchaseOrderCost.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        }
+      },
+      "kind": "saved_query",
+      "needs_access_confirmation": false,
+      "order_by": null
+    },
+    "qryPurchaseOrderLineItems": {
+      "area": "purchasing",
+      "canonical_version": 1,
+      "columns": [
+        {
+          "name": "PurchaseOrderDetailID",
+          "type": "longinteger"
+        },
+        {
+          "name": "PurchaseOrderID",
+          "type": "longinteger"
+        },
+        {
+          "name": "ProductID",
+          "type": "longinteger"
+        },
+        {
+          "name": "Quantity",
+          "type": "integer"
+        },
+        {
+          "name": "UnitCost",
+          "type": "currency"
+        },
+        {
+          "name": "ReceivedDate",
+          "type": "datetime"
+        },
+        {
+          "name": "AddedBy",
+          "type": "text"
+        },
+        {
+          "name": "AddedOn",
+          "type": "datetime"
+        },
+        {
+          "name": "ModifiedBy",
+          "type": "text"
+        },
+        {
+          "name": "ModifiedOn",
+          "type": "datetime"
+        }
+      ],
+      "datasets": {
+        "engagement": {
+          "digest": {
+            "alg": "hmac-sha256",
+            "value": "25167b48288c709067297ab9d56217abb7adde761d754a47a3c728932bdf6f01"
+          },
+          "reason": null,
+          "rows": 43,
+          "status": "ok"
+        },
+        "seed-1": {
+          "digest": {
+            "alg": "sha256",
+            "value": "0a78dad71d527d72a53b01d0a78cee115a72f5052580224d3f719e0e192fd574"
+          },
+          "expected": "synthetic/seed-1/expected/qryPurchaseOrderLineItems.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        },
+        "seed-2": {
+          "digest": {
+            "alg": "sha256",
+            "value": "8a4747b065a5069cad318530d4a9d1c36ede23179db84ff376b016fc5e609f6b"
+          },
+          "expected": "synthetic/seed-2/expected/qryPurchaseOrderLineItems.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        },
+        "seed-3": {
+          "digest": {
+            "alg": "sha256",
+            "value": "93b8f11476270742a7792452828c05ec79f0b811939a0fdaebc9ffe2febc5c5d"
+          },
+          "expected": "synthetic/seed-3/expected/qryPurchaseOrderLineItems.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        }
+      },
+      "kind": "saved_query",
+      "needs_access_confirmation": false,
+      "order_by": [
+        {
+          "column": "PurchaseOrderDetailID",
+          "desc": false
+        }
+      ]
+    },
+    "qryPurchaseOrderList": {
+      "area": "purchasing",
+      "canonical_version": 1,
+      "columns": [
+        {
+          "name": "PurchaseOrderID",
+          "type": "longinteger"
+        },
+        {
+          "name": "StatusName",
+          "type": "text"
+        },
+        {
+          "name": "CompanyName",
+          "type": "text"
+        },
+        {
+          "name": "TotalCost",
+          "type": "decimal"
+        },
+        {
+          "name": "Submitter",
+          "type": "text"
+        },
+        {
+          "name": "SubmittedDate",
+          "type": "datetime"
+        },
+        {
+          "name": "Approver",
+          "type": "text"
+        },
+        {
+          "name": "ApprovedDate",
+          "type": "datetime"
+        },
+        {
+          "name": "PaymentDate",
+          "type": "datetime"
+        }
+      ],
+      "datasets": {
+        "engagement": {
+          "digest": {
+            "alg": "hmac-sha256",
+            "value": "8abc3b5fb7e8bf3cac3f8d70af308a9302c0e2a9b0f7c10ea808906802a950be"
+          },
+          "reason": null,
+          "rows": 2,
+          "status": "ok"
+        },
+        "seed-1": {
+          "digest": {
+            "alg": "sha256",
+            "value": "ae7a99290cfa326f0e02d94c63fa116a4e0af160c6534b67dd8d312d8942597a"
+          },
+          "expected": "synthetic/seed-1/expected/qryPurchaseOrderList.csv",
+          "reason": null,
+          "rows": 14,
+          "status": "ok"
+        },
+        "seed-2": {
+          "digest": {
+            "alg": "sha256",
+            "value": "029e35fa9e91d7601e455c776a0306ef3942738ffdcb08c2600effb899cb5602"
+          },
+          "expected": "synthetic/seed-2/expected/qryPurchaseOrderList.csv",
+          "reason": null,
+          "rows": 18,
+          "status": "ok"
+        },
+        "seed-3": {
+          "digest": {
+            "alg": "sha256",
+            "value": "80e02b2235f718162c5bff3798e3f8ec906003fc31687d4a777fc21ebde820bc"
+          },
+          "expected": "synthetic/seed-3/expected/qryPurchaseOrderList.csv",
+          "reason": null,
+          "rows": 1,
+          "status": "ok"
+        }
+      },
+      "kind": "saved_query",
+      "needs_access_confirmation": false,
+      "order_by": [
+        {
+          "column": "PurchaseOrderID",
+          "desc": true
+        }
+      ]
+    },
+    "qryShipperOrderList": {
+      "area": "orders",
+      "canonical_version": 1,
+      "columns": [
+        {
+          "name": "OrderID",
+          "type": "longinteger"
+        },
+        {
+          "name": "EmployeeFNLN",
+          "type": "text"
+        },
+        {
+          "name": "OrderDate",
+          "type": "datetime"
+        },
+        {
+          "name": "OrderTotal",
+          "type": "decimal"
+        },
+        {
+          "name": "OrderStatusName",
+          "type": "text"
+        },
+        {
+          "name": "CustomerID",
+          "type": "longinteger"
+        },
+        {
+          "name": "myCompanyID",
+          "type": "longinteger"
+        },
+        {
+          "name": "CustomerName",
+          "type": "text"
+        }
+      ],
+      "datasets": {
+        "engagement": {
+          "digest": {
+            "alg": "hmac-sha256",
+            "value": "4bacf581cd262047d9314106c3a0a534470525c230d96c7092f929c19fa1598f"
+          },
+          "reason": null,
+          "rows": 52,
+          "status": "ok"
+        },
+        "seed-1": {
+          "digest": {
+            "alg": "sha256",
+            "value": "3dd96fe9ddddf18d2d887f5c2cc3d85ac03e30c276ebb936d85b60bf22a111e6"
+          },
+          "expected": "synthetic/seed-1/expected/qryShipperOrderList.csv",
+          "reason": null,
+          "rows": 9,
+          "status": "ok"
+        },
+        "seed-2": {
+          "digest": {
+            "alg": "sha256",
+            "value": "0751f257e1d762017d9e8222c106c2396287060dbc762cffe5ee1ac566395ae4"
+          },
+          "expected": "synthetic/seed-2/expected/qryShipperOrderList.csv",
+          "reason": null,
+          "rows": 7,
+          "status": "ok"
+        },
+        "seed-3": {
+          "digest": {
+            "alg": "sha256",
+            "value": "bec05369337cd5bd09712c42d89e0ac31f2d7a60bd385b679eff67878ccfecc3"
+          },
+          "expected": "synthetic/seed-3/expected/qryShipperOrderList.csv",
+          "reason": null,
+          "rows": 24,
+          "status": "ok"
+        }
+      },
+      "kind": "saved_query",
+      "needs_access_confirmation": false,
+      "order_by": [
+        {
+          "column": "OrderID",
+          "desc": false
+        }
+      ]
+    },
+    "qryShippers": {
+      "area": "orders",
+      "canonical_version": 1,
+      "columns": [
+        {
+          "name": "CompanyID",
+          "type": "longinteger"
+        },
+        {
+          "name": "CompanyName",
+          "type": "text"
+        },
+        {
+          "name": "CompanyTypeID",
+          "type": "longinteger"
+        },
+        {
+          "name": "BusinessPhone",
+          "type": "text"
+        },
+        {
+          "name": "Address",
+          "type": "text"
+        },
+        {
+          "name": "City",
+          "type": "text"
+        },
+        {
+          "name": "StateAbbrev",
+          "type": "text"
+        },
+        {
+          "name": "Zip",
+          "type": "text"
+        },
+        {
+          "name": "Website",
+          "type": "hyperlink"
+        },
+        {
+          "name": "Notes",
+          "type": "memo"
+        },
+        {
+          "name": "StandardTaxStatusID",
+          "type": "integer"
+        },
+        {
+          "name": "AddedBy",
+          "type": "text"
+        },
+        {
+          "name": "AddedOn",
+          "type": "datetime"
+        },
+        {
+          "name": "ModifiedBy",
+          "type": "text"
+        },
+        {
+          "name": "ModifiedOn",
+          "type": "datetime"
+        }
+      ],
+      "datasets": {
+        "engagement": {
+          "digest": {
+            "alg": "hmac-sha256",
+            "value": "9f3f47c7af5c6169c77357b1c74e0aca62b1a1a77a7844d6d2a909349b30061b"
+          },
+          "reason": null,
+          "rows": 2,
+          "status": "ok"
+        },
+        "seed-1": {
+          "digest": {
+            "alg": "sha256",
+            "value": "4d1b6ea5e648ae03c53b3dc8fc377dd1610499ac31fd51c7ca19ea0b5ffcc20c"
+          },
+          "expected": "synthetic/seed-1/expected/qryShippers.csv",
+          "reason": null,
+          "rows": 16,
+          "status": "ok"
+        },
+        "seed-2": {
+          "digest": {
+            "alg": "sha256",
+            "value": "24ee8963389387856bb058b8b31e47db67dca080c9d7871beaedebf96842efb9"
+          },
+          "expected": "synthetic/seed-2/expected/qryShippers.csv",
+          "reason": null,
+          "rows": 12,
+          "status": "ok"
+        },
+        "seed-3": {
+          "digest": {
+            "alg": "sha256",
+            "value": "35bd05cf6f893154931f9ac8f6d703b9581bd1ffa0b6f99dbcc325bf73b23ee3"
+          },
+          "expected": "synthetic/seed-3/expected/qryShippers.csv",
+          "reason": null,
+          "rows": 23,
+          "status": "ok"
+        }
+      },
+      "kind": "saved_query",
+      "needs_access_confirmation": false,
+      "order_by": null
+    },
+    "qryStockTake": {
+      "area": "inventory",
+      "canonical_version": 1,
+      "columns": [
+        {
+          "name": "StockTakeID",
+          "type": "longinteger"
+        },
+        {
+          "name": "StockTakeDate",
+          "type": "datetime"
+        },
+        {
+          "name": "ProductID",
+          "type": "longinteger"
+        },
+        {
+          "name": "QuantityOnHand",
+          "type": "integer"
+        },
+        {
+          "name": "ExpectedQuantity",
+          "type": "longinteger"
+        }
+      ],
+      "datasets": {
+        "engagement": {
+          "digest": {
+            "alg": "hmac-sha256",
+            "value": "5a34e964e390252984fb5a8e2b8173821f2d921a715c6befe128772f873f7a99"
+          },
+          "reason": null,
+          "rows": 43,
+          "status": "ok"
+        },
+        "seed-1": {
+          "digest": {
+            "alg": "sha256",
+            "value": "92c81a5c77926cdc9d48fdaf280ade29edcfa6f26bb74c575380cdb087561ebb"
+          },
+          "expected": "synthetic/seed-1/expected/qryStockTake.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        },
+        "seed-2": {
+          "digest": {
+            "alg": "sha256",
+            "value": "31618787ff914ece387d3d215d4ae202a79341f4b81adc6100296bf9d478fe45"
+          },
+          "expected": "synthetic/seed-2/expected/qryStockTake.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        },
+        "seed-3": {
+          "digest": {
+            "alg": "sha256",
+            "value": "7b0950ccd3bfb6e981c3863888875eb6f3123771a9a9d7630b4d9d03b5e87db3"
+          },
+          "expected": "synthetic/seed-3/expected/qryStockTake.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        }
+      },
+      "kind": "saved_query",
+      "needs_access_confirmation": false,
+      "order_by": null
+    },
+    "qryTitle": {
+      "area": "orders",
+      "canonical_version": 1,
+      "columns": [
+        {
+          "name": "Title",
+          "type": "text"
+        }
+      ],
+      "datasets": {
+        "engagement": {
+          "digest": {
+            "alg": "hmac-sha256",
+            "value": "cebe8170fa22cb82fd14682e797e5014aead497bc234de5d093d471abee70669"
+          },
+          "reason": null,
+          "rows": 3,
+          "status": "ok"
+        },
+        "seed-1": {
+          "digest": {
+            "alg": "sha256",
+            "value": "958a3f0a40d3145ec69f2116bd1bc2d81d07a745d0e4f0384767217b875e33ce"
+          },
+          "expected": "synthetic/seed-1/expected/qryTitle.csv",
+          "reason": null,
+          "rows": 2,
+          "status": "ok"
+        },
+        "seed-2": {
+          "digest": {
+            "alg": "sha256",
+            "value": "958a3f0a40d3145ec69f2116bd1bc2d81d07a745d0e4f0384767217b875e33ce"
+          },
+          "expected": "synthetic/seed-2/expected/qryTitle.csv",
+          "reason": null,
+          "rows": 2,
+          "status": "ok"
+        },
+        "seed-3": {
+          "digest": {
+            "alg": "sha256",
+            "value": "958a3f0a40d3145ec69f2116bd1bc2d81d07a745d0e4f0384767217b875e33ce"
+          },
+          "expected": "synthetic/seed-3/expected/qryTitle.csv",
+          "reason": null,
+          "rows": 2,
+          "status": "ok"
+        }
+      },
+      "kind": "saved_query",
+      "needs_access_confirmation": false,
+      "order_by": null
+    },
+    "qryTotalSalesByProduct": {
+      "area": "reports",
+      "canonical_version": 1,
+      "columns": [
+        {
+          "name": "ProductID",
+          "type": "longinteger"
+        },
+        {
+          "name": "TotalSales",
+          "type": "decimal"
+        }
+      ],
+      "datasets": {
+        "engagement": {
+          "digest": {
+            "alg": "hmac-sha256",
+            "value": "02d7ab73ebdb21e0d1489cddc7e9355bbfdf4dedb78dc5ece6823eca1b1d6e55"
+          },
+          "reason": null,
+          "rows": 43,
+          "status": "ok"
+        },
+        "seed-1": {
+          "digest": {
+            "alg": "sha256",
+            "value": "586fbdf2a50532a5d142b53180ab09320654538af6be5b801f6ae556752d0bc1"
+          },
+          "expected": "synthetic/seed-1/expected/qryTotalSalesByProduct.csv",
+          "reason": null,
+          "rows": 28,
+          "status": "ok"
+        },
+        "seed-2": {
+          "digest": {
+            "alg": "sha256",
+            "value": "a339be414af669fdfd55c6eb1e468b24eadd633e12d42ebe8e672f01d3803018"
+          },
+          "expected": "synthetic/seed-2/expected/qryTotalSalesByProduct.csv",
+          "reason": null,
+          "rows": 30,
+          "status": "ok"
+        },
+        "seed-3": {
+          "digest": {
+            "alg": "sha256",
+            "value": "2bbbe95d1513a7a05f0b48885a87d9f155e19cb05da4e903b22b599ee29d52e3"
+          },
+          "expected": "synthetic/seed-3/expected/qryTotalSalesByProduct.csv",
+          "reason": null,
+          "rows": 25,
+          "status": "ok"
+        }
+      },
+      "kind": "saved_query",
+      "needs_access_confirmation": false,
+      "order_by": null
+    },
+    "qryVendorPurchaseOrderList": {
+      "area": "purchasing",
+      "canonical_version": 1,
+      "columns": [
+        {
+          "name": "myCompanyID",
+          "type": "longinteger"
+        },
+        {
+          "name": "PurchaseOrderID",
+          "type": "longinteger"
+        },
+        {
+          "name": "SubmittedByID",
+          "type": "longinteger"
+        },
+        {
+          "name": "SubmittedDate",
+          "type": "datetime"
+        },
+        {
+          "name": "ApprovedByID",
+          "type": "longinteger"
+        },
+        {
+          "name": "ApprovedDate",
+          "type": "datetime"
+        },
+        {
+          "name": "StatusID",
+          "type": "longinteger"
+        },
+        {
+          "name": "ReceivedDate",
+          "type": "datetime"
+        },
+        {
+          "name": "ShippingFee",
+          "type": "currency"
+        },
+        {
+          "name": "TaxAmount",
+          "type": "currency"
+        },
+        {
+          "name": "PaymentDate",
+          "type": "datetime"
+        },
+        {
+          "name": "PaymentAmount",
+          "type": "currency"
+        },
+        {
+          "name": "PaymentMethod",
+          "type": "text"
+        },
+        {
+          "name": "Notes",
+          "type": "memo"
+        },
+        {
+          "name": "AddedBy",
+          "type": "text"
+        },
+        {
+          "name": "AddedOn",
+          "type": "datetime"
+        },
+        {
+          "name": "ModifiedBy",
+          "type": "text"
+        },
+        {
+          "name": "ModifiedOn",
+          "type": "datetime"
+        },
+        {
+          "name": "SubmittedBy",
+          "type": "text"
+        },
+        {
+          "name": "ApprovedBy",
+          "type": "text"
+        },
+        {
+          "name": "StatusName",
+          "type": "text"
+        },
+        {
+          "name": "ExtendedCost",
+          "type": "currency"
+        }
+      ],
+      "datasets": {
+        "engagement": {
+          "digest": {
+            "alg": "hmac-sha256",
+            "value": "124e833b339d4fee2ea831fb0e97a502e2ff81d24b35e589795901cb1cd6f762"
+          },
+          "reason": null,
+          "rows": 1,
+          "status": "ok"
+        },
+        "seed-1": {
+          "digest": {
+            "alg": "sha256",
+            "value": "33249e141fe03ca0b0f1bef38ff26adbd58507ffe93e731d6ff358fd04c148d6"
+          },
+          "expected": "synthetic/seed-1/expected/qryVendorPurchaseOrderList.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        },
+        "seed-2": {
+          "digest": {
+            "alg": "sha256",
+            "value": "7be588a5257283cd8b6b7116933e396ae0fba9dcca2b5a2aa26208dd3e33989d"
+          },
+          "expected": "synthetic/seed-2/expected/qryVendorPurchaseOrderList.csv",
+          "reason": null,
+          "rows": 34,
+          "status": "ok"
+        },
+        "seed-3": {
+          "digest": {
+            "alg": "sha256",
+            "value": "8e90f6610f62650469e0cc365e5d17b61aa18c7390135b60e99756d8b5bb0a76"
+          },
+          "expected": "synthetic/seed-3/expected/qryVendorPurchaseOrderList.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        }
+      },
+      "kind": "saved_query",
+      "needs_access_confirmation": false,
+      "order_by": null
+    },
+    "qrycboCompanyType": {
+      "area": "orders",
+      "canonical_version": 1,
+      "columns": [
+        {
+          "name": "CompanyTypeID",
+          "type": "longinteger"
+        },
+        {
+          "name": "CompanyType",
+          "type": "text"
+        }
+      ],
+      "datasets": {
+        "engagement": {
+          "digest": {
+            "alg": "hmac-sha256",
+            "value": "280d91c10ec5097bdd3e43ac56199428afe94cd75c2646aff53b615db7010786"
+          },
+          "reason": null,
+          "rows": 4,
+          "status": "ok"
+        },
+        "seed-1": {
+          "digest": {
+            "alg": "sha256",
+            "value": "af3e8c106d6070084c18e764c49fcb9320f87c90ffb78dfb1a4db93db4bf6ba2"
+          },
+          "expected": "synthetic/seed-1/expected/qrycboCompanyType.csv",
+          "reason": null,
+          "rows": 4,
+          "status": "ok"
+        },
+        "seed-2": {
+          "digest": {
+            "alg": "sha256",
+            "value": "1b0f35b2dee66f866c392c7544432d8039926c164f5a36503bcf10c7b2ceb3b4"
+          },
+          "expected": "synthetic/seed-2/expected/qrycboCompanyType.csv",
+          "reason": null,
+          "rows": 4,
+          "status": "ok"
+        },
+        "seed-3": {
+          "digest": {
+            "alg": "sha256",
+            "value": "0d70ce18216023b02d2c8145f034b9d79444fbc20e45e5d0a78e43d292c56a7d"
+          },
+          "expected": "synthetic/seed-3/expected/qrycboCompanyType.csv",
+          "reason": null,
+          "rows": 4,
+          "status": "ok"
+        }
+      },
+      "kind": "saved_query",
+      "needs_access_confirmation": false,
+      "order_by": [
+        {
+          "column": "CompanyType",
+          "desc": false
+        }
+      ]
+    },
+    "qrycboCustomers": {
+      "area": "orders",
+      "canonical_version": 1,
+      "columns": [
+        {
+          "name": "CompanyID",
+          "type": "longinteger"
+        },
+        {
+          "name": "CompanyName",
+          "type": "text"
+        }
+      ],
+      "datasets": {
+        "engagement": {
+          "digest": {
+            "alg": "hmac-sha256",
+            "value": "b8e7304798d6b74c372bbd49a9b0fece2563674839e2fe263e94a6607489eae7"
+          },
+          "reason": null,
+          "rows": 8,
+          "status": "ok"
+        },
+        "seed-1": {
+          "digest": {
+            "alg": "sha256",
+            "value": "e8d4295e1d24ae2a5cd9d6336f2210d0a69e6b6fd688243a9a8a54c6a7d66504"
+          },
+          "expected": "synthetic/seed-1/expected/qrycboCustomers.csv",
+          "reason": null,
+          "rows": 9,
+          "status": "ok"
+        },
+        "seed-2": {
+          "digest": {
+            "alg": "sha256",
+            "value": "835eb99392cd6a6773fc7341b2de98aab78347b375385c413ae47ab6134862e7"
+          },
+          "expected": "synthetic/seed-2/expected/qrycboCustomers.csv",
+          "reason": null,
+          "rows": 10,
+          "status": "ok"
+        },
+        "seed-3": {
+          "digest": {
+            "alg": "sha256",
+            "value": "dfc35d00ee8f439d6e6552c21bd394345957c2223e4d824a7ae225b9ad96d3fb"
+          },
+          "expected": "synthetic/seed-3/expected/qrycboCustomers.csv",
+          "reason": null,
+          "rows": 20,
+          "status": "ok"
+        }
+      },
+      "kind": "saved_query",
+      "needs_access_confirmation": false,
+      "order_by": [
+        {
+          "column": "CompanyName",
+          "desc": false
+        }
+      ]
+    },
+    "qrycboEmployees": {
+      "area": "orders",
+      "canonical_version": 1,
+      "columns": [
+        {
+          "name": "EmployeeID",
+          "type": "longinteger"
+        },
+        {
+          "name": "FullNameFNLN",
+          "type": "text"
+        }
+      ],
+      "datasets": {
+        "engagement": {
+          "digest": {
+            "alg": "hmac-sha256",
+            "value": "184628723f01ff8be8b9ae32112a0cec7a44746c3706af7f1ecada0c0813c5f2"
+          },
+          "reason": null,
+          "rows": 10,
+          "status": "ok"
+        },
+        "seed-1": {
+          "digest": {
+            "alg": "sha256",
+            "value": "92506c520648b904af2c81f65b051f52f3d1ad7b74c4de3a36a0cf161abe0802"
+          },
+          "expected": "synthetic/seed-1/expected/qrycboEmployees.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        },
+        "seed-2": {
+          "digest": {
+            "alg": "sha256",
+            "value": "dd95fa79f38bc3d691b8656476aa2f52cb37c4af345e6570c3c78dee81142905"
+          },
+          "expected": "synthetic/seed-2/expected/qrycboEmployees.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        },
+        "seed-3": {
+          "digest": {
+            "alg": "sha256",
+            "value": "ed71bf4c32c606f8533176d73cfa7932f89b4adc8d083008fc3ae21560e45e77"
+          },
+          "expected": "synthetic/seed-3/expected/qrycboEmployees.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        }
+      },
+      "kind": "saved_query",
+      "needs_access_confirmation": false,
+      "order_by": [
+        {
+          "column": "FullNameFNLN",
+          "desc": false
+        }
+      ]
+    },
+    "qrycboOrderDetailStatus": {
+      "area": "orders",
+      "canonical_version": 1,
+      "columns": [
+        {
+          "name": "OrderDetailStatusID",
+          "type": "longinteger"
+        },
+        {
+          "name": "OrderDetailStatusName",
+          "type": "text"
+        }
+      ],
+      "datasets": {
+        "engagement": {
+          "digest": {
+            "alg": "hmac-sha256",
+            "value": "ab0b92217efb6ef406fe40fd70c1feeb59a8b5b1716f513cdebaae0ea06e0504"
+          },
+          "reason": null,
+          "rows": 6,
+          "status": "ok"
+        },
+        "seed-1": {
+          "digest": {
+            "alg": "sha256",
+            "value": "acd5350cd1624fc1170ae16b0d301002757c2f58f31b4b8c49bb8c666d020bf3"
+          },
+          "expected": "synthetic/seed-1/expected/qrycboOrderDetailStatus.csv",
+          "reason": null,
+          "rows": 6,
+          "status": "ok"
+        },
+        "seed-2": {
+          "digest": {
+            "alg": "sha256",
+            "value": "05b04c913684e280778760f266f37803bd681ae8f0a4f1c711c447c62d78bda5"
+          },
+          "expected": "synthetic/seed-2/expected/qrycboOrderDetailStatus.csv",
+          "reason": null,
+          "rows": 6,
+          "status": "ok"
+        },
+        "seed-3": {
+          "digest": {
+            "alg": "sha256",
+            "value": "5427af913ecb04cbf525268d50159cbd34d7d3ffeeada40eeff5de0498704999"
+          },
+          "expected": "synthetic/seed-3/expected/qrycboOrderDetailStatus.csv",
+          "reason": null,
+          "rows": 6,
+          "status": "ok"
+        }
+      },
+      "kind": "saved_query",
+      "needs_access_confirmation": false,
+      "order_by": null
+    },
+    "qrycboOrderStatus": {
+      "area": "orders",
+      "canonical_version": 1,
+      "columns": [
+        {
+          "name": "OrderStatusID",
+          "type": "longinteger"
+        },
+        {
+          "name": "OrderStatusName",
+          "type": "text"
+        }
+      ],
+      "datasets": {
+        "engagement": {
+          "digest": {
+            "alg": "hmac-sha256",
+            "value": "b8fbdfb7d6f3a5a5863ae143ff13f965723152a28ab03b8e506b9c95fe95f3d4"
+          },
+          "reason": null,
+          "rows": 5,
+          "status": "ok"
+        },
+        "seed-1": {
+          "digest": {
+            "alg": "sha256",
+            "value": "2e4ff49c70cb3fdafb932da26101dcb07e4e6bc8dd3ea478865c642a6f6201fa"
+          },
+          "expected": "synthetic/seed-1/expected/qrycboOrderStatus.csv",
+          "reason": null,
+          "rows": 5,
+          "status": "ok"
+        },
+        "seed-2": {
+          "digest": {
+            "alg": "sha256",
+            "value": "aed771d8a9438a25d35e91c28b170a52d1eb541638566002f2a512e98acce16e"
+          },
+          "expected": "synthetic/seed-2/expected/qrycboOrderStatus.csv",
+          "reason": null,
+          "rows": 5,
+          "status": "ok"
+        },
+        "seed-3": {
+          "digest": {
+            "alg": "sha256",
+            "value": "a4182d36a08ce8ba3af02d6ae9ce947fcc6e4553dadb0e1a3ebd5579ba2b9dbd"
+          },
+          "expected": "synthetic/seed-3/expected/qrycboOrderStatus.csv",
+          "reason": null,
+          "rows": 5,
+          "status": "ok"
+        }
+      },
+      "kind": "saved_query",
+      "needs_access_confirmation": false,
+      "order_by": null
+    },
+    "qrycboProductCategories": {
+      "area": "inventory",
+      "canonical_version": 1,
+      "columns": [
+        {
+          "name": "theClause",
+          "type": "longinteger"
+        },
+        {
+          "name": "ProductCategoryID",
+          "type": "longinteger"
+        },
+        {
+          "name": "ProductCategoryName",
+          "type": "text"
+        }
+      ],
+      "datasets": {
+        "engagement": {
+          "digest": {
+            "alg": "hmac-sha256",
+            "value": "063780fd6be1b56dad66a3e36567c669c432c0ead6209b826da105b9782c68f2"
+          },
+          "reason": null,
+          "rows": 17,
+          "status": "ok"
+        },
+        "seed-1": {
+          "digest": {
+            "alg": "sha256",
+            "value": "f9a6ccf087aa8ee1a1d8aa15c86be20b765c7c22bdfa9c8dbd30e0a2daf6954a"
+          },
+          "expected": "synthetic/seed-1/expected/qrycboProductCategories.csv",
+          "reason": null,
+          "rows": 51,
+          "status": "ok"
+        },
+        "seed-2": {
+          "digest": {
+            "alg": "sha256",
+            "value": "ae393f0197626402bc3309daef7269fa626759612ef72d5a5e5f8d41a589c7a6"
+          },
+          "expected": "synthetic/seed-2/expected/qrycboProductCategories.csv",
+          "reason": null,
+          "rows": 51,
+          "status": "ok"
+        },
+        "seed-3": {
+          "digest": {
+            "alg": "sha256",
+            "value": "87ee545b46223dd10f8459c7ecb16365f99f095737a31e25ee377544bed92a51"
+          },
+          "expected": "synthetic/seed-3/expected/qrycboProductCategories.csv",
+          "reason": null,
+          "rows": 51,
+          "status": "ok"
+        }
+      },
+      "kind": "saved_query",
+      "needs_access_confirmation": false,
+      "order_by": [
+        {
+          "column": "theClause",
+          "desc": false
+        },
+        {
+          "column": "ProductCategoryName",
+          "desc": false
+        }
+      ]
+    },
+    "qrycboProductCategory": {
+      "area": "inventory",
+      "canonical_version": 1,
+      "columns": [
+        {
+          "name": "ProductCategoryID",
+          "type": "longinteger"
+        },
+        {
+          "name": "ProductCategoryName",
+          "type": "text"
+        }
+      ],
+      "datasets": {
+        "engagement": {
+          "digest": {
+            "alg": "hmac-sha256",
+            "value": "c4a17a9e5eba9e478dc33c422eb2b032081c327a312ce96fa883cfcf2eb17546"
+          },
+          "reason": null,
+          "rows": 16,
+          "status": "ok"
+        },
+        "seed-1": {
+          "digest": {
+            "alg": "sha256",
+            "value": "bd61b5aefb4491f0aa76a18844426f64f2214ec05017f481350146c73f46abdc"
+          },
+          "expected": "synthetic/seed-1/expected/qrycboProductCategory.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        },
+        "seed-2": {
+          "digest": {
+            "alg": "sha256",
+            "value": "81b6d4e6bc8c3374da591ffaaddc14d6e2263269b9c588b1498d0b7414965321"
+          },
+          "expected": "synthetic/seed-2/expected/qrycboProductCategory.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        },
+        "seed-3": {
+          "digest": {
+            "alg": "sha256",
+            "value": "63e136e2ce9bbf01dcdcec8c76b44805f0b3c7dce1ab2a5959515db8aa5cc6d9"
+          },
+          "expected": "synthetic/seed-3/expected/qrycboProductCategory.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        }
+      },
+      "kind": "saved_query",
+      "needs_access_confirmation": false,
+      "order_by": [
+        {
+          "column": "ProductCategoryName",
+          "desc": false
+        }
+      ]
+    },
+    "qrycboProducts": {
+      "area": "inventory",
+      "canonical_version": 1,
+      "columns": [
+        {
+          "name": "ProductID",
+          "type": "longinteger"
+        },
+        {
+          "name": "ProductName",
+          "type": "text"
+        },
+        {
+          "name": "UnitPrice",
+          "type": "currency"
+        },
+        {
+          "name": "ProductCategoryID",
+          "type": "longinteger"
+        }
+      ],
+      "datasets": {
+        "engagement": {
+          "digest": {
+            "alg": "hmac-sha256",
+            "value": "66154a17d55983ba18f7d3c3ee20e250dd80db6eef9af02397ab1ef19e7b8ba0"
+          },
+          "reason": null,
+          "rows": 4,
+          "status": "ok"
+        },
+        "seed-1": {
+          "digest": {
+            "alg": "sha256",
+            "value": "135d8b9cbf2de41d3da8e307072187c4de47eb1f247b9f959e132e8f5f1c3541"
+          },
+          "expected": "synthetic/seed-1/expected/qrycboProducts.csv",
+          "reason": null,
+          "rows": 1,
+          "status": "ok"
+        },
+        "seed-2": {
+          "digest": {
+            "alg": "sha256",
+            "value": "d5fdf584838f427f3119ebf8eb8f32d60cd8463f471a448840e01c3d641846b9"
+          },
+          "expected": "synthetic/seed-2/expected/qrycboProducts.csv",
+          "reason": null,
+          "rows": 3,
+          "status": "ok"
+        },
+        "seed-3": {
+          "digest": {
+            "alg": "sha256",
+            "value": "e9c9461d770f90366d6a8d6bd6d438174f72330c9c20c67c037755bd12aca076"
+          },
+          "expected": "synthetic/seed-3/expected/qrycboProducts.csv",
+          "reason": null,
+          "rows": 22,
+          "status": "ok"
+        }
+      },
+      "kind": "saved_query",
+      "needs_access_confirmation": false,
+      "order_by": [
+        {
+          "column": "ProductName",
+          "desc": false
+        }
+      ]
+    },
+    "qrycboProducts_All": {
+      "area": "inventory",
+      "canonical_version": 1,
+      "columns": [
+        {
+          "name": "ProductID",
+          "type": "longinteger"
+        },
+        {
+          "name": "ProductName",
+          "type": "text"
+        },
+        {
+          "name": "UnitPrice",
+          "type": "currency"
+        },
+        {
+          "name": "ProductCategoryID",
+          "type": "longinteger"
+        }
+      ],
+      "datasets": {
+        "engagement": {
+          "digest": {
+            "alg": "hmac-sha256",
+            "value": "14b60c38e3b617f3c2a46d98cf2ac76471a69865809d95e5424033d9e180dbb2"
+          },
+          "reason": null,
+          "rows": 43,
+          "status": "ok"
+        },
+        "seed-1": {
+          "digest": {
+            "alg": "sha256",
+            "value": "03f5bcd225b63c1abc6cd6f8f34dee536047d2eb27d03beb280d677a0e9c27ad"
+          },
+          "expected": "synthetic/seed-1/expected/qrycboProducts_All.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        },
+        "seed-2": {
+          "digest": {
+            "alg": "sha256",
+            "value": "82579c220b8d92e009e39d4c7c4908a30f3f21524049d14d7b395be753eb96f5"
+          },
+          "expected": "synthetic/seed-2/expected/qrycboProducts_All.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        },
+        "seed-3": {
+          "digest": {
+            "alg": "sha256",
+            "value": "feb286e27ad8008737e175ef71e70f875a0af21d30bed6f129010ad289b15708"
+          },
+          "expected": "synthetic/seed-3/expected/qrycboProducts_All.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        }
+      },
+      "kind": "saved_query",
+      "needs_access_confirmation": false,
+      "order_by": [
+        {
+          "column": "ProductName",
+          "desc": false
+        }
+      ]
+    },
+    "qrycboProducts_PO": {
+      "area": "purchasing",
+      "canonical_version": 1,
+      "columns": [
+        {
+          "name": "ProductID",
+          "type": "longinteger"
+        },
+        {
+          "name": "ProductName",
+          "type": "text"
+        },
+        {
+          "name": "StandardUnitCost",
+          "type": "currency"
+        }
+      ],
+      "datasets": {
+        "engagement": {
+          "digest": {
+            "alg": "hmac-sha256",
+            "value": "b861e1460a3c87fcbbf2f87d1d14b58cd56c42e667f886903245cafa999ffbea"
+          },
+          "reason": null,
+          "rows": 4,
+          "status": "ok"
+        },
+        "seed-1": {
+          "digest": {
+            "alg": "sha256",
+            "value": "af430ecc564eaaba01986d92192bf39bbaed41cfab0228f25f2f62c28ec92dbd"
+          },
+          "expected": "synthetic/seed-1/expected/qrycboProducts_PO.csv",
+          "reason": null,
+          "rows": 2,
+          "status": "ok"
+        },
+        "seed-2": {
+          "digest": {
+            "alg": "sha256",
+            "value": "9215dd992f38de738bc0c52294dbe9371f83ecff35a1c4d6fa10c9f5e25c9e5d"
+          },
+          "expected": "synthetic/seed-2/expected/qrycboProducts_PO.csv",
+          "reason": null,
+          "rows": 1,
+          "status": "ok"
+        },
+        "seed-3": {
+          "digest": {
+            "alg": "sha256",
+            "value": "dab733bed985b297514f4df5edfe00e1c6561bad032f3a4da35a76ad733775dc"
+          },
+          "expected": "synthetic/seed-3/expected/qrycboProducts_PO.csv",
+          "reason": null,
+          "rows": 11,
+          "status": "ok"
+        }
+      },
+      "kind": "saved_query",
+      "needs_access_confirmation": false,
+      "order_by": [
+        {
+          "column": "ProductName",
+          "desc": false
+        }
+      ]
+    },
+    "qrycboShippers": {
+      "area": "orders",
+      "canonical_version": 1,
+      "columns": [
+        {
+          "name": "CompanyID",
+          "type": "longinteger"
+        },
+        {
+          "name": "CompanyName",
+          "type": "text"
+        }
+      ],
+      "datasets": {
+        "engagement": {
+          "digest": {
+            "alg": "hmac-sha256",
+            "value": "ea94f2d4f9e9bed881a9b2d10a3b962763b45eac0462f4f873961631a9e868dd"
+          },
+          "reason": null,
+          "rows": 2,
+          "status": "ok"
+        },
+        "seed-1": {
+          "digest": {
+            "alg": "sha256",
+            "value": "8a9d7be72a3af2de8c13320a6008545d15f53c6888be25e35417858227ffc8f5"
+          },
+          "expected": "synthetic/seed-1/expected/qrycboShippers.csv",
+          "reason": null,
+          "rows": 16,
+          "status": "ok"
+        },
+        "seed-2": {
+          "digest": {
+            "alg": "sha256",
+            "value": "14cdec9fcce1b3dc301271020c4dbaaef29a87d05de4edcd9589f0d746525630"
+          },
+          "expected": "synthetic/seed-2/expected/qrycboShippers.csv",
+          "reason": null,
+          "rows": 12,
+          "status": "ok"
+        },
+        "seed-3": {
+          "digest": {
+            "alg": "sha256",
+            "value": "f60533fb7e9c9a439670baf065c1c98f5ce32d67c3d7ee36c0802cefcb51a3d0"
+          },
+          "expected": "synthetic/seed-3/expected/qrycboShippers.csv",
+          "reason": null,
+          "rows": 23,
+          "status": "ok"
+        }
+      },
+      "kind": "saved_query",
+      "needs_access_confirmation": false,
+      "order_by": [
+        {
+          "column": "CompanyName",
+          "desc": false
+        }
+      ]
+    },
+    "qrycboStates": {
+      "area": "orders",
+      "canonical_version": 1,
+      "columns": [
+        {
+          "name": "StateAbbrev",
+          "type": "text"
+        },
+        {
+          "name": "StateName",
+          "type": "text"
+        }
+      ],
+      "datasets": {
+        "engagement": {
+          "digest": {
+            "alg": "hmac-sha256",
+            "value": "51c1b6824ab6048880dc7898651b3d8dbefcd7345990c7215380decbc18c7f3e"
+          },
+          "reason": null,
+          "rows": 51,
+          "status": "ok"
+        },
+        "seed-1": {
+          "digest": {
+            "alg": "sha256",
+            "value": "fe32c9da9c66d5ee40cd98429d5d4557d4ecb75c03ac212ddb45d76c22b88175"
+          },
+          "expected": "synthetic/seed-1/expected/qrycboStates.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        },
+        "seed-2": {
+          "digest": {
+            "alg": "sha256",
+            "value": "0ea043a1e46fa1f5cbc97bc10d6542df157fc16c7259ebaa9f2066aa64649432"
+          },
+          "expected": "synthetic/seed-2/expected/qrycboStates.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        },
+        "seed-3": {
+          "digest": {
+            "alg": "sha256",
+            "value": "ce103abb743d7486a299b6d2c992c61fa9a9ff5d220beed85c953572b663bc4f"
+          },
+          "expected": "synthetic/seed-3/expected/qrycboStates.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        }
+      },
+      "kind": "saved_query",
+      "needs_access_confirmation": false,
+      "order_by": [
+        {
+          "column": "StateName",
+          "desc": false
+        }
+      ]
+    },
+    "qrycboTaxStatus": {
+      "area": "orders",
+      "canonical_version": 1,
+      "columns": [
+        {
+          "name": "TaxStatusID",
+          "type": "integer"
+        },
+        {
+          "name": "TaxStatus",
+          "type": "text"
+        }
+      ],
+      "datasets": {
+        "engagement": {
+          "digest": {
+            "alg": "hmac-sha256",
+            "value": "32db6c4221ca810be96a8d22578df1e1b7c35068cc45e93cdd388a7b08373cdb"
+          },
+          "reason": null,
+          "rows": 2,
+          "status": "ok"
+        },
+        "seed-1": {
+          "digest": {
+            "alg": "sha256",
+            "value": "d049ec79362080abd4a57072c17eff0854db762a6374fb646ed68b9a473492a2"
+          },
+          "expected": "synthetic/seed-1/expected/qrycboTaxStatus.csv",
+          "reason": null,
+          "rows": 2,
+          "status": "ok"
+        },
+        "seed-2": {
+          "digest": {
+            "alg": "sha256",
+            "value": "04d31f73e3abb9e09a6278b286f3ec7bfc1e3e8921b25061c413b8f941e36485"
+          },
+          "expected": "synthetic/seed-2/expected/qrycboTaxStatus.csv",
+          "reason": null,
+          "rows": 2,
+          "status": "ok"
+        },
+        "seed-3": {
+          "digest": {
+            "alg": "sha256",
+            "value": "9e33029cf7d37580647c26ef34b43ade458b74f204ce704d9a09a2dd2cbe229b"
+          },
+          "expected": "synthetic/seed-3/expected/qrycboTaxStatus.csv",
+          "reason": null,
+          "rows": 2,
+          "status": "ok"
+        }
+      },
+      "kind": "saved_query",
+      "needs_access_confirmation": false,
+      "order_by": [
+        {
+          "column": "TaxStatusID",
+          "desc": false
+        }
+      ]
+    },
+    "qrycboVendors": {
+      "area": "purchasing",
+      "canonical_version": 1,
+      "columns": [
+        {
+          "name": "CompanyID",
+          "type": "longinteger"
+        },
+        {
+          "name": "CompanyName",
+          "type": "text"
+        }
+      ],
+      "datasets": {
+        "engagement": {
+          "digest": {
+            "alg": "hmac-sha256",
+            "value": "f06de121fe04084b7e250c056ef54784b5607f285719676e48984fac57374602"
+          },
+          "reason": null,
+          "rows": 2,
+          "status": "ok"
+        },
+        "seed-1": {
+          "digest": {
+            "alg": "sha256",
+            "value": "dbf7cf4d2ac3e0439fdc955960963a449e4adb8ba3616d5eae0e94e7e194c3cc"
+          },
+          "expected": "synthetic/seed-1/expected/qrycboVendors.csv",
+          "reason": null,
+          "rows": 13,
+          "status": "ok"
+        },
+        "seed-2": {
+          "digest": {
+            "alg": "sha256",
+            "value": "c6cca92ba50c1205d8a53e3eaf5bc092556e8d6a6a9c7dfa8516ea7f0d36a239"
+          },
+          "expected": "synthetic/seed-2/expected/qrycboVendors.csv",
+          "reason": null,
+          "rows": 15,
+          "status": "ok"
+        },
+        "seed-3": {
+          "digest": {
+            "alg": "sha256",
+            "value": "02224ab138d45e004aff12ded138b768b0d24884f5f9670cfc5af87116f3cc6c"
+          },
+          "expected": "synthetic/seed-3/expected/qrycboVendors.csv",
+          "reason": null,
+          "rows": 4,
+          "status": "ok"
+        }
+      },
+      "kind": "saved_query",
+      "needs_access_confirmation": false,
+      "order_by": [
+        {
+          "column": "CompanyName",
+          "desc": false
+        }
+      ]
+    },
+    "qryrptProductCatalog": {
+      "area": "reports",
+      "canonical_version": 1,
+      "columns": [
+        {
+          "name": "ProductCategoryID",
+          "type": "longinteger"
+        },
+        {
+          "name": "ProductCategoryName",
+          "type": "text"
+        },
+        {
+          "name": "ProductCategoryCode",
+          "type": "text"
+        },
+        {
+          "name": "ProductName",
+          "type": "text"
+        },
+        {
+          "name": "ProductID",
+          "type": "longinteger"
+        },
+        {
+          "name": "QuantityPerUnit",
+          "type": "text"
+        },
+        {
+          "name": "UnitPrice",
+          "type": "currency"
+        },
+        {
+          "name": "TotalSales",
+          "type": "decimal"
+        },
+        {
+          "name": "ProductCategoryDesc",
+          "type": "text"
+        },
+        {
+          "name": "ProductCategoryImage",
+          "type": "text"
+        }
+      ],
+      "datasets": {
+        "engagement": {
+          "digest": {
+            "alg": "hmac-sha256",
+            "value": "85c0dcd5e8bab34b4705503717753680ceb86f94e809a9ba57adb53a54800d3c"
+          },
+          "reason": null,
+          "rows": 43,
+          "status": "ok"
+        },
+        "seed-1": {
+          "digest": {
+            "alg": "sha256",
+            "value": "6aa1444b7aa7cb09d4a4f426ffb9db0175a336035c653164e4ec89cc2824bbab"
+          },
+          "expected": "synthetic/seed-1/expected/qryrptProductCatalog.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        },
+        "seed-2": {
+          "digest": {
+            "alg": "sha256",
+            "value": "1eb92be899fb46d5da1d3213dfa7e77bbd57837e36b14220f4b59485f92ce59c"
+          },
+          "expected": "synthetic/seed-2/expected/qryrptProductCatalog.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        },
+        "seed-3": {
+          "digest": {
+            "alg": "sha256",
+            "value": "224b6208aa5c4cab757f03167acbafcce81a52b8de36b28120e419ad8deafccf"
+          },
+          "expected": "synthetic/seed-3/expected/qryrptProductCatalog.csv",
+          "reason": null,
+          "rows": 50,
+          "status": "ok"
+        }
+      },
+      "kind": "saved_query",
+      "needs_access_confirmation": false,
+      "order_by": null
+    },
+    "qryrptSalesByEmployee": {
+      "area": "reports",
+      "canonical_version": 1,
+      "columns": [
+        {
+          "name": "EmployeeID",
+          "type": "longinteger"
+        },
+        {
+          "name": "OrderTotal",
+          "type": "decimal"
+        },
+        {
+          "name": "FullNameFNLN",
+          "type": "text"
+        },
+        {
+          "name": "MonthYear",
+          "type": "text"
+        },
+        {
+          "name": "MonthYearSort",
+          "type": "text"
+        }
+      ],
+      "datasets": {
+        "engagement": {
+          "digest": {
+            "alg": "hmac-sha256",
+            "value": "736cbafa20ea4dfc957aa67a6c6d6157970c7b28000b972c81a2fa7bdee696fe"
+          },
+          "reason": null,
+          "rows": 18,
+          "status": "ok"
+        },
+        "seed-1": {
+          "digest": {
+            "alg": "sha256",
+            "value": "72f44480c9b13c2ddf9cc71d4855a06e00271d292089a444d7194a58078eac27"
+          },
+          "expected": "synthetic/seed-1/expected/qryrptSalesByEmployee.csv",
+          "reason": null,
+          "rows": 2,
+          "status": "ok"
+        },
+        "seed-2": {
+          "digest": {
+            "alg": "sha256",
+            "value": "cbb693cbb25172212257fce6f24d3b3fdcfa76a12877233f68ce5d67ec909b25"
+          },
+          "expected": "synthetic/seed-2/expected/qryrptSalesByEmployee.csv",
+          "reason": null,
+          "rows": 5,
+          "status": "ok"
+        },
+        "seed-3": {
+          "digest": {
+            "alg": "sha256",
+            "value": "847535b3f1b290d624e2458f0c019263acbb3b606d1114571c9e1d6fed77803a"
+          },
+          "expected": "synthetic/seed-3/expected/qryrptSalesByEmployee.csv",
+          "reason": null,
+          "rows": 4,
+          "status": "ok"
+        }
+      },
+      "kind": "saved_query",
+      "needs_access_confirmation": true,
+      "order_by": null
+    },
+    "qryrptSalesByProduct_ByMonth": {
+      "area": "reports",
+      "canonical_version": 1,
+      "columns": [
+        {
+          "name": "ProductName",
+          "type": "text"
+        },
+        {
+          "name": "ProductID",
+          "type": "longinteger"
+        },
+        {
+          "name": "MonthYear",
+          "type": "text"
+        },
+        {
+          "name": "MonthYearSort",
+          "type": "text"
+        },
+        {
+          "name": "OrderTotal",
+          "type": "decimal"
+        }
+      ],
+      "datasets": {
+        "engagement": {
+          "digest": {
+            "alg": "hmac-sha256",
+            "value": "176227a550116ff7a0ab78dece846e6f1d90293a22e61fe4a9c09216d8d4849c"
+          },
+          "reason": null,
+          "rows": 69,
+          "status": "ok"
+        },
+        "seed-1": {
+          "digest": {
+            "alg": "sha256",
+            "value": "ef2284c1d0bb4ac1e29728e3456c7fcf836d1946ae420090752b4215fbe985db"
+          },
+          "expected": "synthetic/seed-1/expected/qryrptSalesByProduct_ByMonth.csv",
+          "reason": "empty",
+          "rows": 0,
+          "status": "empty"
+        },
+        "seed-2": {
+          "digest": {
+            "alg": "sha256",
+            "value": "e5b1ce8a2e368efb80e7319ce502e95190ed1d17af5c0a1736e67d47d43f880c"
+          },
+          "expected": "synthetic/seed-2/expected/qryrptSalesByProduct_ByMonth.csv",
+          "reason": null,
+          "rows": 7,
+          "status": "ok"
+        },
+        "seed-3": {
+          "digest": {
+            "alg": "sha256",
+            "value": "887e886d0b359bcd506c9ab4f67354b866c5882a778c88276bc92fbb44bc3c57"
+          },
+          "expected": "synthetic/seed-3/expected/qryrptSalesByProduct_ByMonth.csv",
+          "reason": null,
+          "rows": 4,
+          "status": "ok"
+        }
+      },
+      "kind": "saved_query",
+      "needs_access_confirmation": true,
+      "order_by": null
+    },
+    "qryrptSalesByProduct_ByQuarter": {
+      "area": "reports",
+      "canonical_version": 1,
+      "columns": [
+        {
+          "name": "ProductName",
+          "type": "text"
+        },
+        {
+          "name": "ProductID",
+          "type": "longinteger"
+        },
+        {
+          "name": "QuarterYear",
+          "type": "text"
+        },
+        {
+          "name": "OrderTotal",
+          "type": "decimal"
+        }
+      ],
+      "datasets": {
+        "engagement": {
+          "digest": {
+            "alg": "hmac-sha256",
+            "value": "c79166d1bb5335721d54c87103460770de69b1f6e7b067f4b5d11bec2e44d857"
+          },
+          "reason": null,
+          "rows": 69,
+          "status": "ok"
+        },
+        "seed-1": {
+          "digest": {
+            "alg": "sha256",
+            "value": "9bc724532e508f502c0d0a75d686a273c2ae1c6e27ae9f61c0e6c420d9c62b34"
+          },
+          "expected": "synthetic/seed-1/expected/qryrptSalesByProduct_ByQuarter.csv",
+          "reason": "empty",
+          "rows": 0,
+          "status": "empty"
+        },
+        "seed-2": {
+          "digest": {
+            "alg": "sha256",
+            "value": "5e87d3c458e4c19d0adc9d5b69375f51a0e723b55c2bfecd391c2662269cff1e"
+          },
+          "expected": "synthetic/seed-2/expected/qryrptSalesByProduct_ByQuarter.csv",
+          "reason": null,
+          "rows": 6,
+          "status": "ok"
+        },
+        "seed-3": {
+          "digest": {
+            "alg": "sha256",
+            "value": "31655f69d457b9d3982efe26e417e616168c83cf1926d942221946ea9998567b"
+          },
+          "expected": "synthetic/seed-3/expected/qryrptSalesByProduct_ByQuarter.csv",
+          "reason": null,
+          "rows": 3,
+          "status": "ok"
+        }
+      },
+      "kind": "saved_query",
+      "needs_access_confirmation": true,
+      "order_by": null
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "args": [],
+  "choice": "subquery",
+  "function": "reportParameterEndDate",
+  "rewrite": "DateValue((SELECT Max(fe_o.OrderDate) FROM Orders AS fe_o))",
+  "rule": "R-reports-003"
+}

@@ -1,0 +1,25 @@
+OrderID,EmployeeFNLN,OrderDate,OrderTotal,OrderStatusName,CustomerID,myCompanyID,CustomerName
+3,Lori Payne,2025-03-13T00:00:00,9027.0450,Hold Total,45,1,"Hartman, Werner and Vega"
+7,Marvin Valencia,2025-08-08T02:00:03,\N,Hold Total,36,18,"Owen, Williams and Tyler"
+8,Brittany Wilson,2024-11-28T11:47:27,\N,Grow Which Tell,37,1,"Barrett, Lewis and Rangel"
+9,Sean Whitaker,2023-09-11T08:44:57,\N,Somebody,15,2,Garcia-Munoz
+10,Lori Payne,2025-08-08T02:00:03,11717.2000,Hold Total,8,1,"Morris, Meza and Perez"
+13,Lori Payne,2024-10-16T00:00:00,\N,Hold Total,1,6,Gilbert-Williams
+14,Terrence Ross,2024-08-01T21:24:57,\N,Hold Total,1,50,Gilbert-Williams
+16,Noah Dominguez,2024-03-01T18:41:19,\N,Finish Scientist Team,1,1,Gilbert-Williams
+18,Lori Payne,2023-09-25T00:00:00,10392.4800,Grow Which Tell,1,1,Gilbert-Williams
+19,Sarah Brown,2024-04-13T12:33:26,\N,Act Second,1,19,Gilbert-Williams
+21,Lori Payne,2025-12-07T00:00:00,\N,Somebody,1,1,Gilbert-Williams
+30,Lori Payne,2024-08-04T00:00:00,4071.6800,Grow Which Tell,1,1,Gilbert-Williams
+31,Andrew Flores,2024-04-13T12:33:26,\N,Act Second,1,1,Gilbert-Williams
+32,Sarah Brown,2023-08-12T05:14:00,1675.7475,Grow Which Tell,10,42,Powers-Hernandez
+33,Lori Payne,2023-06-06T16:57:04,\N,Hold Total,1,2,Gilbert-Williams
+34,Timothy Bender,2024-06-27T00:00:00,3363.6375,Hold Total,36,1,"Owen, Williams and Tyler"
+36,Sarah Brown,2024-07-28T00:00:00,328.3200,Grow Which Tell,1,25,Gilbert-Williams
+39,Nicholas Hansen,2025-12-07T00:00:00,\N,Grow Which Tell,1,1,Gilbert-Williams
+40,Sarah Brown,2023-06-07T00:00:00,\N,Hold Total,36,32,"Owen, Williams and Tyler"
+41,Lori Payne,2025-03-05T00:00:00,3316.4280,Grow Which Tell,37,1,"Barrett, Lewis and Rangel"
+43,Sarah Brown,2023-11-24T00:00:00,6841.0550,Grow Which Tell,1,2,Gilbert-Williams
+48,Sarah Brown,2023-06-07T00:00:00,4964.2320,Grow Which Tell,37,2,"Barrett, Lewis and Rangel"
+49,Sarah Brown,2024-03-01T18:41:19,1558.4400,Hold Total,1,9,Gilbert-Williams
+50,Sarah Brown,2025-01-16T00:00:00,\N,Act Second,1,2,Gilbert-Williams

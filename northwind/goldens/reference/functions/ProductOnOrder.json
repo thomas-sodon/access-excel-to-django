@@ -1,0 +1,9 @@
+{
+  "args": [
+    "product_id"
+  ],
+  "choice": "subquery",
+  "function": "ProductOnOrder",
+  "rewrite": "Nz((SELECT Sum(fo_pd.Quantity) FROM PurchaseOrderDetails AS fo_pd INNER JOIN PurchaseOrders AS fo_po ON fo_pd.PurchaseOrderID = fo_po.PurchaseOrderID WHERE fo_pd.ProductID = {product_id} AND fo_po.StatusID = 1), 0)",
+  "rule": "R-inventory-004"
+}

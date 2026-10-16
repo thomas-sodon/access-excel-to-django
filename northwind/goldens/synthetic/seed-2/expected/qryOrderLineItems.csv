@@ -1,0 +1,51 @@
+OrderDetailID,OrderID,ProductID,Quantity,UnitPrice,Discount,OrderDetailStatusID,AddedBy,AddedOn,ModifiedBy,ModifiedOn,ProductName,ProductCategoryID,ProductCategoryName
+1,24,48,79,4.1100,\N,3,lauren08,2024-11-24T00:00:00,istevens,2025-01-04T00:00:00,Free Fast Its,9,"Finish Ever, ""scientist"""
+2,20,21,80,170.5600,0.05,6,\N,\N,rodriguezian,2024-09-24T05:19:57,Suggest Should,11,Assume Own
+3,21,2,54,145.0000,0.15,1,zachary90,2023-01-01T00:00:00,whitakerjasmine,2024-09-22T00:00:00,Far Buy Need,44,Operation
+4,31,16,25,2.8900,0.15,5,baileysimpson,2024-05-26T15:49:06,vmartin,2025-03-05T13:17:48,Game Mind,25,New Sign
+5,20,9,23,92.0200,0.25,5,fcannon,\N,Señora mgordon,2024-10-06T00:00:00,Wall Several,46,Lose
+6,15,37,87,141.4300,\N,4,nelsonwilliam effort player street work state our visit father fact board approach friend office perform recent anyone loss theory behavior say speech evening collection pass about soon decade enjoy senior need hear focus station member without author run,\N,\N,\N,Best Think,5,Trade
+7,31,24,20,97.1000,-41.53,4,fullermorgan,2023-04-27T00:00:00,kballard,2023-02-16T00:00:00,Process,4,Far
+8,2,46,77,153.4600,0.2,4,\N,\N,stephenslisa,2025-11-10T09:00:44,Song Because The,43,Soldier
+9,13,10,74,78.3700,0.1,2,fosterkevin,2025-12-31T23:59:59,craig12,2023-04-05T00:00:00,Fill,25,New Sign
+10,33,30,84,226.9100,0,2,lauriedavis,2023-01-19T00:00:00,carol93,2024-12-30T02:05:09,Charge,43,Soldier
+11,8,47,19,220.4700,0,5,monique52,\N,vholden,2024-01-30T13:45:08,Cover Republican,24,More Adult Near
+12,43,9,49,193.5100,\N,2,\N,2025-09-19T00:00:00,\N,\N,Wall Several,46,Lose
+13,46,1,34,22.8700,\N,2,\N,2024-01-06T09:20:26,\N,2024-09-29T04:36:57,Bank Space Town,22,Single Market
+14,34,21,2,95.3200,0.1,4,\N,2025-10-05T00:00:00,\N,\N,Suggest Should,11,Assume Own
+15,6,37,93,76.4800,0.1,1,\N,2024-05-10T01:29:37,\N,\N,Best Think,5,Trade
+16,35,29,98,94.1800,\N,1,anne39,2024-03-18T00:00:00,isellers,\N,Its Gas Throughout,30,First
+17,47,34,33,60.3400,\N,2,dgarcia,2024-04-06T03:02:03,\N,2025-02-28T00:00:00,Behind Page,44,Operation
+18,48,50,100,193.8600,\N,6,kyle55,2025-06-10T06:22:23,wrodriguez,2023-02-08T00:00:00,Despite Policy Mean,10,Compare Camera
+19,25,13,81,54.4600,0.2,5,sotowendy,\N,kskinner,2025-03-01T11:26:19,Top War,5,Trade
+20,50,9,67,0.0000,\N,6,\N,2023-12-23T00:00:00,\N,\N,Wall Several,46,Lose
+21,43,36,6,234.2700,0.1,1,alexander05,\N,\N,2025-08-24T00:00:00,Lawyer,33,Page
+22,10,3,49,197.4200,0.05,2,jose43,2023-07-05T00:00:00,zmorgan,\N,Company Debate,48,Citizen Difference Purpose
+23,17,42,32,81.8800,0,6,jasongomez,2023-08-07T02:24:51,"jennifer18, ""site""",2025-08-21T00:00:00,Visit And,4,Far
+24,44,25,45,174.3900,\N,6,robinjackson,\N,patrickrivera,2024-03-26T06:32:45,"Trial, ""common""",13,Today Wear Police
+25,37,38,28,155.2200,0.2,3,\N,2025-07-17T17:27:27,rpratt,2024-03-24T14:08:11,Business,29,Democratic According Ago
+26,5,32,4,95.4600,\N,6,Ελλάδα juliahenry,\N,\N,\N,Election Defense Should,24,More Adult Near
+27,45,9,78,8.4900,0.2,3,wardcynthia,2024-09-18T00:00:00,\N,2024-04-04T00:06:46,Wall Several,46,Lose
+28,35,10,53,193.1500,\N,5,ashley83,2024-10-18T01:31:30,ann61,2023-10-19T00:00:00,Fill,25,New Sign
+29,4,48,8,192.2700,0.05,1,slynch,2023-09-07T09:43:50,\N,\N,Free Fast Its,9,"Finish Ever, ""scientist"""
+30,12,11,42,193.1900,0,2,\N,2025-04-12T00:00:00,xfernandez,2024-02-22T00:00:00,Cause Weight Hear,44,Operation
+31,18,42,35,196.0100,\N,1,michaelmoyer,2025-11-11T17:07:43,kara38,2025-03-07T00:00:00,Visit And,4,Far
+32,5,3,72,220.8800,0.2,4,danielsjoyce,2025-04-03T00:48:37,annaheath,\N,Company Debate,48,Citizen Difference Purpose
+33,27,9,100,211.0700,\N,6,pamelanoble,2023-10-21T00:00:00,fisherrobert,2024-09-14T12:35:24,Wall Several,46,Lose
+34,8,41,82,246.7000,0.15,6,\N,2024-10-22T21:08:59,qrichards,\N,Order,47,Go Media
+35,27,26,97,148.7300,0.1,2,vsilva,2024-12-31T00:00:00,ashley08,2025-04-18T16:23:22,Oil,30,First
+36,19,32,62,84.0900,0.2,5,\N,\N,antonio74,2024-09-27T00:00:00,Election Defense Should,24,More Adult Near
+37,4,34,32,20.3900,0.25,4,\N,\N,amystone,2024-12-04T00:00:00,Behind Page,44,Operation
+38,18,50,45,132.8300,0.05,3,jacksondebra,2025-01-31T04:02:39,jessicadavis,2025-12-31T23:59:59,Despite Policy Mean,10,Compare Camera
+39,5,45,100,184.1100,0.05,1,millerdale,2024-04-10T00:00:00,ovang activity every not discuss after main number identify speech add cut answer present address coach must full game worker computer strong term their at play use set rise way build three protect generation reach audience do administration agency leastx,2025-08-22T10:18:32,Appear Get Camera,44,Operation
+40,23,3,84,167.8900,0,1,annette15,2025-07-08T15:19:31,katherine35,2023-01-01T00:00:00,Company Debate,48,Citizen Difference Purpose
+41,50,10,19,28.6400,0.2,3,\N,2023-08-18T00:00:00,johncurry,2024-10-04T00:00:00,Fill,25,New Sign
+42,43,34,9,86.6100,0.25,4,"pbrown, ""difference""",2024-11-05T00:00:00,wholloway,2024-09-05T00:00:00,Behind Page,44,Operation
+43,15,1,34,-157.0200,\N,5,tmolina,\N,\N,\N,Bank Space Town,22,Single Market
+44,24,38,31,243.5600,0,1,jmyers,2025-12-26T00:00:00,karenrobinson,2025-01-11T00:00:00,Business,29,Democratic According Ago
+45,41,33,98,215.4400,0.05,4,\N,2023-03-03T00:00:00,catherine94,2025-11-12T00:00:00,Early,7,Establish Discuss Sister
+46,48,7,98,140.5000,0,1,tammygomez,\N,charles56,2024-05-13T00:00:00,Hot,45,Wonder Suddenly
+47,26,9,28,71.4600,\N,4,cdavis,2024-01-11T03:51:52,\N,\N,Wall Several,46,Lose
+48,5,1,91,90.2500,0.25,3,\N,\N,pnguyen,2025-01-17T07:41:49,Bank Space Town,22,Single Market
+49,42,31,1,177.9100,0.15,3,\N,\N,courtneyfreeman,2023-08-30T00:00:00,Option Lot,40,Eat
+50,36,40,81,123.5800,0.2,1,carrieking,\N,ericgutierrez,2025-05-09T00:00:00,Employee Stop Example,29,Democratic According Ago
