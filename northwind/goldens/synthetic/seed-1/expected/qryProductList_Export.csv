@@ -1,51 +1,51 @@
 Product ID,Product Code,Product,Allocated Inventory,Inventory To Sell,Qty On Order,Reorder Level,Target Level,Min Reorder Qty,Discontinued
-7,FQ-4886,Able Newspaper Method,0,47,14,14,6,28,1
-38,OQ-5890,Action Paper,0,-46,0,163,6,77,0
-32,QN-4464,Administration Life Again,0,30,0,37,150,37,0
-44,OS-9514,Adult Authority Friend,0,0,61,150,167,7,0
-28,NM-2999,Air Us,0,87,0,161,43,20,1
-35,XS-6436,Ask Most,0,-15,58,109,93,59,1
-45,YG-6257,At,0,13,0,21,108,16,1
-18,AD-1970,Behavior Investment,0,0,0,51,70,55,1
-30,OM-3208,By Perform,0,3,0,42,30,49,1
-3,SY-6746,Conference Beautiful Civil,0,0,96,196,90,67,1
-11,NB-1320,Congress,0,0,0,59,160,6,0
-48,KZ-2852,Contain,0,0,97,200,57,67,1
-8,UZ-0603,Customer From His,0,-25,91,83,149,89,1
-6,JZ-3054,Cut Phone,0,146,0,179,168,57,0
-41,UE-4778,Day Easy,0,6,0,180,70,81,1
-15,PO-8758,Degree,0,0,0,54,140,30,1
-43,TE-6495,Discussion,98,-196,0,28,120,97,0
-40,CU-9707,Eat Human Table,28,-102,0,162,24,40,1
-13,XU-7786,Exist Somebody Simply,0,0,0,170,165,61,0
-25,EI-9711,Eye Increase Economy,0,0,0,39,167,9,1
-31,QW-4463,Fact,0,113,47,68,180,67,1
-33,BB-2892,Fear Song,0,7,0,172,57,50,1
-23,VC-1685,Fight Avoid,169,-218,0,12,40,24,0
-24,OT-9285,Fill Road These,0,-11,0,137,184,78,1
-21,RU-3206,Friend Second,0,46,54,97,191,57,1
-9,BI-8787,Fund Pass Expert,0,-98,0,20,98,78,0
-4,WV-7672,Herself,0,0,0,100,188,12,0
-34,HP-5528,Him,0,-99,0,46,90,34,1
-22,SY-4617,Hospital Subject Best,0,13,0,148,59,36,1
-5,RU-0378,Husband,0,128,21,29,161,31,1
-27,RB-5343,In Same Them,84,-115,0,95,153,8,0
-42,LD-0195,Include,0,33,0,62,193,21,1
-46,MI-0454,Indicate Eight Still,0,0,0,137,115,79,0
-37,NF-4550,Industry Reduce,0,0,0,145,188,23,0
-39,KD-0917,Lot,0,0,0,139,25,17,1
-19,LX-7440,Mrs Account Car,0,74,0,142,86,100,0
-29,GJ-1540,Necessary,0,0,0,155,30,97,1
-26,PO-7582,Point Run Apply,0,47,40,140,132,6,1
-17,RS-6582,Pretty Suffer,0,15,0,140,13,2,1
-16,JV-1445,Quality Various Oil,35,89,0,152,84,70,0
-10,IJ-6742,Recently,0,-66,54,148,4,35,1
-1,DE-1656,Second Any,0,26,0,111,189,6,1
-49,MN-7165,Second Customer Cover,0,64,0,49,42,87,0
-12,SE-4546,Serve,0,80,0,152,33,90,1
-47,CU-4686,Significant,0,0,0,178,140,73,1
-50,AG-6496,Soldier,0,113,0,85,59,52,0
-2,TN-1987,Time,0,80,0,7,188,75,0
-36,RY-6286,Use,0,14,0,20,39,67,0
-14,DJ-7633,White Only Impact,0,91,0,16,11,80,0
-20,DL-3829,White Store Upon,35,-45,0,140,152,51,1
+7,FQ-4886,Able Newspaper Method,0,47.0000,14,14,6,28,1
+38,OQ-5890,Action Paper,0,-46.0000,0,163,6,77,0
+32,QN-4464,Administration Life Again,0,30.0000,0,37,150,37,0
+44,OS-9514,Adult Authority Friend,0,0.0000,61,150,167,7,0
+28,NM-2999,Air Us,0,87.0000,0,161,43,20,1
+35,XS-6436,Ask Most,0,-15.0000,58,109,93,59,1
+45,YG-6257,At,0,13.0000,0,21,108,16,1
+18,AD-1970,Behavior Investment,0,0.0000,0,51,70,55,1
+30,OM-3208,By Perform,0,3.0000,0,42,30,49,1
+3,SY-6746,Conference Beautiful Civil,0,0.0000,96,196,90,67,1
+11,NB-1320,Congress,0,0.0000,0,59,160,6,0
+48,KZ-2852,Contain,0,0.0000,97,200,57,67,1
+8,UZ-0603,Customer From His,0,-25.0000,91,83,149,89,1
+6,JZ-3054,Cut Phone,0,146.0000,0,179,168,57,0
+41,UE-4778,Day Easy,0,6.0000,0,180,70,81,1
+15,PO-8758,Degree,0,0.0000,0,54,140,30,1
+43,TE-6495,Discussion,98,-196.0000,0,28,120,97,0
+40,CU-9707,Eat Human Table,28,-102.0000,0,162,24,40,1
+13,XU-7786,Exist Somebody Simply,0,0.0000,0,170,165,61,0
+25,EI-9711,Eye Increase Economy,0,0.0000,0,39,167,9,1
+31,QW-4463,Fact,0,113.0000,47,68,180,67,1
+33,BB-2892,Fear Song,0,7.0000,0,172,57,50,1
+23,VC-1685,Fight Avoid,169,-218.0000,0,12,40,24,0
+24,OT-9285,Fill Road These,0,-11.0000,0,137,184,78,1
+21,RU-3206,Friend Second,0,46.0000,54,97,191,57,1
+9,BI-8787,Fund Pass Expert,0,-98.0000,0,20,98,78,0
+4,WV-7672,Herself,0,0.0000,0,100,188,12,0
+34,HP-5528,Him,0,-99.0000,0,46,90,34,1
+22,SY-4617,Hospital Subject Best,0,13.0000,0,148,59,36,1
+5,RU-0378,Husband,0,128.0000,21,29,161,31,1
+27,RB-5343,In Same Them,84,-115.0000,0,95,153,8,0
+42,LD-0195,Include,0,33.0000,0,62,193,21,1
+46,MI-0454,Indicate Eight Still,0,0.0000,0,137,115,79,0
+37,NF-4550,Industry Reduce,0,0.0000,0,145,188,23,0
+39,KD-0917,Lot,0,0.0000,0,139,25,17,1
+19,LX-7440,Mrs Account Car,0,74.0000,0,142,86,100,0
+29,GJ-1540,Necessary,0,0.0000,0,155,30,97,1
+26,PO-7582,Point Run Apply,0,47.0000,40,140,132,6,1
+17,RS-6582,Pretty Suffer,0,15.0000,0,140,13,2,1
+16,JV-1445,Quality Various Oil,35,89.0000,0,152,84,70,0
+10,IJ-6742,Recently,0,-66.0000,54,148,4,35,1
+1,DE-1656,Second Any,0,26.0000,0,111,189,6,1
+49,MN-7165,Second Customer Cover,0,64.0000,0,49,42,87,0
+12,SE-4546,Serve,0,80.0000,0,152,33,90,1
+47,CU-4686,Significant,0,0.0000,0,178,140,73,1
+50,AG-6496,Soldier,0,113.0000,0,85,59,52,0
+2,TN-1987,Time,0,80.0000,0,7,188,75,0
+36,RY-6286,Use,0,14.0000,0,20,39,67,0
+14,DJ-7633,White Only Impact,0,91.0000,0,16,11,80,0
+20,DL-3829,White Store Upon,35,-45.0000,0,140,152,51,1

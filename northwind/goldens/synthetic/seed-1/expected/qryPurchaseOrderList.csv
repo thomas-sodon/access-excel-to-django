@@ -1,15 +1,15 @@
 PurchaseOrderID,StatusName,CompanyName,TotalCost,Submitter,SubmittedDate,Approver,ApprovedDate,PaymentDate
-48,Better Audience Inside,"Lee, Griffith and Miller",50.0000,Melanie Thomas,2024-06-27T00:00:00,John Hinton,2025-11-27T00:00:00,2023-08-29T00:00:00
-47,Better Audience Inside,"Williams, Burke and White",3782.0000,Micheal Webb,2023-06-01T00:00:00,Tanner Moore,2024-07-24T00:00:00,2025-01-01T00:00:00
-43,Democrat Nice,"Lee, Griffith and Miller",2213.0000,Andrew Shaw,2024-07-07T00:00:00,Tom Gray,2025-10-24T00:00:00,2025-06-15T00:00:00
-37,Fear Receive,Stokes and Sons,16586.0000,Jeremy Smith,2025-08-25T00:00:00,Tanner Moore,2024-07-23T00:00:00,2023-06-18T00:00:00
-33,Fear Receive,Nguyen-Hoffman,1217.0000,Bruce Porter,2025-09-09T00:00:00,Jeremy Smith,2024-10-12T00:00:00,2024-12-10T00:00:00
-29,Fear Receive,Proctor PLC,6152.0000,Bruce Porter,2023-01-15T00:00:00,Tony Stokes,2025-09-18T00:00:00,2025-01-23T00:00:00
-26,Democrat Nice,Smith Group,7719.0000,Tom Gray,2024-04-06T00:00:00,Thomas Walker,2025-02-03T00:00:00,2024-11-20T00:00:00
-24,Fear Receive,Nguyen-Hoffman,5091.0000,Andrew Shaw,2024-07-31T00:00:00,Daniel Madden,2024-04-04T00:00:00,2023-01-23T00:00:00
-21,Reality Around,"Williams, Burke and White",77.0000,David James,2025-02-22T00:00:00,Thomas Walker,2023-05-16T00:00:00,2025-05-01T00:00:00
-17,Reality Around,"Barnes, Lopez and Hendrix",57.0000,Sean Lewis,2025-02-03T00:00:00,Debra Contreras,2024-11-29T00:00:00,2023-06-10T00:00:00
-10,Better Audience Inside,"Stephens, Davis and Nguyen",42.0000,Daniel Madden,2025-07-20T00:00:00,Larry Ramos,2023-10-06T00:00:00,2025-02-24T00:00:00
-7,Better Audience Inside,"Bolton, Bailey and Mueller",11.0000,Cody Dodson,2023-06-17T00:00:00,Katherine Boyd,2025-08-17T00:00:00,2024-06-23T00:00:00
-3,Reality Around,"Lee, Griffith and Miller",30299.0000,Melanie Thomas,2023-06-23T00:00:00,Christine Lopez,2025-06-22T00:00:00,2024-07-30T00:00:00
-1,Serious,"Lee, Griffith and Miller",20240.0000,Kayla Flynn,2025-08-29T00:00:00,Jennifer Flores,2023-09-22T00:00:00,2025-02-23T00:00:00
+48,Better Audience Inside,"Lee, Griffith and Miller",50.7400,Melanie Thomas,2024-06-27T00:00:00,John Hinton,2025-11-27T00:00:00,2023-08-29T00:00:00
+47,Better Audience Inside,"Williams, Burke and White",3781.7300,Micheal Webb,2023-06-01T00:00:00,Tanner Moore,2024-07-24T00:00:00,2025-01-01T00:00:00
+43,Democrat Nice,"Lee, Griffith and Miller",2212.7800,Andrew Shaw,2024-07-07T00:00:00,Tom Gray,2025-10-24T00:00:00,2025-06-15T00:00:00
+37,Fear Receive,Stokes and Sons,16585.4600,Jeremy Smith,2025-08-25T00:00:00,Tanner Moore,2024-07-23T00:00:00,2023-06-18T00:00:00
+33,Fear Receive,Nguyen-Hoffman,1217.5800,Bruce Porter,2025-09-09T00:00:00,Jeremy Smith,2024-10-12T00:00:00,2024-12-10T00:00:00
+29,Fear Receive,Proctor PLC,6152.6000,Bruce Porter,2023-01-15T00:00:00,Tony Stokes,2025-09-18T00:00:00,2025-01-23T00:00:00
+26,Democrat Nice,Smith Group,7718.6200,Tom Gray,2024-04-06T00:00:00,Thomas Walker,2025-02-03T00:00:00,2024-11-20T00:00:00
+24,Fear Receive,Nguyen-Hoffman,5090.7700,Andrew Shaw,2024-07-31T00:00:00,Daniel Madden,2024-04-04T00:00:00,2023-01-23T00:00:00
+21,Reality Around,"Williams, Burke and White",77.3900,David James,2025-02-22T00:00:00,Thomas Walker,2023-05-16T00:00:00,2025-05-01T00:00:00
+17,Reality Around,"Barnes, Lopez and Hendrix",56.8700,Sean Lewis,2025-02-03T00:00:00,Debra Contreras,2024-11-29T00:00:00,2023-06-10T00:00:00
+10,Better Audience Inside,"Stephens, Davis and Nguyen",42.1100,Daniel Madden,2025-07-20T00:00:00,Larry Ramos,2023-10-06T00:00:00,2025-02-24T00:00:00
+7,Better Audience Inside,"Bolton, Bailey and Mueller",10.6700,Cody Dodson,2023-06-17T00:00:00,Katherine Boyd,2025-08-17T00:00:00,2024-06-23T00:00:00
+3,Reality Around,"Lee, Griffith and Miller",30298.7500,Melanie Thomas,2023-06-23T00:00:00,Christine Lopez,2025-06-22T00:00:00,2024-07-30T00:00:00
+1,Serious,"Lee, Griffith and Miller",20239.1200,Kayla Flynn,2025-08-29T00:00:00,Jennifer Flores,2023-09-22T00:00:00,2025-02-23T00:00:00

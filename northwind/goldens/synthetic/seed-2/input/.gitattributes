@@ -1,0 +1,4 @@
+# Written by synth: dataset files are byte-exact (CSV records end in CRLF, some fields
+# hold CR LF) and dataset.json holds their sha256, so git must store them unchanged.
+# Do not edit.
+* -text

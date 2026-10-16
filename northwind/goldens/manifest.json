@@ -2199,7 +2199,7 @@
         },
         {
           "name": "ToSell",
-          "type": "longinteger"
+          "type": "decimal"
         },
         {
           "name": "QuantityOnOrder",
@@ -2254,7 +2254,7 @@
         "engagement": {
           "digest": {
             "alg": "hmac-sha256",
-            "value": "889eb2e8ece9b4839e4453e89f5ee6198ea80cbbaac6df0bfaff87a1c28e1bb3"
+            "value": "b0bd511cfc58000cdc91e9cbd68f55aff901c47117e05dc7dd965db3125fbe6e"
           },
           "reason": null,
           "rows": 43,
@@ -2263,7 +2263,7 @@
         "seed-1": {
           "digest": {
             "alg": "sha256",
-            "value": "81918ed3d6184262e8b67bc6184fb00c3eb88988cd92703f17decdc8b19d9461"
+            "value": "9ece8360a110550b6947f4ca45ef7527ba4073e5fd64cacd54b655bdd1acadfb"
           },
           "expected": "synthetic/seed-1/expected/qryProductList.csv",
           "reason": null,
@@ -2273,7 +2273,7 @@
         "seed-2": {
           "digest": {
             "alg": "sha256",
-            "value": "d712d4e020605dc5b0e6cc6bdbc4a72d5380fd7de336915470eb2313110544c8"
+            "value": "f794ad4c518421b5fe44320274c50fba8b2310cd8a730128fd50be69166e2e21"
           },
           "expected": "synthetic/seed-2/expected/qryProductList.csv",
           "reason": null,
@@ -2283,7 +2283,7 @@
         "seed-3": {
           "digest": {
             "alg": "sha256",
-            "value": "c25d31050affcc30f5f84690943863cb21b3eb68b3688b0debcb47209fba35cd"
+            "value": "6b87a361cfdf0ec98880c8a2c38eb9b027e00b3256b8334d5aecfbaf81f436a7"
           },
           "expected": "synthetic/seed-3/expected/qryProductList.csv",
           "reason": null,
@@ -2317,7 +2317,7 @@
         },
         {
           "name": "Inventory To Sell",
-          "type": "longinteger"
+          "type": "decimal"
         },
         {
           "name": "Qty On Order",
@@ -2344,7 +2344,7 @@
         "engagement": {
           "digest": {
             "alg": "hmac-sha256",
-            "value": "0101690bd1841426de418b7c633cffff187e5601643162b83264d8d1eaf64cdc"
+            "value": "a018ee39d672d6f6c10bca4baaaf5eeed704892a52908ed1e03d4786c85a42f9"
           },
           "reason": null,
           "rows": 43,
@@ -2353,7 +2353,7 @@
         "seed-1": {
           "digest": {
             "alg": "sha256",
-            "value": "30e74fc618d3abd54dd8816b0e5dbb2010f1ec59f90b12814ee36dafa7cb867a"
+            "value": "fb7ebed5b0c11ecc820fb303e184cecfd5b784ac944c9bb443be6c8911900900"
           },
           "expected": "synthetic/seed-1/expected/qryProductList_Export.csv",
           "reason": null,
@@ -2363,7 +2363,7 @@
         "seed-2": {
           "digest": {
             "alg": "sha256",
-            "value": "91bd12f28c66763509be5d244e13acb22cb6da33bc2359688ccbb1e46dcfabdf"
+            "value": "ff81a053c42367454852047b58f5ef539afd964a021d7fbff78ba7772e681cd7"
           },
           "expected": "synthetic/seed-2/expected/qryProductList_Export.csv",
           "reason": null,
@@ -2373,7 +2373,7 @@
         "seed-3": {
           "digest": {
             "alg": "sha256",
-            "value": "4a36389e83f3543289318d3602f6eed284fdf0f3350e271b31e56b4ffdb91fb5"
+            "value": "04674235f698e51f4db77fc1b13c575cb7b0c42a18e15d805fd45acc72053631"
           },
           "expected": "synthetic/seed-3/expected/qryProductList_Export.csv",
           "reason": null,
@@ -2958,7 +2958,7 @@
         },
         {
           "name": "TotalCost",
-          "type": "decimal"
+          "type": "currency"
         },
         {
           "name": "Submitter",
@@ -2985,7 +2985,7 @@
         "engagement": {
           "digest": {
             "alg": "hmac-sha256",
-            "value": "8abc3b5fb7e8bf3cac3f8d70af308a9302c0e2a9b0f7c10ea808906802a950be"
+            "value": "dfc050cd9e360bdf7a4d17f07240b707f5105a3e229ce48acbd5f1ca8afffcfb"
           },
           "reason": null,
           "rows": 2,
@@ -2994,7 +2994,7 @@
         "seed-1": {
           "digest": {
             "alg": "sha256",
-            "value": "ae7a99290cfa326f0e02d94c63fa116a4e0af160c6534b67dd8d312d8942597a"
+            "value": "64c785b2f3728a96a85e90b039f124d7d3612fbda18193fd7493cf407d402f72"
           },
           "expected": "synthetic/seed-1/expected/qryPurchaseOrderList.csv",
           "reason": null,
@@ -3004,7 +3004,7 @@
         "seed-2": {
           "digest": {
             "alg": "sha256",
-            "value": "029e35fa9e91d7601e455c776a0306ef3942738ffdcb08c2600effb899cb5602"
+            "value": "bf71b73b6dae66992293893830354938259e72810b0e8d2fde1f783cee73a65e"
           },
           "expected": "synthetic/seed-2/expected/qryPurchaseOrderList.csv",
           "reason": null,
@@ -3014,7 +3014,7 @@
         "seed-3": {
           "digest": {
             "alg": "sha256",
-            "value": "80e02b2235f718162c5bff3798e3f8ec906003fc31687d4a777fc21ebde820bc"
+            "value": "08eb86f8ef12c27b2d27f90cc52ff3f4bd14e2284edaf07d59a3ec5364b39dbe"
           },
           "expected": "synthetic/seed-3/expected/qryPurchaseOrderList.csv",
           "reason": null,
@@ -3023,7 +3023,7 @@
         }
       },
       "kind": "saved_query",
-      "needs_access_confirmation": false,
+      "needs_access_confirmation": true,
       "order_by": [
         {
           "column": "PurchaseOrderID",
