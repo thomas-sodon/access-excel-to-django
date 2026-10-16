@@ -296,7 +296,6 @@ Engagement `northwind-demo`, spec version 1.0.
 | procedure | Form_frmPurchaseOrderDetails.PoCloseFieldsFilledOut | purchasing | purchasing.services |
 | procedure | Form_frmPurchaseOrderDetails.SetWorkflowLabelColors | purchasing | purchasing.views |
 | procedure | Form_frmPurchaseOrderDetails.VendorID_AfterUpdate | purchasing | purchasing.forms |
-| procedure | Form_frmPurchaseOrderDetails.VendorID_BeforeUpdate | purchasing | purchasing.services |
 | procedure | Form_frmPurchaseOrderDetails.cmdAddNostock_Click | purchasing | purchasing.services |
 | procedure | Form_frmPurchaseOrderDetails.cmdAddPO_Click | purchasing | purchasing.views |
 | procedure | Form_frmPurchaseOrderDetails.cmdApprovePO_Click | purchasing | purchasing.services |
@@ -410,11 +409,11 @@ Engagement `northwind-demo`, spec version 1.0.
 | procedure | Form_frmAdmin.cmdStrings_Click | orders | part of the dropped admin launcher |
 | procedure | Form_frmAdmin.cmdSystemSettings_Click | orders | part of the dropped admin launcher |
 | procedure | Form_frmCompanyDetail.Form_Open | orders | clears a filter left by an earlier Access session; the web screen has no persisted filter |
-| procedure | Form_frmCompanyDetail.cmdClickToMap_Click | orders | opens the address in a retired consumer map site (see open question on dropped conveniences) |
-| procedure | Form_frmCompanyDetail.cmdEmail_Click | orders | e-mails the Access screen through the mail client (see open question on dropped conveniences) |
+| procedure | Form_frmCompanyDetail.cmdClickToMap_Click | orders | opens the address in a retired consumer map site (not needed, client answer to Q-orders-008) |
+| procedure | Form_frmCompanyDetail.cmdEmail_Click | orders | e-mails the Access screen through the mail client (not needed, client answer to Q-orders-008) |
 | procedure | Form_frmCompanyDetail.cmdShowFilter_Click | orders | shows the raw filter expression in a dialog |
 | procedure | Form_frmCompanyDetail.txtBusinessPhone_Click | orders | places the cursor at the start of an empty masked field; Access input behaviour only |
-| procedure | Form_frmCompanyList.cmdLabelWizard_Click | orders | starts the Access mailing-label wizard (see open question on dropped conveniences) |
+| procedure | Form_frmCompanyList.cmdLabelWizard_Click | orders | starts the Access mailing-label wizard (not needed, client answer to Q-orders-008) |
 | procedure | Form_frmCompanyList.cmdShowFilter_Click | orders | shows the raw filter expression in a dialog |
 | procedure | Form_frmCompanyList.cmdShowHideFields_Click | orders | opens the Access unhide-columns dialog |
 | procedure | Form_frmGenericDialog.Form_Load | orders | part of the dropped generic message box |
@@ -476,7 +475,7 @@ Engagement `northwind-demo`, spec version 1.0.
 | procedure | modRibbonCallback.cmdCustomers_OnAction | orders | Access ribbon callback (navigation buttons and recently-used list); the web navigation bar replaces it |
 | procedure | modRibbonCallback.cmdEmployees_OnAction | orders | Access ribbon callback (navigation buttons and recently-used list); the web navigation bar replaces it |
 | procedure | modRibbonCallback.cmdExitApplication_OnAction | orders | Access ribbon callback (navigation buttons and recently-used list); the web navigation bar replaces it |
-| procedure | modRibbonCallback.cmdExportToExcel_OnAction | orders | Access export of the current list to Excel (see open question on dropped conveniences) |
+| procedure | modRibbonCallback.cmdExportToExcel_OnAction | orders | Access export of the current list to Excel (not needed, client answer to Q-orders-008) |
 | procedure | modRibbonCallback.cmdFeatures_OnAction | orders | Access ribbon callback (navigation buttons and recently-used list); the web navigation bar replaces it |
 | procedure | modRibbonCallback.cmdNorthwindDocumentation_OnAction | orders | Access ribbon callback (navigation buttons and recently-used list); the web navigation bar replaces it |
 | procedure | modRibbonCallback.cmdOrders_OnAction | orders | Access ribbon callback (navigation buttons and recently-used list); the web navigation bar replaces it |
@@ -511,6 +510,7 @@ Engagement `northwind-demo`, spec version 1.0.
 | procedure | Form_frmPurchaseOrderDetails.Form_Close | purchasing | window bookkeeping for several open purchase order windows; not needed in a browser |
 | procedure | Form_frmPurchaseOrderDetails.Form_Delete | purchasing | removes the deleted purchase order from the Access ribbon's recently-used list; a desktop UI convenience |
 | procedure | Form_frmPurchaseOrderDetails.Form_Open | purchasing | empty handler (only its error handling); no behaviour |
+| procedure | Form_frmPurchaseOrderDetails.VendorID_BeforeUpdate | purchasing | its only behaviour is the confirm-and-delete-all-lines prompt for changing the vendor of a saved purchase order; the client fixed the vendor once a purchase order is saved (Q-purchasing-001), so the new app has no vendor change (R-purchasing-015) |
 | procedure | Form_frmPurchaseOrderList.Form_Open | purchasing | clears a filter left over from an earlier Access session; the web list starts unfiltered |
 | procedure | Form_sfrmPurchaseOrderLineItems.Form_Current | purchasing | clears field highlights when moving between lines; UI only |
 | procedure | modPurchaseOrders.CloseAllPurchaseOrderDetailsForms | purchasing | releases the list of open purchase order windows at shutdown; not needed in a browser |

@@ -131,9 +131,9 @@ Engagement `northwind-demo`, spec version 1.0. One section per `services[]` entr
 #### `delete_product`
 
 - Area: `inventory`
-- Inputs: product id
-- Outputs: deleted
-- Errors: product is on an order line; product is on a purchase-order line
+- Inputs: product id; delete confirmed
+- Outputs: deleted (the product with its stock takes and vendor links, in one step)
+- Errors: product is on an order line; product is on a purchase-order line; delete not confirmed (nothing is deleted)
 - Rules enforced: R-inventory-016
 
 ### Area `purchasing`: Purchasing and receiving
@@ -177,14 +177,6 @@ Engagement `northwind-demo`, spec version 1.0. One section per `services[]` entr
 - Outputs: purchase order and its lines deleted
 - Errors: purchase order is not New or Submitted
 - Rules enforced: R-purchasing-014
-
-#### `change_purchase_order_vendor`
-
-- Area: `purchasing`
-- Inputs: purchase order id; new vendor id; confirmation
-- Outputs: vendor changed; all lines deleted
-- Errors: not confirmed; vendor is locked in the current status
-- Rules enforced: R-purchasing-011, R-purchasing-015
 
 #### `add_purchase_order_line`
 
@@ -264,7 +256,7 @@ Rules proven along the way: R-orders-050, R-orders-029, R-orders-030, R-orders-0
 7. see the product added to the vendor's oldest New purchase order, or a new one, on the product's purchase-order history: reorder_product (result shown in the product's purchase order history, R-inventory-026)
 8. after that purchase order is approved and received, see the physical stock rise and waiting order lines allocated: approve_purchase_order and receive_purchase_order (purchase_order_to_stock), then allocate_inventory and product_stock_levels
 
-Rules proven along the way: R-inventory-030, R-inventory-010, R-purchasing-023, R-inventory-001, R-inventory-006, R-inventory-008, R-inventory-009, R-inventory-011, R-inventory-017, R-inventory-018, R-inventory-019, R-inventory-020, R-inventory-021, R-inventory-022, R-purchasing-018
+Rules proven along the way: R-inventory-030, R-inventory-010, R-purchasing-023, R-inventory-001, R-inventory-006, R-inventory-008, R-inventory-009, R-inventory-011, R-inventory-017, R-inventory-018, R-inventory-019, R-inventory-020, R-inventory-021, R-inventory-022, R-purchasing-018, R-purchasing-001, R-purchasing-020
 
 ### `purchase_order_to_stock`: Purchase order to receiving to stock update
 

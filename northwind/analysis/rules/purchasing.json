@@ -35,7 +35,6 @@
         "Form_frmPurchaseOrderDetails.PoCloseFieldsFilledOut",
         "Form_frmPurchaseOrderDetails.SetWorkflowLabelColors",
         "Form_frmPurchaseOrderDetails.VendorID_AfterUpdate",
-        "Form_frmPurchaseOrderDetails.VendorID_BeforeUpdate",
         "Form_frmPurchaseOrderDetails.cmdAddNostock_Click",
         "Form_frmPurchaseOrderDetails.cmdAddPO_Click",
         "Form_frmPurchaseOrderDetails.cmdApprovePO_Click",
@@ -160,7 +159,7 @@
     {
       "id": "R-purchasing-004",
       "area": "purchasing",
-      "statement": "Submitting is allowed only for a purchase order in status New. It records the signed-in user as submitter and the current date and time as the submitted date, and sets the status to Submitted. From any other status the action is refused with a message and nothing changes.",
+      "statement": "Submitting is allowed only for a purchase order in status New. It records the signed-in user as submitter and the current date and time (date and time, not the date alone) as the submitted date, and sets the status to Submitted. From any other status the action is refused with a message and nothing changes.",
       "trigger": "form:frmPurchaseOrderDetails.cmdSubmitPO.Click",
       "sources": [
         {
@@ -180,7 +179,7 @@
     {
       "id": "R-purchasing-005",
       "area": "purchasing",
-      "statement": "Approving is allowed only for a Submitted purchase order and only for a user who holds the approve-purchase-order privilege. It records that user as approver and the current date and time as the approved date, and sets the status to Approved. Without the privilege, or from another status, the action is refused with a message and nothing changes.",
+      "statement": "Approving is allowed only for a Submitted purchase order and only for a user who holds the approve-purchase-order privilege. The approver may be the same person who submitted it (self-approval is allowed). Approving records that user as approver and the current date and time as the approved date, and sets the status to Approved. Without the privilege, or from another status, the action is refused with a message and nothing changes.",
       "trigger": "form:frmPurchaseOrderDetails.cmdApprovePO.Click",
       "sources": [
         {
@@ -233,7 +232,7 @@
     {
       "id": "R-purchasing-007",
       "area": "purchasing",
-      "statement": "Receiving is allowed only for an Approved purchase order and only after the user confirms posting it to inventory; declining changes nothing. Receiving records the current date and time as the received date of the purchase order and of every one of its lines (the whole order is received at once) and sets the status to Received.",
+      "statement": "Receiving is allowed only for an Approved purchase order and only after the user confirms posting it to inventory; declining changes nothing. Receiving records the current date and time as the received date of the purchase order and of every one of its lines (the whole order is received at once; there are no partial receipts of some lines or part quantities) and sets the status to Received.",
       "trigger": "form:frmPurchaseOrderDetails.cmdReceivePO.Click",
       "sources": [
         {
@@ -282,7 +281,7 @@
     {
       "id": "R-purchasing-009",
       "area": "purchasing",
-      "statement": "Closing is allowed only for a Received purchase order and only when both the shipping fee and the payment method are filled in; otherwise the missing fields are highlighted and the close is refused. Closing stores the current date and time as the payment date, the computed tax as the tax amount and the computed total as the payment amount, and sets the status to Closed. The payment method is chosen from a fixed list in the form.",
+      "statement": "Closing is allowed only for a Received purchase order and only when both the shipping fee and the payment method are filled in; otherwise the missing fields are highlighted and the close is refused. Closing stores the current date and time as the payment date, the computed tax as the tax amount and the computed total as the payment amount, and sets the status to Closed. The payment method is chosen from a fixed list of exactly three methods: credit card, check and cash.",
       "trigger": "form:frmPurchaseOrderDetails.cmdClosePO.Click",
       "sources": [
         {
@@ -306,7 +305,7 @@
     {
       "id": "R-purchasing-010",
       "area": "purchasing",
-      "statement": "Purchase order amounts: each line amount is quantity times unit cost; the subtotal is the sum of the line amounts; the tax is the vendor tax rate from the system settings times the subtotal (the shipping fee is not taxed); the total is subtotal plus tax plus shipping fee, with a missing shipping fee counted as zero.",
+      "statement": "Purchase order amounts: each line amount is quantity times unit cost; the subtotal is the sum of the line amounts; the tax is the vendor tax rate times the subtotal, where the vendor tax rate is one system-wide setting (the shipping fee is not taxed, and the tax is stored on the purchase order only when it is closed); the total is subtotal plus tax plus shipping fee, with a missing shipping fee counted as zero.",
       "trigger": "form:frmPurchaseOrderDetails.Current",
       "sources": [
         {
@@ -332,7 +331,7 @@
     {
       "id": "R-purchasing-011",
       "area": "purchasing",
-      "statement": "Field locking by status: once a purchase order is saved, its number, vendor, status, submitter, approver, the submitted and approved dates, the computed tax and total and the payment date can no longer be edited directly. The received date is editable only while the order is Approved, the shipping fee and payment method only while it is Received, and the notes until it is Closed. A Closed purchase order is read-only. On a new, unsaved purchase order the vendor can be chosen.",
+      "statement": "Field locking by status: once a purchase order is saved, its number, vendor, status, submitter, approver, the submitted and approved dates, the computed tax and total and the payment date can no longer be edited directly. The received date is editable only while the order is Approved, the shipping fee and payment method only while it is Received, and the notes until it is Closed. A Closed purchase order is read-only. On a new, unsaved purchase order the vendor can be chosen; once the purchase order is saved its vendor is fixed in every status.",
       "trigger": "form:frmPurchaseOrderDetails.Current",
       "sources": [
         {
@@ -347,7 +346,7 @@
       "tables": [
         "PurchaseOrders"
       ],
-      "confidence": "medium",
+      "confidence": "high",
       "test_kind": "rule",
       "questions": [
         "Q-purchasing-001",
@@ -421,23 +420,23 @@
     {
       "id": "R-purchasing-015",
       "area": "purchasing",
-      "statement": "Changing the vendor of a purchase order that already has a vendor asks for confirmation. On yes, all lines of the purchase order are deleted and the new vendor is kept; on no, the old vendor stays. Choosing the first vendor of a new purchase order does not ask. After a vendor change the product choices for the lines are refreshed.",
-      "trigger": "form:frmPurchaseOrderDetails.VendorID.BeforeUpdate",
+      "statement": "The vendor of a purchase order is chosen before the purchase order is first saved, without any confirmation, and choosing it refreshes the product choices for the lines. Once the purchase order is saved its vendor can never be changed, in any status; there is no change-vendor action, so the original's confirm-and-delete-all-lines prompt (reachable only on a saved purchase order, where the vendor is already locked) is not carried over.",
+      "trigger": "form:frmPurchaseOrderDetails.VendorID.AfterUpdate",
       "sources": [
         {
           "type": "procedure",
-          "ref": "Form_frmPurchaseOrderDetails.VendorID_BeforeUpdate"
+          "ref": "Form_frmPurchaseOrderDetails.VendorID_AfterUpdate"
         },
         {
           "type": "procedure",
-          "ref": "Form_frmPurchaseOrderDetails.VendorID_AfterUpdate"
+          "ref": "Form_frmPurchaseOrderDetails.LockControls"
         }
       ],
       "tables": [
         "PurchaseOrders",
         "PurchaseOrderDetails"
       ],
-      "confidence": "medium",
+      "confidence": "high",
       "test_kind": "rule",
       "questions": [
         "Q-purchasing-001"
@@ -510,7 +509,7 @@
     {
       "id": "R-purchasing-019",
       "area": "purchasing",
-      "statement": "A purchase order line needs a product, a quantity and a unit cost, and the product must exist. A quantity below the product's minimum reorder quantity is refused with a message. If the product's quantity available to sell plus the ordered quantity stays below the product's target level, the user gets a warning but the line is still saved.",
+      "statement": "A purchase order line needs a product, a quantity and a unit cost, and the product must exist. A quantity below the product's minimum reorder quantity is refused with a message. If the product's quantity available to sell plus the ordered quantity stays below the product's target level, the user gets a warning only and the line is still saved (it is never a hard stop).",
       "trigger": "form:sfrmPurchaseOrderLineItems.BeforeUpdate",
       "sources": [
         {
@@ -582,33 +581,6 @@
         "Products",
         "ProductVendors",
         "OrderDetails"
-      ],
-      "confidence": "high",
-      "test_kind": "rule",
-      "questions": []
-    },
-    {
-      "id": "R-purchasing-022",
-      "area": "purchasing",
-      "statement": "Reordering a product for a vendor appends a line (product, quantity, standard unit cost) to that vendor's oldest purchase order still in status New; when the vendor has none, it creates a new purchase order for the vendor in status New with that one line. If the line cannot be added the user is told that the purchase order exists without it.",
-      "trigger": "procedure:modPurchaseOrders.ReorderProduct",
-      "sources": [
-        {
-          "type": "procedure",
-          "ref": "modPurchaseOrders.ReorderProduct"
-        },
-        {
-          "type": "procedure",
-          "ref": "modPurchaseOrders.AddPurchaseOrderDetail"
-        },
-        {
-          "type": "procedure",
-          "ref": "Form_frmProductDetail.cmdReorderProduct_Click"
-        }
-      ],
-      "tables": [
-        "PurchaseOrders",
-        "PurchaseOrderDetails"
       ],
       "confidence": "high",
       "test_kind": "rule",
@@ -700,7 +672,7 @@
     {
       "id": "R-purchasing-026",
       "area": "purchasing",
-      "statement": "On a vendor's company page, the purchase order tab lists that vendor's purchase orders with status, submitter, approver, the submitted, approved and received dates, the payment fields and the extended cost, plus a count; only purchase orders that have a submitter appear. Double-clicking a row opens that purchase order.",
+      "statement": "On a vendor's company page, the purchase order tab lists that vendor's purchase orders with status, submitter, approver, the submitted, approved and received dates, the payment fields and the extended cost, plus a count; only purchase orders that have a submitter appear, so New purchase orders are not listed there (kept on purpose). Double-clicking a row opens that purchase order.",
       "trigger": "query:qryVendorPurchaseOrderList",
       "sources": [
         {
@@ -734,7 +706,7 @@
     {
       "id": "R-purchasing-027",
       "area": "purchasing",
-      "statement": "Audit fields on purchase orders, purchase order lines and purchase order statuses: on insert, added-by, added-on, modified-by and modified-on are set to the current user's name and the current date and time; on every update, modified-by and modified-on are refreshed while added-by and added-on keep their original values even if an edit tries to change or clear them. The purchase order form shows who created and last changed the record.",
+      "statement": "Audit fields on purchase orders, purchase order lines and purchase order statuses: on insert, added-by, added-on, modified-by and modified-on are set to the stamp name and the current date and time; on every update, modified-by and modified-on are refreshed while added-by and added-on keep their original values even if an edit tries to change or clear them. The stamp name is the signed-in user's full name (first name then last name); there is no operating-system login fallback. Rows written without a signed-in user (imports, start-up jobs and other system jobs) carry the fixed name System. The purchase order form shows who created and last changed the record.",
       "trigger": "datamacro:PurchaseOrders.BeforeChange",
       "sources": [
         {
@@ -748,6 +720,10 @@
         {
           "type": "data_macro",
           "ref": "PurchaseOrderStatus.BeforeChange"
+        },
+        {
+          "type": "procedure",
+          "ref": "modTableDataMacros.GetAuditFieldsUserName"
         }
       ],
       "tables": [
@@ -757,9 +733,7 @@
       ],
       "confidence": "high",
       "test_kind": "rule",
-      "questions": [
-        "Q-purchasing-009"
-      ]
+      "questions": []
     }
   ],
   "objects": [
@@ -792,7 +766,7 @@
       "name": "PurchaseOrders.BeforeChange",
       "decision": "keep",
       "area": "purchasing",
-      "target_component": "purchasing.services",
+      "target_component": "foundation:audit-fields",
       "reason": null
     },
     {
@@ -800,7 +774,7 @@
       "name": "PurchaseOrderDetails.BeforeChange",
       "decision": "keep",
       "area": "purchasing",
-      "target_component": "purchasing.services",
+      "target_component": "foundation:audit-fields",
       "reason": null
     },
     {
@@ -808,7 +782,7 @@
       "name": "PurchaseOrderStatus.BeforeChange",
       "decision": "keep",
       "area": "purchasing",
-      "target_component": "purchasing.services",
+      "target_component": "foundation:audit-fields",
       "reason": null
     },
     {
@@ -1030,10 +1004,10 @@
     {
       "type": "procedure",
       "name": "Form_frmPurchaseOrderDetails.VendorID_BeforeUpdate",
-      "decision": "keep",
+      "decision": "drop",
       "area": "purchasing",
-      "target_component": "purchasing.services",
-      "reason": null
+      "target_component": null,
+      "reason": "its only behaviour is the confirm-and-delete-all-lines prompt for changing the vendor of a saved purchase order; the client fixed the vendor once a purchase order is saved (Q-purchasing-001), so the new app has no vendor change (R-purchasing-015)"
     },
     {
       "type": "procedure",
@@ -1379,14 +1353,15 @@
       ],
       "reports": [],
       "rules": [
-        "R-purchasing-022",
         "R-purchasing-023",
+        "R-purchasing-001",
+        "R-purchasing-020",
         "R-purchasing-018"
       ],
       "steps": [
         "on a product page start a reorder (the inventory area's product form)",
         "pick the vendor in the dialog when the product has several vendors",
-        "the product is added to the vendor's open New purchase order, or a new one is created",
+        "the product is added to the vendor's oldest New purchase order, or a new New purchase order is created (rule R-inventory-020 of the inventory area)",
         "the purchase order opens for review and goes on through the purchase order workflow"
       ]
     }
@@ -1477,23 +1452,6 @@
       ]
     },
     {
-      "name": "change_purchase_order_vendor",
-      "area": "purchasing",
-      "inputs": [
-        "purchase order id",
-        "new vendor id",
-        "confirmation"
-      ],
-      "outputs": [
-        "vendor changed",
-        "all lines deleted"
-      ],
-      "errors": [
-        "not confirmed",
-        "vendor is locked in the current status"
-      ]
-    },
-    {
       "name": "add_purchase_order_line",
       "area": "purchasing",
       "inputs": [
@@ -1525,23 +1483,6 @@
       ]
     },
     {
-      "name": "reorder_product",
-      "area": "purchasing",
-      "inputs": [
-        "product id",
-        "vendor id",
-        "quantity",
-        "unit cost"
-      ],
-      "outputs": [
-        "purchase order id (existing New purchase order of the vendor, or a new one)"
-      ],
-      "errors": [
-        "product has no vendor",
-        "line could not be added"
-      ]
-    },
-    {
       "name": "purchase_order_amounts",
       "area": "purchasing",
       "inputs": [
@@ -1559,47 +1500,42 @@
     {
       "id": "Q-purchasing-001",
       "text": "Once a purchase order is saved its vendor is locked in every status, yet the app also has a confirm-and-delete-all-lines path for changing the vendor. Should the vendor of a saved New purchase order be changeable (deleting its lines after confirmation), or fixed once the purchase order is saved, as the current app effectively behaves?",
-      "status": "open"
+      "status": "answered"
     },
     {
       "id": "Q-purchasing-002",
       "text": "The purchase order tab on a vendor's company page lists only purchase orders that already have a submitter, so New purchase orders do not appear there, while the main purchase order list shows them. Is that intended, or should the vendor tab show every purchase order of the vendor?",
-      "status": "open"
+      "status": "answered"
     },
     {
       "id": "Q-purchasing-003",
       "text": "Tax on a purchase order is the vendor tax rate from the system settings times the line subtotal, the shipping fee is not taxed, and the tax is stored only when the purchase order is closed. Please confirm, and confirm that the vendor tax rate stays a single system-wide setting.",
-      "status": "open"
+      "status": "answered"
     },
     {
       "id": "Q-purchasing-004",
       "text": "Any user with the approve-purchase-order privilege can approve, including the person who submitted the purchase order. Should self-approval be blocked?",
-      "status": "open"
+      "status": "answered"
     },
     {
       "id": "Q-purchasing-005",
       "text": "Receiving is all or nothing: the whole purchase order is received at once and every line gets the same received date. Do you need partial receipts (some lines or part quantities)?",
-      "status": "open"
+      "status": "answered"
     },
     {
       "id": "Q-purchasing-006",
       "text": "The table design describes the submitted, approved, received and payment dates as dates without a time, but the app stores the date and time. Should the new app keep date and time (the line received time matters for stock calculations) or store dates only on the purchase order?",
-      "status": "open"
+      "status": "answered"
     },
     {
       "id": "Q-purchasing-007",
       "text": "The received date stays editable while a purchase order is Approved, and the shipping fee and payment method only while it is Received. Is that intended? Also, the payment method is chosen from a fixed list of three (credit card, check, cash): is that the full list?",
-      "status": "open"
+      "status": "answered"
     },
     {
       "id": "Q-purchasing-008",
       "text": "When a line's quantity leaves the product below its target level, the app only warns and still saves the line. Keep it as a warning, or make it a hard stop?",
-      "status": "open"
-    },
-    {
-      "id": "Q-purchasing-009",
-      "text": "Audit fields record a user name; when nobody is signed in, the app falls back to the computer's user name. The new app always has a signed-in user. Is it acceptable to record the signed-in user only?",
-      "status": "open"
+      "status": "answered"
     }
   ],
   "signed": null

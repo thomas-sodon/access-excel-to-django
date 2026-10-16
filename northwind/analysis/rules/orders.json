@@ -602,7 +602,7 @@
     {
       "id": "R-orders-014",
       "area": "orders",
-      "statement": "Which order fields can be edited depends on the order status: on an unsaved order the customer, salesperson, notes, shipping fee, tax rate and tax status; when New the notes, shipping fee, tax rate and tax status (customer and salesperson are fixed once saved); when Invoiced the notes, shipped date and shipper; when Shipped the notes, payment method and paid date; when Paid only the notes; when Closed nothing. Order number, status, order date, invoice date, tax amount and total are never edited by hand.",
+      "statement": "Which order fields can be edited depends on the order status: on an unsaved order the customer, salesperson, notes, shipping fee, tax rate and tax status; when New the notes, shipping fee, tax rate and tax status (customer and salesperson are fixed once saved); when Invoiced the notes, shipped date and shipper; when Shipped the notes, payment method and paid date; when Paid only the notes; when Closed nothing. Order number, status, order date, invoice date, tax amount and total are never edited by hand. No order is enforced between the order, invoice, shipped and paid dates; the new app adds no date checks.",
       "trigger": "form:frmOrderDetails.Current",
       "sources": [
         {
@@ -630,7 +630,7 @@
     {
       "id": "R-orders-015",
       "area": "orders",
-      "statement": "Creating the invoice is allowed only for a New order that has at least one line, all of whose lines are Allocated (no partial invoices), and whose shipping fee is filled in (zero is accepted, blank is not; the blank field is highlighted). It saves the order, opens the invoice, sets the status to Invoiced, stamps the invoice date with the current date and time and sets every line to Invoiced.",
+      "statement": "Creating the invoice is allowed only for a New order that has at least one line, all of whose lines are Allocated (no partial invoices), and whose shipping fee is filled in (zero is accepted, blank is not; the blank field is highlighted). It saves the order, opens the invoice, sets the status to Invoiced, stamps the invoice date with the current date and time and sets every line to Invoiced. Partial invoices and backorders stay unsupported.",
       "trigger": "form:frmOrderDetails.cmdCreateInvoice.Click",
       "sources": [
         {
@@ -664,7 +664,7 @@
     {
       "id": "R-orders-016",
       "area": "orders",
-      "statement": "Shipping is allowed only for an Invoiced order and needs the shipped date, the shipper and the shipping fee (missing ones are highlighted and the user is told); it sets the order to Shipped and every line to Shipped.",
+      "statement": "Shipping is allowed only for an Invoiced order and needs the shipped date, the shipper and the shipping fee (missing ones are highlighted and the user is told); it sets the order to Shipped and every line to Shipped. The shipped date may be any date; no check against the order or invoice date.",
       "trigger": "form:frmOrderDetails.cmdShipOrder.Click",
       "sources": [
         {
@@ -693,7 +693,7 @@
     {
       "id": "R-orders-017",
       "area": "orders",
-      "statement": "Receiving payment is allowed only for a Shipped order and needs the payment method (one of the fixed methods offered by the order screen) and the paid date (missing ones are highlighted and the user is told); it sets the order to Paid.",
+      "statement": "Receiving payment is allowed only for a Shipped order and needs the payment method (one of the fixed methods offered by the order screen) and the paid date (missing ones are highlighted and the user is told); it sets the order to Paid. The paid date may be any date; no check against the order or shipped date.",
       "trigger": "form:frmOrderDetails.cmdReceivePayment.Click",
       "sources": [
         {
@@ -761,7 +761,7 @@
     {
       "id": "R-orders-020",
       "area": "orders",
-      "statement": "The invoice is a printable document for one order: the invoice number is the order number; it shows the date it is printed, the customer's name and address (as bill-to and ship-to), the salesperson's full name and the trading company's own address (the company whose type is the trading company itself); one row per line with product code, product name, quantity, unit price, discount and extended price = quantity x unit price x (1 - discount); then subtotal = sum of extended prices, tax = tax rate x subtotal when the order's tax status is Taxable and 0 otherwise (shipping is not taxed), shipping = the order's shipping fee, and total = subtotal + tax + shipping.",
+      "statement": "The invoice is a printable document for one order: the invoice number is the order number; it shows the date it is printed (not the stored invoice date, so a reprint carries the new date), the customer's name and address (as bill-to and ship-to), the salesperson's full name and the trading company's own address (the company whose type is the trading company itself); one row per line with product code, product name, quantity, unit price, discount and extended price = quantity x unit price x (1 - discount); then subtotal = sum of extended prices, tax = tax rate x subtotal when the order's tax status is Taxable and 0 otherwise (shipping is not taxed), shipping = the order's shipping fee, and total = subtotal + tax + shipping.",
       "trigger": "query:qryInvoice",
       "sources": [
         {
@@ -813,7 +813,7 @@
     {
       "id": "R-orders-022",
       "area": "orders",
-      "statement": "The order screen shows each line's price = quantity x (1 - discount) x unit price, the lines' subtotal, the tax amount = tax rate x subtotal when the order's tax status is Taxable and 0 otherwise, and the order total = subtotal + tax amount + shipping fee (a blank fee counts as 0).",
+      "statement": "The order screen shows each line's price = quantity x (1 - discount) x unit price, the lines' subtotal, the tax amount = tax rate x subtotal when the order's tax status is Taxable and 0 otherwise, and the order total = subtotal + tax amount + shipping fee (a blank fee counts as 0). A shipping fee of zero is accepted and is never taxed.",
       "trigger": "form:frmOrderDetails.Current",
       "sources": [
         {
@@ -888,7 +888,7 @@
     {
       "id": "R-orders-025",
       "area": "orders",
-      "statement": "The order list has four filters: Open orders (every status except Closed), Recent orders (order date within the last 30 days; when there are none the user is told), My orders (salesperson is the signed-in employee) and All orders. Any filter left over from an earlier session is cleared when the list opens and the selected filter is applied.",
+      "statement": "The order list has four filters: Open orders (every status except Closed), Recent orders (order date within the last 30 days; when there are none the user is told), My orders (salesperson is the signed-in employee) and All orders. Any filter left over from an earlier session is cleared when the list opens and the selected filter is applied. The list opens with the Open orders filter selected.",
       "trigger": "form:frmOrderList.fraFilter.AfterUpdate",
       "sources": [
         {
@@ -931,7 +931,7 @@
     {
       "id": "R-orders-027",
       "area": "orders",
-      "statement": "The employee screen shows that employee's most recent orders (at most 20, newest order number first) with date, total, status, salesperson and customer.",
+      "statement": "The employee screen's recent orders list takes the 20 most recent orders of all employees (newest order number first), then shows only those that belong to the selected employee, with date, total, status, salesperson and customer; an employee with no order among those 20 sees an empty list.",
       "trigger": "query:qryOrders_MostRecent",
       "sources": [
         {
@@ -941,6 +941,10 @@
         {
           "type": "form",
           "ref": "sfrmOrders_MostRecent_ByEmployee"
+        },
+        {
+          "type": "form",
+          "ref": "frmEmployeeList"
         }
       ],
       "tables": [
@@ -1107,7 +1111,7 @@
     {
       "id": "R-orders-031",
       "area": "orders",
-      "statement": "Every table with audit columns records who created a row and when, and who last changed it and when: inserting sets created-by, created-on, modified-by and modified-on; updating sets modified-by and modified-on and keeps the original created-by and created-on even if an update tries to change or blank them. The name recorded is the signed-in employee's full name (first then last), or the operating-system login when nobody is signed in.",
+      "statement": "Every table with audit columns records who created a row and when, and who last changed it and when: inserting sets created-by, created-on, modified-by and modified-on; updating sets modified-by and modified-on and keeps the original created-by and created-on even if an update tries to change or blank them. The name recorded is the signed-in employee's full name (first then last); there is no fallback to the operating-system login. Rows written by imports, start-up jobs and other system jobs, where nobody is signed in, carry the fixed name System.",
       "trigger": "datamacro:Orders.BeforeChange",
       "sources": [
         {
@@ -1217,7 +1221,7 @@
     {
       "id": "R-orders-033",
       "area": "orders",
-      "statement": "A company cannot be deleted while it has orders as customer, orders as shipper or purchase orders as vendor; the user is told how many of each. Otherwise the user confirms (the message says how many contacts and vendor-product links will go too) and the company is deleted together with its contacts and its vendor-product links.",
+      "statement": "A company cannot be deleted while it has orders as customer, orders as shipper or purchase orders as vendor; the user is told how many of each. Otherwise the user confirms (the message says how many contacts and vendor-product links will go too) and the company is deleted together with its contacts and its vendor-product links. The cascade to contacts and vendor-product links is kept.",
       "trigger": "form:frmCompanyDetail.Delete",
       "sources": [
         {
@@ -1317,7 +1321,7 @@
     {
       "id": "R-orders-036",
       "area": "orders",
-      "statement": "Saving changes on the company screen asks the user to confirm; answering no discards the unsaved changes.",
+      "statement": "Saving changes on the company screen asks the user to confirm; answering no discards the unsaved changes. The other screens keep saving without asking.",
       "trigger": "form:frmCompanyDetail.BeforeUpdate",
       "sources": [
         {
@@ -1558,7 +1562,7 @@
     {
       "id": "R-orders-045",
       "area": "orders",
-      "statement": "Phone numbers of companies, contacts and employees are entered as a ten-digit number shown as 3-3-4 digits, optionally followed by an extension of up to eight characters.",
+      "statement": "Phone numbers of companies, contacts and employees are entered as a ten-digit number shown as 3-3-4 digits, optionally followed by an extension of up to eight characters. Only this US format is accepted; international numbers are not.",
       "trigger": "form:frmCompanyDetail.BeforeUpdate",
       "sources": [
         {
@@ -1704,7 +1708,7 @@
     {
       "id": "R-orders-048",
       "area": "orders",
-      "statement": "A new company's standard tax status defaults to Tax Exempt until the user picks another.",
+      "statement": "A new company's standard tax status defaults to Tax Exempt until the user picks another. Customers also default to Tax Exempt.",
       "trigger": "form:frmCompanyDetail.BeforeUpdate",
       "sources": [
         {
@@ -1725,7 +1729,7 @@
     {
       "id": "R-orders-049",
       "area": "orders",
-      "statement": "At start-up (the auto-run macro, when the database is trusted) the start-up routine runs: on the very first run only, guarded by the first-run flag in system settings, it moves every date in every table forward by the number of days between the latest order date and today (never backwards) so the sample data looks current, then sets the flag so this never runs again; it then shows the welcome screen when that setting is on, asks the user to sign in and opens the order list.",
+      "statement": "At start-up (the auto-run macro, when the database is trusted) the start-up routine runs: on the very first run only, guarded by the first-run flag in system settings, it moves every date in every table forward by the number of days between the latest order date and today (never backwards) so the sample data looks current, then sets the flag so this never runs again; it then shows the welcome screen when that setting is on, asks the user to sign in and opens the order list. The new app keeps the date shift as a one-off start-up command guarded by the same first-run flag; rows it changes are stamped with the name System (R-orders-031).",
       "trigger": "schedule:startup",
       "sources": [
         {
@@ -2333,7 +2337,7 @@
       "decision": "drop",
       "area": "orders",
       "target_component": null,
-      "reason": "opens the address in a retired consumer map site (see open question on dropped conveniences)"
+      "reason": "opens the address in a retired consumer map site (not needed, client answer to Q-orders-008)"
     },
     {
       "type": "procedure",
@@ -2349,7 +2353,7 @@
       "decision": "drop",
       "area": "orders",
       "target_component": null,
-      "reason": "e-mails the Access screen through the mail client (see open question on dropped conveniences)"
+      "reason": "e-mails the Access screen through the mail client (not needed, client answer to Q-orders-008)"
     },
     {
       "type": "procedure",
@@ -2413,7 +2417,7 @@
       "decision": "drop",
       "area": "orders",
       "target_component": null,
-      "reason": "starts the Access mailing-label wizard (see open question on dropped conveniences)"
+      "reason": "starts the Access mailing-label wizard (not needed, client answer to Q-orders-008)"
     },
     {
       "type": "procedure",
@@ -3445,7 +3449,7 @@
       "decision": "keep",
       "area": "orders",
       "target_component": "foundation:sign-in",
-      "reason": "reads the operating-system login used to find the employee and as the audit name when nobody is signed in; replaced by the signed-in user"
+      "reason": "reads the operating-system login used to find the employee and as the audit name when nobody is signed in; replaced by the signed-in user with no operating-system fallback (system jobs stamp System)"
     },
     {
       "type": "procedure",
@@ -3669,7 +3673,7 @@
       "decision": "drop",
       "area": "orders",
       "target_component": null,
-      "reason": "Access export of the current list to Excel (see open question on dropped conveniences)"
+      "reason": "Access export of the current list to Excel (not needed, client answer to Q-orders-008)"
     },
     {
       "type": "procedure",
@@ -4322,10 +4326,10 @@
     {
       "type": "table",
       "name": "Strings",
-      "decision": "drop",
+      "decision": "keep",
       "area": "orders",
-      "target_component": null,
-      "reason": "message texts for Access message boxes; the new app keeps its messages in its templates and forms"
+      "target_component": "legacy.models",
+      "reason": null
     },
     {
       "type": "table",
@@ -4440,12 +4444,6 @@
       "rule": "R-orders-047"
     },
     {
-      "table": "OrderDetails",
-      "fk": "ProductID",
-      "on_delete": "PROTECT",
-      "rule": "R-orders-008"
-    },
-    {
       "table": "Orders",
       "fk": "CustomerID",
       "on_delete": "PROTECT",
@@ -4539,7 +4537,14 @@
       "rules": [
         "R-orders-050",
         "R-orders-029",
-        "R-orders-030"
+        "R-orders-030",
+        "R-orders-001",
+        "R-orders-009",
+        "R-orders-015",
+        "R-orders-016",
+        "R-orders-017",
+        "R-orders-018",
+        "R-orders-020"
       ],
       "steps": [
         "sign in and land on the order list",
@@ -4734,63 +4739,63 @@
   "open_questions": [
     {
       "id": "Q-orders-001",
-      "text": "The printed invoice shows the date it is printed, not the stored invoice date, so a reprint carries a new date. Should the invoice show the stored invoice date instead? (Assumption until answered: keep the original behaviour.)",
-      "status": "open"
+      "text": "The printed invoice shows the date it is printed, not the stored invoice date, so a reprint carries a new date. Should the invoice show the stored invoice date instead? (Assumption until answered: keep the original behaviour.) Answer (2026-10-16, demo client): keep the original: the invoice shows the date it is printed.",
+      "status": "answered"
     },
     {
       "id": "Q-orders-002",
-      "text": "The original enforces no rules on the invoice, shipped and paid dates (they can be any date, also before the order date). Should the new app require shipped date and paid date to be on or after the order date (and paid on or after shipped)? (Assumption: no extra date checks.)",
-      "status": "open"
+      "text": "The original enforces no rules on the invoice, shipped and paid dates (they can be any date, also before the order date). Should the new app require shipped date and paid date to be on or after the order date (and paid on or after shipped)? (Assumption: no extra date checks.) Answer (2026-10-16, demo client): no extra date checks.",
+      "status": "answered"
     },
     {
       "id": "Q-orders-003",
-      "text": "Tax is charged on the line subtotal only, never on the shipping fee, and a shipping fee of zero is accepted while a blank fee blocks invoicing. Is that correct for your business? (Assumption: keep as is.)",
-      "status": "open"
+      "text": "Tax is charged on the line subtotal only, never on the shipping fee, and a shipping fee of zero is accepted while a blank fee blocks invoicing. Is that correct for your business? (Assumption: keep as is.) Answer (2026-10-16, demo client): keep as is: tax on the line subtotal only, zero fee accepted, blank fee blocks invoicing.",
+      "status": "answered"
     },
     {
       "id": "Q-orders-004",
-      "text": "The employee screen's recent orders list is built from the 20 most recent orders overall and then narrowed to the employee, so an employee may see fewer than 20 or none. Should it show the employee's own 20 most recent orders instead? (Assumption: the employee's own 20 most recent.)",
-      "status": "open"
+      "text": "The employee screen's recent orders list is built from the 20 most recent orders overall and then narrowed to the employee, so an employee may see fewer than 20 or none. Should it show the employee's own 20 most recent orders instead? (Assumption: keep the current behaviour, as R-orders-027 states and its equivalence unit proves. If you choose the employee's own 20 most recent before sign-off, R-orders-027 is restated and proven by a rule test instead; after sign-off it is a change order.) Answer (2026-10-16, demo client): keep the current behaviour (R-orders-027, proven by its equivalence unit).",
+      "status": "answered"
     },
     {
       "id": "Q-orders-005",
-      "text": "On the first start the original shifts every date in the database forward so the sample data looks current. Keep this as a one-off start-up command in the new app (useful for demo data), or drop it? (Assumption: keep as a one-off command guarded by the first-run flag.)",
-      "status": "open"
+      "text": "On the first start the original shifts every date in the database forward so the sample data looks current. Keep this as a one-off start-up command in the new app (useful for demo data), or drop it? (Assumption: keep as a one-off command guarded by the first-run flag.) Answer (2026-10-16, demo client): keep as a one-off start-up command guarded by the first-run flag.",
+      "status": "answered"
     },
     {
       "id": "Q-orders-006",
-      "text": "Saving a company asks 'do you want to save your changes?' while other screens save without asking. Keep the confirmation for companies? (Assumption: keep.)",
-      "status": "open"
+      "text": "Saving a company asks 'do you want to save your changes?' while other screens save without asking. Keep the confirmation for companies? (Assumption: keep.) Answer (2026-10-16, demo client): keep the confirmation for companies.",
+      "status": "answered"
     },
     {
       "id": "Q-orders-007",
-      "text": "Deleting a company that has no orders or purchase orders also deletes its contacts and vendor-product links after one confirmation. Is that cascade wanted? (Assumption: yes.)",
-      "status": "open"
+      "text": "Deleting a company that has no orders or purchase orders also deletes its contacts and vendor-product links after one confirmation. Is that cascade wanted? (Assumption: yes.) Answer (2026-10-16, demo client): yes, keep the cascade.",
+      "status": "answered"
     },
     {
       "id": "Q-orders-008",
-      "text": "These Access conveniences are dropped and replaced by standard web features: the recently-used list on the ribbon, export of any list to Excel, the mailing-label wizard, the 'click to map' link, e-mailing the company screen, the show-filter and show/hide-columns buttons. Is any of them needed in the new app?",
-      "status": "open"
+      "text": "These Access conveniences are dropped and replaced by standard web features: the recently-used list on the ribbon, export of any list to Excel, the mailing-label wizard, the 'click to map' link, e-mailing the company screen, the show-filter and show/hide-columns buttons. Is any of them needed in the new app? Answer (2026-10-16, demo client): none is needed; the xlsx export of lists (admin export), browser bookmarks and the list filters replace them; no mailing labels, map link or e-mailing of the company screen.",
+      "status": "answered"
     },
     {
       "id": "Q-orders-009",
-      "text": "Which order list filter should be selected when the list opens? The design does not record the default. (Assumption: Open orders.)",
-      "status": "open"
+      "text": "Which order list filter should be selected when the list opens? The design does not record the default. (Assumption: Open orders.) Answer (2026-10-16, demo client): Open orders.",
+      "status": "answered"
     },
     {
       "id": "Q-orders-010",
-      "text": "Phone numbers are forced into a US ten-digit format with an optional extension. Keep the US format, or accept international numbers? (Assumption: keep the US format.)",
-      "status": "open"
+      "text": "Phone numbers are forced into a US ten-digit format with an optional extension. Keep the US format, or accept international numbers? (Assumption: keep the US format.) Answer (2026-10-16, demo client): keep the US format.",
+      "status": "answered"
     },
     {
       "id": "Q-orders-011",
-      "text": "A new company is tax exempt by default. Should new customers default to Taxable instead? (Assumption: keep exempt.)",
-      "status": "open"
+      "text": "A new company is tax exempt by default. Should new customers default to Taxable instead? (Assumption: keep exempt.) Answer (2026-10-16, demo client): keep Tax Exempt as the default.",
+      "status": "answered"
     },
     {
       "id": "Q-orders-012",
-      "text": "An order can be invoiced only when every line is Allocated (no partial invoices or backorders). Is that still the rule? (Assumption: yes.)",
-      "status": "open"
+      "text": "An order can be invoiced only when every line is Allocated (no partial invoices or backorders). Is that still the rule? (Assumption: yes.) Answer (2026-10-16, demo client): yes, every line must be Allocated.",
+      "status": "answered"
     }
   ],
   "signed": null

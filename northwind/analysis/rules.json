@@ -333,7 +333,6 @@
         "Form_frmPurchaseOrderDetails.PoCloseFieldsFilledOut",
         "Form_frmPurchaseOrderDetails.SetWorkflowLabelColors",
         "Form_frmPurchaseOrderDetails.VendorID_AfterUpdate",
-        "Form_frmPurchaseOrderDetails.VendorID_BeforeUpdate",
         "Form_frmPurchaseOrderDetails.cmdAddNostock_Click",
         "Form_frmPurchaseOrderDetails.cmdAddPO_Click",
         "Form_frmPurchaseOrderDetails.cmdApprovePO_Click",
@@ -848,7 +847,7 @@
     {
       "id": "R-orders-014",
       "area": "orders",
-      "statement": "Which order fields can be edited depends on the order status: on an unsaved order the customer, salesperson, notes, shipping fee, tax rate and tax status; when New the notes, shipping fee, tax rate and tax status (customer and salesperson are fixed once saved); when Invoiced the notes, shipped date and shipper; when Shipped the notes, payment method and paid date; when Paid only the notes; when Closed nothing. Order number, status, order date, invoice date, tax amount and total are never edited by hand.",
+      "statement": "Which order fields can be edited depends on the order status: on an unsaved order the customer, salesperson, notes, shipping fee, tax rate and tax status; when New the notes, shipping fee, tax rate and tax status (customer and salesperson are fixed once saved); when Invoiced the notes, shipped date and shipper; when Shipped the notes, payment method and paid date; when Paid only the notes; when Closed nothing. Order number, status, order date, invoice date, tax amount and total are never edited by hand. No order is enforced between the order, invoice, shipped and paid dates; the new app adds no date checks.",
       "trigger": "form:frmOrderDetails.Current",
       "sources": [
         {
@@ -876,7 +875,7 @@
     {
       "id": "R-orders-015",
       "area": "orders",
-      "statement": "Creating the invoice is allowed only for a New order that has at least one line, all of whose lines are Allocated (no partial invoices), and whose shipping fee is filled in (zero is accepted, blank is not; the blank field is highlighted). It saves the order, opens the invoice, sets the status to Invoiced, stamps the invoice date with the current date and time and sets every line to Invoiced.",
+      "statement": "Creating the invoice is allowed only for a New order that has at least one line, all of whose lines are Allocated (no partial invoices), and whose shipping fee is filled in (zero is accepted, blank is not; the blank field is highlighted). It saves the order, opens the invoice, sets the status to Invoiced, stamps the invoice date with the current date and time and sets every line to Invoiced. Partial invoices and backorders stay unsupported.",
       "trigger": "form:frmOrderDetails.cmdCreateInvoice.Click",
       "sources": [
         {
@@ -910,7 +909,7 @@
     {
       "id": "R-orders-016",
       "area": "orders",
-      "statement": "Shipping is allowed only for an Invoiced order and needs the shipped date, the shipper and the shipping fee (missing ones are highlighted and the user is told); it sets the order to Shipped and every line to Shipped.",
+      "statement": "Shipping is allowed only for an Invoiced order and needs the shipped date, the shipper and the shipping fee (missing ones are highlighted and the user is told); it sets the order to Shipped and every line to Shipped. The shipped date may be any date; no check against the order or invoice date.",
       "trigger": "form:frmOrderDetails.cmdShipOrder.Click",
       "sources": [
         {
@@ -939,7 +938,7 @@
     {
       "id": "R-orders-017",
       "area": "orders",
-      "statement": "Receiving payment is allowed only for a Shipped order and needs the payment method (one of the fixed methods offered by the order screen) and the paid date (missing ones are highlighted and the user is told); it sets the order to Paid.",
+      "statement": "Receiving payment is allowed only for a Shipped order and needs the payment method (one of the fixed methods offered by the order screen) and the paid date (missing ones are highlighted and the user is told); it sets the order to Paid. The paid date may be any date; no check against the order or shipped date.",
       "trigger": "form:frmOrderDetails.cmdReceivePayment.Click",
       "sources": [
         {
@@ -1007,7 +1006,7 @@
     {
       "id": "R-orders-020",
       "area": "orders",
-      "statement": "The invoice is a printable document for one order: the invoice number is the order number; it shows the date it is printed, the customer's name and address (as bill-to and ship-to), the salesperson's full name and the trading company's own address (the company whose type is the trading company itself); one row per line with product code, product name, quantity, unit price, discount and extended price = quantity x unit price x (1 - discount); then subtotal = sum of extended prices, tax = tax rate x subtotal when the order's tax status is Taxable and 0 otherwise (shipping is not taxed), shipping = the order's shipping fee, and total = subtotal + tax + shipping.",
+      "statement": "The invoice is a printable document for one order: the invoice number is the order number; it shows the date it is printed (not the stored invoice date, so a reprint carries the new date), the customer's name and address (as bill-to and ship-to), the salesperson's full name and the trading company's own address (the company whose type is the trading company itself); one row per line with product code, product name, quantity, unit price, discount and extended price = quantity x unit price x (1 - discount); then subtotal = sum of extended prices, tax = tax rate x subtotal when the order's tax status is Taxable and 0 otherwise (shipping is not taxed), shipping = the order's shipping fee, and total = subtotal + tax + shipping.",
       "trigger": "query:qryInvoice",
       "sources": [
         {
@@ -1059,7 +1058,7 @@
     {
       "id": "R-orders-022",
       "area": "orders",
-      "statement": "The order screen shows each line's price = quantity x (1 - discount) x unit price, the lines' subtotal, the tax amount = tax rate x subtotal when the order's tax status is Taxable and 0 otherwise, and the order total = subtotal + tax amount + shipping fee (a blank fee counts as 0).",
+      "statement": "The order screen shows each line's price = quantity x (1 - discount) x unit price, the lines' subtotal, the tax amount = tax rate x subtotal when the order's tax status is Taxable and 0 otherwise, and the order total = subtotal + tax amount + shipping fee (a blank fee counts as 0). A shipping fee of zero is accepted and is never taxed.",
       "trigger": "form:frmOrderDetails.Current",
       "sources": [
         {
@@ -1134,7 +1133,7 @@
     {
       "id": "R-orders-025",
       "area": "orders",
-      "statement": "The order list has four filters: Open orders (every status except Closed), Recent orders (order date within the last 30 days; when there are none the user is told), My orders (salesperson is the signed-in employee) and All orders. Any filter left over from an earlier session is cleared when the list opens and the selected filter is applied.",
+      "statement": "The order list has four filters: Open orders (every status except Closed), Recent orders (order date within the last 30 days; when there are none the user is told), My orders (salesperson is the signed-in employee) and All orders. Any filter left over from an earlier session is cleared when the list opens and the selected filter is applied. The list opens with the Open orders filter selected.",
       "trigger": "form:frmOrderList.fraFilter.AfterUpdate",
       "sources": [
         {
@@ -1357,7 +1356,7 @@
     {
       "id": "R-orders-031",
       "area": "orders",
-      "statement": "Every table with audit columns records who created a row and when, and who last changed it and when: inserting sets created-by, created-on, modified-by and modified-on; updating sets modified-by and modified-on and keeps the original created-by and created-on even if an update tries to change or blank them. The name recorded is the signed-in employee's full name (first then last), or the operating-system login when nobody is signed in.",
+      "statement": "Every table with audit columns records who created a row and when, and who last changed it and when: inserting sets created-by, created-on, modified-by and modified-on; updating sets modified-by and modified-on and keeps the original created-by and created-on even if an update tries to change or blank them. The name recorded is the signed-in employee's full name (first then last); there is no fallback to the operating-system login. Rows written by imports, start-up jobs and other system jobs, where nobody is signed in, carry the fixed name System.",
       "trigger": "datamacro:Orders.BeforeChange",
       "sources": [
         {
@@ -1469,7 +1468,7 @@
     {
       "id": "R-orders-033",
       "area": "orders",
-      "statement": "A company cannot be deleted while it has orders as customer, orders as shipper or purchase orders as vendor; the user is told how many of each. Otherwise the user confirms (the message says how many contacts and vendor-product links will go too) and the company is deleted together with its contacts and its vendor-product links.",
+      "statement": "A company cannot be deleted while it has orders as customer, orders as shipper or purchase orders as vendor; the user is told how many of each. Otherwise the user confirms (the message says how many contacts and vendor-product links will go too) and the company is deleted together with its contacts and its vendor-product links. The cascade to contacts and vendor-product links is kept.",
       "trigger": "form:frmCompanyDetail.Delete",
       "sources": [
         {
@@ -1569,7 +1568,7 @@
     {
       "id": "R-orders-036",
       "area": "orders",
-      "statement": "Saving changes on the company screen asks the user to confirm; answering no discards the unsaved changes.",
+      "statement": "Saving changes on the company screen asks the user to confirm; answering no discards the unsaved changes. The other screens keep saving without asking.",
       "trigger": "form:frmCompanyDetail.BeforeUpdate",
       "sources": [
         {
@@ -1810,7 +1809,7 @@
     {
       "id": "R-orders-045",
       "area": "orders",
-      "statement": "Phone numbers of companies, contacts and employees are entered as a ten-digit number shown as 3-3-4 digits, optionally followed by an extension of up to eight characters.",
+      "statement": "Phone numbers of companies, contacts and employees are entered as a ten-digit number shown as 3-3-4 digits, optionally followed by an extension of up to eight characters. Only this US format is accepted; international numbers are not.",
       "trigger": "form:frmCompanyDetail.BeforeUpdate",
       "sources": [
         {
@@ -1956,7 +1955,7 @@
     {
       "id": "R-orders-048",
       "area": "orders",
-      "statement": "A new company's standard tax status defaults to Tax Exempt until the user picks another.",
+      "statement": "A new company's standard tax status defaults to Tax Exempt until the user picks another. Customers also default to Tax Exempt.",
       "trigger": "form:frmCompanyDetail.BeforeUpdate",
       "sources": [
         {
@@ -1977,7 +1976,7 @@
     {
       "id": "R-orders-049",
       "area": "orders",
-      "statement": "At start-up (the auto-run macro, when the database is trusted) the start-up routine runs: on the very first run only, guarded by the first-run flag in system settings, it moves every date in every table forward by the number of days between the latest order date and today (never backwards) so the sample data looks current, then sets the flag so this never runs again; it then shows the welcome screen when that setting is on, asks the user to sign in and opens the order list.",
+      "statement": "At start-up (the auto-run macro, when the database is trusted) the start-up routine runs: on the very first run only, guarded by the first-run flag in system settings, it moves every date in every table forward by the number of days between the latest order date and today (never backwards) so the sample data looks current, then sets the flag so this never runs again; it then shows the welcome screen when that setting is on, asks the user to sign in and opens the order list. The new app keeps the date shift as a one-off start-up command guarded by the same first-run flag; rows it changes are stamped with the name System (R-orders-031).",
       "trigger": "schedule:startup",
       "sources": [
         {
@@ -2036,7 +2035,7 @@
     {
       "id": "R-inventory-001",
       "area": "inventory",
-      "statement": "A product's physical stock (available quantity) is the quantity counted at its most recent stock take, plus every purchase-order line quantity for the product received at or after that stock take's date and time, minus every order line quantity for the product whose order was invoiced at or after that moment. Orders with no invoice date are not counted as sold, and purchase-order lines with no received date are not counted as bought.",
+      "statement": "A product's physical stock (available quantity) is the quantity counted at its most recent stock take, plus every purchase-order line quantity for the product received at or after that stock take's date and time, minus every order line quantity for the product whose order was invoiced at or after that moment. Orders with no invoice date are not counted as sold, and purchase-order lines with no received date are not counted as bought. Stock therefore leaves the warehouse, for these figures, at the invoice date, for every line of an invoiced order whatever the line's own status; the client confirmed this point.",
       "trigger": "procedure:modInventory.ProductAvailable",
       "sources": [
         {
@@ -2071,7 +2070,7 @@
     {
       "id": "R-inventory-002",
       "area": "inventory",
-      "statement": "The stock take that counts for a product is the one with the latest date and time. When a product has no stock take at all, an opening stock take with quantity zero is created for it, dated at the moment the product was added (or now when that is unknown), so every product always has a starting point for its stock figures.",
+      "statement": "The stock take that counts for a product is the one with the latest date and time. Every product has an opening stock take of quantity zero, so its stock figures always have a starting point. The new app creates it when the product is created, dated at the product's creation date and time. A product that still has none (for example one loaded from the old data) gets it the first time its stock is calculated, dated at the product's added date, or now when that is unknown, as the original does. Either way every stock figure is the same as in the original.",
       "trigger": "procedure:modInventory.ProductLastStockTakeDate",
       "sources": [
         {
@@ -2122,7 +2121,7 @@
     {
       "id": "R-inventory-004",
       "area": "inventory",
-      "statement": "A product's on-order quantity is the total quantity of the product on purchase-order lines whose purchase order is in the Approved status. Purchase orders that are New, Submitted, Received or Closed do not count.",
+      "statement": "A product's on-order quantity is the total quantity of the product on purchase-order lines whose purchase order is in the Approved status. Purchase orders that are New, Submitted, Received or Closed do not count. New and Submitted purchase orders stay out of the on-order figure on purpose, although the reorder action treats them as outstanding (R-inventory-017).",
       "trigger": "procedure:modInventory.ProductOnOrder",
       "sources": [
         {
@@ -2168,7 +2167,7 @@
     {
       "id": "R-inventory-006",
       "area": "inventory",
-      "statement": "The suggested reorder quantity compares supply (quantity to sell plus on-order quantity) with demand (no-stock quantity plus the product's target level, a blank target counting as zero). When supply covers demand the suggestion is the product's minimum reorder quantity (1 when blank). Otherwise it is the shortfall (demand minus supply), raised to the minimum reorder quantity when the shortfall is smaller.",
+      "statement": "The suggested reorder quantity compares supply (quantity to sell plus on-order quantity) with demand (no-stock quantity plus the product's target level, a blank target counting as zero). When supply covers demand the suggestion is the product's minimum reorder quantity (1 when blank). Otherwise it is the shortfall (demand minus supply), raised to the minimum reorder quantity when the shortfall is smaller. Only Approved purchase orders count as on order here (R-inventory-004).",
       "trigger": "procedure:modInventory.ProductReorderQuantity",
       "sources": [
         {
@@ -2231,7 +2230,7 @@
     {
       "id": "R-inventory-009",
       "area": "inventory",
-      "statement": "A stock take records the counted quantity on hand for a product. Its date and time are set by the system to the moment it is saved (the user cannot enter or back-date them), and the expected quantity stored with it is the product's physical stock (R-inventory-001) calculated at that moment. The counted and expected quantities can never be negative, and date, product and counted quantity are required.",
+      "statement": "A stock take records the counted quantity on hand for a product. Its date and time are set by the system to the moment it is saved; the user cannot enter them, so a count cannot be back-dated. The expected quantity stored with it is the product's physical stock (R-inventory-001) calculated at that moment. The counted and expected quantities can never be negative, and date, product and counted quantity are required.",
       "trigger": "form:sfrmProductDetail_StockTake.QuantityOnHand.AfterUpdate",
       "sources": [
         {
@@ -2321,7 +2320,7 @@
     {
       "id": "R-inventory-013",
       "area": "inventory",
-      "statement": "A product's code is built from a fixed company prefix (NWT), the code of the product's category, a hyphen and the product's number. It is set whenever a category is chosen for a product that already has a number, so changing a product's category changes its code.",
+      "statement": "A product's code is built from a fixed company prefix (NWT), the code of the product's category, a hyphen and the product's number. It is set whenever a category is chosen for a product that already has a number, so changing a product's category changes its code. The prefix and the rebuild on a category change are kept as they are; codes are not frozen once issued.",
       "trigger": "form:frmProductDetail.cboProductCategoryID.AfterUpdate",
       "sources": [
         {
@@ -2392,7 +2391,7 @@
     {
       "id": "R-inventory-016",
       "area": "inventory",
-      "statement": "A product cannot be deleted while it appears on any order line or any purchase-order line; the user is told which kind of record blocks it. Otherwise deleting a product also deletes its stock takes and its vendor links.",
+      "statement": "A product cannot be deleted while it appears on any order line or any purchase-order line; the user is told which kind of record blocks it and nothing is deleted. Otherwise the user is asked to confirm the delete. On confirmation the product, its stock takes and its vendor links are deleted together in one step; if the user declines, nothing is deleted. (The original removed the stock takes and vendor links before asking, so declining left the product without them; the new app does not reproduce that partial delete.)",
       "trigger": "form:frmProductDetail.cmdDeleteProduct.Click",
       "sources": [
         {
@@ -2414,7 +2413,7 @@
     {
       "id": "R-inventory-017",
       "area": "inventory",
-      "statement": "Reordering a product first saves any pending changes to it. If the product has an on-order quantity and there is a purchase order in the Approved, New or Submitted status that contains the product, reordering opens that purchase order instead of creating or changing anything.",
+      "statement": "Reordering a product first saves any pending changes to it. If the product has an on-order quantity and there is a purchase order in the Approved, New or Submitted status that contains the product, reordering opens that purchase order instead of creating or changing anything. New and Submitted purchase orders count as outstanding here, although they do not count in the on-order figure (R-inventory-004).",
       "trigger": "form:frmProductDetail.cmdReorderProduct.Click",
       "sources": [
         {
@@ -2578,7 +2577,7 @@
     {
       "id": "R-inventory-024",
       "area": "inventory",
-      "statement": "The product list can be exported to a spreadsheet listing, per product sorted by name, its number, code and name, allocated quantity, quantity to sell, on-order quantity, reorder level, target level, minimum reorder quantity and discontinued flag.",
+      "statement": "From the product list a user can download an .xlsx spreadsheet listing, per product sorted by name, its number, code and name, allocated quantity, quantity to sell, on-order quantity, reorder level, target level, minimum reorder quantity and discontinued flag. The download from the web page replaces the Access spreadsheet export.",
       "trigger": "form:frmProductList.cmdExport.Click",
       "sources": [
         {
@@ -2654,7 +2653,7 @@
     {
       "id": "R-inventory-027",
       "area": "inventory",
-      "statement": "When picking a product on an order line, the category filter offers an 'all categories' entry first and then every category by name; the product choices, sorted by name with their unit price and category, are all products when 'all' is chosen and only that category's products otherwise.",
+      "statement": "When picking a product on an order line, the category filter offers an 'all categories' entry first and then every category by name; the product choices, sorted by name with their unit price and category, are all products when 'all' is chosen and only that category's products otherwise. Discontinued products are included and stay selectable on order lines.",
       "trigger": "query:qrycboProducts",
       "sources": [
         {
@@ -2683,7 +2682,7 @@
     {
       "id": "R-inventory-028",
       "area": "inventory",
-      "statement": "Products, product categories, product-vendor links and stock takes carry audit stamps: when a record is created, the added-by and modified-by fields get the current user's name and the added-on and modified-on fields the current date and time; on every later change only the modified-by and modified-on fields are refreshed, and the added-by and added-on values can never be changed or cleared.",
+      "statement": "Products, product categories, product-vendor links and stock takes carry audit stamps. When a record is created, the added-by and modified-by fields get the signed-in user's full name (first name then last name) and the added-on and modified-on fields the current date and time; on every later change only the modified-by and modified-on fields are refreshed, and the added-by and added-on values can never be changed or cleared. Only the signed-in user is recorded; there is no fallback to an operating-system login. Records written with no signed-in user, by imports, start-up jobs and other system jobs, carry the fixed name System.",
       "trigger": "datamacro:Products.BeforeChange",
       "sources": [
         {
@@ -2865,7 +2864,7 @@
     {
       "id": "R-purchasing-004",
       "area": "purchasing",
-      "statement": "Submitting is allowed only for a purchase order in status New. It records the signed-in user as submitter and the current date and time as the submitted date, and sets the status to Submitted. From any other status the action is refused with a message and nothing changes.",
+      "statement": "Submitting is allowed only for a purchase order in status New. It records the signed-in user as submitter and the current date and time (date and time, not the date alone) as the submitted date, and sets the status to Submitted. From any other status the action is refused with a message and nothing changes.",
       "trigger": "form:frmPurchaseOrderDetails.cmdSubmitPO.Click",
       "sources": [
         {
@@ -2885,7 +2884,7 @@
     {
       "id": "R-purchasing-005",
       "area": "purchasing",
-      "statement": "Approving is allowed only for a Submitted purchase order and only for a user who holds the approve-purchase-order privilege. It records that user as approver and the current date and time as the approved date, and sets the status to Approved. Without the privilege, or from another status, the action is refused with a message and nothing changes.",
+      "statement": "Approving is allowed only for a Submitted purchase order and only for a user who holds the approve-purchase-order privilege. The approver may be the same person who submitted it (self-approval is allowed). Approving records that user as approver and the current date and time as the approved date, and sets the status to Approved. Without the privilege, or from another status, the action is refused with a message and nothing changes.",
       "trigger": "form:frmPurchaseOrderDetails.cmdApprovePO.Click",
       "sources": [
         {
@@ -2938,7 +2937,7 @@
     {
       "id": "R-purchasing-007",
       "area": "purchasing",
-      "statement": "Receiving is allowed only for an Approved purchase order and only after the user confirms posting it to inventory; declining changes nothing. Receiving records the current date and time as the received date of the purchase order and of every one of its lines (the whole order is received at once) and sets the status to Received.",
+      "statement": "Receiving is allowed only for an Approved purchase order and only after the user confirms posting it to inventory; declining changes nothing. Receiving records the current date and time as the received date of the purchase order and of every one of its lines (the whole order is received at once; there are no partial receipts of some lines or part quantities) and sets the status to Received.",
       "trigger": "form:frmPurchaseOrderDetails.cmdReceivePO.Click",
       "sources": [
         {
@@ -2987,7 +2986,7 @@
     {
       "id": "R-purchasing-009",
       "area": "purchasing",
-      "statement": "Closing is allowed only for a Received purchase order and only when both the shipping fee and the payment method are filled in; otherwise the missing fields are highlighted and the close is refused. Closing stores the current date and time as the payment date, the computed tax as the tax amount and the computed total as the payment amount, and sets the status to Closed. The payment method is chosen from a fixed list in the form.",
+      "statement": "Closing is allowed only for a Received purchase order and only when both the shipping fee and the payment method are filled in; otherwise the missing fields are highlighted and the close is refused. Closing stores the current date and time as the payment date, the computed tax as the tax amount and the computed total as the payment amount, and sets the status to Closed. The payment method is chosen from a fixed list of exactly three methods: credit card, check and cash.",
       "trigger": "form:frmPurchaseOrderDetails.cmdClosePO.Click",
       "sources": [
         {
@@ -3011,7 +3010,7 @@
     {
       "id": "R-purchasing-010",
       "area": "purchasing",
-      "statement": "Purchase order amounts: each line amount is quantity times unit cost; the subtotal is the sum of the line amounts; the tax is the vendor tax rate from the system settings times the subtotal (the shipping fee is not taxed); the total is subtotal plus tax plus shipping fee, with a missing shipping fee counted as zero.",
+      "statement": "Purchase order amounts: each line amount is quantity times unit cost; the subtotal is the sum of the line amounts; the tax is the vendor tax rate times the subtotal, where the vendor tax rate is one system-wide setting (the shipping fee is not taxed, and the tax is stored on the purchase order only when it is closed); the total is subtotal plus tax plus shipping fee, with a missing shipping fee counted as zero.",
       "trigger": "form:frmPurchaseOrderDetails.Current",
       "sources": [
         {
@@ -3037,7 +3036,7 @@
     {
       "id": "R-purchasing-011",
       "area": "purchasing",
-      "statement": "Field locking by status: once a purchase order is saved, its number, vendor, status, submitter, approver, the submitted and approved dates, the computed tax and total and the payment date can no longer be edited directly. The received date is editable only while the order is Approved, the shipping fee and payment method only while it is Received, and the notes until it is Closed. A Closed purchase order is read-only. On a new, unsaved purchase order the vendor can be chosen.",
+      "statement": "Field locking by status: once a purchase order is saved, its number, vendor, status, submitter, approver, the submitted and approved dates, the computed tax and total and the payment date can no longer be edited directly. The received date is editable only while the order is Approved, the shipping fee and payment method only while it is Received, and the notes until it is Closed. A Closed purchase order is read-only. On a new, unsaved purchase order the vendor can be chosen; once the purchase order is saved its vendor is fixed in every status.",
       "trigger": "form:frmPurchaseOrderDetails.Current",
       "sources": [
         {
@@ -3052,7 +3051,7 @@
       "tables": [
         "PurchaseOrders"
       ],
-      "confidence": "medium",
+      "confidence": "high",
       "test_kind": "rule",
       "questions": [
         "Q-purchasing-001",
@@ -3126,23 +3125,23 @@
     {
       "id": "R-purchasing-015",
       "area": "purchasing",
-      "statement": "Changing the vendor of a purchase order that already has a vendor asks for confirmation. On yes, all lines of the purchase order are deleted and the new vendor is kept; on no, the old vendor stays. Choosing the first vendor of a new purchase order does not ask. After a vendor change the product choices for the lines are refreshed.",
-      "trigger": "form:frmPurchaseOrderDetails.VendorID.BeforeUpdate",
+      "statement": "The vendor of a purchase order is chosen before the purchase order is first saved, without any confirmation, and choosing it refreshes the product choices for the lines. Once the purchase order is saved its vendor can never be changed, in any status; there is no change-vendor action, so the original's confirm-and-delete-all-lines prompt (reachable only on a saved purchase order, where the vendor is already locked) is not carried over.",
+      "trigger": "form:frmPurchaseOrderDetails.VendorID.AfterUpdate",
       "sources": [
         {
           "type": "procedure",
-          "ref": "Form_frmPurchaseOrderDetails.VendorID_BeforeUpdate"
+          "ref": "Form_frmPurchaseOrderDetails.VendorID_AfterUpdate"
         },
         {
           "type": "procedure",
-          "ref": "Form_frmPurchaseOrderDetails.VendorID_AfterUpdate"
+          "ref": "Form_frmPurchaseOrderDetails.LockControls"
         }
       ],
       "tables": [
         "PurchaseOrders",
         "PurchaseOrderDetails"
       ],
-      "confidence": "medium",
+      "confidence": "high",
       "test_kind": "rule",
       "questions": [
         "Q-purchasing-001"
@@ -3215,7 +3214,7 @@
     {
       "id": "R-purchasing-019",
       "area": "purchasing",
-      "statement": "A purchase order line needs a product, a quantity and a unit cost, and the product must exist. A quantity below the product's minimum reorder quantity is refused with a message. If the product's quantity available to sell plus the ordered quantity stays below the product's target level, the user gets a warning but the line is still saved.",
+      "statement": "A purchase order line needs a product, a quantity and a unit cost, and the product must exist. A quantity below the product's minimum reorder quantity is refused with a message. If the product's quantity available to sell plus the ordered quantity stays below the product's target level, the user gets a warning only and the line is still saved (it is never a hard stop).",
       "trigger": "form:sfrmPurchaseOrderLineItems.BeforeUpdate",
       "sources": [
         {
@@ -3378,7 +3377,7 @@
     {
       "id": "R-purchasing-026",
       "area": "purchasing",
-      "statement": "On a vendor's company page, the purchase order tab lists that vendor's purchase orders with status, submitter, approver, the submitted, approved and received dates, the payment fields and the extended cost, plus a count; only purchase orders that have a submitter appear. Double-clicking a row opens that purchase order.",
+      "statement": "On a vendor's company page, the purchase order tab lists that vendor's purchase orders with status, submitter, approver, the submitted, approved and received dates, the payment fields and the extended cost, plus a count; only purchase orders that have a submitter appear, so New purchase orders are not listed there (kept on purpose). Double-clicking a row opens that purchase order.",
       "trigger": "query:qryVendorPurchaseOrderList",
       "sources": [
         {
@@ -3412,7 +3411,7 @@
     {
       "id": "R-purchasing-027",
       "area": "purchasing",
-      "statement": "Audit fields on purchase orders, purchase order lines and purchase order statuses: on insert, added-by, added-on, modified-by and modified-on are set to the current user's name and the current date and time; on every update, modified-by and modified-on are refreshed while added-by and added-on keep their original values even if an edit tries to change or clear them. The purchase order form shows who created and last changed the record.",
+      "statement": "Audit fields on purchase orders, purchase order lines and purchase order statuses: on insert, added-by, added-on, modified-by and modified-on are set to the stamp name and the current date and time; on every update, modified-by and modified-on are refreshed while added-by and added-on keep their original values even if an edit tries to change or clear them. The stamp name is the signed-in user's full name (first name then last name); there is no operating-system login fallback. Rows written without a signed-in user (imports, start-up jobs and other system jobs) carry the fixed name System. The purchase order form shows who created and last changed the record.",
       "trigger": "datamacro:PurchaseOrders.BeforeChange",
       "sources": [
         {
@@ -3426,6 +3425,10 @@
         {
           "type": "data_macro",
           "ref": "PurchaseOrderStatus.BeforeChange"
+        },
+        {
+          "type": "procedure",
+          "ref": "modTableDataMacros.GetAuditFieldsUserName"
         }
       ],
       "tables": [
@@ -3667,7 +3670,7 @@
     {
       "id": "R-reports-010",
       "area": "reports",
-      "statement": "The monthly and quarterly sales per product reports list each product's sales within each period, show a subtotal for every month or quarter and a grand total for the whole range, and include a chart of sales by product. Every sales report shows the time it was produced and page numbers in the form page n of m.",
+      "statement": "The monthly and quarterly sales per product reports list each product's sales within each period, show a subtotal for every month or quarter and a grand total for the whole range, and include a chart of sales by product. Every sales report shows the time it was produced and page numbers in the form page n of m. The quarterly report lists its quarters in order of year, then quarter number, instead of the original's order of the quarter-first label, which mixed years; its chart shows the monthly figures of the period, as in the original (Q-reports-004).",
       "trigger": "report:rptSalesByProduct.Open",
       "sources": [
         {
@@ -3723,7 +3726,7 @@
     {
       "id": "R-reports-012",
       "area": "reports",
-      "statement": "In the product catalog each category section shows the category description and image, the number of priced items, the lowest and the highest unit price, and the total lifetime sales of its products, followed by the product list.",
+      "statement": "In the product catalog each category section shows the category description and image, the number of priced items, the lowest and the highest unit price, and the total lifetime sales of its products, followed by the product list. The image shown for each category is the image stored with that category, as in the original; the original's switched-off code that loaded category images from files is not carried over (Q-reports-006).",
       "trigger": "report:rptProductCatalog.Open",
       "sources": [
         {
@@ -3744,7 +3747,7 @@
     {
       "id": "R-reports-013",
       "area": "reports",
-      "statement": "The product catalog has a table of contents that lists each product category once with the page on which its section starts. To get correct page numbers the catalog is rendered in full to PDF first, recording each category's starting page; the catalog is then shown with that table of contents. The previous table of contents is discarded at the start of every full generation. If no table of contents has been generated yet, the catalog shows a note telling the user to generate the PDF.",
+      "statement": "The product catalog has a table of contents that lists each product category once with the page on which its section starts. To get correct page numbers the catalog is rendered in full to PDF first, recording each category's starting page; the catalog is then shown with that table of contents. The previous table of contents is discarded at the start of every full generation. If no table of contents has been generated yet, the catalog shows a note telling the user to generate the PDF. The catalog is generated on demand and not stored; there is one edition (Q-reports-005).",
       "trigger": "form:frmReports.cmdPreviewReport.Click",
       "sources": [
         {
@@ -4404,7 +4407,7 @@
       "decision": "drop",
       "area": "orders",
       "target_component": null,
-      "reason": "opens the address in a retired consumer map site (see open question on dropped conveniences)"
+      "reason": "opens the address in a retired consumer map site (not needed, client answer to Q-orders-008)"
     },
     {
       "type": "procedure",
@@ -4420,7 +4423,7 @@
       "decision": "drop",
       "area": "orders",
       "target_component": null,
-      "reason": "e-mails the Access screen through the mail client (see open question on dropped conveniences)"
+      "reason": "e-mails the Access screen through the mail client (not needed, client answer to Q-orders-008)"
     },
     {
       "type": "procedure",
@@ -4484,7 +4487,7 @@
       "decision": "drop",
       "area": "orders",
       "target_component": null,
-      "reason": "starts the Access mailing-label wizard (see open question on dropped conveniences)"
+      "reason": "starts the Access mailing-label wizard (not needed, client answer to Q-orders-008)"
     },
     {
       "type": "procedure",
@@ -5516,7 +5519,7 @@
       "decision": "keep",
       "area": "orders",
       "target_component": "foundation:sign-in",
-      "reason": "reads the operating-system login used to find the employee and as the audit name when nobody is signed in; replaced by the signed-in user"
+      "reason": "reads the operating-system login used to find the employee and as the audit name when nobody is signed in; replaced by the signed-in user with no operating-system fallback (system jobs stamp System)"
     },
     {
       "type": "procedure",
@@ -5740,7 +5743,7 @@
       "decision": "drop",
       "area": "orders",
       "target_component": null,
-      "reason": "Access export of the current list to Excel (see open question on dropped conveniences)"
+      "reason": "Access export of the current list to Excel (not needed, client answer to Q-orders-008)"
     },
     {
       "type": "procedure",
@@ -7385,10 +7388,10 @@
     {
       "type": "procedure",
       "name": "Form_frmPurchaseOrderDetails.VendorID_BeforeUpdate",
-      "decision": "keep",
+      "decision": "drop",
       "area": "purchasing",
-      "target_component": "purchasing.services",
-      "reason": null
+      "target_component": null,
+      "reason": "its only behaviour is the confirm-and-delete-all-lines prompt for changing the vendor of a saved purchase order; the client fixed the vendor once a purchase order is saved (Q-purchasing-001), so the new app has no vendor change (R-purchasing-015)"
     },
     {
       "type": "procedure",
@@ -8338,12 +8341,6 @@
       "rule": "R-orders-047"
     },
     {
-      "table": "OrderDetails",
-      "fk": "ProductID",
-      "on_delete": "PROTECT",
-      "rule": "R-inventory-016"
-    },
-    {
       "table": "Orders",
       "fk": "CustomerID",
       "on_delete": "PROTECT",
@@ -8437,6 +8434,12 @@
       "table": "ProductVendors",
       "fk": "ProductID",
       "on_delete": "CASCADE",
+      "rule": "R-inventory-016"
+    },
+    {
+      "table": "OrderDetails",
+      "fk": "ProductID",
+      "on_delete": "PROTECT",
       "rule": "R-inventory-016"
     },
     {
@@ -8545,7 +8548,9 @@
         "R-inventory-020",
         "R-inventory-021",
         "R-inventory-022",
-        "R-purchasing-018"
+        "R-purchasing-018",
+        "R-purchasing-001",
+        "R-purchasing-020"
       ],
       "steps": [
         "open a product's stock takes and enter a counted quantity",
@@ -8887,14 +8892,16 @@
       "name": "delete_product",
       "area": "inventory",
       "inputs": [
-        "product id"
+        "product id",
+        "delete confirmed"
       ],
       "outputs": [
-        "deleted"
+        "deleted (the product with its stock takes and vendor links, in one step)"
       ],
       "errors": [
         "product is on an order line",
-        "product is on a purchase-order line"
+        "product is on a purchase-order line",
+        "delete not confirmed (nothing is deleted)"
       ]
     },
     {
@@ -8979,23 +8986,6 @@
       ],
       "errors": [
         "purchase order is not New or Submitted"
-      ]
-    },
-    {
-      "name": "change_purchase_order_vendor",
-      "area": "purchasing",
-      "inputs": [
-        "purchase order id",
-        "new vendor id",
-        "confirmation"
-      ],
-      "outputs": [
-        "vendor changed",
-        "all lines deleted"
-      ],
-      "errors": [
-        "not confirmed",
-        "vendor is locked in the current status"
       ]
     },
     {
@@ -9092,178 +9082,178 @@
   "open_questions": [
     {
       "id": "Q-orders-001",
-      "text": "The printed invoice shows the date it is printed, not the stored invoice date, so a reprint carries a new date. Should the invoice show the stored invoice date instead? (Assumption until answered: keep the original behaviour.)",
-      "status": "open"
+      "text": "The printed invoice shows the date it is printed, not the stored invoice date, so a reprint carries a new date. Should the invoice show the stored invoice date instead? (Assumption until answered: keep the original behaviour.) Answer (2026-10-16, demo client): keep the original: the invoice shows the date it is printed.",
+      "status": "answered"
     },
     {
       "id": "Q-orders-002",
-      "text": "The original enforces no rules on the invoice, shipped and paid dates (they can be any date, also before the order date). Should the new app require shipped date and paid date to be on or after the order date (and paid on or after shipped)? (Assumption: no extra date checks.)",
-      "status": "open"
+      "text": "The original enforces no rules on the invoice, shipped and paid dates (they can be any date, also before the order date). Should the new app require shipped date and paid date to be on or after the order date (and paid on or after shipped)? (Assumption: no extra date checks.) Answer (2026-10-16, demo client): no extra date checks.",
+      "status": "answered"
     },
     {
       "id": "Q-orders-003",
-      "text": "Tax is charged on the line subtotal only, never on the shipping fee, and a shipping fee of zero is accepted while a blank fee blocks invoicing. Is that correct for your business? (Assumption: keep as is.)",
-      "status": "open"
+      "text": "Tax is charged on the line subtotal only, never on the shipping fee, and a shipping fee of zero is accepted while a blank fee blocks invoicing. Is that correct for your business? (Assumption: keep as is.) Answer (2026-10-16, demo client): keep as is: tax on the line subtotal only, zero fee accepted, blank fee blocks invoicing.",
+      "status": "answered"
     },
     {
       "id": "Q-orders-004",
-      "text": "The employee screen's recent orders list is built from the 20 most recent orders overall and then narrowed to the employee, so an employee may see fewer than 20 or none. Should it show the employee's own 20 most recent orders instead? (Assumption: keep the current behaviour, as R-orders-027 states and its equivalence unit proves. If you choose the employee's own 20 most recent before sign-off, R-orders-027 is restated and proven by a rule test instead; after sign-off it is a change order.)",
-      "status": "open"
+      "text": "The employee screen's recent orders list is built from the 20 most recent orders overall and then narrowed to the employee, so an employee may see fewer than 20 or none. Should it show the employee's own 20 most recent orders instead? (Assumption: keep the current behaviour, as R-orders-027 states and its equivalence unit proves. If you choose the employee's own 20 most recent before sign-off, R-orders-027 is restated and proven by a rule test instead; after sign-off it is a change order.) Answer (2026-10-16, demo client): keep the current behaviour (R-orders-027, proven by its equivalence unit).",
+      "status": "answered"
     },
     {
       "id": "Q-orders-005",
-      "text": "On the first start the original shifts every date in the database forward so the sample data looks current. Keep this as a one-off start-up command in the new app (useful for demo data), or drop it? (Assumption: keep as a one-off command guarded by the first-run flag.)",
-      "status": "open"
+      "text": "On the first start the original shifts every date in the database forward so the sample data looks current. Keep this as a one-off start-up command in the new app (useful for demo data), or drop it? (Assumption: keep as a one-off command guarded by the first-run flag.) Answer (2026-10-16, demo client): keep as a one-off start-up command guarded by the first-run flag.",
+      "status": "answered"
     },
     {
       "id": "Q-orders-006",
-      "text": "Saving a company asks 'do you want to save your changes?' while other screens save without asking. Keep the confirmation for companies? (Assumption: keep.)",
-      "status": "open"
+      "text": "Saving a company asks 'do you want to save your changes?' while other screens save without asking. Keep the confirmation for companies? (Assumption: keep.) Answer (2026-10-16, demo client): keep the confirmation for companies.",
+      "status": "answered"
     },
     {
       "id": "Q-orders-007",
-      "text": "Deleting a company that has no orders or purchase orders also deletes its contacts and vendor-product links after one confirmation. Is that cascade wanted? (Assumption: yes.)",
-      "status": "open"
+      "text": "Deleting a company that has no orders or purchase orders also deletes its contacts and vendor-product links after one confirmation. Is that cascade wanted? (Assumption: yes.) Answer (2026-10-16, demo client): yes, keep the cascade.",
+      "status": "answered"
     },
     {
       "id": "Q-orders-008",
-      "text": "These Access conveniences are dropped and replaced by standard web features: the recently-used list on the ribbon, export of any list to Excel, the mailing-label wizard, the 'click to map' link, e-mailing the company screen, the show-filter and show/hide-columns buttons. Is any of them needed in the new app?",
-      "status": "open"
+      "text": "These Access conveniences are dropped and replaced by standard web features: the recently-used list on the ribbon, export of any list to Excel, the mailing-label wizard, the 'click to map' link, e-mailing the company screen, the show-filter and show/hide-columns buttons. Is any of them needed in the new app? Answer (2026-10-16, demo client): none is needed; the xlsx export of lists (admin export), browser bookmarks and the list filters replace them; no mailing labels, map link or e-mailing of the company screen.",
+      "status": "answered"
     },
     {
       "id": "Q-orders-009",
-      "text": "Which order list filter should be selected when the list opens? The design does not record the default. (Assumption: Open orders.)",
-      "status": "open"
+      "text": "Which order list filter should be selected when the list opens? The design does not record the default. (Assumption: Open orders.) Answer (2026-10-16, demo client): Open orders.",
+      "status": "answered"
     },
     {
       "id": "Q-orders-010",
-      "text": "Phone numbers are forced into a US ten-digit format with an optional extension. Keep the US format, or accept international numbers? (Assumption: keep the US format.)",
-      "status": "open"
+      "text": "Phone numbers are forced into a US ten-digit format with an optional extension. Keep the US format, or accept international numbers? (Assumption: keep the US format.) Answer (2026-10-16, demo client): keep the US format.",
+      "status": "answered"
     },
     {
       "id": "Q-orders-011",
-      "text": "A new company is tax exempt by default. Should new customers default to Taxable instead? (Assumption: keep exempt.)",
-      "status": "open"
+      "text": "A new company is tax exempt by default. Should new customers default to Taxable instead? (Assumption: keep exempt.) Answer (2026-10-16, demo client): keep Tax Exempt as the default.",
+      "status": "answered"
     },
     {
       "id": "Q-orders-012",
-      "text": "An order can be invoiced only when every line is Allocated (no partial invoices or backorders). Is that still the rule? (Assumption: yes.)",
-      "status": "open"
+      "text": "An order can be invoiced only when every line is Allocated (no partial invoices or backorders). Is that still the rule? (Assumption: yes.) Answer (2026-10-16, demo client): yes, every line must be Allocated.",
+      "status": "answered"
     },
     {
       "id": "Q-inventory-001",
       "text": "Only Approved purchase orders count as on order in the stock figures and the suggested reorder quantity, while the reorder action also treats New and Submitted orders as outstanding. Should New and Submitted orders keep being left out of the on-order figure?",
-      "status": "open"
+      "status": "answered"
     },
     {
       "id": "Q-inventory-002",
       "text": "When a product has no stock take, the old app silently creates an opening zero-quantity stock take the first time stock is calculated. May the new app create that opening stock take when the product is created instead (same figures)?",
-      "status": "open"
+      "status": "answered"
     },
     {
       "id": "Q-inventory-003",
       "text": "Stock takes are always dated at the moment they are saved, so a count made earlier cannot be back-dated. Keep that restriction?",
-      "status": "open"
+      "status": "answered"
     },
     {
       "id": "Q-inventory-004",
       "text": "Is the spreadsheet export of the product list still needed, and is an .xlsx download from the web page acceptable?",
-      "status": "open"
+      "status": "answered"
     },
     {
       "id": "Q-inventory-005",
       "text": "Discontinued products are still offered when picking a product on an order line. Should they stay selectable for new orders?",
-      "status": "open"
+      "status": "answered"
     },
     {
       "id": "Q-inventory-006",
       "text": "Audit stamps record the signed-in employee's full name; the old app falls back to the Windows user name when nobody is signed in. The web app always has a signed-in user, so we record that user only. Is that acceptable for every table with audit fields, and which name should stamps from imports or system jobs carry?",
-      "status": "open"
+      "status": "answered"
     },
     {
       "id": "Q-inventory-007",
       "text": "Product codes are rebuilt from the fixed NWT prefix, the category code and the product number whenever the category changes. Keep the prefix and the rebuild on category change, or should codes stay fixed once issued?",
-      "status": "open"
+      "status": "answered"
     },
     {
       "id": "Q-inventory-008",
       "text": "Sold quantity counts every line of an invoiced order from the invoice date on, whatever the line's own status. Is that the intended point at which stock leaves the warehouse (rather than shipping)?",
-      "status": "open"
+      "status": "answered"
     },
     {
       "id": "Q-purchasing-001",
       "text": "Once a purchase order is saved its vendor is locked in every status, yet the app also has a confirm-and-delete-all-lines path for changing the vendor. Should the vendor of a saved New purchase order be changeable (deleting its lines after confirmation), or fixed once the purchase order is saved, as the current app effectively behaves?",
-      "status": "open"
+      "status": "answered"
     },
     {
       "id": "Q-purchasing-002",
       "text": "The purchase order tab on a vendor's company page lists only purchase orders that already have a submitter, so New purchase orders do not appear there, while the main purchase order list shows them. Is that intended, or should the vendor tab show every purchase order of the vendor?",
-      "status": "open"
+      "status": "answered"
     },
     {
       "id": "Q-purchasing-003",
       "text": "Tax on a purchase order is the vendor tax rate from the system settings times the line subtotal, the shipping fee is not taxed, and the tax is stored only when the purchase order is closed. Please confirm, and confirm that the vendor tax rate stays a single system-wide setting.",
-      "status": "open"
+      "status": "answered"
     },
     {
       "id": "Q-purchasing-004",
       "text": "Any user with the approve-purchase-order privilege can approve, including the person who submitted the purchase order. Should self-approval be blocked?",
-      "status": "open"
+      "status": "answered"
     },
     {
       "id": "Q-purchasing-005",
       "text": "Receiving is all or nothing: the whole purchase order is received at once and every line gets the same received date. Do you need partial receipts (some lines or part quantities)?",
-      "status": "open"
+      "status": "answered"
     },
     {
       "id": "Q-purchasing-006",
       "text": "The table design describes the submitted, approved, received and payment dates as dates without a time, but the app stores the date and time. Should the new app keep date and time (the line received time matters for stock calculations) or store dates only on the purchase order?",
-      "status": "open"
+      "status": "answered"
     },
     {
       "id": "Q-purchasing-007",
       "text": "The received date stays editable while a purchase order is Approved, and the shipping fee and payment method only while it is Received. Is that intended? Also, the payment method is chosen from a fixed list of three (credit card, check, cash): is that the full list?",
-      "status": "open"
+      "status": "answered"
     },
     {
       "id": "Q-purchasing-008",
       "text": "When a line's quantity leaves the product below its target level, the app only warns and still saves the line. Keep it as a warning, or make it a hard stop?",
-      "status": "open"
+      "status": "answered"
     },
     {
       "id": "Q-reports-001",
-      "text": "Besides the invoice, we propose keeping four reports: monthly sales per employee, monthly sales per product, quarterly sales per product and the product catalog. We propose dropping the employee email list and the employee phone list, because the employee list page shows the same columns. Please confirm, or name the reports you would swap in.",
-      "status": "open"
+      "text": "Besides the invoice, we propose keeping four reports: monthly sales per employee, monthly sales per product, quarterly sales per product and the product catalog. We propose dropping the employee email list and the employee phone list, because the employee list page shows the same columns. Please confirm, or name the reports you would swap in. Answer (2026-10-16, demo client): confirmed: the invoice plus monthly sales per employee, monthly sales per product, quarterly sales per product and the product catalog; the employee email and phone lists are dropped.",
+      "status": "answered"
     },
     {
       "id": "Q-reports-002",
-      "text": "Order dates carry a time of day, but the sales reports compare them with an end date at midnight. Orders placed on the end date after midnight are therefore left out, including, with the default period, the latest orders themselves. Should the end date count the whole day (our recommendation), or must the new reports keep the current results?",
-      "status": "open"
+      "text": "Order dates carry a time of day, but the sales reports compare them with an end date at midnight. Orders placed on the end date after midnight are therefore left out, including, with the default period, the latest orders themselves. Should the end date count the whole day (our recommendation), or must the new reports keep the current results? Answer (2026-10-16, demo client): keep the current results: the end date is compared at midnight, as in the original; a later change order may change it.",
+      "status": "answered"
     },
     {
       "id": "Q-reports-003",
-      "text": "The sales reports and the catalog's lifetime sales count every order whatever its status, including orders that are not yet invoiced or shipped. Is that intended, or should some statuses be excluded?",
-      "status": "open"
+      "text": "The sales reports and the catalog's lifetime sales count every order whatever its status, including orders that are not yet invoiced or shipped. Is that intended, or should some statuses be excluded? Answer (2026-10-16, demo client): intended: every order counts, whatever its status.",
+      "status": "answered"
     },
     {
       "id": "Q-reports-004",
-      "text": "The quarterly product report's chart is fed by the monthly figures, not the quarterly ones. Its quarter labels put the quarter before the year, so a sort on the label would mix years. Should the new report chart quarterly figures and sort quarters by year then quarter?",
-      "status": "open"
+      "text": "The quarterly product report's chart is fed by the monthly figures, not the quarterly ones. Its quarter labels put the quarter before the year, so a sort on the label would mix years. Should the new report chart quarterly figures and sort quarters by year then quarter? Answer (2026-10-16, demo client): keep the figures the original shows, including the chart fed by the monthly figures; sort quarters by year then quarter.",
+      "status": "answered"
     },
     {
       "id": "Q-reports-005",
-      "text": "The catalog is titled as a seasonal (fall) catalog and needs a full PDF render to fill its table of contents. Is one catalog with a generated table of contents enough, or do you need several seasonal editions, and must the catalog be stored after it is generated?",
-      "status": "open"
+      "text": "The catalog is titled as a seasonal (fall) catalog and needs a full PDF render to fill its table of contents. Is one catalog with a generated table of contents enough, or do you need several seasonal editions, and must the catalog be stored after it is generated? Answer (2026-10-16, demo client): one catalog with a generated table of contents, generated on demand and not stored.",
+      "status": "answered"
     },
     {
       "id": "Q-reports-006",
-      "text": "The catalog shows a placeholder picture for each category, and the code for real category images is switched off. Should the new catalog show the category images stored with the product categories?",
-      "status": "open"
+      "text": "The catalog shows a placeholder picture for each category, and the code for real category images is switched off. Should the new catalog show the category images stored with the product categories? Answer (2026-10-16, demo client): keep the original placeholder picture per category. Correction (S1 review, from the design): the question's premise was wrong. The catalog's category header shows the image stored with each category, through a visible attachment control bound to the category image column; the switched-off code is a separate loader of image files, not the stored images. Keeping the original therefore means showing each category's stored image; the design's own comment says the template ships placeholder pictures, which is what the client saw.",
+      "status": "answered"
     },
     {
       "id": "Q-reports-007",
-      "text": "A saved query totals each salesperson's sales for the current calendar year, without discounts, but nothing in the application uses it. May we drop it, or is a year-to-date figure per salesperson needed elsewhere, for example on a dashboard?",
-      "status": "open"
+      "text": "A saved query totals each salesperson's sales for the current calendar year, without discounts, but nothing in the application uses it. May we drop it, or is a year-to-date figure per salesperson needed elsewhere, for example on a dashboard? Answer (2026-10-16, demo client): drop the query; no year-to-date figure per salesperson is needed.",
+      "status": "answered"
     }
   ],
   "signed": null
