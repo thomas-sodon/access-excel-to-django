@@ -1,0 +1,675 @@
+{
+  "format_version": 1,
+  "kind": "area",
+  "engagement": "northwind-demo",
+  "spec_version": "1.0",
+  "areas": [
+    {
+      "id": "inventory",
+      "title": "Products and Inventory",
+      "status": "kept",
+      "queries": [
+        "qryMaxStockTakeDate",
+        "qryPOProducts_ByStatus",
+        "qryProductCategories",
+        "qryProductDetail",
+        "qryProductList",
+        "qryProductList_Export",
+        "qryProductOrders",
+        "qryProductPurchaseOrder",
+        "qryProductVendors",
+        "qryStockTake",
+        "qrycboProductCategories",
+        "qrycboProductCategory",
+        "qrycboProducts",
+        "qrycboProducts_All"
+      ],
+      "forms": [
+        "frmProductDetail",
+        "frmProductList",
+        "sfrmProductCategories",
+        "sfrmProductDetail_Orders",
+        "sfrmProductDetail_PurchaseOrders",
+        "sfrmProductDetail_StockTake",
+        "sfrmProductDetail_Vendors"
+      ],
+      "reports": [],
+      "procedures": [
+        "Form_frmProductDetail.CalculateLevels",
+        "Form_frmProductDetail.ControlStates",
+        "Form_frmProductDetail.Form_Activate",
+        "Form_frmProductDetail.Form_AfterDelConfirm",
+        "Form_frmProductDetail.Form_AfterInsert",
+        "Form_frmProductDetail.Form_AfterUpdate",
+        "Form_frmProductDetail.Form_BeforeUpdate",
+        "Form_frmProductDetail.Form_Close",
+        "Form_frmProductDetail.Form_Current",
+        "Form_frmProductDetail.Form_Delete",
+        "Form_frmProductDetail.Form_Load",
+        "Form_frmProductDetail.SetProductCode",
+        "Form_frmProductDetail.cboFindProduct_AfterUpdate",
+        "Form_frmProductDetail.cboProductCategoryID_AfterUpdate",
+        "Form_frmProductDetail.chkDiscontinued_AfterUpdate",
+        "Form_frmProductDetail.cmdAddProduct_Click",
+        "Form_frmProductDetail.cmdDeleteProduct_Click",
+        "Form_frmProductDetail.cmdReorderProduct_Click",
+        "Form_frmProductDetail.imgHelp_Click",
+        "Form_frmProductDetail.tabProducts_Change",
+        "Form_frmProductDetail.txtTargetLevel_AfterUpdate",
+        "Form_frmProductList.ProductID_Click",
+        "Form_frmProductList.cmdAddProduct_Click",
+        "Form_frmProductList.cmdExport_Click",
+        "Form_sfrmProductCategories.Form_AfterInsert",
+        "Form_sfrmProductCategories.Form_Current",
+        "Form_sfrmProductCategories.Form_Delete",
+        "Form_sfrmProductCategories.cmdAdd_Click",
+        "Form_sfrmProductCategories.cmdDelete_Click",
+        "Form_sfrmProductCategories.lstCategory_AfterUpdate",
+        "Form_sfrmProductCategories.txtProductCategoryCode_BeforeUpdate",
+        "Form_sfrmProductDetail_Orders.txtOrderID_Click",
+        "Form_sfrmProductDetail_PurchaseOrders.txtPOID_Click",
+        "Form_sfrmProductDetail_StockTake.Form_AfterInsert",
+        "Form_sfrmProductDetail_StockTake.Form_AfterUpdate",
+        "Form_sfrmProductDetail_StockTake.Form_BeforeUpdate",
+        "Form_sfrmProductDetail_StockTake.Form_Current",
+        "Form_sfrmProductDetail_StockTake.QuantityOnHand_AfterUpdate",
+        "Form_sfrmProductDetail_StockTake.QuantityOnHand_BeforeUpdate",
+        "Form_sfrmProductDetail_StockTake.RequeryQuantities",
+        "Form_sfrmProductDetail_Vendors.Form_BeforeUpdate",
+        "Form_sfrmProductDetail_Vendors.txtVendorID_Click",
+        "modForms.RequeryProductList",
+        "modInventory.AllocateInventory",
+        "modInventory.OrderQuantity_ByStatus",
+        "modInventory.ProductAllocated",
+        "modInventory.ProductAvailable",
+        "modInventory.ProductBought",
+        "modInventory.ProductLastStockTakeDate",
+        "modInventory.ProductLastStockTakeQuantity",
+        "modInventory.ProductNoStock",
+        "modInventory.ProductOnOrder",
+        "modInventory.ProductReorderQuantity",
+        "modInventory.ProductSold",
+        "modInventory.ProductToSell",
+        "modRibbonCallback.cmdProducts_OnAction"
+      ],
+      "tables": ["ProductCategories", "ProductVendors", "Products", "StockTake"]
+    }
+  ],
+  "rules": [
+    {
+      "id": "R-inventory-001",
+      "area": "inventory",
+      "statement": "A product's physical stock (available quantity) is the quantity counted at its most recent stock take, plus every purchase-order line quantity for the product received at or after that stock take's date and time, minus every order line quantity for the product whose order was invoiced at or after that moment. Orders with no invoice date are not counted as sold, and purchase-order lines with no received date are not counted as bought.",
+      "trigger": "procedure:modInventory.ProductAvailable",
+      "sources": [
+        {"type": "procedure", "ref": "modInventory.ProductAvailable"},
+        {"type": "procedure", "ref": "modInventory.ProductSold"},
+        {"type": "procedure", "ref": "modInventory.ProductBought"},
+        {"type": "procedure", "ref": "modInventory.ProductLastStockTakeQuantity"}
+      ],
+      "tables": ["StockTake", "PurchaseOrderDetails", "OrderDetails", "Orders"],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": ["Q-inventory-008"]
+    },
+    {
+      "id": "R-inventory-002",
+      "area": "inventory",
+      "statement": "The stock take that counts for a product is the one with the latest date and time. When a product has no stock take at all, an opening stock take with quantity zero is created for it, dated at the moment the product was added (or now when that is unknown), so every product always has a starting point for its stock figures.",
+      "trigger": "procedure:modInventory.ProductLastStockTakeDate",
+      "sources": [
+        {"type": "procedure", "ref": "modInventory.ProductLastStockTakeDate"},
+        {"type": "procedure", "ref": "modInventory.ProductLastStockTakeQuantity"}
+      ],
+      "tables": ["StockTake", "Products"],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": ["Q-inventory-002"]
+    },
+    {
+      "id": "R-inventory-003",
+      "area": "inventory",
+      "statement": "A product's allocated quantity is the total quantity of its order lines in the Allocated line status, and its no-stock quantity is the total quantity of its order lines in the No Stock line status; a product with no such lines has zero.",
+      "trigger": "procedure:modInventory.OrderQuantity_ByStatus",
+      "sources": [
+        {"type": "procedure", "ref": "modInventory.OrderQuantity_ByStatus"},
+        {"type": "procedure", "ref": "modInventory.ProductAllocated"},
+        {"type": "procedure", "ref": "modInventory.ProductNoStock"}
+      ],
+      "tables": ["OrderDetails"],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": []
+    },
+    {
+      "id": "R-inventory-004",
+      "area": "inventory",
+      "statement": "A product's on-order quantity is the total quantity of the product on purchase-order lines whose purchase order is in the Approved status. Purchase orders that are New, Submitted, Received or Closed do not count.",
+      "trigger": "procedure:modInventory.ProductOnOrder",
+      "sources": [
+        {"type": "procedure", "ref": "modInventory.ProductOnOrder"},
+        {"type": "query", "ref": "qryPOProducts_ByStatus"}
+      ],
+      "tables": ["PurchaseOrders", "PurchaseOrderDetails"],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": ["Q-inventory-001"]
+    },
+    {
+      "id": "R-inventory-005",
+      "area": "inventory",
+      "statement": "A product's quantity to sell is its physical stock (R-inventory-001) minus its allocated quantity (R-inventory-003). It can be negative.",
+      "trigger": "procedure:modInventory.ProductToSell",
+      "sources": [
+        {"type": "procedure", "ref": "modInventory.ProductToSell"}
+      ],
+      "tables": ["StockTake", "PurchaseOrderDetails", "OrderDetails", "Orders"],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": []
+    },
+    {
+      "id": "R-inventory-006",
+      "area": "inventory",
+      "statement": "The suggested reorder quantity compares supply (quantity to sell plus on-order quantity) with demand (no-stock quantity plus the product's target level, a blank target counting as zero). When supply covers demand the suggestion is the product's minimum reorder quantity (1 when blank). Otherwise it is the shortfall (demand minus supply), raised to the minimum reorder quantity when the shortfall is smaller.",
+      "trigger": "procedure:modInventory.ProductReorderQuantity",
+      "sources": [
+        {"type": "procedure", "ref": "modInventory.ProductReorderQuantity"}
+      ],
+      "tables": ["Products", "OrderDetails", "PurchaseOrders", "PurchaseOrderDetails", "StockTake", "Orders"],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": ["Q-inventory-001"]
+    },
+    {
+      "id": "R-inventory-007",
+      "area": "inventory",
+      "statement": "Allocating stock to orders for a product goes through its order lines in the Allocated, No Stock or On Order line status, oldest order date first (lower order number first on a tie). A line becomes Allocated only if its whole quantity fits in the physical stock still unallocated; otherwise it becomes On Order if its whole quantity fits in the remaining physical stock plus the on-order quantity; otherwise it becomes No Stock. Lines are never part-allocated, and a later smaller line can be allocated when an earlier larger one could not.",
+      "trigger": "procedure:modInventory.AllocateInventory",
+      "sources": [
+        {"type": "procedure", "ref": "modInventory.AllocateInventory"}
+      ],
+      "tables": ["OrderDetails", "Orders"],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": []
+    },
+    {
+      "id": "R-inventory-008",
+      "area": "inventory",
+      "statement": "Saving a stock take re-runs the stock allocation (R-inventory-007) for that product, so order line statuses follow the new count straight away.",
+      "trigger": "form:sfrmProductDetail_StockTake.AfterUpdate",
+      "sources": [
+        {"type": "procedure", "ref": "Form_sfrmProductDetail_StockTake.Form_AfterUpdate"}
+      ],
+      "tables": ["StockTake", "OrderDetails"],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": []
+    },
+    {
+      "id": "R-inventory-009",
+      "area": "inventory",
+      "statement": "A stock take records the counted quantity on hand for a product. Its date and time are set by the system to the moment it is saved (the user cannot enter or back-date them), and the expected quantity stored with it is the product's physical stock (R-inventory-001) calculated at that moment. The counted and expected quantities can never be negative, and date, product and counted quantity are required.",
+      "trigger": "form:sfrmProductDetail_StockTake.QuantityOnHand.AfterUpdate",
+      "sources": [
+        {"type": "procedure", "ref": "Form_sfrmProductDetail_StockTake.QuantityOnHand_AfterUpdate"},
+        {"type": "procedure", "ref": "Form_sfrmProductDetail_StockTake.Form_BeforeUpdate"},
+        {"type": "form", "ref": "sfrmProductDetail_StockTake"},
+        {"type": "table", "ref": "StockTake"}
+      ],
+      "tables": ["StockTake"],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": ["Q-inventory-003"]
+    },
+    {
+      "id": "R-inventory-010",
+      "area": "inventory",
+      "statement": "When the counted quantity entered for a stock take differs from the expected quantity, the user is shown both figures and must confirm the count; if they decline, the entry is discarded and nothing is saved.",
+      "trigger": "form:sfrmProductDetail_StockTake.QuantityOnHand.BeforeUpdate",
+      "sources": [
+        {"type": "procedure", "ref": "Form_sfrmProductDetail_StockTake.QuantityOnHand_BeforeUpdate"}
+      ],
+      "tables": ["StockTake"],
+      "confidence": "high",
+      "test_kind": "e2e",
+      "questions": []
+    },
+    {
+      "id": "R-inventory-011",
+      "area": "inventory",
+      "statement": "Stock takes are append-only: users may add a new stock take for a product, but an existing stock take can be neither edited nor deleted.",
+      "trigger": "form:sfrmProductDetail_StockTake.Current",
+      "sources": [
+        {"type": "procedure", "ref": "Form_sfrmProductDetail_StockTake.Form_Current"}
+      ],
+      "tables": ["StockTake"],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": []
+    },
+    {
+      "id": "R-inventory-012",
+      "area": "inventory",
+      "statement": "A product cannot be saved while any required field is empty (code, name, standard unit cost, unit price, category, discontinued flag) or while its standard unit cost is zero or less. Product code and product name are each unique.",
+      "trigger": "form:frmProductDetail.BeforeUpdate",
+      "sources": [
+        {"type": "procedure", "ref": "Form_frmProductDetail.Form_BeforeUpdate"},
+        {"type": "table", "ref": "Products"}
+      ],
+      "tables": ["Products"],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": []
+    },
+    {
+      "id": "R-inventory-013",
+      "area": "inventory",
+      "statement": "A product's code is built from a fixed company prefix (NWT), the code of the product's category, a hyphen and the product's number. It is set whenever a category is chosen for a product that already has a number, so changing a product's category changes its code.",
+      "trigger": "form:frmProductDetail.cboProductCategoryID.AfterUpdate",
+      "sources": [
+        {"type": "procedure", "ref": "Form_frmProductDetail.SetProductCode"},
+        {"type": "procedure", "ref": "Form_frmProductDetail.cboProductCategoryID_AfterUpdate"}
+      ],
+      "tables": ["Products", "ProductCategories"],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": ["Q-inventory-007"]
+    },
+    {
+      "id": "R-inventory-014",
+      "area": "inventory",
+      "statement": "A product category's code cannot be changed once any product belongs to that category, because product codes are built from it. Category name and category code are each required and unique.",
+      "trigger": "form:sfrmProductCategories.txtProductCategoryCode.BeforeUpdate",
+      "sources": [
+        {"type": "procedure", "ref": "Form_sfrmProductCategories.txtProductCategoryCode_BeforeUpdate"},
+        {"type": "form", "ref": "sfrmProductCategories"},
+        {"type": "table", "ref": "ProductCategories"}
+      ],
+      "tables": ["ProductCategories", "Products"],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": []
+    },
+    {
+      "id": "R-inventory-015",
+      "area": "inventory",
+      "statement": "A product category cannot be deleted while any product belongs to it; the user is told why. An unsaved new category is simply discarded.",
+      "trigger": "form:sfrmProductCategories.cmdDelete.Click",
+      "sources": [
+        {"type": "procedure", "ref": "Form_sfrmProductCategories.cmdDelete_Click"}
+      ],
+      "tables": ["ProductCategories", "Products"],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": []
+    },
+    {
+      "id": "R-inventory-016",
+      "area": "inventory",
+      "statement": "A product cannot be deleted while it appears on any order line or any purchase-order line; the user is told which kind of record blocks it. Otherwise deleting a product also deletes its stock takes and its vendor links.",
+      "trigger": "form:frmProductDetail.cmdDeleteProduct.Click",
+      "sources": [
+        {"type": "procedure", "ref": "Form_frmProductDetail.cmdDeleteProduct_Click"}
+      ],
+      "tables": ["Products", "OrderDetails", "PurchaseOrderDetails", "StockTake", "ProductVendors"],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": []
+    },
+    {
+      "id": "R-inventory-017",
+      "area": "inventory",
+      "statement": "Reordering a product first saves any pending changes to it. If the product has an on-order quantity and there is a purchase order in the Approved, New or Submitted status that contains the product, reordering opens that purchase order instead of creating or changing anything.",
+      "trigger": "form:frmProductDetail.cmdReorderProduct.Click",
+      "sources": [
+        {"type": "procedure", "ref": "Form_frmProductDetail.cmdReorderProduct_Click"},
+        {"type": "query", "ref": "qryProductPurchaseOrder"}
+      ],
+      "tables": ["PurchaseOrders", "PurchaseOrderDetails"],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": ["Q-inventory-001"]
+    },
+    {
+      "id": "R-inventory-018",
+      "area": "inventory",
+      "statement": "A product can be reordered only when at least one vendor is linked to it; otherwise the user is told a vendor is required and sent to the product's vendors. With exactly one linked vendor that vendor is used; with several the user picks one, and cancelling the choice cancels the reorder.",
+      "trigger": "form:frmProductDetail.cmdReorderProduct.Click",
+      "sources": [
+        {"type": "procedure", "ref": "Form_frmProductDetail.cmdReorderProduct_Click"}
+      ],
+      "tables": ["ProductVendors"],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": []
+    },
+    {
+      "id": "R-inventory-019",
+      "area": "inventory",
+      "statement": "The reorder quantity is the suggested reorder quantity (R-inventory-006). If that is zero, the product's minimum reorder quantity is used; if that is also zero or blank, the user is asked for a quantity, and a zero or cancelled answer cancels the reorder.",
+      "trigger": "form:frmProductDetail.cmdReorderProduct.Click",
+      "sources": [
+        {"type": "procedure", "ref": "Form_frmProductDetail.cmdReorderProduct_Click"}
+      ],
+      "tables": ["Products"],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": []
+    },
+    {
+      "id": "R-inventory-020",
+      "area": "inventory",
+      "statement": "A reorder adds the product to the chosen vendor's oldest purchase order still in the New status: if the product is already on that order its line quantity is increased, otherwise a line is added. When the vendor has no New purchase order, a new purchase order in the New status is created for the vendor with that single line. The line's unit cost is the product's standard unit cost. If no purchase order results, the user is told the reorder failed.",
+      "trigger": "form:frmProductDetail.cmdReorderProduct.Click",
+      "sources": [
+        {"type": "procedure", "ref": "Form_frmProductDetail.cmdReorderProduct_Click"}
+      ],
+      "tables": ["PurchaseOrders", "PurchaseOrderDetails", "Products"],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": []
+    },
+    {
+      "id": "R-inventory-021",
+      "area": "inventory",
+      "statement": "A discontinued product cannot be reordered (the reorder action is not offered) and its discontinued status is shown prominently. The reorder quantity is highlighted as needing attention only for a product that is not discontinued and whose suggested reorder quantity is above zero.",
+      "trigger": "form:frmProductDetail.chkDiscontinued.AfterUpdate",
+      "sources": [
+        {"type": "procedure", "ref": "Form_frmProductDetail.ControlStates"},
+        {"type": "procedure", "ref": "Form_frmProductDetail.chkDiscontinued_AfterUpdate"}
+      ],
+      "tables": ["Products"],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": []
+    },
+    {
+      "id": "R-inventory-022",
+      "area": "inventory",
+      "statement": "The product page shows, for a saved product, its quantity to sell, no-stock, allocated and on-order quantities and its suggested reorder quantity, recalculated whenever the product or its target level changes. A product that is not yet saved shows zeros and offers no delete, reorder, order history or purchase-order history.",
+      "trigger": "form:frmProductDetail.Current",
+      "sources": [
+        {"type": "procedure", "ref": "Form_frmProductDetail.CalculateLevels"},
+        {"type": "procedure", "ref": "Form_frmProductDetail.ControlStates"},
+        {"type": "procedure", "ref": "Form_frmProductDetail.txtTargetLevel_AfterUpdate"},
+        {"type": "form", "ref": "frmProductDetail"}
+      ],
+      "tables": ["Products"],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": []
+    },
+    {
+      "id": "R-inventory-023",
+      "area": "inventory",
+      "statement": "The product list shows every product with its category name, code, name, description, costs and prices, reorder settings and discontinued flag, together with its calculated no-stock, allocated, to-sell and on-order quantities.",
+      "trigger": "query:qryProductList",
+      "sources": [
+        {"type": "query", "ref": "qryProductList"},
+        {"type": "form", "ref": "frmProductList"}
+      ],
+      "tables": ["Products", "ProductCategories"],
+      "confidence": "high",
+      "test_kind": "equivalence",
+      "questions": []
+    },
+    {
+      "id": "R-inventory-024",
+      "area": "inventory",
+      "statement": "The product list can be exported to a spreadsheet listing, per product sorted by name, its number, code and name, allocated quantity, quantity to sell, on-order quantity, reorder level, target level, minimum reorder quantity and discontinued flag.",
+      "trigger": "form:frmProductList.cmdExport.Click",
+      "sources": [
+        {"type": "query", "ref": "qryProductList_Export"},
+        {"type": "procedure", "ref": "Form_frmProductList.cmdExport_Click"}
+      ],
+      "tables": ["Products"],
+      "confidence": "high",
+      "test_kind": "equivalence",
+      "questions": ["Q-inventory-004"]
+    },
+    {
+      "id": "R-inventory-025",
+      "area": "inventory",
+      "statement": "A product's order history lists each order line for the product with the order number and date, quantity, unit price, extended price (quantity times unit price), the order's status name and the line's status name.",
+      "trigger": "query:qryProductOrders",
+      "sources": [
+        {"type": "query", "ref": "qryProductOrders"},
+        {"type": "form", "ref": "sfrmProductDetail_Orders"}
+      ],
+      "tables": ["OrderDetails", "Orders", "OrderStatus", "OrderDetailStatus", "Products"],
+      "confidence": "high",
+      "test_kind": "equivalence",
+      "questions": []
+    },
+    {
+      "id": "R-inventory-026",
+      "area": "inventory",
+      "statement": "A product's purchase-order history lists each purchase-order line for the product with the purchase order number, status, quantity, unit cost, extended cost (quantity times unit cost), vendor name, submitted date and received date, ordered by the status's sort order and then the submitted date.",
+      "trigger": "query:qryProductPurchaseOrder",
+      "sources": [
+        {"type": "query", "ref": "qryProductPurchaseOrder"},
+        {"type": "form", "ref": "sfrmProductDetail_PurchaseOrders"}
+      ],
+      "tables": ["PurchaseOrderDetails", "PurchaseOrders", "PurchaseOrderStatus", "Companies", "Products"],
+      "confidence": "high",
+      "test_kind": "equivalence",
+      "questions": []
+    },
+    {
+      "id": "R-inventory-027",
+      "area": "inventory",
+      "statement": "When picking a product on an order line, the category filter offers an 'all categories' entry first and then every category by name; the product choices, sorted by name with their unit price and category, are all products when 'all' is chosen and only that category's products otherwise.",
+      "trigger": "query:qrycboProducts",
+      "sources": [
+        {"type": "query", "ref": "qrycboProductCategories"},
+        {"type": "query", "ref": "qrycboProducts"},
+        {"type": "query", "ref": "qrycboProducts_All"}
+      ],
+      "tables": ["Products", "ProductCategories"],
+      "confidence": "high",
+      "test_kind": "equivalence",
+      "questions": ["Q-inventory-005"]
+    },
+    {
+      "id": "R-inventory-028",
+      "area": "inventory",
+      "statement": "Products, product categories, product-vendor links and stock takes carry audit stamps: when a record is created, the added-by and modified-by fields get the current user's name and the added-on and modified-on fields the current date and time; on every later change only the modified-by and modified-on fields are refreshed, and the added-by and added-on values can never be changed or cleared.",
+      "trigger": "datamacro:Products.BeforeChange",
+      "sources": [
+        {"type": "data_macro", "ref": "Products.BeforeChange"},
+        {"type": "data_macro", "ref": "ProductCategories.BeforeChange"},
+        {"type": "data_macro", "ref": "ProductVendors.BeforeChange"},
+        {"type": "data_macro", "ref": "StockTake.BeforeChange"},
+        {"type": "procedure", "ref": "Form_sfrmProductDetail_Vendors.Form_BeforeUpdate"}
+      ],
+      "tables": ["Products", "ProductCategories", "ProductVendors", "StockTake"],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": ["Q-inventory-006"]
+    },
+    {
+      "id": "R-inventory-029",
+      "area": "inventory",
+      "statement": "A product can be linked to a given vendor only once; product and vendor are both required on the link, and the vendor must be an existing company.",
+      "trigger": "form:sfrmProductDetail_Vendors.BeforeUpdate",
+      "sources": [
+        {"type": "form", "ref": "sfrmProductDetail_Vendors"},
+        {"type": "table", "ref": "ProductVendors"}
+      ],
+      "tables": ["ProductVendors", "Companies"],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": []
+    },
+    {
+      "id": "R-inventory-030",
+      "area": "inventory",
+      "statement": "End to end, a user can open the product list, open a product whose stock is short of its target, see its levels and suggested reorder quantity, reorder it from a linked vendor, and find the resulting New purchase order on the product's purchase-order history; once that order is approved the quantity shows as on order, and once it is received the product's physical stock rises and waiting order lines are allocated.",
+      "trigger": "form:frmProductDetail.cmdReorderProduct.Click",
+      "sources": [
+        {"type": "form", "ref": "frmProductList"},
+        {"type": "form", "ref": "frmProductDetail"},
+        {"type": "procedure", "ref": "Form_frmProductDetail.cmdReorderProduct_Click"}
+      ],
+      "tables": ["Products", "ProductVendors", "PurchaseOrders", "PurchaseOrderDetails", "OrderDetails"],
+      "confidence": "medium",
+      "test_kind": "e2e",
+      "questions": []
+    }
+  ],
+  "objects": [
+    {"type": "table", "name": "ProductCategories", "decision": "keep", "area": "inventory", "target_component": "legacy.models", "reason": null},
+    {"type": "table", "name": "ProductVendors", "decision": "keep", "area": "inventory", "target_component": "legacy.models", "reason": null},
+    {"type": "table", "name": "Products", "decision": "keep", "area": "inventory", "target_component": "legacy.models", "reason": null},
+    {"type": "table", "name": "StockTake", "decision": "keep", "area": "inventory", "target_component": "legacy.models", "reason": null},
+
+    {"type": "data_macro", "name": "ProductCategories.BeforeChange", "decision": "keep", "area": "inventory", "target_component": "inventory.models", "reason": null},
+    {"type": "data_macro", "name": "ProductVendors.BeforeChange", "decision": "keep", "area": "inventory", "target_component": "inventory.models", "reason": null},
+    {"type": "data_macro", "name": "Products.BeforeChange", "decision": "keep", "area": "inventory", "target_component": "inventory.models", "reason": null},
+    {"type": "data_macro", "name": "StockTake.BeforeChange", "decision": "keep", "area": "inventory", "target_component": "inventory.models", "reason": null},
+
+    {"type": "form", "name": "frmProductDetail", "decision": "keep", "area": "inventory", "target_component": "inventory.views", "reason": null},
+    {"type": "form", "name": "frmProductList", "decision": "keep", "area": "inventory", "target_component": "inventory.views", "reason": null},
+    {"type": "form", "name": "sfrmProductCategories", "decision": "keep", "area": "inventory", "target_component": "inventory.views", "reason": null},
+    {"type": "form", "name": "sfrmProductDetail_Orders", "decision": "keep", "area": "inventory", "target_component": "inventory.views", "reason": null},
+    {"type": "form", "name": "sfrmProductDetail_PurchaseOrders", "decision": "keep", "area": "inventory", "target_component": "inventory.views", "reason": null},
+    {"type": "form", "name": "sfrmProductDetail_StockTake", "decision": "keep", "area": "inventory", "target_component": "inventory.views", "reason": null},
+    {"type": "form", "name": "sfrmProductDetail_Vendors", "decision": "keep", "area": "inventory", "target_component": "inventory.views", "reason": null},
+
+    {"type": "procedure", "name": "Form_frmProductDetail.CalculateLevels", "decision": "keep", "area": "inventory", "target_component": "inventory.views", "reason": null},
+    {"type": "procedure", "name": "Form_frmProductDetail.ControlStates", "decision": "keep", "area": "inventory", "target_component": "inventory.views", "reason": null},
+    {"type": "procedure", "name": "Form_frmProductDetail.Form_Activate", "decision": "drop", "area": "inventory", "target_component": null, "reason": "Access screen refresh when the window regains focus; a web page recalculates the figures on every load"},
+    {"type": "procedure", "name": "Form_frmProductDetail.Form_AfterDelConfirm", "decision": "drop", "area": "inventory", "target_component": null, "reason": "refreshes the product picker and any open product list after a delete; web pages are rebuilt on load"},
+    {"type": "procedure", "name": "Form_frmProductDetail.Form_AfterInsert", "decision": "drop", "area": "inventory", "target_component": null, "reason": "refreshes on-screen state and open lists after an insert; the web page redirects and reloads"},
+    {"type": "procedure", "name": "Form_frmProductDetail.Form_AfterUpdate", "decision": "drop", "area": "inventory", "target_component": null, "reason": "refreshes on-screen state and open lists after a save; the web page redirects and reloads"},
+    {"type": "procedure", "name": "Form_frmProductDetail.Form_BeforeUpdate", "decision": "keep", "area": "inventory", "target_component": "inventory.forms", "reason": null},
+    {"type": "procedure", "name": "Form_frmProductDetail.Form_Close", "decision": "drop", "area": "inventory", "target_component": null, "reason": "Access lazy-loading cleanup and refresh of other open windows; not needed on the web"},
+    {"type": "procedure", "name": "Form_frmProductDetail.Form_Current", "decision": "drop", "area": "inventory", "target_component": null, "reason": "only re-applies the screen states of ControlStates on record navigation; that behaviour is kept through R-inventory-021 and R-inventory-022"},
+    {"type": "procedure", "name": "Form_frmProductDetail.Form_Delete", "decision": "drop", "area": "inventory", "target_component": null, "reason": "removes the product from the Access recently-used navigation list; no such list in the web app"},
+    {"type": "procedure", "name": "Form_frmProductDetail.Form_Load", "decision": "drop", "area": "inventory", "target_component": null, "reason": "Access lazy loading of tab subforms; not needed on the web"},
+    {"type": "procedure", "name": "Form_frmProductDetail.SetProductCode", "decision": "keep", "area": "inventory", "target_component": "inventory.models", "reason": null},
+    {"type": "procedure", "name": "Form_frmProductDetail.cboFindProduct_AfterUpdate", "decision": "keep", "area": "inventory", "target_component": "inventory.views", "reason": "navigation only: jumps to the chosen product; holds no business rule"},
+    {"type": "procedure", "name": "Form_frmProductDetail.cboProductCategoryID_AfterUpdate", "decision": "keep", "area": "inventory", "target_component": "inventory.models", "reason": null},
+    {"type": "procedure", "name": "Form_frmProductDetail.chkDiscontinued_AfterUpdate", "decision": "keep", "area": "inventory", "target_component": "inventory.views", "reason": null},
+    {"type": "procedure", "name": "Form_frmProductDetail.cmdAddProduct_Click", "decision": "keep", "area": "inventory", "target_component": "inventory.views", "reason": "navigation only: opens a blank product; holds no business rule"},
+    {"type": "procedure", "name": "Form_frmProductDetail.cmdDeleteProduct_Click", "decision": "keep", "area": "inventory", "target_component": "inventory.services", "reason": null},
+    {"type": "procedure", "name": "Form_frmProductDetail.cmdReorderProduct_Click", "decision": "keep", "area": "inventory", "target_component": "inventory.services", "reason": null},
+    {"type": "procedure", "name": "Form_frmProductDetail.imgHelp_Click", "decision": "drop", "area": "inventory", "target_component": null, "reason": "empty help handler; does nothing"},
+    {"type": "procedure", "name": "Form_frmProductDetail.tabProducts_Change", "decision": "drop", "area": "inventory", "target_component": null, "reason": "Access lazy loading of tab subforms; not needed on the web"},
+    {"type": "procedure", "name": "Form_frmProductDetail.txtTargetLevel_AfterUpdate", "decision": "keep", "area": "inventory", "target_component": "inventory.views", "reason": null},
+    {"type": "procedure", "name": "Form_frmProductList.ProductID_Click", "decision": "keep", "area": "inventory", "target_component": "inventory.views", "reason": "navigation only: opens the clicked product; holds no business rule"},
+    {"type": "procedure", "name": "Form_frmProductList.cmdAddProduct_Click", "decision": "keep", "area": "inventory", "target_component": "inventory.views", "reason": "navigation only: opens a blank product; holds no business rule"},
+    {"type": "procedure", "name": "Form_frmProductList.cmdExport_Click", "decision": "keep", "area": "inventory", "target_component": "inventory.views", "reason": null},
+    {"type": "procedure", "name": "Form_sfrmProductCategories.Form_AfterInsert", "decision": "drop", "area": "inventory", "target_component": null, "reason": "refreshes the category list box after an insert; web pages are rebuilt on load"},
+    {"type": "procedure", "name": "Form_sfrmProductCategories.Form_Current", "decision": "drop", "area": "inventory", "target_component": null, "reason": "keeps the list box selection in step with the record shown; Access UI only"},
+    {"type": "procedure", "name": "Form_sfrmProductCategories.Form_Delete", "decision": "drop", "area": "inventory", "target_component": null, "reason": "refreshes the category list box after a delete; web pages are rebuilt on load"},
+    {"type": "procedure", "name": "Form_sfrmProductCategories.cmdAdd_Click", "decision": "keep", "area": "inventory", "target_component": "inventory.views", "reason": "navigation only: opens a blank category; holds no business rule"},
+    {"type": "procedure", "name": "Form_sfrmProductCategories.cmdDelete_Click", "decision": "keep", "area": "inventory", "target_component": "inventory.services", "reason": null},
+    {"type": "procedure", "name": "Form_sfrmProductCategories.lstCategory_AfterUpdate", "decision": "keep", "area": "inventory", "target_component": "inventory.views", "reason": "navigation only: shows the category picked in the list; holds no business rule"},
+    {"type": "procedure", "name": "Form_sfrmProductCategories.txtProductCategoryCode_BeforeUpdate", "decision": "keep", "area": "inventory", "target_component": "inventory.forms", "reason": null},
+    {"type": "procedure", "name": "Form_sfrmProductDetail_Orders.txtOrderID_Click", "decision": "keep", "area": "inventory", "target_component": "inventory.views", "reason": "navigation only: opens the clicked order; holds no business rule"},
+    {"type": "procedure", "name": "Form_sfrmProductDetail_PurchaseOrders.txtPOID_Click", "decision": "keep", "area": "inventory", "target_component": "inventory.views", "reason": "navigation only: opens the clicked purchase order; holds no business rule"},
+    {"type": "procedure", "name": "Form_sfrmProductDetail_StockTake.Form_AfterInsert", "decision": "drop", "area": "inventory", "target_component": null, "reason": "refreshes the parent window's figures after an insert; the web page reloads"},
+    {"type": "procedure", "name": "Form_sfrmProductDetail_StockTake.Form_AfterUpdate", "decision": "keep", "area": "inventory", "target_component": "inventory.services", "reason": null},
+    {"type": "procedure", "name": "Form_sfrmProductDetail_StockTake.Form_BeforeUpdate", "decision": "keep", "area": "inventory", "target_component": "inventory.forms", "reason": null},
+    {"type": "procedure", "name": "Form_sfrmProductDetail_StockTake.Form_Current", "decision": "keep", "area": "inventory", "target_component": "inventory.views", "reason": null},
+    {"type": "procedure", "name": "Form_sfrmProductDetail_StockTake.QuantityOnHand_AfterUpdate", "decision": "keep", "area": "inventory", "target_component": "inventory.services", "reason": null},
+    {"type": "procedure", "name": "Form_sfrmProductDetail_StockTake.QuantityOnHand_BeforeUpdate", "decision": "keep", "area": "inventory", "target_component": "inventory.forms", "reason": null},
+    {"type": "procedure", "name": "Form_sfrmProductDetail_StockTake.RequeryQuantities", "decision": "drop", "area": "inventory", "target_component": null, "reason": "refreshes the parent window and any open product list; the web page reloads"},
+    {"type": "procedure", "name": "Form_sfrmProductDetail_Vendors.Form_BeforeUpdate", "decision": "keep", "area": "inventory", "target_component": "inventory.models", "reason": null},
+    {"type": "procedure", "name": "Form_sfrmProductDetail_Vendors.txtVendorID_Click", "decision": "keep", "area": "inventory", "target_component": "inventory.views", "reason": "navigation only: opens the vendor's company page; holds no business rule"},
+    {"type": "procedure", "name": "modForms.RequeryProductList", "decision": "drop", "area": "inventory", "target_component": null, "reason": "refreshes the product list window if it is open; web pages are rebuilt on load"},
+    {"type": "procedure", "name": "modInventory.AllocateInventory", "decision": "keep", "area": "inventory", "target_component": "inventory.services", "reason": null},
+    {"type": "procedure", "name": "modInventory.OrderQuantity_ByStatus", "decision": "keep", "area": "inventory", "target_component": "inventory.services", "reason": null},
+    {"type": "procedure", "name": "modInventory.ProductAllocated", "decision": "keep", "area": "inventory", "target_component": "inventory.services", "reason": null},
+    {"type": "procedure", "name": "modInventory.ProductAvailable", "decision": "keep", "area": "inventory", "target_component": "inventory.services", "reason": null},
+    {"type": "procedure", "name": "modInventory.ProductBought", "decision": "keep", "area": "inventory", "target_component": "inventory.services", "reason": null},
+    {"type": "procedure", "name": "modInventory.ProductLastStockTakeDate", "decision": "keep", "area": "inventory", "target_component": "inventory.services", "reason": null},
+    {"type": "procedure", "name": "modInventory.ProductLastStockTakeQuantity", "decision": "keep", "area": "inventory", "target_component": "inventory.services", "reason": null},
+    {"type": "procedure", "name": "modInventory.ProductNoStock", "decision": "keep", "area": "inventory", "target_component": "inventory.services", "reason": null},
+    {"type": "procedure", "name": "modInventory.ProductOnOrder", "decision": "keep", "area": "inventory", "target_component": "inventory.services", "reason": null},
+    {"type": "procedure", "name": "modInventory.ProductReorderQuantity", "decision": "keep", "area": "inventory", "target_component": "inventory.services", "reason": null},
+    {"type": "procedure", "name": "modInventory.ProductSold", "decision": "keep", "area": "inventory", "target_component": "inventory.services", "reason": null},
+    {"type": "procedure", "name": "modInventory.ProductToSell", "decision": "keep", "area": "inventory", "target_component": "inventory.services", "reason": null},
+    {"type": "procedure", "name": "modRibbonCallback.cmdProducts_OnAction", "decision": "keep", "area": "inventory", "target_component": "inventory.views", "reason": "menu entry that opens the product list; holds no business rule"},
+
+    {"type": "query", "name": "qryMaxStockTakeDate", "decision": "drop", "area": "inventory", "target_component": null, "reason": "unused: no form, report, query or code refers to it; the latest stock take is found in code (R-inventory-002)"},
+    {"type": "query", "name": "qryPOProducts_ByStatus", "decision": "keep", "area": "inventory", "target_component": "inventory.saved_queries", "reason": null},
+    {"type": "query", "name": "qryProductCategories", "decision": "keep", "area": "inventory", "target_component": "inventory.saved_queries", "reason": "plain record source for category maintenance (all columns of one table); its unit proves it, no rule"},
+    {"type": "query", "name": "qryProductDetail", "decision": "keep", "area": "inventory", "target_component": "inventory.saved_queries", "reason": "plain record source for the product page (all columns of one table); its unit proves it, no rule"},
+    {"type": "query", "name": "qryProductList", "decision": "keep", "area": "inventory", "target_component": "inventory.saved_queries", "reason": null},
+    {"type": "query", "name": "qryProductList_Export", "decision": "keep", "area": "inventory", "target_component": "inventory.saved_queries", "reason": null},
+    {"type": "query", "name": "qryProductOrders", "decision": "keep", "area": "inventory", "target_component": "inventory.saved_queries", "reason": null},
+    {"type": "query", "name": "qryProductPurchaseOrder", "decision": "keep", "area": "inventory", "target_component": "inventory.saved_queries", "reason": null},
+    {"type": "query", "name": "qryProductVendors", "decision": "keep", "area": "inventory", "target_component": "inventory.saved_queries", "reason": "plain record source for a product's vendor links (all columns of one table); its unit proves it, no rule"},
+    {"type": "query", "name": "qryStockTake", "decision": "keep", "area": "inventory", "target_component": "inventory.saved_queries", "reason": "plain record source for a product's stock takes (columns of one table); its unit proves it, no rule"},
+    {"type": "query", "name": "qrycboProductCategories", "decision": "keep", "area": "inventory", "target_component": "inventory.saved_queries", "reason": null},
+    {"type": "query", "name": "qrycboProductCategory", "decision": "keep", "area": "inventory", "target_component": "inventory.saved_queries", "reason": "plain category choice list sorted by name for the product page; its unit proves it, no rule"},
+    {"type": "query", "name": "qrycboProducts", "decision": "keep", "area": "inventory", "target_component": "inventory.saved_queries", "reason": null},
+    {"type": "query", "name": "qrycboProducts_All", "decision": "keep", "area": "inventory", "target_component": "inventory.saved_queries", "reason": null}
+  ],
+  "lookups": [
+    {"table": "OrderDetails", "column": "OrderDetailStatusID", "copy_values": true, "values": null, "rule": "R-inventory-007"},
+    {"table": "PurchaseOrders", "column": "StatusID", "copy_values": true, "values": null, "rule": "R-inventory-004"},
+    {"table": "ProductCategories", "column": "ProductCategoryCode", "copy_values": false, "values": null, "rule": "R-inventory-013"}
+  ],
+  "relations": [
+    {"table": "Products", "fk": "ProductCategoryID", "on_delete": "PROTECT", "rule": "R-inventory-015"},
+    {"table": "StockTake", "fk": "ProductID", "on_delete": "CASCADE", "rule": "R-inventory-016"},
+    {"table": "ProductVendors", "fk": "ProductID", "on_delete": "CASCADE", "rule": "R-inventory-016"},
+    {"table": "OrderDetails", "fk": "ProductID", "on_delete": "PROTECT", "rule": "R-inventory-016"},
+    {"table": "PurchaseOrderDetails", "fk": "ProductID", "on_delete": "PROTECT", "rule": "R-inventory-016"},
+    {"table": "ProductVendors", "fk": "VendorID", "on_delete": "PROTECT", "rule": "R-inventory-029"}
+  ],
+  "workflows": [
+    {
+      "id": "inventory_restock",
+      "title": "Inventory levels and restocking",
+      "forms": ["frmProductList", "frmProductDetail", "sfrmProductDetail_Vendors", "sfrmProductDetail_PurchaseOrders"],
+      "reports": [],
+      "rules": ["R-inventory-030", "R-inventory-006", "R-inventory-017", "R-inventory-018", "R-inventory-019", "R-inventory-020", "R-inventory-021", "R-inventory-022"],
+      "steps": [
+        "open the product list and read each product's stock figures",
+        "open a product whose quantity to sell is below its target level",
+        "check its suggested reorder quantity",
+        "reorder it from a linked vendor",
+        "see the new or extended New purchase order on the product's purchase-order history",
+        "after the purchase order is approved and received, see the physical stock rise and waiting order lines allocated"
+      ]
+    },
+    {
+      "id": "stock_take",
+      "title": "Stock take and re-allocation",
+      "forms": ["frmProductDetail", "sfrmProductDetail_StockTake"],
+      "reports": [],
+      "rules": ["R-inventory-010", "R-inventory-009", "R-inventory-011", "R-inventory-008", "R-inventory-001"],
+      "steps": [
+        "open a product's stock takes",
+        "enter a counted quantity that differs from the expected quantity",
+        "confirm the count when asked",
+        "see the stock take saved with the system date and expected quantity",
+        "see the product's figures and order line allocations updated"
+      ]
+    }
+  ],
+  "services": [
+    {"name": "product_stock_levels", "area": "inventory", "inputs": ["product id"], "outputs": ["physical stock", "allocated quantity", "no-stock quantity", "on-order quantity", "quantity to sell", "suggested reorder quantity"], "errors": ["unknown product"]},
+    {"name": "allocate_inventory", "area": "inventory", "inputs": ["product id"], "outputs": ["order lines whose status changed"], "errors": ["unknown product"]},
+    {"name": "record_stock_take", "area": "inventory", "inputs": ["product id", "counted quantity", "mismatch confirmed"], "outputs": ["stock take id", "expected quantity"], "errors": ["negative quantity", "count differs from expected and was not confirmed"]},
+    {"name": "reorder_product", "area": "inventory", "inputs": ["product id", "vendor id (when the product has several vendors)", "quantity (when no reorder or minimum quantity applies)"], "outputs": ["purchase order id", "whether an outstanding purchase order was opened instead"], "errors": ["product is discontinued", "no vendor linked to the product", "vendor choice required", "quantity required", "reorder failed"]},
+    {"name": "delete_product", "area": "inventory", "inputs": ["product id"], "outputs": ["deleted"], "errors": ["product is on an order line", "product is on a purchase-order line"]}
+  ],
+  "open_questions": [
+    {"id": "Q-inventory-001", "text": "Only Approved purchase orders count as on order in the stock figures and the suggested reorder quantity, while the reorder action also treats New and Submitted orders as outstanding. Should New and Submitted orders keep being left out of the on-order figure?", "status": "open"},
+    {"id": "Q-inventory-002", "text": "When a product has no stock take, the old app silently creates an opening zero-quantity stock take the first time stock is calculated. May the new app create that opening stock take when the product is created instead (same figures)?", "status": "open"},
+    {"id": "Q-inventory-003", "text": "Stock takes are always dated at the moment they are saved, so a count made earlier cannot be back-dated. Keep that restriction?", "status": "open"},
+    {"id": "Q-inventory-004", "text": "Is the spreadsheet export of the product list still needed, and is an .xlsx download from the web page acceptable?", "status": "open"},
+    {"id": "Q-inventory-005", "text": "Discontinued products are still offered when picking a product on an order line. Should they stay selectable for new orders?", "status": "open"},
+    {"id": "Q-inventory-006", "text": "Audit stamps use the signed-in employee's full name, and the old app falls back to the Windows user name when nobody is signed in. In the web app everyone is signed in; which name should stamps from imports or system jobs carry?", "status": "open"},
+    {"id": "Q-inventory-007", "text": "Product codes are rebuilt from the fixed NWT prefix, the category code and the product number whenever the category changes. Keep the prefix and the rebuild on category change, or should codes stay fixed once issued?", "status": "open"},
+    {"id": "Q-inventory-008", "text": "Sold quantity counts every line of an invoiced order from the invoice date on, whatever the line's own status. Is that the intended point at which stock leaves the warehouse (rather than shipping)?", "status": "open"}
+  ],
+  "signed": null
+}

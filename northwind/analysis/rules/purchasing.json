@@ -1,0 +1,1606 @@
+{
+  "format_version": 1,
+  "kind": "area",
+  "engagement": "northwind-demo",
+  "spec_version": "1.0",
+  "areas": [
+    {
+      "id": "purchasing",
+      "title": "Purchasing and receiving",
+      "status": "kept",
+      "queries": [
+        "qryPurchaseOrder",
+        "qryPurchaseOrderCost",
+        "qryPurchaseOrderLineItems",
+        "qryPurchaseOrderList",
+        "qryVendorPurchaseOrderList",
+        "qrycboProducts_PO",
+        "qrycboVendors"
+      ],
+      "forms": [
+        "frmPurchaseOrderDetails",
+        "frmPurchaseOrderList",
+        "frmSelectVendorDialog",
+        "sfrmCompanyDetail_VendorPurchaseOrders",
+        "sfrmPurchaseOrderLineItems"
+      ],
+      "reports": [],
+      "procedures": [
+        "Form_frmPurchaseOrderDetails.AllocatePurchaseOrder",
+        "Form_frmPurchaseOrderDetails.Form_BeforeInsert",
+        "Form_frmPurchaseOrderDetails.Form_BeforeUpdate",
+        "Form_frmPurchaseOrderDetails.Form_Current",
+        "Form_frmPurchaseOrderDetails.Form_Load",
+        "Form_frmPurchaseOrderDetails.LockControls",
+        "Form_frmPurchaseOrderDetails.PoCloseFieldsFilledOut",
+        "Form_frmPurchaseOrderDetails.SetWorkflowLabelColors",
+        "Form_frmPurchaseOrderDetails.VendorID_AfterUpdate",
+        "Form_frmPurchaseOrderDetails.VendorID_BeforeUpdate",
+        "Form_frmPurchaseOrderDetails.cmdAddNostock_Click",
+        "Form_frmPurchaseOrderDetails.cmdAddPO_Click",
+        "Form_frmPurchaseOrderDetails.cmdApprovePO_Click",
+        "Form_frmPurchaseOrderDetails.cmdClosePO_Click",
+        "Form_frmPurchaseOrderDetails.cmdDeletePO_Click",
+        "Form_frmPurchaseOrderDetails.cmdReceivePO_Click",
+        "Form_frmPurchaseOrderDetails.cmdSubmitPO_Click",
+        "Form_frmPurchaseOrderList.PurchaseOrderID_Click",
+        "Form_frmPurchaseOrderList.cmdAddPO_Click",
+        "Form_frmSelectVendorDialog.Form_Load",
+        "Form_frmSelectVendorDialog.cmdCancel_Click",
+        "Form_frmSelectVendorDialog.cmdOK_Click",
+        "Form_frmSelectVendorDialog.lstVendor_DblClick",
+        "Form_sfrmCompanyDetail_VendorPurchaseOrders.Detail_DblClick",
+        "Form_sfrmCompanyDetail_VendorPurchaseOrders.OpenForm_frmPurchaseOrderDetails",
+        "Form_sfrmPurchaseOrderLineItems.Form_BeforeUpdate",
+        "Form_sfrmPurchaseOrderLineItems.Form_Error",
+        "Form_sfrmPurchaseOrderLineItems.ProductID_AfterUpdate",
+        "Form_sfrmPurchaseOrderLineItems.PurchaseOrderDetailID_Click",
+        "Form_sfrmPurchaseOrderLineItems.ValidateLineItem",
+        "modPurchaseOrders.AddPurchaseOrderDetail",
+        "modPurchaseOrders.ReorderProduct"
+      ],
+      "tables": [
+        "PurchaseOrders",
+        "PurchaseOrderDetails",
+        "PurchaseOrderStatus"
+      ]
+    }
+  ],
+  "rules": [
+    {
+      "id": "R-purchasing-001",
+      "area": "purchasing",
+      "statement": "A new purchase order always starts in status New, whether it is entered by hand or created by a product reorder.",
+      "trigger": "form:frmPurchaseOrderDetails.BeforeInsert",
+      "sources": [
+        {
+          "type": "procedure",
+          "ref": "Form_frmPurchaseOrderDetails.Form_BeforeInsert"
+        },
+        {
+          "type": "procedure",
+          "ref": "modPurchaseOrders.ReorderProduct"
+        }
+      ],
+      "tables": [
+        "PurchaseOrders"
+      ],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": []
+    },
+    {
+      "id": "R-purchasing-002",
+      "area": "purchasing",
+      "statement": "A purchase order is saved only when its required fields are filled in (at least the vendor and the status); otherwise the save is refused and the missing fields are highlighted. The vendor must be an existing company, the status an existing purchase order status, and the submitter and approver existing employees.",
+      "trigger": "form:frmPurchaseOrderDetails.BeforeUpdate",
+      "sources": [
+        {
+          "type": "procedure",
+          "ref": "Form_frmPurchaseOrderDetails.Form_BeforeUpdate"
+        },
+        {
+          "type": "table",
+          "ref": "PurchaseOrders"
+        }
+      ],
+      "tables": [
+        "PurchaseOrders",
+        "Companies",
+        "Employees",
+        "PurchaseOrderStatus"
+      ],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": []
+    },
+    {
+      "id": "R-purchasing-003",
+      "area": "purchasing",
+      "statement": "A purchase order moves through the fixed sequence New, Submitted, Approved, Received, Closed. Each step has its own action, each action works only from the status directly before it, and no step can be skipped or undone. The form shows which steps are already done.",
+      "trigger": "form:frmPurchaseOrderDetails.Current",
+      "sources": [
+        {
+          "type": "procedure",
+          "ref": "Form_frmPurchaseOrderDetails.SetWorkflowLabelColors"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmPurchaseOrderDetails.cmdSubmitPO_Click"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmPurchaseOrderDetails.cmdApprovePO_Click"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmPurchaseOrderDetails.cmdReceivePO_Click"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmPurchaseOrderDetails.cmdClosePO_Click"
+        },
+        {
+          "type": "table",
+          "ref": "PurchaseOrderStatus"
+        },
+        {
+          "type": "data_macro",
+          "ref": "PurchaseOrderStatus.BeforeChange"
+        }
+      ],
+      "tables": [
+        "PurchaseOrders",
+        "PurchaseOrderStatus"
+      ],
+      "confidence": "high",
+      "test_kind": "e2e",
+      "questions": []
+    },
+    {
+      "id": "R-purchasing-004",
+      "area": "purchasing",
+      "statement": "Submitting is allowed only for a purchase order in status New. It records the signed-in user as submitter and the current date and time as the submitted date, and sets the status to Submitted. From any other status the action is refused with a message and nothing changes.",
+      "trigger": "form:frmPurchaseOrderDetails.cmdSubmitPO.Click",
+      "sources": [
+        {
+          "type": "procedure",
+          "ref": "Form_frmPurchaseOrderDetails.cmdSubmitPO_Click"
+        }
+      ],
+      "tables": [
+        "PurchaseOrders"
+      ],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": [
+        "Q-purchasing-006"
+      ]
+    },
+    {
+      "id": "R-purchasing-005",
+      "area": "purchasing",
+      "statement": "Approving is allowed only for a Submitted purchase order and only for a user who holds the approve-purchase-order privilege. It records that user as approver and the current date and time as the approved date, and sets the status to Approved. Without the privilege, or from another status, the action is refused with a message and nothing changes.",
+      "trigger": "form:frmPurchaseOrderDetails.cmdApprovePO.Click",
+      "sources": [
+        {
+          "type": "procedure",
+          "ref": "Form_frmPurchaseOrderDetails.cmdApprovePO_Click"
+        }
+      ],
+      "tables": [
+        "PurchaseOrders",
+        "EmployeePrivileges"
+      ],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": [
+        "Q-purchasing-004",
+        "Q-purchasing-006"
+      ]
+    },
+    {
+      "id": "R-purchasing-006",
+      "area": "purchasing",
+      "statement": "Right after a purchase order is approved, and again right after it is received, stock allocation is re-run for every product on it, so customer order lines waiting for those products are re-evaluated oldest first (the allocation rule itself belongs to the inventory area).",
+      "trigger": "procedure:Form_frmPurchaseOrderDetails.AllocatePurchaseOrder",
+      "sources": [
+        {
+          "type": "procedure",
+          "ref": "Form_frmPurchaseOrderDetails.AllocatePurchaseOrder"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmPurchaseOrderDetails.cmdApprovePO_Click"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmPurchaseOrderDetails.cmdReceivePO_Click"
+        },
+        {
+          "type": "procedure",
+          "ref": "modInventory.AllocateInventory"
+        }
+      ],
+      "tables": [
+        "PurchaseOrderDetails",
+        "OrderDetails"
+      ],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": []
+    },
+    {
+      "id": "R-purchasing-007",
+      "area": "purchasing",
+      "statement": "Receiving is allowed only for an Approved purchase order and only after the user confirms posting it to inventory; declining changes nothing. Receiving records the current date and time as the received date of the purchase order and of every one of its lines (the whole order is received at once) and sets the status to Received.",
+      "trigger": "form:frmPurchaseOrderDetails.cmdReceivePO.Click",
+      "sources": [
+        {
+          "type": "procedure",
+          "ref": "Form_frmPurchaseOrderDetails.cmdReceivePO_Click"
+        }
+      ],
+      "tables": [
+        "PurchaseOrders",
+        "PurchaseOrderDetails"
+      ],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": [
+        "Q-purchasing-005",
+        "Q-purchasing-006"
+      ]
+    },
+    {
+      "id": "R-purchasing-008",
+      "area": "purchasing",
+      "statement": "Stock update: once a line is received, its quantity counts as stock bought from its received date and time, so it raises the product's available quantity after the last stock take. While its purchase order is Approved and not yet received, the line quantity counts as on order instead.",
+      "trigger": "form:frmPurchaseOrderDetails.cmdReceivePO.Click",
+      "sources": [
+        {
+          "type": "procedure",
+          "ref": "Form_frmPurchaseOrderDetails.cmdReceivePO_Click"
+        },
+        {
+          "type": "procedure",
+          "ref": "modInventory.ProductBought"
+        },
+        {
+          "type": "procedure",
+          "ref": "modInventory.ProductOnOrder"
+        }
+      ],
+      "tables": [
+        "PurchaseOrderDetails",
+        "PurchaseOrders"
+      ],
+      "confidence": "high",
+      "test_kind": "e2e",
+      "questions": []
+    },
+    {
+      "id": "R-purchasing-009",
+      "area": "purchasing",
+      "statement": "Closing is allowed only for a Received purchase order and only when both the shipping fee and the payment method are filled in; otherwise the missing fields are highlighted and the close is refused. Closing stores the current date and time as the payment date, the computed tax as the tax amount and the computed total as the payment amount, and sets the status to Closed. The payment method is chosen from a fixed list in the form.",
+      "trigger": "form:frmPurchaseOrderDetails.cmdClosePO.Click",
+      "sources": [
+        {
+          "type": "procedure",
+          "ref": "Form_frmPurchaseOrderDetails.cmdClosePO_Click"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmPurchaseOrderDetails.PoCloseFieldsFilledOut"
+        }
+      ],
+      "tables": [
+        "PurchaseOrders"
+      ],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": [
+        "Q-purchasing-007"
+      ]
+    },
+    {
+      "id": "R-purchasing-010",
+      "area": "purchasing",
+      "statement": "Purchase order amounts: each line amount is quantity times unit cost; the subtotal is the sum of the line amounts; the tax is the vendor tax rate from the system settings times the subtotal (the shipping fee is not taxed); the total is subtotal plus tax plus shipping fee, with a missing shipping fee counted as zero.",
+      "trigger": "form:frmPurchaseOrderDetails.Current",
+      "sources": [
+        {
+          "type": "form",
+          "ref": "frmPurchaseOrderDetails"
+        },
+        {
+          "type": "form",
+          "ref": "sfrmPurchaseOrderLineItems"
+        }
+      ],
+      "tables": [
+        "PurchaseOrders",
+        "PurchaseOrderDetails",
+        "SystemSettings"
+      ],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": [
+        "Q-purchasing-003"
+      ]
+    },
+    {
+      "id": "R-purchasing-011",
+      "area": "purchasing",
+      "statement": "Field locking by status: once a purchase order is saved, its number, vendor, status, submitter, approver, the submitted and approved dates, the computed tax and total and the payment date can no longer be edited directly. The received date is editable only while the order is Approved, the shipping fee and payment method only while it is Received, and the notes until it is Closed. A Closed purchase order is read-only. On a new, unsaved purchase order the vendor can be chosen.",
+      "trigger": "form:frmPurchaseOrderDetails.Current",
+      "sources": [
+        {
+          "type": "procedure",
+          "ref": "Form_frmPurchaseOrderDetails.LockControls"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmPurchaseOrderDetails.Form_Current"
+        }
+      ],
+      "tables": [
+        "PurchaseOrders"
+      ],
+      "confidence": "medium",
+      "test_kind": "rule",
+      "questions": [
+        "Q-purchasing-001",
+        "Q-purchasing-007"
+      ]
+    },
+    {
+      "id": "R-purchasing-012",
+      "area": "purchasing",
+      "statement": "Line items can be added, changed or deleted only while the purchase order is New (or not yet saved); from Submitted on the lines are frozen.",
+      "trigger": "form:frmPurchaseOrderDetails.Current",
+      "sources": [
+        {
+          "type": "procedure",
+          "ref": "Form_frmPurchaseOrderDetails.Form_Current"
+        }
+      ],
+      "tables": [
+        "PurchaseOrderDetails",
+        "PurchaseOrders"
+      ],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": []
+    },
+    {
+      "id": "R-purchasing-013",
+      "area": "purchasing",
+      "statement": "Line items cannot be entered before the purchase order itself has been saved; the user is told to complete and save the purchase order first.",
+      "trigger": "form:sfrmPurchaseOrderLineItems.Error",
+      "sources": [
+        {
+          "type": "procedure",
+          "ref": "Form_sfrmPurchaseOrderLineItems.Form_Error"
+        },
+        {
+          "type": "form",
+          "ref": "sfrmPurchaseOrderLineItems"
+        }
+      ],
+      "tables": [
+        "PurchaseOrderDetails"
+      ],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": []
+    },
+    {
+      "id": "R-purchasing-014",
+      "area": "purchasing",
+      "statement": "A purchase order can be deleted only while it is New or Submitted; deleting it also deletes all of its lines. In any later status the delete is refused with a message.",
+      "trigger": "form:frmPurchaseOrderDetails.cmdDeletePO.Click",
+      "sources": [
+        {
+          "type": "procedure",
+          "ref": "Form_frmPurchaseOrderDetails.cmdDeletePO_Click"
+        },
+        {
+          "type": "table",
+          "ref": "PurchaseOrderDetails"
+        }
+      ],
+      "tables": [
+        "PurchaseOrders",
+        "PurchaseOrderDetails"
+      ],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": []
+    },
+    {
+      "id": "R-purchasing-015",
+      "area": "purchasing",
+      "statement": "Changing the vendor of a purchase order that already has a vendor asks for confirmation. On yes, all lines of the purchase order are deleted and the new vendor is kept; on no, the old vendor stays. Choosing the first vendor of a new purchase order does not ask. After a vendor change the product choices for the lines are refreshed.",
+      "trigger": "form:frmPurchaseOrderDetails.VendorID.BeforeUpdate",
+      "sources": [
+        {
+          "type": "procedure",
+          "ref": "Form_frmPurchaseOrderDetails.VendorID_BeforeUpdate"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmPurchaseOrderDetails.VendorID_AfterUpdate"
+        }
+      ],
+      "tables": [
+        "PurchaseOrders",
+        "PurchaseOrderDetails"
+      ],
+      "confidence": "medium",
+      "test_kind": "rule",
+      "questions": [
+        "Q-purchasing-001"
+      ]
+    },
+    {
+      "id": "R-purchasing-016",
+      "area": "purchasing",
+      "statement": "The product choices for a purchase order line are only the products that the purchase order's vendor supplies (per the product-vendor list), sorted by product name, each carrying its standard unit cost.",
+      "trigger": "query:qrycboProducts_PO",
+      "sources": [
+        {
+          "type": "query",
+          "ref": "qrycboProducts_PO"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmPurchaseOrderDetails.VendorID_AfterUpdate"
+        }
+      ],
+      "tables": [
+        "Products",
+        "ProductVendors"
+      ],
+      "confidence": "high",
+      "test_kind": "equivalence",
+      "questions": []
+    },
+    {
+      "id": "R-purchasing-017",
+      "area": "purchasing",
+      "statement": "The vendor choices for a purchase order are the companies whose company type is vendor, sorted by company name.",
+      "trigger": "query:qrycboVendors",
+      "sources": [
+        {
+          "type": "query",
+          "ref": "qrycboVendors"
+        }
+      ],
+      "tables": [
+        "Companies"
+      ],
+      "confidence": "high",
+      "test_kind": "equivalence",
+      "questions": []
+    },
+    {
+      "id": "R-purchasing-018",
+      "area": "purchasing",
+      "statement": "Choosing a product on a purchase order line fills in the quantity with the product's computed reorder quantity and the unit cost with the product's standard unit cost; the user may change both before saving.",
+      "trigger": "form:sfrmPurchaseOrderLineItems.ProductID.AfterUpdate",
+      "sources": [
+        {
+          "type": "procedure",
+          "ref": "Form_sfrmPurchaseOrderLineItems.ProductID_AfterUpdate"
+        },
+        {
+          "type": "procedure",
+          "ref": "modInventory.ProductReorderQuantity"
+        }
+      ],
+      "tables": [
+        "PurchaseOrderDetails",
+        "Products"
+      ],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": []
+    },
+    {
+      "id": "R-purchasing-019",
+      "area": "purchasing",
+      "statement": "A purchase order line needs a product, a quantity and a unit cost, and the product must exist. A quantity below the product's minimum reorder quantity is refused with a message. If the product's quantity available to sell plus the ordered quantity stays below the product's target level, the user gets a warning but the line is still saved.",
+      "trigger": "form:sfrmPurchaseOrderLineItems.BeforeUpdate",
+      "sources": [
+        {
+          "type": "procedure",
+          "ref": "Form_sfrmPurchaseOrderLineItems.Form_BeforeUpdate"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_sfrmPurchaseOrderLineItems.ValidateLineItem"
+        },
+        {
+          "type": "procedure",
+          "ref": "modInventory.ProductToSell"
+        }
+      ],
+      "tables": [
+        "PurchaseOrderDetails",
+        "Products"
+      ],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": [
+        "Q-purchasing-008"
+      ]
+    },
+    {
+      "id": "R-purchasing-020",
+      "area": "purchasing",
+      "statement": "A purchase order holds at most one line per product. Adding a product that is already on the purchase order adds the new quantity to the existing line and keeps its unit cost; the database also refuses a second line for the same product.",
+      "trigger": "procedure:modPurchaseOrders.AddPurchaseOrderDetail",
+      "sources": [
+        {
+          "type": "procedure",
+          "ref": "modPurchaseOrders.AddPurchaseOrderDetail"
+        },
+        {
+          "type": "table",
+          "ref": "PurchaseOrderDetails"
+        }
+      ],
+      "tables": [
+        "PurchaseOrderDetails"
+      ],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": []
+    },
+    {
+      "id": "R-purchasing-021",
+      "area": "purchasing",
+      "statement": "On a saved purchase order, one action adds a line for every product that the vendor supplies, that is not yet on the purchase order and that has at least one customer order line waiting in No Stock status; each new line gets the product's computed reorder quantity and its standard unit cost. On an unsaved purchase order the action is refused with a message.",
+      "trigger": "form:frmPurchaseOrderDetails.cmdAddNostock.Click",
+      "sources": [
+        {
+          "type": "procedure",
+          "ref": "Form_frmPurchaseOrderDetails.cmdAddNostock_Click"
+        },
+        {
+          "type": "procedure",
+          "ref": "modInventory.ProductNoStock"
+        },
+        {
+          "type": "procedure",
+          "ref": "modInventory.ProductReorderQuantity"
+        }
+      ],
+      "tables": [
+        "PurchaseOrderDetails",
+        "Products",
+        "ProductVendors",
+        "OrderDetails"
+      ],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": []
+    },
+    {
+      "id": "R-purchasing-022",
+      "area": "purchasing",
+      "statement": "Reordering a product for a vendor appends a line (product, quantity, standard unit cost) to that vendor's oldest purchase order still in status New; when the vendor has none, it creates a new purchase order for the vendor in status New with that one line. If the line cannot be added the user is told that the purchase order exists without it.",
+      "trigger": "procedure:modPurchaseOrders.ReorderProduct",
+      "sources": [
+        {
+          "type": "procedure",
+          "ref": "modPurchaseOrders.ReorderProduct"
+        },
+        {
+          "type": "procedure",
+          "ref": "modPurchaseOrders.AddPurchaseOrderDetail"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmProductDetail.cmdReorderProduct_Click"
+        }
+      ],
+      "tables": [
+        "PurchaseOrders",
+        "PurchaseOrderDetails"
+      ],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": []
+    },
+    {
+      "id": "R-purchasing-023",
+      "area": "purchasing",
+      "statement": "When a product with several vendors is reordered, the user picks the vendor from a dialog that lists only the vendors supplying that product, sorted by name. Confirming without a vendor selected is refused with a prompt, a double-click on a vendor confirms it, and cancel ends the reorder without creating anything. A product with exactly one vendor skips the dialog, and a product without a vendor cannot be reordered.",
+      "trigger": "form:frmSelectVendorDialog.cmdOK.Click",
+      "sources": [
+        {
+          "type": "form",
+          "ref": "frmSelectVendorDialog"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmSelectVendorDialog.Form_Load"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmSelectVendorDialog.cmdOK_Click"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmSelectVendorDialog.lstVendor_DblClick"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmSelectVendorDialog.cmdCancel_Click"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmProductDetail.cmdReorderProduct_Click"
+        }
+      ],
+      "tables": [
+        "ProductVendors",
+        "Companies"
+      ],
+      "confidence": "high",
+      "test_kind": "e2e",
+      "questions": []
+    },
+    {
+      "id": "R-purchasing-024",
+      "area": "purchasing",
+      "statement": "The extended cost of a purchase order is the sum over its lines of quantity times unit cost; a purchase order without lines still appears, with no cost.",
+      "trigger": "query:qryPurchaseOrderCost",
+      "sources": [
+        {
+          "type": "query",
+          "ref": "qryPurchaseOrderCost"
+        }
+      ],
+      "tables": [
+        "PurchaseOrders",
+        "PurchaseOrderDetails"
+      ],
+      "confidence": "high",
+      "test_kind": "equivalence",
+      "questions": []
+    },
+    {
+      "id": "R-purchasing-025",
+      "area": "purchasing",
+      "statement": "The purchase order list shows every purchase order with its status, vendor name, submitter and approver names, submitted, approved and payment dates, and a total cost equal to extended cost plus shipping fee plus tax amount (missing parts count as zero), ordered by purchase order number with the newest first. The list footer shows the number of purchase orders and the sum of their total cost.",
+      "trigger": "query:qryPurchaseOrderList",
+      "sources": [
+        {
+          "type": "query",
+          "ref": "qryPurchaseOrderList"
+        },
+        {
+          "type": "form",
+          "ref": "frmPurchaseOrderList"
+        }
+      ],
+      "tables": [
+        "PurchaseOrders",
+        "PurchaseOrderStatus",
+        "Companies",
+        "Employees"
+      ],
+      "confidence": "medium",
+      "test_kind": "equivalence",
+      "questions": []
+    },
+    {
+      "id": "R-purchasing-026",
+      "area": "purchasing",
+      "statement": "On a vendor's company page, the purchase order tab lists that vendor's purchase orders with status, submitter, approver, the submitted, approved and received dates, the payment fields and the extended cost, plus a count; only purchase orders that have a submitter appear. Double-clicking a row opens that purchase order.",
+      "trigger": "query:qryVendorPurchaseOrderList",
+      "sources": [
+        {
+          "type": "query",
+          "ref": "qryVendorPurchaseOrderList"
+        },
+        {
+          "type": "form",
+          "ref": "sfrmCompanyDetail_VendorPurchaseOrders"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_sfrmCompanyDetail_VendorPurchaseOrders.Detail_DblClick"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_sfrmCompanyDetail_VendorPurchaseOrders.OpenForm_frmPurchaseOrderDetails"
+        }
+      ],
+      "tables": [
+        "PurchaseOrders",
+        "PurchaseOrderStatus",
+        "Employees"
+      ],
+      "confidence": "medium",
+      "test_kind": "equivalence",
+      "questions": [
+        "Q-purchasing-002"
+      ]
+    },
+    {
+      "id": "R-purchasing-027",
+      "area": "purchasing",
+      "statement": "Audit fields on purchase orders, purchase order lines and purchase order statuses: on insert, added-by, added-on, modified-by and modified-on are set to the current user's name and the current date and time; on every update, modified-by and modified-on are refreshed while added-by and added-on keep their original values even if an edit tries to change or clear them. The purchase order form shows who created and last changed the record.",
+      "trigger": "datamacro:PurchaseOrders.BeforeChange",
+      "sources": [
+        {
+          "type": "data_macro",
+          "ref": "PurchaseOrders.BeforeChange"
+        },
+        {
+          "type": "data_macro",
+          "ref": "PurchaseOrderDetails.BeforeChange"
+        },
+        {
+          "type": "data_macro",
+          "ref": "PurchaseOrderStatus.BeforeChange"
+        }
+      ],
+      "tables": [
+        "PurchaseOrders",
+        "PurchaseOrderDetails",
+        "PurchaseOrderStatus"
+      ],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": [
+        "Q-purchasing-009"
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "type": "table",
+      "name": "PurchaseOrders",
+      "decision": "keep",
+      "area": "purchasing",
+      "target_component": "legacy.models",
+      "reason": null
+    },
+    {
+      "type": "table",
+      "name": "PurchaseOrderDetails",
+      "decision": "keep",
+      "area": "purchasing",
+      "target_component": "legacy.models",
+      "reason": null
+    },
+    {
+      "type": "table",
+      "name": "PurchaseOrderStatus",
+      "decision": "keep",
+      "area": "purchasing",
+      "target_component": "legacy.models",
+      "reason": null
+    },
+    {
+      "type": "data_macro",
+      "name": "PurchaseOrders.BeforeChange",
+      "decision": "keep",
+      "area": "purchasing",
+      "target_component": "purchasing.services",
+      "reason": null
+    },
+    {
+      "type": "data_macro",
+      "name": "PurchaseOrderDetails.BeforeChange",
+      "decision": "keep",
+      "area": "purchasing",
+      "target_component": "purchasing.services",
+      "reason": null
+    },
+    {
+      "type": "data_macro",
+      "name": "PurchaseOrderStatus.BeforeChange",
+      "decision": "keep",
+      "area": "purchasing",
+      "target_component": "purchasing.services",
+      "reason": null
+    },
+    {
+      "type": "form",
+      "name": "frmPurchaseOrderDetails",
+      "decision": "keep",
+      "area": "purchasing",
+      "target_component": "purchasing.views",
+      "reason": null
+    },
+    {
+      "type": "form",
+      "name": "frmPurchaseOrderList",
+      "decision": "keep",
+      "area": "purchasing",
+      "target_component": "purchasing.views",
+      "reason": null
+    },
+    {
+      "type": "form",
+      "name": "frmSelectVendorDialog",
+      "decision": "keep",
+      "area": "purchasing",
+      "target_component": "purchasing.views",
+      "reason": null
+    },
+    {
+      "type": "form",
+      "name": "sfrmCompanyDetail_VendorPurchaseOrders",
+      "decision": "keep",
+      "area": "purchasing",
+      "target_component": "purchasing.views",
+      "reason": null
+    },
+    {
+      "type": "form",
+      "name": "sfrmPurchaseOrderLineItems",
+      "decision": "keep",
+      "area": "purchasing",
+      "target_component": "purchasing.views",
+      "reason": null
+    },
+    {
+      "type": "query",
+      "name": "qryPurchaseOrder",
+      "decision": "keep",
+      "area": "purchasing",
+      "target_component": "purchasing.saved_queries",
+      "reason": "record source of the purchase order form (the order with its status, submitter and approver names); a plain lookup join, its equivalence unit proves it, no rule"
+    },
+    {
+      "type": "query",
+      "name": "qryPurchaseOrderCost",
+      "decision": "keep",
+      "area": "purchasing",
+      "target_component": "purchasing.saved_queries",
+      "reason": null
+    },
+    {
+      "type": "query",
+      "name": "qryPurchaseOrderLineItems",
+      "decision": "keep",
+      "area": "purchasing",
+      "target_component": "purchasing.saved_queries",
+      "reason": "record source of the line items subform (the order's lines in entry order); its equivalence unit proves it, no rule"
+    },
+    {
+      "type": "query",
+      "name": "qryPurchaseOrderList",
+      "decision": "keep",
+      "area": "purchasing",
+      "target_component": "purchasing.saved_queries",
+      "reason": null
+    },
+    {
+      "type": "query",
+      "name": "qryVendorPurchaseOrderList",
+      "decision": "keep",
+      "area": "purchasing",
+      "target_component": "purchasing.saved_queries",
+      "reason": null
+    },
+    {
+      "type": "query",
+      "name": "qryVendors",
+      "decision": "drop",
+      "area": "purchasing",
+      "target_component": null,
+      "reason": "not used by any form, report, query or code; qrycboVendors already lists the vendors"
+    },
+    {
+      "type": "query",
+      "name": "qrycboProducts_PO",
+      "decision": "keep",
+      "area": "purchasing",
+      "target_component": "purchasing.saved_queries",
+      "reason": null
+    },
+    {
+      "type": "query",
+      "name": "qrycboVendors",
+      "decision": "keep",
+      "area": "purchasing",
+      "target_component": "purchasing.saved_queries",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmPurchaseOrderDetails.AllocatePurchaseOrder",
+      "decision": "keep",
+      "area": "purchasing",
+      "target_component": "purchasing.services",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmPurchaseOrderDetails.Form_AfterInsert",
+      "decision": "drop",
+      "area": "purchasing",
+      "target_component": null,
+      "reason": "adds the new purchase order to the Access ribbon's recently-used list; a desktop UI convenience with no web equivalent"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmPurchaseOrderDetails.Form_AfterUpdate",
+      "decision": "drop",
+      "area": "purchasing",
+      "target_component": null,
+      "reason": "clears field highlights and refreshes the open list window; a web page reloads from the database"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmPurchaseOrderDetails.Form_BeforeInsert",
+      "decision": "keep",
+      "area": "purchasing",
+      "target_component": "purchasing.services",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmPurchaseOrderDetails.Form_BeforeUpdate",
+      "decision": "keep",
+      "area": "purchasing",
+      "target_component": "purchasing.forms",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmPurchaseOrderDetails.Form_Close",
+      "decision": "drop",
+      "area": "purchasing",
+      "target_component": null,
+      "reason": "window bookkeeping for several open purchase order windows; not needed in a browser"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmPurchaseOrderDetails.Form_Current",
+      "decision": "keep",
+      "area": "purchasing",
+      "target_component": "purchasing.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmPurchaseOrderDetails.Form_Delete",
+      "decision": "drop",
+      "area": "purchasing",
+      "target_component": null,
+      "reason": "removes the deleted purchase order from the Access ribbon's recently-used list; a desktop UI convenience"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmPurchaseOrderDetails.Form_Load",
+      "decision": "keep",
+      "area": "purchasing",
+      "target_component": "purchasing.views",
+      "reason": "opens the requested purchase order or a blank new one; navigation only; the web app's links and URLs replace it, so it holds no business rule"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmPurchaseOrderDetails.Form_Open",
+      "decision": "drop",
+      "area": "purchasing",
+      "target_component": null,
+      "reason": "empty handler (only its error handling); no behaviour"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmPurchaseOrderDetails.LockControls",
+      "decision": "keep",
+      "area": "purchasing",
+      "target_component": "purchasing.forms",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmPurchaseOrderDetails.PoCloseFieldsFilledOut",
+      "decision": "keep",
+      "area": "purchasing",
+      "target_component": "purchasing.services",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmPurchaseOrderDetails.SetWorkflowLabelColors",
+      "decision": "keep",
+      "area": "purchasing",
+      "target_component": "purchasing.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmPurchaseOrderDetails.VendorID_AfterUpdate",
+      "decision": "keep",
+      "area": "purchasing",
+      "target_component": "purchasing.forms",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmPurchaseOrderDetails.VendorID_BeforeUpdate",
+      "decision": "keep",
+      "area": "purchasing",
+      "target_component": "purchasing.services",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmPurchaseOrderDetails.cmdAddNostock_Click",
+      "decision": "keep",
+      "area": "purchasing",
+      "target_component": "purchasing.services",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmPurchaseOrderDetails.cmdAddPO_Click",
+      "decision": "keep",
+      "area": "purchasing",
+      "target_component": "purchasing.views",
+      "reason": "moves to a blank new purchase order; navigation only; the web app's links and URLs replace it, so it holds no business rule"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmPurchaseOrderDetails.cmdApprovePO_Click",
+      "decision": "keep",
+      "area": "purchasing",
+      "target_component": "purchasing.services",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmPurchaseOrderDetails.cmdClosePO_Click",
+      "decision": "keep",
+      "area": "purchasing",
+      "target_component": "purchasing.services",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmPurchaseOrderDetails.cmdDeletePO_Click",
+      "decision": "keep",
+      "area": "purchasing",
+      "target_component": "purchasing.services",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmPurchaseOrderDetails.cmdReceivePO_Click",
+      "decision": "keep",
+      "area": "purchasing",
+      "target_component": "purchasing.services",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmPurchaseOrderDetails.cmdSubmitPO_Click",
+      "decision": "keep",
+      "area": "purchasing",
+      "target_component": "purchasing.services",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmPurchaseOrderList.Form_Open",
+      "decision": "drop",
+      "area": "purchasing",
+      "target_component": null,
+      "reason": "clears a filter left over from an earlier Access session; the web list starts unfiltered"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmPurchaseOrderList.PurchaseOrderID_Click",
+      "decision": "keep",
+      "area": "purchasing",
+      "target_component": "purchasing.views",
+      "reason": "opens the clicked purchase order; navigation only; the web app's links and URLs replace it, so it holds no business rule"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmPurchaseOrderList.cmdAddPO_Click",
+      "decision": "keep",
+      "area": "purchasing",
+      "target_component": "purchasing.views",
+      "reason": "opens a blank new purchase order; navigation only; the web app's links and URLs replace it, so it holds no business rule"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmSelectVendorDialog.Form_Load",
+      "decision": "keep",
+      "area": "purchasing",
+      "target_component": "purchasing.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmSelectVendorDialog.cmdCancel_Click",
+      "decision": "keep",
+      "area": "purchasing",
+      "target_component": "purchasing.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmSelectVendorDialog.cmdOK_Click",
+      "decision": "keep",
+      "area": "purchasing",
+      "target_component": "purchasing.forms",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmSelectVendorDialog.lstVendor_DblClick",
+      "decision": "keep",
+      "area": "purchasing",
+      "target_component": "purchasing.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_sfrmCompanyDetail_VendorPurchaseOrders.Detail_DblClick",
+      "decision": "keep",
+      "area": "purchasing",
+      "target_component": "purchasing.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_sfrmCompanyDetail_VendorPurchaseOrders.OpenForm_frmPurchaseOrderDetails",
+      "decision": "keep",
+      "area": "purchasing",
+      "target_component": "purchasing.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_sfrmPurchaseOrderLineItems.Form_BeforeUpdate",
+      "decision": "keep",
+      "area": "purchasing",
+      "target_component": "purchasing.forms",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_sfrmPurchaseOrderLineItems.Form_Current",
+      "decision": "drop",
+      "area": "purchasing",
+      "target_component": null,
+      "reason": "clears field highlights when moving between lines; UI only"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_sfrmPurchaseOrderLineItems.Form_Error",
+      "decision": "keep",
+      "area": "purchasing",
+      "target_component": "purchasing.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_sfrmPurchaseOrderLineItems.ProductID_AfterUpdate",
+      "decision": "keep",
+      "area": "purchasing",
+      "target_component": "purchasing.forms",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_sfrmPurchaseOrderLineItems.PurchaseOrderDetailID_Click",
+      "decision": "keep",
+      "area": "purchasing",
+      "target_component": "purchasing.views",
+      "reason": "opens the product of the clicked line; navigation only; the web app's links and URLs replace it, so it holds no business rule"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_sfrmPurchaseOrderLineItems.ValidateLineItem",
+      "decision": "keep",
+      "area": "purchasing",
+      "target_component": "purchasing.forms",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "modPurchaseOrders.AddPurchaseOrderDetail",
+      "decision": "keep",
+      "area": "purchasing",
+      "target_component": "purchasing.services",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "modPurchaseOrders.CloseAllPurchaseOrderDetailsForms",
+      "decision": "drop",
+      "area": "purchasing",
+      "target_component": null,
+      "reason": "releases the list of open purchase order windows at shutdown; not needed in a browser"
+    },
+    {
+      "type": "procedure",
+      "name": "modPurchaseOrders.ClosePurchaseOrderDetailsForm",
+      "decision": "drop",
+      "area": "purchasing",
+      "target_component": null,
+      "reason": "removes a closed purchase order window from the list of open windows; not needed in a browser"
+    },
+    {
+      "type": "procedure",
+      "name": "modPurchaseOrders.OpenPurchaseOrderDetailsForm",
+      "decision": "drop",
+      "area": "purchasing",
+      "target_component": null,
+      "reason": "opens a purchase order in an extra Access window (several at once); the purchase order detail URL replaces it"
+    },
+    {
+      "type": "procedure",
+      "name": "modPurchaseOrders.ReorderProduct",
+      "decision": "keep",
+      "area": "purchasing",
+      "target_component": "purchasing.services",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "modRibbonCallback.cmdAddPurchaseOrder_OnAction",
+      "decision": "drop",
+      "area": "purchasing",
+      "target_component": null,
+      "reason": "Access ribbon button that opens a new purchase order; the app's navigation bar and the list's new button replace it"
+    },
+    {
+      "type": "procedure",
+      "name": "modRibbonCallback.cmdPurchaseOrders_OnAction",
+      "decision": "drop",
+      "area": "purchasing",
+      "target_component": null,
+      "reason": "Access ribbon button that opens the purchase order list; the app's navigation bar replaces it"
+    }
+  ],
+  "lookups": [
+    {
+      "table": "PurchaseOrders",
+      "column": "StatusID",
+      "copy_values": true,
+      "values": null,
+      "rule": "R-purchasing-003"
+    },
+    {
+      "table": "PurchaseOrders",
+      "column": "PaymentMethod",
+      "copy_values": true,
+      "values": null,
+      "rule": "R-purchasing-009"
+    },
+    {
+      "table": "Companies",
+      "column": "CompanyTypeID",
+      "copy_values": true,
+      "values": null,
+      "rule": "R-purchasing-017"
+    },
+    {
+      "table": "EmployeePrivileges",
+      "column": "PrivilegeID",
+      "copy_values": true,
+      "values": null,
+      "rule": "R-purchasing-005"
+    }
+  ],
+  "relations": [
+    {
+      "table": "PurchaseOrderDetails",
+      "fk": "PurchaseOrderID",
+      "on_delete": "CASCADE",
+      "rule": "R-purchasing-014"
+    },
+    {
+      "table": "PurchaseOrderDetails",
+      "fk": "ProductID",
+      "on_delete": "PROTECT",
+      "rule": "R-purchasing-019"
+    },
+    {
+      "table": "PurchaseOrders",
+      "fk": "VendorID",
+      "on_delete": "PROTECT",
+      "rule": "R-purchasing-002"
+    },
+    {
+      "table": "PurchaseOrders",
+      "fk": "StatusID",
+      "on_delete": "PROTECT",
+      "rule": "R-purchasing-003"
+    },
+    {
+      "table": "PurchaseOrders",
+      "fk": "SubmittedByID",
+      "on_delete": "PROTECT",
+      "rule": "R-purchasing-004"
+    },
+    {
+      "table": "PurchaseOrders",
+      "fk": "ApprovedByID",
+      "on_delete": "PROTECT",
+      "rule": "R-purchasing-005"
+    }
+  ],
+  "workflows": [
+    {
+      "id": "purchase_order_to_stock",
+      "title": "Purchase order to receiving to stock update",
+      "forms": [
+        "frmPurchaseOrderList",
+        "frmPurchaseOrderDetails",
+        "sfrmPurchaseOrderLineItems"
+      ],
+      "reports": [],
+      "rules": [
+        "R-purchasing-001",
+        "R-purchasing-003",
+        "R-purchasing-004",
+        "R-purchasing-005",
+        "R-purchasing-006",
+        "R-purchasing-007",
+        "R-purchasing-008",
+        "R-purchasing-009",
+        "R-purchasing-010",
+        "R-purchasing-012",
+        "R-purchasing-019"
+      ],
+      "steps": [
+        "open the purchase order list and start a new purchase order",
+        "choose the vendor and save the purchase order (status New)",
+        "add line items for the vendor's products, or add all no-stock products at once",
+        "submit the purchase order",
+        "approve it as a user with the approve-purchase-order privilege (its quantities now count as on order)",
+        "receive it after confirming (status Received; the received quantities raise available stock)",
+        "check the product's available stock on the product page",
+        "enter the shipping fee and payment method and close it (tax, payment amount and payment date stored)"
+      ]
+    },
+    {
+      "id": "reorder_product",
+      "title": "Reorder a product from its vendor (restocking)",
+      "forms": [
+        "frmSelectVendorDialog",
+        "frmPurchaseOrderDetails"
+      ],
+      "reports": [],
+      "rules": [
+        "R-purchasing-022",
+        "R-purchasing-023",
+        "R-purchasing-018"
+      ],
+      "steps": [
+        "on a product page start a reorder (the inventory area's product form)",
+        "pick the vendor in the dialog when the product has several vendors",
+        "the product is added to the vendor's open New purchase order, or a new one is created",
+        "the purchase order opens for review and goes on through the purchase order workflow"
+      ]
+    }
+  ],
+  "services": [
+    {
+      "name": "submit_purchase_order",
+      "area": "purchasing",
+      "inputs": [
+        "purchase order id",
+        "signed-in user"
+      ],
+      "outputs": [
+        "status Submitted",
+        "submitter",
+        "submitted date and time"
+      ],
+      "errors": [
+        "purchase order is not New"
+      ]
+    },
+    {
+      "name": "approve_purchase_order",
+      "area": "purchasing",
+      "inputs": [
+        "purchase order id",
+        "signed-in user"
+      ],
+      "outputs": [
+        "status Approved",
+        "approver",
+        "approved date and time",
+        "stock allocation re-run for its products"
+      ],
+      "errors": [
+        "purchase order is not Submitted",
+        "user lacks the approve-purchase-order privilege"
+      ]
+    },
+    {
+      "name": "receive_purchase_order",
+      "area": "purchasing",
+      "inputs": [
+        "purchase order id",
+        "confirmation"
+      ],
+      "outputs": [
+        "status Received",
+        "received date and time on the purchase order and every line",
+        "stock allocation re-run for its products"
+      ],
+      "errors": [
+        "purchase order is not Approved",
+        "not confirmed"
+      ]
+    },
+    {
+      "name": "close_purchase_order",
+      "area": "purchasing",
+      "inputs": [
+        "purchase order id",
+        "shipping fee",
+        "payment method"
+      ],
+      "outputs": [
+        "status Closed",
+        "payment date",
+        "tax amount",
+        "payment amount"
+      ],
+      "errors": [
+        "purchase order is not Received",
+        "shipping fee missing",
+        "payment method missing"
+      ]
+    },
+    {
+      "name": "delete_purchase_order",
+      "area": "purchasing",
+      "inputs": [
+        "purchase order id"
+      ],
+      "outputs": [
+        "purchase order and its lines deleted"
+      ],
+      "errors": [
+        "purchase order is not New or Submitted"
+      ]
+    },
+    {
+      "name": "change_purchase_order_vendor",
+      "area": "purchasing",
+      "inputs": [
+        "purchase order id",
+        "new vendor id",
+        "confirmation"
+      ],
+      "outputs": [
+        "vendor changed",
+        "all lines deleted"
+      ],
+      "errors": [
+        "not confirmed",
+        "vendor is locked in the current status"
+      ]
+    },
+    {
+      "name": "add_purchase_order_line",
+      "area": "purchasing",
+      "inputs": [
+        "purchase order id",
+        "product id",
+        "quantity",
+        "unit cost"
+      ],
+      "outputs": [
+        "line id (new line, or existing line with the quantity added)"
+      ],
+      "errors": [
+        "purchase order is not New",
+        "quantity below the product's minimum reorder quantity",
+        "line could not be saved"
+      ]
+    },
+    {
+      "name": "add_no_stock_lines",
+      "area": "purchasing",
+      "inputs": [
+        "purchase order id"
+      ],
+      "outputs": [
+        "number of lines added"
+      ],
+      "errors": [
+        "purchase order not saved yet"
+      ]
+    },
+    {
+      "name": "reorder_product",
+      "area": "purchasing",
+      "inputs": [
+        "product id",
+        "vendor id",
+        "quantity",
+        "unit cost"
+      ],
+      "outputs": [
+        "purchase order id (existing New purchase order of the vendor, or a new one)"
+      ],
+      "errors": [
+        "product has no vendor",
+        "line could not be added"
+      ]
+    },
+    {
+      "name": "purchase_order_amounts",
+      "area": "purchasing",
+      "inputs": [
+        "purchase order id"
+      ],
+      "outputs": [
+        "subtotal",
+        "tax",
+        "total"
+      ],
+      "errors": []
+    }
+  ],
+  "open_questions": [
+    {
+      "id": "Q-purchasing-001",
+      "text": "Once a purchase order is saved its vendor is locked in every status, yet the app also has a confirm-and-delete-all-lines path for changing the vendor. Should the vendor of a saved New purchase order be changeable (deleting its lines after confirmation), or fixed once the purchase order is saved, as the current app effectively behaves?",
+      "status": "open"
+    },
+    {
+      "id": "Q-purchasing-002",
+      "text": "The purchase order tab on a vendor's company page lists only purchase orders that already have a submitter, so New purchase orders do not appear there, while the main purchase order list shows them. Is that intended, or should the vendor tab show every purchase order of the vendor?",
+      "status": "open"
+    },
+    {
+      "id": "Q-purchasing-003",
+      "text": "Tax on a purchase order is the vendor tax rate from the system settings times the line subtotal, the shipping fee is not taxed, and the tax is stored only when the purchase order is closed. Please confirm, and confirm that the vendor tax rate stays a single system-wide setting.",
+      "status": "open"
+    },
+    {
+      "id": "Q-purchasing-004",
+      "text": "Any user with the approve-purchase-order privilege can approve, including the person who submitted the purchase order. Should self-approval be blocked?",
+      "status": "open"
+    },
+    {
+      "id": "Q-purchasing-005",
+      "text": "Receiving is all or nothing: the whole purchase order is received at once and every line gets the same received date. Do you need partial receipts (some lines or part quantities)?",
+      "status": "open"
+    },
+    {
+      "id": "Q-purchasing-006",
+      "text": "The table design describes the submitted, approved, received and payment dates as dates without a time, but the app stores the date and time. Should the new app keep date and time (the line received time matters for stock calculations) or store dates only on the purchase order?",
+      "status": "open"
+    },
+    {
+      "id": "Q-purchasing-007",
+      "text": "The received date stays editable while a purchase order is Approved, and the shipping fee and payment method only while it is Received. Is that intended? Also, the payment method is chosen from a fixed list of three (credit card, check, cash): is that the full list?",
+      "status": "open"
+    },
+    {
+      "id": "Q-purchasing-008",
+      "text": "When a line's quantity leaves the product below its target level, the app only warns and still saves the line. Keep it as a warning, or make it a hard stop?",
+      "status": "open"
+    },
+    {
+      "id": "Q-purchasing-009",
+      "text": "Audit fields record a user name; when nobody is signed in, the app falls back to the computer's user name. The new app always has a signed-in user. Is it acceptable to record the signed-in user only?",
+      "status": "open"
+    }
+  ],
+  "signed": null
+}
