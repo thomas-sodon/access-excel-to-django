@@ -1,0 +1,464 @@
+{
+  "format_version": 1,
+  "kind": "area",
+  "engagement": "northwind-demo",
+  "spec_version": "1.0",
+  "areas": [
+    {
+      "id": "reports",
+      "title": "Sales and Catalog Reports",
+      "status": "kept",
+      "queries": [
+        "qrySales_SalesRep",
+        "qryTotalSalesByProduct",
+        "qryrptEmployeeEmailList",
+        "qryrptEmployeePhoneList",
+        "qryrptProductCatalog",
+        "qryrptSalesByEmployee",
+        "qryrptSalesByProduct_ByMonth",
+        "qryrptSalesByProduct_ByQuarter"
+      ],
+      "forms": ["frmLearn", "frmReports"],
+      "reports": [
+        "_Design",
+        "rptEmployeeEmailList",
+        "rptEmployeePhoneList",
+        "rptLearn",
+        "rptProductCatalog",
+        "rptRelationshipsWindow",
+        "rptSalesByEmployee",
+        "rptSalesByProduct",
+        "rptSalesByProductQuarterly",
+        "srptCatalog_TableOfContents",
+        "srptGastronomic",
+        "srptOrderForm",
+        "srptQuality",
+        "srptShipVia"
+      ],
+      "procedures": [
+        "Form_frmReports.Form_Close",
+        "Form_frmReports.Form_Open",
+        "Form_frmReports.ReportFormInitialization",
+        "Form_frmReports.cmdEmployeeEmailList_Click",
+        "Form_frmReports.cmdEmployeePhoneList_Click",
+        "Form_frmReports.cmdFallCatalog_Click",
+        "Form_frmReports.cmdPreviewReport_Click",
+        "Form_frmReports.cmdSalesByProductReportMonthly_Click",
+        "Form_frmReports.cmdSalesByProductReportQuarterly_Click",
+        "Form_frmReports.cmdSalesByemployeeReport_Click",
+        "Report__Design.Report_Activate",
+        "Report__Design.Report_Close",
+        "Report__Design.Report_NoData",
+        "Report_rptEmployeeEmailList.Report_Activate",
+        "Report_rptEmployeeEmailList.Report_Close",
+        "Report_rptEmployeeEmailList.Report_NoData",
+        "Report_rptEmployeePhoneList.Report_Activate",
+        "Report_rptEmployeePhoneList.Report_Close",
+        "Report_rptEmployeePhoneList.Report_NoData",
+        "Report_rptLearn.Report_Activate",
+        "Report_rptLearn.Report_Close",
+        "Report_rptLearn.Report_NoData",
+        "Report_rptProductCatalog.GroupHeader0_Print",
+        "Report_rptProductCatalog.Report_Activate",
+        "Report_rptProductCatalog.Report_Close",
+        "Report_rptProductCatalog.Report_NoData",
+        "Report_rptProductCatalog.Report_Open",
+        "Report_rptRelationshipsWindow.Report_Activate",
+        "Report_rptRelationshipsWindow.Report_Close",
+        "Report_rptRelationshipsWindow.Report_NoData",
+        "Report_rptSalesByEmployee.Report_Activate",
+        "Report_rptSalesByEmployee.Report_Close",
+        "Report_rptSalesByEmployee.Report_NoData",
+        "Report_rptSalesByEmployee.Report_Open",
+        "Report_rptSalesByEmployee.cboFilterByEmployee_DblClick",
+        "Report_rptSalesByProduct.Report_Activate",
+        "Report_rptSalesByProduct.Report_Close",
+        "Report_rptSalesByProduct.Report_NoData",
+        "Report_rptSalesByProduct.Report_Open",
+        "Report_rptSalesByProductQuarterly.Report_Activate",
+        "Report_rptSalesByProductQuarterly.Report_Close",
+        "Report_rptSalesByProductQuarterly.Report_NoData",
+        "Report_rptSalesByProductQuarterly.Report_Open",
+        "modReportParameters.reportParameterEndDate",
+        "modReportParameters.reportParameterStartDate",
+        "modRibbonCallback.Ribbon_ShowReportsGroup",
+        "modRibbonCallback.cmdLearn_OnAction",
+        "modRibbonCallback.cmdReports_OnAction",
+        "modRibbonCallback.gReportOptions_GetVisible"
+      ],
+      "tables": ["Catalog_TableOfContents", "Learn"]
+    }
+  ],
+  "rules": [
+    {
+      "id": "R-reports-001",
+      "area": "reports",
+      "statement": "When the report selection page opens, the monthly sales per employee report is already selected and its date range inputs are shown, exactly as if the user had chosen that report.",
+      "trigger": "form:frmReports.Open",
+      "sources": [
+        {"type": "procedure", "ref": "Form_frmReports.Form_Open"},
+        {"type": "form", "ref": "frmReports"}
+      ],
+      "tables": ["Orders"],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": []
+    },
+    {
+      "id": "R-reports-002",
+      "area": "reports",
+      "statement": "Choosing one of the three sales reports (monthly per employee, monthly per product, quarterly per product) shows a start date and an end date input. The end date defaults to the calendar date of the most recent order date in the database and the start date to the same day three calendar months earlier. Choosing the product catalog hides both inputs and clears them. The page always shows the name of the report currently chosen.",
+      "trigger": "procedure:Form_frmReports.ReportFormInitialization",
+      "sources": [
+        {"type": "procedure", "ref": "Form_frmReports.ReportFormInitialization"},
+        {"type": "procedure", "ref": "Form_frmReports.cmdSalesByemployeeReport_Click"},
+        {"type": "procedure", "ref": "Form_frmReports.cmdSalesByProductReportMonthly_Click"},
+        {"type": "procedure", "ref": "Form_frmReports.cmdSalesByProductReportQuarterly_Click"},
+        {"type": "procedure", "ref": "Form_frmReports.cmdFallCatalog_Click"}
+      ],
+      "tables": ["Orders"],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": ["Q-reports-002"]
+    },
+    {
+      "id": "R-reports-003",
+      "area": "reports",
+      "statement": "The sales report queries take their period from the start and end dates entered on the report selection page. When a sales report is run without that page (for example from a link or a scheduled export), the period defaults to the same range: from three calendar months before the date of the latest order up to that date.",
+      "trigger": "procedure:modReportParameters.reportParameterStartDate",
+      "sources": [
+        {"type": "procedure", "ref": "modReportParameters.reportParameterStartDate"},
+        {"type": "procedure", "ref": "modReportParameters.reportParameterEndDate"}
+      ],
+      "tables": ["Orders"],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": ["Q-reports-002"]
+    },
+    {
+      "id": "R-reports-004",
+      "area": "reports",
+      "statement": "Monthly sales per employee: for each salesperson and each calendar month, the report value is the sum of the order totals of that salesperson's orders whose order date falls between the start and end dates (inclusive bounds, compared against the full order date and time). An order total is the sum over its lines of quantity times unit price times one minus the line discount; an order without lines adds nothing. Orders of every status are counted. Months are labelled by abbreviated month name and year and sorted by year then month.",
+      "trigger": "query:qryrptSalesByEmployee",
+      "sources": [
+        {"type": "query", "ref": "qryrptSalesByEmployee"}
+      ],
+      "tables": ["Orders", "OrderDetails", "Employees"],
+      "confidence": "high",
+      "test_kind": "equivalence",
+      "questions": ["Q-reports-002", "Q-reports-003"]
+    },
+    {
+      "id": "R-reports-005",
+      "area": "reports",
+      "statement": "Monthly sales per product: for each product and each calendar month, the value is the sum over order lines of quantity times unit price times one minus the line discount, for orders whose order date falls between the start and end dates. Orders of every status are counted. Months are labelled by abbreviated month name and year and sorted by year then month.",
+      "trigger": "query:qryrptSalesByProduct_ByMonth",
+      "sources": [
+        {"type": "query", "ref": "qryrptSalesByProduct_ByMonth"}
+      ],
+      "tables": ["Orders", "OrderDetails", "Products"],
+      "confidence": "high",
+      "test_kind": "equivalence",
+      "questions": ["Q-reports-002", "Q-reports-003"]
+    },
+    {
+      "id": "R-reports-006",
+      "area": "reports",
+      "statement": "Quarterly sales per product: the same net line amounts as the monthly product report, grouped by product and calendar quarter of the order date within the start and end dates. Each quarter is labelled by its quarter number followed by the year.",
+      "trigger": "query:qryrptSalesByProduct_ByQuarter",
+      "sources": [
+        {"type": "query", "ref": "qryrptSalesByProduct_ByQuarter"}
+      ],
+      "tables": ["Orders", "OrderDetails", "Products"],
+      "confidence": "high",
+      "test_kind": "equivalence",
+      "questions": ["Q-reports-002", "Q-reports-003", "Q-reports-004"]
+    },
+    {
+      "id": "R-reports-007",
+      "area": "reports",
+      "statement": "Each sales report prints the order-date range it covers in its header, using the start and end dates chosen on the report selection page.",
+      "trigger": "report:rptSalesByEmployee.Open",
+      "sources": [
+        {"type": "procedure", "ref": "Report_rptSalesByEmployee.Report_Open"},
+        {"type": "procedure", "ref": "Report_rptSalesByProduct.Report_Open"},
+        {"type": "procedure", "ref": "Report_rptSalesByProductQuarterly.Report_Open"}
+      ],
+      "tables": [],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": []
+    },
+    {
+      "id": "R-reports-008",
+      "area": "reports",
+      "statement": "When a sales report has no orders in the chosen period, the user is told that the report has no data and the report is not opened.",
+      "trigger": "report:rptSalesByEmployee.NoData",
+      "sources": [
+        {"type": "procedure", "ref": "Report_rptSalesByEmployee.Report_NoData"},
+        {"type": "procedure", "ref": "Report_rptSalesByProduct.Report_NoData"},
+        {"type": "procedure", "ref": "Report_rptSalesByProductQuarterly.Report_NoData"}
+      ],
+      "tables": ["Orders"],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": []
+    },
+    {
+      "id": "R-reports-009",
+      "area": "reports",
+      "statement": "The monthly sales per employee report opens in an interactive view. It offers a list of the salespeople that appear in the report plus an entry for all employees; picking a salesperson limits the rows, totals and chart to that person, and picking the all-employees entry removes the limit.",
+      "trigger": "report:rptSalesByEmployee.cboFilterByEmployee.DblClick",
+      "sources": [
+        {"type": "procedure", "ref": "Report_rptSalesByEmployee.cboFilterByEmployee_DblClick"},
+        {"type": "report", "ref": "rptSalesByEmployee"}
+      ],
+      "tables": ["Orders", "Employees"],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": []
+    },
+    {
+      "id": "R-reports-010",
+      "area": "reports",
+      "statement": "The monthly and quarterly sales per product reports list each product's sales within each period, show a subtotal for every month or quarter and a grand total for the whole range, and include a chart of sales by product. Every sales report shows the time it was produced and page numbers in the form page n of m. The quarterly report lists its quarters in order of year, then quarter number, instead of the original's order of the quarter-first label, which mixed years; its chart shows the monthly figures of the period, as in the original (Q-reports-004).",
+      "trigger": "report:rptSalesByProduct.Open",
+      "sources": [
+        {"type": "report", "ref": "rptSalesByProduct"},
+        {"type": "report", "ref": "rptSalesByProductQuarterly"},
+        {"type": "report", "ref": "rptSalesByEmployee"}
+      ],
+      "tables": ["Orders", "OrderDetails", "Products"],
+      "confidence": "medium",
+      "test_kind": "rule",
+      "questions": ["Q-reports-004"]
+    },
+    {
+      "id": "R-reports-011",
+      "area": "reports",
+      "statement": "Lifetime sales per product is the sum over all of the product's order lines of quantity times unit price times one minus the line discount, with no date or status filter. The catalog lists every product that belongs to a product category, with its category, name, id, quantity per unit, unit price and lifetime sales; a product that was never sold is still listed, with no sales.",
+      "trigger": "query:qryrptProductCatalog",
+      "sources": [
+        {"type": "query", "ref": "qryrptProductCatalog"},
+        {"type": "query", "ref": "qryTotalSalesByProduct"}
+      ],
+      "tables": ["Products", "ProductCategories", "OrderDetails"],
+      "confidence": "high",
+      "test_kind": "equivalence",
+      "questions": ["Q-reports-003"]
+    },
+    {
+      "id": "R-reports-012",
+      "area": "reports",
+      "statement": "In the product catalog each category section shows the category description and image, the number of priced items, the lowest and the highest unit price, and the total lifetime sales of its products, followed by the product list. The image shown for each category is the image stored with that category, as in the original; the original's switched-off code that loaded category images from files is not carried over (Q-reports-006).",
+      "trigger": "report:rptProductCatalog.Open",
+      "sources": [
+        {"type": "report", "ref": "rptProductCatalog"}
+      ],
+      "tables": ["Products", "ProductCategories"],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": ["Q-reports-006"]
+    },
+    {
+      "id": "R-reports-013",
+      "area": "reports",
+      "statement": "The product catalog has a table of contents that lists each product category once with the page on which its section starts. To get correct page numbers the catalog is rendered in full to PDF first, recording each category's starting page; the catalog is then shown with that table of contents. The previous table of contents is discarded at the start of every full generation. If no table of contents has been generated yet, the catalog shows a note telling the user to generate the PDF. The catalog is generated on demand and not stored; there is one edition (Q-reports-005).",
+      "trigger": "form:frmReports.cmdPreviewReport.Click",
+      "sources": [
+        {"type": "procedure", "ref": "Form_frmReports.cmdPreviewReport_Click"},
+        {"type": "procedure", "ref": "Report_rptProductCatalog.Report_Open"},
+        {"type": "procedure", "ref": "Report_rptProductCatalog.GroupHeader0_Print"},
+        {"type": "report", "ref": "srptCatalog_TableOfContents"}
+      ],
+      "tables": ["Catalog_TableOfContents", "ProductCategories"],
+      "confidence": "high",
+      "test_kind": "e2e",
+      "questions": ["Q-reports-005"]
+    },
+    {
+      "id": "R-reports-014",
+      "area": "reports",
+      "statement": "The product catalog also contains fixed pages: a quality statement and a gastronomic introduction whose texts come from the application's maintained text strings, and an order form that shows the selling company's own address and business phone (the company whose company type marks it as the house company) with a tick-box list of the shippers a customer can choose.",
+      "trigger": "report:rptProductCatalog.Open",
+      "sources": [
+        {"type": "report", "ref": "srptQuality"},
+        {"type": "report", "ref": "srptGastronomic"},
+        {"type": "report", "ref": "srptOrderForm"},
+        {"type": "report", "ref": "srptShipVia"}
+      ],
+      "tables": ["Strings", "Companies", "CompanyTypes"],
+      "confidence": "high",
+      "test_kind": "e2e",
+      "questions": ["Q-reports-005"]
+    },
+    {
+      "id": "R-reports-015",
+      "area": "reports",
+      "statement": "When the product catalog has no rows, the user is told that the report has no data, but the catalog still opens.",
+      "trigger": "report:rptProductCatalog.NoData",
+      "sources": [
+        {"type": "procedure", "ref": "Report_rptProductCatalog.Report_NoData"}
+      ],
+      "tables": ["Products"],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": []
+    },
+    {
+      "id": "R-reports-016",
+      "area": "reports",
+      "statement": "The main menu has a Reports entry that opens the report selection page. The Preview action opens the chosen report: the monthly sales per employee report in its interactive view, the product catalog and the product sales reports as a print preview that can be saved as PDF.",
+      "trigger": "form:frmReports.cmdPreviewReport.Click",
+      "sources": [
+        {"type": "procedure", "ref": "modRibbonCallback.cmdReports_OnAction"},
+        {"type": "procedure", "ref": "Form_frmReports.cmdPreviewReport_Click"},
+        {"type": "form", "ref": "frmReports"}
+      ],
+      "tables": [],
+      "confidence": "high",
+      "test_kind": "e2e",
+      "questions": ["Q-reports-001"]
+    }
+  ],
+  "objects": [
+    {"type": "table", "name": "Catalog_TableOfContents", "decision": "drop", "area": "reports", "target_component": null, "reason": "scratch table that the catalog empties and refills on every generation; it holds no business data, and the new catalog builds its table of contents while rendering (R-reports-013)"},
+    {"type": "table", "name": "Learn", "decision": "drop", "area": "reports", "target_component": null, "reason": "help text about Microsoft Access shipped with the template; no business data"},
+
+    {"type": "form", "name": "frmReports", "decision": "keep", "area": "reports", "target_component": "reports.views", "reason": null},
+    {"type": "form", "name": "frmLearn", "decision": "drop", "area": "reports", "target_component": null, "reason": "Access learning page (embedded browser and links to Microsoft training); no business function"},
+    {"type": "macro", "name": "frmLearn.cmdOpenReport.Click", "decision": "drop", "area": "reports", "target_component": null, "reason": "only opens the Access learning report; dropped with frmLearn"},
+
+    {"type": "query", "name": "qryrptSalesByEmployee", "decision": "keep", "area": "reports", "target_component": "reports.saved_queries", "reason": null},
+    {"type": "query", "name": "qryrptSalesByProduct_ByMonth", "decision": "keep", "area": "reports", "target_component": "reports.saved_queries", "reason": null},
+    {"type": "query", "name": "qryrptSalesByProduct_ByQuarter", "decision": "keep", "area": "reports", "target_component": "reports.saved_queries", "reason": null},
+    {"type": "query", "name": "qryrptProductCatalog", "decision": "keep", "area": "reports", "target_component": "reports.saved_queries", "reason": null},
+    {"type": "query", "name": "qryTotalSalesByProduct", "decision": "keep", "area": "reports", "target_component": "reports.saved_queries", "reason": null},
+    {"type": "query", "name": "qrySales_SalesRep", "decision": "drop", "area": "reports", "target_component": null, "reason": "not used by any form, report, query or code; a year-to-date gross sales total per salesperson that the kept monthly sales per employee report supersedes (Q-reports-007)"},
+    {"type": "query", "name": "qryrptEmployeeEmailList", "decision": "drop", "area": "reports", "target_component": null, "reason": "record source of the dropped employee email list report"},
+    {"type": "query", "name": "qryrptEmployeePhoneList", "decision": "drop", "area": "reports", "target_component": null, "reason": "record source of the dropped employee phone list report"},
+
+    {"type": "report", "name": "rptSalesByEmployee", "decision": "keep", "area": "reports", "target_component": "reports.reports", "reason": null},
+    {"type": "report", "name": "rptSalesByProduct", "decision": "keep", "area": "reports", "target_component": "reports.reports", "reason": null},
+    {"type": "report", "name": "rptSalesByProductQuarterly", "decision": "keep", "area": "reports", "target_component": "reports.reports", "reason": null},
+    {"type": "report", "name": "rptProductCatalog", "decision": "keep", "area": "reports", "target_component": "reports.reports", "reason": null},
+    {"type": "report", "name": "srptCatalog_TableOfContents", "decision": "keep", "area": "reports", "target_component": "reports.reports", "reason": null},
+    {"type": "report", "name": "srptGastronomic", "decision": "keep", "area": "reports", "target_component": "reports.reports", "reason": null},
+    {"type": "report", "name": "srptOrderForm", "decision": "keep", "area": "reports", "target_component": "reports.reports", "reason": null},
+    {"type": "report", "name": "srptQuality", "decision": "keep", "area": "reports", "target_component": "reports.reports", "reason": null},
+    {"type": "report", "name": "srptShipVia", "decision": "keep", "area": "reports", "target_component": "reports.reports", "reason": null},
+    {"type": "report", "name": "rptEmployeeEmailList", "decision": "drop", "area": "reports", "target_component": null, "reason": "not one of the at most four reports kept beside the invoice; a plain list of employee names and email addresses that the employee list page already shows (Q-reports-001)"},
+    {"type": "report", "name": "rptEmployeePhoneList", "decision": "drop", "area": "reports", "target_component": null, "reason": "not one of the at most four reports kept beside the invoice; a plain list of employee names and phone numbers that the employee list page already shows (Q-reports-001)"},
+    {"type": "report", "name": "rptLearn", "decision": "drop", "area": "reports", "target_component": null, "reason": "printable copy of the Access learning text; no business function"},
+    {"type": "report", "name": "rptRelationshipsWindow", "decision": "drop", "area": "reports", "target_component": null, "reason": "a static picture of the Access table diagram for developers; the new app documents its data model separately"},
+    {"type": "report", "name": "_Design", "decision": "drop", "area": "reports", "target_component": null, "reason": "Access design template (logo and title layout) for building new reports; holds no data and no business behaviour"},
+
+    {"type": "procedure", "name": "Form_frmReports.Form_Open", "decision": "keep", "area": "reports", "target_component": "reports.views", "reason": null},
+    {"type": "procedure", "name": "Form_frmReports.ReportFormInitialization", "decision": "keep", "area": "reports", "target_component": "reports.views", "reason": null},
+    {"type": "procedure", "name": "Form_frmReports.cmdSalesByemployeeReport_Click", "decision": "keep", "area": "reports", "target_component": "reports.views", "reason": null},
+    {"type": "procedure", "name": "Form_frmReports.cmdSalesByProductReportMonthly_Click", "decision": "keep", "area": "reports", "target_component": "reports.views", "reason": null},
+    {"type": "procedure", "name": "Form_frmReports.cmdSalesByProductReportQuarterly_Click", "decision": "keep", "area": "reports", "target_component": "reports.views", "reason": null},
+    {"type": "procedure", "name": "Form_frmReports.cmdFallCatalog_Click", "decision": "keep", "area": "reports", "target_component": "reports.views", "reason": null},
+    {"type": "procedure", "name": "Form_frmReports.cmdPreviewReport_Click", "decision": "keep", "area": "reports", "target_component": "reports.views", "reason": null},
+    {"type": "procedure", "name": "Form_frmReports.Form_Close", "decision": "drop", "area": "reports", "target_component": null, "reason": "only clears the Access session variables that hold the chosen report; a web page keeps that choice in the request"},
+    {"type": "procedure", "name": "Form_frmReports.cmdEmployeeEmailList_Click", "decision": "drop", "area": "reports", "target_component": null, "reason": "selects the dropped employee email list report"},
+    {"type": "procedure", "name": "Form_frmReports.cmdEmployeePhoneList_Click", "decision": "drop", "area": "reports", "target_component": null, "reason": "selects the dropped employee phone list report"},
+
+    {"type": "procedure", "name": "modReportParameters.reportParameterStartDate", "decision": "keep", "area": "reports", "target_component": "reports.services", "reason": null},
+    {"type": "procedure", "name": "modReportParameters.reportParameterEndDate", "decision": "keep", "area": "reports", "target_component": "reports.services", "reason": null},
+
+    {"type": "procedure", "name": "modRibbonCallback.cmdReports_OnAction", "decision": "keep", "area": "reports", "target_component": "reports.views", "reason": null},
+    {"type": "procedure", "name": "modRibbonCallback.cmdLearn_OnAction", "decision": "drop", "area": "reports", "target_component": null, "reason": "menu entry for the dropped Access learning page"},
+    {"type": "procedure", "name": "modRibbonCallback.Ribbon_ShowReportsGroup", "decision": "drop", "area": "reports", "target_component": null, "reason": "refreshes the Access ribbon so its report options group appears; the web report pages carry their own print and PDF actions"},
+    {"type": "procedure", "name": "modRibbonCallback.gReportOptions_GetVisible", "decision": "drop", "area": "reports", "target_component": null, "reason": "Access ribbon callback that shows the report options group only while a report is open; no web equivalent needed"},
+
+    {"type": "procedure", "name": "Report_rptSalesByEmployee.Report_Open", "decision": "keep", "area": "reports", "target_component": "reports.reports", "reason": null},
+    {"type": "procedure", "name": "Report_rptSalesByEmployee.Report_NoData", "decision": "keep", "area": "reports", "target_component": "reports.reports", "reason": null},
+    {"type": "procedure", "name": "Report_rptSalesByEmployee.cboFilterByEmployee_DblClick", "decision": "keep", "area": "reports", "target_component": "reports.reports", "reason": null},
+    {"type": "procedure", "name": "Report_rptSalesByEmployee.Report_Activate", "decision": "drop", "area": "reports", "target_component": null, "reason": "only refreshes the Access ribbon"},
+    {"type": "procedure", "name": "Report_rptSalesByEmployee.Report_Close", "decision": "drop", "area": "reports", "target_component": null, "reason": "only refreshes the Access ribbon"},
+    {"type": "procedure", "name": "Report_rptSalesByProduct.Report_Open", "decision": "keep", "area": "reports", "target_component": "reports.reports", "reason": null},
+    {"type": "procedure", "name": "Report_rptSalesByProduct.Report_NoData", "decision": "keep", "area": "reports", "target_component": "reports.reports", "reason": null},
+    {"type": "procedure", "name": "Report_rptSalesByProduct.Report_Activate", "decision": "drop", "area": "reports", "target_component": null, "reason": "only refreshes the Access ribbon"},
+    {"type": "procedure", "name": "Report_rptSalesByProduct.Report_Close", "decision": "drop", "area": "reports", "target_component": null, "reason": "only refreshes the Access ribbon"},
+    {"type": "procedure", "name": "Report_rptSalesByProductQuarterly.Report_Open", "decision": "keep", "area": "reports", "target_component": "reports.reports", "reason": null},
+    {"type": "procedure", "name": "Report_rptSalesByProductQuarterly.Report_NoData", "decision": "keep", "area": "reports", "target_component": "reports.reports", "reason": null},
+    {"type": "procedure", "name": "Report_rptSalesByProductQuarterly.Report_Activate", "decision": "drop", "area": "reports", "target_component": null, "reason": "only refreshes the Access ribbon"},
+    {"type": "procedure", "name": "Report_rptSalesByProductQuarterly.Report_Close", "decision": "drop", "area": "reports", "target_component": null, "reason": "only refreshes the Access ribbon"},
+    {"type": "procedure", "name": "Report_rptProductCatalog.Report_Open", "decision": "keep", "area": "reports", "target_component": "reports.reports", "reason": null},
+    {"type": "procedure", "name": "Report_rptProductCatalog.GroupHeader0_Print", "decision": "keep", "area": "reports", "target_component": "reports.reports", "reason": null},
+    {"type": "procedure", "name": "Report_rptProductCatalog.Report_NoData", "decision": "keep", "area": "reports", "target_component": "reports.reports", "reason": null},
+    {"type": "procedure", "name": "Report_rptProductCatalog.Report_Activate", "decision": "drop", "area": "reports", "target_component": null, "reason": "only refreshes the Access ribbon"},
+    {"type": "procedure", "name": "Report_rptProductCatalog.Report_Close", "decision": "drop", "area": "reports", "target_component": null, "reason": "only refreshes the Access ribbon"},
+    {"type": "procedure", "name": "Report_rptEmployeeEmailList.Report_Activate", "decision": "drop", "area": "reports", "target_component": null, "reason": "event of the dropped employee email list report; only refreshes the Access ribbon"},
+    {"type": "procedure", "name": "Report_rptEmployeeEmailList.Report_Close", "decision": "drop", "area": "reports", "target_component": null, "reason": "event of the dropped employee email list report; only refreshes the Access ribbon"},
+    {"type": "procedure", "name": "Report_rptEmployeeEmailList.Report_NoData", "decision": "drop", "area": "reports", "target_component": null, "reason": "event of the dropped employee email list report"},
+    {"type": "procedure", "name": "Report_rptEmployeePhoneList.Report_Activate", "decision": "drop", "area": "reports", "target_component": null, "reason": "event of the dropped employee phone list report; only refreshes the Access ribbon"},
+    {"type": "procedure", "name": "Report_rptEmployeePhoneList.Report_Close", "decision": "drop", "area": "reports", "target_component": null, "reason": "event of the dropped employee phone list report; only refreshes the Access ribbon"},
+    {"type": "procedure", "name": "Report_rptEmployeePhoneList.Report_NoData", "decision": "drop", "area": "reports", "target_component": null, "reason": "event of the dropped employee phone list report"},
+    {"type": "procedure", "name": "Report_rptLearn.Report_Activate", "decision": "drop", "area": "reports", "target_component": null, "reason": "event of the dropped Access learning report"},
+    {"type": "procedure", "name": "Report_rptLearn.Report_Close", "decision": "drop", "area": "reports", "target_component": null, "reason": "event of the dropped Access learning report"},
+    {"type": "procedure", "name": "Report_rptLearn.Report_NoData", "decision": "drop", "area": "reports", "target_component": null, "reason": "event of the dropped Access learning report"},
+    {"type": "procedure", "name": "Report_rptRelationshipsWindow.Report_Activate", "decision": "drop", "area": "reports", "target_component": null, "reason": "event of the dropped table diagram report"},
+    {"type": "procedure", "name": "Report_rptRelationshipsWindow.Report_Close", "decision": "drop", "area": "reports", "target_component": null, "reason": "event of the dropped table diagram report"},
+    {"type": "procedure", "name": "Report_rptRelationshipsWindow.Report_NoData", "decision": "drop", "area": "reports", "target_component": null, "reason": "event of the dropped table diagram report"},
+    {"type": "procedure", "name": "Report__Design.Report_Activate", "decision": "drop", "area": "reports", "target_component": null, "reason": "event of the dropped report design template"},
+    {"type": "procedure", "name": "Report__Design.Report_Close", "decision": "drop", "area": "reports", "target_component": null, "reason": "event of the dropped report design template"},
+    {"type": "procedure", "name": "Report__Design.Report_NoData", "decision": "drop", "area": "reports", "target_component": null, "reason": "event of the dropped report design template"}
+  ],
+  "lookups": [
+    {"table": "CompanyTypes", "column": "CompanyType", "copy_values": true, "values": null, "rule": "R-reports-014"}
+  ],
+  "relations": [
+    {"table": "Orders", "fk": "EmployeeID", "on_delete": "PROTECT", "rule": "R-reports-004"},
+    {"table": "OrderDetails", "fk": "ProductID", "on_delete": "PROTECT", "rule": "R-reports-005"},
+    {"table": "Products", "fk": "ProductCategoryID", "on_delete": "PROTECT", "rule": "R-reports-011"}
+  ],
+  "workflows": [
+    {
+      "id": "sales_reports",
+      "title": "Choose a sales report, set the period, preview, filter and save as PDF",
+      "forms": ["frmReports"],
+      "reports": ["rptSalesByEmployee", "rptSalesByProduct", "rptSalesByProductQuarterly"],
+      "rules": ["R-reports-016", "R-reports-001", "R-reports-002", "R-reports-007", "R-reports-008", "R-reports-009", "R-reports-010"],
+      "steps": [
+        "open Reports from the main menu",
+        "see monthly sales per employee preselected with the default period",
+        "change the start and end dates",
+        "preview the report and filter it to one salesperson",
+        "switch to monthly and to quarterly sales per product and preview each",
+        "save a report as PDF"
+      ]
+    },
+    {
+      "id": "product_catalog",
+      "title": "Generate the printable product catalog",
+      "forms": ["frmReports"],
+      "reports": ["rptProductCatalog", "srptCatalog_TableOfContents", "srptQuality", "srptGastronomic", "srptOrderForm", "srptShipVia"],
+      "rules": ["R-reports-016", "R-reports-013", "R-reports-014", "R-reports-012"],
+      "steps": [
+        "open Reports from the main menu",
+        "choose the product catalog and see the date inputs hidden",
+        "generate the catalog",
+        "check the table of contents lists each category with its starting page",
+        "check the fixed pages and the order form with the shipper list",
+        "save the catalog as PDF"
+      ]
+    }
+  ],
+  "services": [
+    {"name": "sales_report_period", "area": "reports", "inputs": ["start date (optional)", "end date (optional)"], "outputs": ["start date", "end date"], "errors": ["no orders in the database to derive a default period from"]},
+    {"name": "sales_report", "area": "reports", "inputs": ["report kind (by employee monthly, by product monthly, by product quarterly)", "start date", "end date", "employee id (optional, by employee only)"], "outputs": ["rows per period and employee or product", "period subtotals", "grand total", "chart series"], "errors": ["no data for the chosen period"]},
+    {"name": "product_catalog_pdf", "area": "reports", "inputs": [], "outputs": ["catalog PDF", "table of contents (category, starting page)"], "errors": ["no catalog rows (warn, still render)"]}
+  ],
+  "open_questions": [
+    {"id": "Q-reports-001", "text": "Besides the invoice, we propose keeping four reports: monthly sales per employee, monthly sales per product, quarterly sales per product and the product catalog. We propose dropping the employee email list and the employee phone list, because the employee list page shows the same columns. Please confirm, or name the reports you would swap in. Answer (2026-10-16, demo client): confirmed: the invoice plus monthly sales per employee, monthly sales per product, quarterly sales per product and the product catalog; the employee email and phone lists are dropped.", "status": "answered"},
+    {"id": "Q-reports-002", "text": "Order dates carry a time of day, but the sales reports compare them with an end date at midnight. Orders placed on the end date after midnight are therefore left out, including, with the default period, the latest orders themselves. Should the end date count the whole day (our recommendation), or must the new reports keep the current results? Answer (2026-10-16, demo client): keep the current results: the end date is compared at midnight, as in the original; a later change order may change it.", "status": "answered"},
+    {"id": "Q-reports-003", "text": "The sales reports and the catalog's lifetime sales count every order whatever its status, including orders that are not yet invoiced or shipped. Is that intended, or should some statuses be excluded? Answer (2026-10-16, demo client): intended: every order counts, whatever its status.", "status": "answered"},
+    {"id": "Q-reports-004", "text": "The quarterly product report's chart is fed by the monthly figures, not the quarterly ones. Its quarter labels put the quarter before the year, so a sort on the label would mix years. Should the new report chart quarterly figures and sort quarters by year then quarter? Answer (2026-10-16, demo client): keep the figures the original shows, including the chart fed by the monthly figures; sort quarters by year then quarter.", "status": "answered"},
+    {"id": "Q-reports-005", "text": "The catalog is titled as a seasonal (fall) catalog and needs a full PDF render to fill its table of contents. Is one catalog with a generated table of contents enough, or do you need several seasonal editions, and must the catalog be stored after it is generated? Answer (2026-10-16, demo client): one catalog with a generated table of contents, generated on demand and not stored.", "status": "answered"},
+    {"id": "Q-reports-006", "text": "The catalog shows a placeholder picture for each category, and the code for real category images is switched off. Should the new catalog show the category images stored with the product categories? Answer (2026-10-16, demo client): keep the original placeholder picture per category. Correction (S1 review, from the design): the question's premise was wrong. The catalog's category header shows the image stored with each category, through a visible attachment control bound to the category image column; the switched-off code is a separate loader of image files, not the stored images. Keeping the original therefore means showing each category's stored image; the design's own comment says the template ships placeholder pictures, which is what the client saw.", "status": "answered"},
+    {"id": "Q-reports-007", "text": "A saved query totals each salesperson's sales for the current calendar year, without discounts, but nothing in the application uses it. May we drop it, or is a year-to-date figure per salesperson needed elsewhere, for example on a dashboard? Answer (2026-10-16, demo client): drop the query; no year-to-date figure per salesperson is needed.", "status": "answered"}
+  ],
+  "signed": null
+}

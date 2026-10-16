@@ -1,0 +1,215 @@
+# Purchasing and receiving: rules for sign-off
+
+Area `purchasing` of engagement northwind-demo, spec version 1.0 (draft, not signed). This file is the reader's copy of `analysis/rules/purchasing.json`; the JSON file is the source of truth.
+
+## Area summary
+
+Purchasing covers buying stock from vendors: entering a purchase order for one vendor with its line items, taking it through submit, approve, receive and close, and the stock update that receiving causes. It also covers the reorder path that starts on a product page and the vendor's purchase order tab on the company page.
+
+- Status: kept. It carries the must-keep workflow *purchase order → receiving → stock update* (workflow `purchase_order_to_stock`) and the purchase side of *inventory levels and restocking* (workflow `reorder_product`, which the merged specification folds into the inventory area's `inventory_restock`).
+- Objects in scope: 63; kept 49, dropped 14, out of scope 0.
+- Rules: 26 (18 proven by rule tests, 5 by equivalence units, 3 by end-to-end tests).
+- Questions: 8, all answered by the client on 2026-10-16 (answers.md) and folded into the rules below.
+- Reports: none of the source reports belongs to this area.
+- Sign-in and roles (the approve-purchase-order privilege) come from the foundation built in S4.
+
+Purchase order statuses, in order: New, Submitted, Approved, Received, Closed.
+
+## Rules
+
+| ID | Rule | Trigger | Sources | Tables | Confidence | Proven by | Questions |
+|---|---|---|---|---|---|---|---|
+| R-purchasing-001 | A new purchase order always starts in status New, whether it is entered by hand or created by a product reorder. | `form:frmPurchaseOrderDetails.BeforeInsert` | procedure Form_frmPurchaseOrderDetails.Form_BeforeInsert; procedure modPurchaseOrders.ReorderProduct | PurchaseOrders | high | rule | - |
+| R-purchasing-002 | A purchase order is saved only when its required fields are filled in (at least the vendor and the status); otherwise the save is refused and the missing fields are highlighted. The vendor must be an existing company, the status an existing purchase order status, and the submitter and approver existing employees. | `form:frmPurchaseOrderDetails.BeforeUpdate` | procedure Form_frmPurchaseOrderDetails.Form_BeforeUpdate; table PurchaseOrders | PurchaseOrders, Companies, Employees, PurchaseOrderStatus | high | rule | - |
+| R-purchasing-003 | A purchase order moves through the fixed sequence New, Submitted, Approved, Received, Closed. Each step has its own action, each action works only from the status directly before it, and no step can be skipped or undone. The form shows which steps are already done. | `form:frmPurchaseOrderDetails.Current` | procedure Form_frmPurchaseOrderDetails.SetWorkflowLabelColors; procedure Form_frmPurchaseOrderDetails.cmdSubmitPO_Click; procedure Form_frmPurchaseOrderDetails.cmdApprovePO_Click; procedure Form_frmPurchaseOrderDetails.cmdReceivePO_Click; procedure Form_frmPurchaseOrderDetails.cmdClosePO_Click; table PurchaseOrderStatus; data_macro PurchaseOrderStatus.BeforeChange | PurchaseOrders, PurchaseOrderStatus | high | e2e | - |
+| R-purchasing-004 | Submitting is allowed only for a purchase order in status New. It records the signed-in user as submitter and the current date and time (date and time, not the date alone) as the submitted date, and sets the status to Submitted. From any other status the action is refused with a message and nothing changes. | `form:frmPurchaseOrderDetails.cmdSubmitPO.Click` | procedure Form_frmPurchaseOrderDetails.cmdSubmitPO_Click | PurchaseOrders | high | rule | Q-purchasing-006 |
+| R-purchasing-005 | Approving is allowed only for a Submitted purchase order and only for a user who holds the approve-purchase-order privilege. The approver may be the same person who submitted it (self-approval is allowed). Approving records that user as approver and the current date and time as the approved date, and sets the status to Approved. Without the privilege, or from another status, the action is refused with a message and nothing changes. | `form:frmPurchaseOrderDetails.cmdApprovePO.Click` | procedure Form_frmPurchaseOrderDetails.cmdApprovePO_Click | PurchaseOrders, EmployeePrivileges | high | rule | Q-purchasing-004, Q-purchasing-006 |
+| R-purchasing-006 | Right after a purchase order is approved, and again right after it is received, stock allocation is re-run for every product on it, so customer order lines waiting for those products are re-evaluated oldest first (the allocation rule itself belongs to the inventory area). | `procedure:Form_frmPurchaseOrderDetails.AllocatePurchaseOrder` | procedure Form_frmPurchaseOrderDetails.AllocatePurchaseOrder; procedure Form_frmPurchaseOrderDetails.cmdApprovePO_Click; procedure Form_frmPurchaseOrderDetails.cmdReceivePO_Click; procedure modInventory.AllocateInventory | PurchaseOrderDetails, OrderDetails | high | rule | - |
+| R-purchasing-007 | Receiving is allowed only for an Approved purchase order and only after the user confirms posting it to inventory; declining changes nothing. Receiving records the current date and time as the received date of the purchase order and of every one of its lines (the whole order is received at once; there are no partial receipts of some lines or part quantities) and sets the status to Received. | `form:frmPurchaseOrderDetails.cmdReceivePO.Click` | procedure Form_frmPurchaseOrderDetails.cmdReceivePO_Click | PurchaseOrders, PurchaseOrderDetails | high | rule | Q-purchasing-005, Q-purchasing-006 |
+| R-purchasing-008 | Stock update: once a line is received, its quantity counts as stock bought from its received date and time, so it raises the product's available quantity after the last stock take. While its purchase order is Approved and not yet received, the line quantity counts as on order instead. | `form:frmPurchaseOrderDetails.cmdReceivePO.Click` | procedure Form_frmPurchaseOrderDetails.cmdReceivePO_Click; procedure modInventory.ProductBought; procedure modInventory.ProductOnOrder | PurchaseOrderDetails, PurchaseOrders | high | e2e | - |
+| R-purchasing-009 | Closing is allowed only for a Received purchase order and only when both the shipping fee and the payment method are filled in; otherwise the missing fields are highlighted and the close is refused. Closing stores the current date and time as the payment date, the computed tax as the tax amount and the computed total as the payment amount, and sets the status to Closed. The payment method is chosen from a fixed list of exactly three methods: credit card, check and cash. | `form:frmPurchaseOrderDetails.cmdClosePO.Click` | procedure Form_frmPurchaseOrderDetails.cmdClosePO_Click; procedure Form_frmPurchaseOrderDetails.PoCloseFieldsFilledOut | PurchaseOrders | high | rule | Q-purchasing-007 |
+| R-purchasing-010 | Purchase order amounts: each line amount is quantity times unit cost; the subtotal is the sum of the line amounts; the tax is the vendor tax rate times the subtotal, where the vendor tax rate is one system-wide setting (the shipping fee is not taxed, and the tax is stored on the purchase order only when it is closed); the total is subtotal plus tax plus shipping fee, with a missing shipping fee counted as zero. | `form:frmPurchaseOrderDetails.Current` | form frmPurchaseOrderDetails; form sfrmPurchaseOrderLineItems | PurchaseOrders, PurchaseOrderDetails, SystemSettings | high | rule | Q-purchasing-003 |
+| R-purchasing-011 | Field locking by status: once a purchase order is saved, its number, vendor, status, submitter, approver, the submitted and approved dates, the computed tax and total and the payment date can no longer be edited directly. The received date is editable only while the order is Approved, the shipping fee and payment method only while it is Received, and the notes until it is Closed. A Closed purchase order is read-only. On a new, unsaved purchase order the vendor can be chosen; once the purchase order is saved its vendor is fixed in every status. | `form:frmPurchaseOrderDetails.Current` | procedure Form_frmPurchaseOrderDetails.LockControls; procedure Form_frmPurchaseOrderDetails.Form_Current | PurchaseOrders | high | rule | Q-purchasing-001, Q-purchasing-007 |
+| R-purchasing-012 | Line items can be added, changed or deleted only while the purchase order is New (or not yet saved); from Submitted on the lines are frozen. | `form:frmPurchaseOrderDetails.Current` | procedure Form_frmPurchaseOrderDetails.Form_Current | PurchaseOrderDetails, PurchaseOrders | high | rule | - |
+| R-purchasing-013 | Line items cannot be entered before the purchase order itself has been saved; the user is told to complete and save the purchase order first. | `form:sfrmPurchaseOrderLineItems.Error` | procedure Form_sfrmPurchaseOrderLineItems.Form_Error; form sfrmPurchaseOrderLineItems | PurchaseOrderDetails | high | rule | - |
+| R-purchasing-014 | A purchase order can be deleted only while it is New or Submitted; deleting it also deletes all of its lines. In any later status the delete is refused with a message. | `form:frmPurchaseOrderDetails.cmdDeletePO.Click` | procedure Form_frmPurchaseOrderDetails.cmdDeletePO_Click; table PurchaseOrderDetails | PurchaseOrders, PurchaseOrderDetails | high | rule | - |
+| R-purchasing-015 | The vendor of a purchase order is chosen before the purchase order is first saved, without any confirmation, and choosing it refreshes the product choices for the lines. Once the purchase order is saved its vendor can never be changed, in any status; there is no change-vendor action, so the original's confirm-and-delete-all-lines prompt (reachable only on a saved purchase order, where the vendor is already locked) is not carried over. | `form:frmPurchaseOrderDetails.VendorID.AfterUpdate` | procedure Form_frmPurchaseOrderDetails.VendorID_AfterUpdate; procedure Form_frmPurchaseOrderDetails.LockControls | PurchaseOrders, PurchaseOrderDetails | high | rule | Q-purchasing-001 |
+| R-purchasing-016 | The product choices for a purchase order line are only the products that the purchase order's vendor supplies (per the product-vendor list), sorted by product name, each carrying its standard unit cost. | `query:qrycboProducts_PO` | query qrycboProducts_PO; procedure Form_frmPurchaseOrderDetails.VendorID_AfterUpdate | Products, ProductVendors | high | equivalence | - |
+| R-purchasing-017 | The vendor choices for a purchase order are the companies whose company type is vendor, sorted by company name. | `query:qrycboVendors` | query qrycboVendors | Companies | high | equivalence | - |
+| R-purchasing-018 | Choosing a product on a purchase order line fills in the quantity with the product's computed reorder quantity and the unit cost with the product's standard unit cost; the user may change both before saving. | `form:sfrmPurchaseOrderLineItems.ProductID.AfterUpdate` | procedure Form_sfrmPurchaseOrderLineItems.ProductID_AfterUpdate; procedure modInventory.ProductReorderQuantity | PurchaseOrderDetails, Products | high | rule | - |
+| R-purchasing-019 | A purchase order line needs a product, a quantity and a unit cost, and the product must exist. A quantity below the product's minimum reorder quantity is refused with a message. If the product's quantity available to sell plus the ordered quantity stays below the product's target level, the user gets a warning only and the line is still saved (it is never a hard stop). | `form:sfrmPurchaseOrderLineItems.BeforeUpdate` | procedure Form_sfrmPurchaseOrderLineItems.Form_BeforeUpdate; procedure Form_sfrmPurchaseOrderLineItems.ValidateLineItem; procedure modInventory.ProductToSell | PurchaseOrderDetails, Products | high | rule | Q-purchasing-008 |
+| R-purchasing-020 | A purchase order holds at most one line per product. Adding a product that is already on the purchase order adds the new quantity to the existing line and keeps its unit cost; the database also refuses a second line for the same product. | `procedure:modPurchaseOrders.AddPurchaseOrderDetail` | procedure modPurchaseOrders.AddPurchaseOrderDetail; table PurchaseOrderDetails | PurchaseOrderDetails | high | rule | - |
+| R-purchasing-021 | On a saved purchase order, one action adds a line for every product that the vendor supplies, that is not yet on the purchase order and that has at least one customer order line waiting in No Stock status; each new line gets the product's computed reorder quantity and its standard unit cost. On an unsaved purchase order the action is refused with a message. | `form:frmPurchaseOrderDetails.cmdAddNostock.Click` | procedure Form_frmPurchaseOrderDetails.cmdAddNostock_Click; procedure modInventory.ProductNoStock; procedure modInventory.ProductReorderQuantity | PurchaseOrderDetails, Products, ProductVendors, OrderDetails | high | rule | - |
+| R-purchasing-023 | When a product with several vendors is reordered, the user picks the vendor from a dialog that lists only the vendors supplying that product, sorted by name. Confirming without a vendor selected is refused with a prompt, a double-click on a vendor confirms it, and cancel ends the reorder without creating anything. A product with exactly one vendor skips the dialog, and a product without a vendor cannot be reordered. | `form:frmSelectVendorDialog.cmdOK.Click` | form frmSelectVendorDialog; procedure Form_frmSelectVendorDialog.Form_Load; procedure Form_frmSelectVendorDialog.cmdOK_Click; procedure Form_frmSelectVendorDialog.lstVendor_DblClick; procedure Form_frmSelectVendorDialog.cmdCancel_Click; procedure Form_frmProductDetail.cmdReorderProduct_Click | ProductVendors, Companies | high | e2e | - |
+| R-purchasing-024 | The extended cost of a purchase order is the sum over its lines of quantity times unit cost; a purchase order without lines still appears, with no cost. | `query:qryPurchaseOrderCost` | query qryPurchaseOrderCost | PurchaseOrders, PurchaseOrderDetails | high | equivalence | - |
+| R-purchasing-025 | The purchase order list shows every purchase order with its status, vendor name, submitter and approver names, submitted, approved and payment dates, and a total cost equal to extended cost plus shipping fee plus tax amount (missing parts count as zero), ordered by purchase order number with the newest first. The list footer shows the number of purchase orders and the sum of their total cost. | `query:qryPurchaseOrderList` | query qryPurchaseOrderList; form frmPurchaseOrderList | PurchaseOrders, PurchaseOrderStatus, Companies, Employees | medium | equivalence | - |
+| R-purchasing-026 | On a vendor's company page, the purchase order tab lists that vendor's purchase orders with status, submitter, approver, the submitted, approved and received dates, the payment fields and the extended cost, plus a count; only purchase orders that have a submitter appear, so New purchase orders are not listed there (kept on purpose). Double-clicking a row opens that purchase order. | `query:qryVendorPurchaseOrderList` | query qryVendorPurchaseOrderList; form sfrmCompanyDetail_VendorPurchaseOrders; procedure Form_sfrmCompanyDetail_VendorPurchaseOrders.Detail_DblClick; procedure Form_sfrmCompanyDetail_VendorPurchaseOrders.OpenForm_frmPurchaseOrderDetails | PurchaseOrders, PurchaseOrderStatus, Employees | medium | equivalence | Q-purchasing-002 |
+| R-purchasing-027 | Audit fields on purchase orders, purchase order lines and purchase order statuses: on insert, added-by, added-on, modified-by and modified-on are set to the stamp name and the current date and time; on every update, modified-by and modified-on are refreshed while added-by and added-on keep their original values even if an edit tries to change or clear them. The stamp name is the signed-in user's full name (first name then last name); there is no operating-system login fallback. Rows written without a signed-in user (imports, start-up jobs and other system jobs) carry the fixed name System. The purchase order form shows who created and last changed the record. | `datamacro:PurchaseOrders.BeforeChange` | data_macro PurchaseOrders.BeforeChange; data_macro PurchaseOrderDetails.BeforeChange; data_macro PurchaseOrderStatus.BeforeChange; procedure modTableDataMacros.GetAuditFieldsUserName | PurchaseOrders, PurchaseOrderDetails, PurchaseOrderStatus | high | rule | - |
+
+## Keep and drop
+
+### Keep (49)
+
+| Type | Name | Target component | Note |
+|---|---|---|---|
+| table | PurchaseOrders | legacy.models |  |
+| table | PurchaseOrderDetails | legacy.models |  |
+| table | PurchaseOrderStatus | legacy.models |  |
+| data_macro | PurchaseOrders.BeforeChange | foundation:audit-fields |  |
+| data_macro | PurchaseOrderDetails.BeforeChange | foundation:audit-fields |  |
+| data_macro | PurchaseOrderStatus.BeforeChange | foundation:audit-fields |  |
+| form | frmPurchaseOrderDetails | purchasing.views |  |
+| form | frmPurchaseOrderList | purchasing.views |  |
+| form | frmSelectVendorDialog | purchasing.views |  |
+| form | sfrmCompanyDetail_VendorPurchaseOrders | purchasing.views |  |
+| form | sfrmPurchaseOrderLineItems | purchasing.views |  |
+| query | qryPurchaseOrder | purchasing.saved_queries | record source of the purchase order form (the order with its status, submitter and approver names); a plain lookup join, its equivalence unit proves it, no rule |
+| query | qryPurchaseOrderCost | purchasing.saved_queries |  |
+| query | qryPurchaseOrderLineItems | purchasing.saved_queries | record source of the line items subform (the order's lines in entry order); its equivalence unit proves it, no rule |
+| query | qryPurchaseOrderList | purchasing.saved_queries |  |
+| query | qryVendorPurchaseOrderList | purchasing.saved_queries |  |
+| query | qrycboProducts_PO | purchasing.saved_queries |  |
+| query | qrycboVendors | purchasing.saved_queries |  |
+| procedure | Form_frmPurchaseOrderDetails.AllocatePurchaseOrder | purchasing.services |  |
+| procedure | Form_frmPurchaseOrderDetails.Form_BeforeInsert | purchasing.services |  |
+| procedure | Form_frmPurchaseOrderDetails.Form_BeforeUpdate | purchasing.forms |  |
+| procedure | Form_frmPurchaseOrderDetails.Form_Current | purchasing.views |  |
+| procedure | Form_frmPurchaseOrderDetails.Form_Load | purchasing.views | opens the requested purchase order or a blank new one; navigation only; the web app's links and URLs replace it, so it holds no business rule |
+| procedure | Form_frmPurchaseOrderDetails.LockControls | purchasing.forms |  |
+| procedure | Form_frmPurchaseOrderDetails.PoCloseFieldsFilledOut | purchasing.services |  |
+| procedure | Form_frmPurchaseOrderDetails.SetWorkflowLabelColors | purchasing.views |  |
+| procedure | Form_frmPurchaseOrderDetails.VendorID_AfterUpdate | purchasing.forms |  |
+| procedure | Form_frmPurchaseOrderDetails.cmdAddNostock_Click | purchasing.services |  |
+| procedure | Form_frmPurchaseOrderDetails.cmdAddPO_Click | purchasing.views | moves to a blank new purchase order; navigation only; the web app's links and URLs replace it, so it holds no business rule |
+| procedure | Form_frmPurchaseOrderDetails.cmdApprovePO_Click | purchasing.services |  |
+| procedure | Form_frmPurchaseOrderDetails.cmdClosePO_Click | purchasing.services |  |
+| procedure | Form_frmPurchaseOrderDetails.cmdDeletePO_Click | purchasing.services |  |
+| procedure | Form_frmPurchaseOrderDetails.cmdReceivePO_Click | purchasing.services |  |
+| procedure | Form_frmPurchaseOrderDetails.cmdSubmitPO_Click | purchasing.services |  |
+| procedure | Form_frmPurchaseOrderList.PurchaseOrderID_Click | purchasing.views | opens the clicked purchase order; navigation only; the web app's links and URLs replace it, so it holds no business rule |
+| procedure | Form_frmPurchaseOrderList.cmdAddPO_Click | purchasing.views | opens a blank new purchase order; navigation only; the web app's links and URLs replace it, so it holds no business rule |
+| procedure | Form_frmSelectVendorDialog.Form_Load | purchasing.views |  |
+| procedure | Form_frmSelectVendorDialog.cmdCancel_Click | purchasing.views |  |
+| procedure | Form_frmSelectVendorDialog.cmdOK_Click | purchasing.forms |  |
+| procedure | Form_frmSelectVendorDialog.lstVendor_DblClick | purchasing.views |  |
+| procedure | Form_sfrmCompanyDetail_VendorPurchaseOrders.Detail_DblClick | purchasing.views |  |
+| procedure | Form_sfrmCompanyDetail_VendorPurchaseOrders.OpenForm_frmPurchaseOrderDetails | purchasing.views |  |
+| procedure | Form_sfrmPurchaseOrderLineItems.Form_BeforeUpdate | purchasing.forms |  |
+| procedure | Form_sfrmPurchaseOrderLineItems.Form_Error | purchasing.views |  |
+| procedure | Form_sfrmPurchaseOrderLineItems.ProductID_AfterUpdate | purchasing.forms |  |
+| procedure | Form_sfrmPurchaseOrderLineItems.PurchaseOrderDetailID_Click | purchasing.views | opens the product of the clicked line; navigation only; the web app's links and URLs replace it, so it holds no business rule |
+| procedure | Form_sfrmPurchaseOrderLineItems.ValidateLineItem | purchasing.forms |  |
+| procedure | modPurchaseOrders.AddPurchaseOrderDetail | purchasing.services |  |
+| procedure | modPurchaseOrders.ReorderProduct | purchasing.services |  |
+
+### Drop (14)
+
+| Type | Name | Reason |
+|---|---|---|
+| query | qryVendors | not used by any form, report, query or code; qrycboVendors already lists the vendors |
+| procedure | Form_frmPurchaseOrderDetails.Form_AfterInsert | adds the new purchase order to the Access ribbon's recently-used list; a desktop UI convenience with no web equivalent |
+| procedure | Form_frmPurchaseOrderDetails.Form_AfterUpdate | clears field highlights and refreshes the open list window; a web page reloads from the database |
+| procedure | Form_frmPurchaseOrderDetails.Form_Close | window bookkeeping for several open purchase order windows; not needed in a browser |
+| procedure | Form_frmPurchaseOrderDetails.Form_Delete | removes the deleted purchase order from the Access ribbon's recently-used list; a desktop UI convenience |
+| procedure | Form_frmPurchaseOrderDetails.Form_Open | empty handler (only its error handling); no behaviour |
+| procedure | Form_frmPurchaseOrderDetails.VendorID_BeforeUpdate | its only behaviour is the confirm-and-delete-all-lines prompt for changing the vendor of a saved purchase order; the client fixed the vendor once a purchase order is saved (Q-purchasing-001), so the new app has no vendor change (R-purchasing-015) |
+| procedure | Form_frmPurchaseOrderList.Form_Open | clears a filter left over from an earlier Access session; the web list starts unfiltered |
+| procedure | Form_sfrmPurchaseOrderLineItems.Form_Current | clears field highlights when moving between lines; UI only |
+| procedure | modPurchaseOrders.CloseAllPurchaseOrderDetailsForms | releases the list of open purchase order windows at shutdown; not needed in a browser |
+| procedure | modPurchaseOrders.ClosePurchaseOrderDetailsForm | removes a closed purchase order window from the list of open windows; not needed in a browser |
+| procedure | modPurchaseOrders.OpenPurchaseOrderDetailsForm | opens a purchase order in an extra Access window (several at once); the purchase order detail URL replaces it |
+| procedure | modRibbonCallback.cmdAddPurchaseOrder_OnAction | Access ribbon button that opens a new purchase order; the app's navigation bar and the list's new button replace it |
+| procedure | modRibbonCallback.cmdPurchaseOrders_OnAction | Access ribbon button that opens the purchase order list; the app's navigation bar replaces it |
+
+### Out of scope (0)
+
+None.
+
+## Lookups
+
+| Table | Column | Codes are behaviour | Codes | Rule |
+|---|---|---|---|---|
+| PurchaseOrders | StatusID | yes | taken from the design: the five status codes the code uses (New, Submitted, Approved, Received, Closed) | R-purchasing-003 |
+| PurchaseOrders | PaymentMethod | yes | taken from the design: the form's fixed list of three methods (credit card, check, cash); see Q-purchasing-007 | R-purchasing-009 |
+| Companies | CompanyTypeID | yes | taken from the design: the vendor company type used in the vendor criteria | R-purchasing-017 |
+| EmployeePrivileges | PrivilegeID | yes | taken from the design: the approve-purchase-order privilege code (roles come from the foundation) | R-purchasing-005 |
+
+Every `values` entry is empty because the design holds all of these codes; answers.md adds none. The client confirmed in Q-purchasing-007 that the three payment methods are the complete list. Companies.CompanyTypeID is listed once in the merged specification, under R-orders-003.
+
+## Relations
+
+| Table | Foreign key | On delete | Rule |
+|---|---|---|---|
+| PurchaseOrderDetails | PurchaseOrderID | CASCADE | R-purchasing-014 |
+| PurchaseOrderDetails | ProductID | PROTECT | R-purchasing-019 |
+| PurchaseOrders | VendorID | PROTECT | R-purchasing-002 |
+| PurchaseOrders | StatusID | PROTECT | R-purchasing-003 |
+| PurchaseOrders | SubmittedByID | PROTECT | R-purchasing-004 |
+| PurchaseOrders | ApprovedByID | PROTECT | R-purchasing-005 |
+
+## Workflows
+
+### Purchase order to receiving to stock update (`purchase_order_to_stock`)
+
+- Forms: frmPurchaseOrderList, frmPurchaseOrderDetails, sfrmPurchaseOrderLineItems
+- Reports: none
+- Rules: R-purchasing-001, R-purchasing-003, R-purchasing-004, R-purchasing-005, R-purchasing-006, R-purchasing-007, R-purchasing-008, R-purchasing-009, R-purchasing-010, R-purchasing-012, R-purchasing-019
+
+1. open the purchase order list and start a new purchase order
+2. choose the vendor and save the purchase order (status New)
+3. add line items for the vendor's products, or add all no-stock products at once
+4. submit the purchase order
+5. approve it as a user with the approve-purchase-order privilege (its quantities now count as on order)
+6. receive it after confirming (status Received; the received quantities raise available stock)
+7. check the product's available stock on the product page
+8. enter the shipping fee and payment method and close it (tax, payment amount and payment date stored)
+
+### Reorder a product from its vendor (restocking) (`reorder_product`)
+
+- Forms: frmSelectVendorDialog, frmPurchaseOrderDetails
+- Reports: none
+- Rules: R-purchasing-023, R-purchasing-001, R-purchasing-020, R-purchasing-018
+
+1. on a product page start a reorder (the inventory area's product form)
+2. pick the vendor in the dialog when the product has several vendors
+3. the product is added to the vendor's oldest New purchase order, or a new New purchase order is created (rule R-inventory-020 of the inventory area)
+4. the purchase order opens for review and goes on through the purchase order workflow
+
+## Services
+
+| Service | Inputs | Outputs | Errors |
+|---|---|---|---|
+| submit_purchase_order | purchase order id, signed-in user | status Submitted, submitter, submitted date and time | purchase order is not New |
+| approve_purchase_order | purchase order id, signed-in user | status Approved, approver, approved date and time, stock allocation re-run for its products | purchase order is not Submitted, user lacks the approve-purchase-order privilege |
+| receive_purchase_order | purchase order id, confirmation | status Received, received date and time on the purchase order and every line, stock allocation re-run for its products | purchase order is not Approved, not confirmed |
+| close_purchase_order | purchase order id, shipping fee, payment method | status Closed, payment date, tax amount, payment amount | purchase order is not Received, shipping fee missing, payment method missing |
+| delete_purchase_order | purchase order id | purchase order and its lines deleted | purchase order is not New or Submitted |
+| add_purchase_order_line | purchase order id, product id, quantity, unit cost | line id (new line, or existing line with the quantity added) | purchase order is not New, quantity below the product's minimum reorder quantity, line could not be saved |
+| add_no_stock_lines | purchase order id | number of lines added | purchase order not saved yet |
+| purchase_order_amounts | purchase order id | subtotal, tax, total | - |
+
+## Open questions
+
+All questions of this area are answered (answers.md, 2026-10-16, by: you for the demo client). Each answer keeps the original behaviour and is folded into the cited rules; none needs a change order.
+
+| Id | Question | Status | Answer |
+|---|---|---|---|
+| Q-purchasing-001 | Once a purchase order is saved its vendor is locked in every status, yet the app also has a confirm-and-delete-all-lines path for changing the vendor. Should the vendor of a saved New purchase order be changeable (deleting its lines after confirmation), or fixed once the purchase order is saved, as the current app effectively behaves? | answered | Fixed once saved, as the current app behaves: the vendor of a saved purchase order cannot be changed. Folded into R-purchasing-011 and R-purchasing-015; VendorID_BeforeUpdate is dropped. |
+| Q-purchasing-002 | The purchase order tab on a vendor's company page lists only purchase orders that already have a submitter, so New purchase orders do not appear there, while the main purchase order list shows them. Is that intended, or should the vendor tab show every purchase order of the vendor? | answered | Keep the original behaviour: the vendor tab lists only purchase orders that have a submitter. Folded into R-purchasing-026. |
+| Q-purchasing-003 | Tax on a purchase order is the vendor tax rate from the system settings times the line subtotal, the shipping fee is not taxed, and the tax is stored only when the purchase order is closed. Please confirm, and confirm that the vendor tax rate stays a single system-wide setting. | answered | Confirmed: vendor tax rate times the line subtotal, shipping not taxed, tax stored when the purchase order is closed; the vendor tax rate stays one system-wide setting. Folded into R-purchasing-010 and R-purchasing-009. |
+| Q-purchasing-004 | Any user with the approve-purchase-order privilege can approve, including the person who submitted the purchase order. Should self-approval be blocked? | answered | Keep the original behaviour: self-approval is allowed. Folded into R-purchasing-005. |
+| Q-purchasing-005 | Receiving is all or nothing: the whole purchase order is received at once and every line gets the same received date. Do you need partial receipts (some lines or part quantities)? | answered | No partial receipts: receiving stays all or nothing. Folded into R-purchasing-007. |
+| Q-purchasing-006 | The table design describes the submitted, approved, received and payment dates as dates without a time, but the app stores the date and time. Should the new app keep date and time (the line received time matters for stock calculations) or store dates only on the purchase order? | answered | Keep date and time, as the app stores them. Folded into R-purchasing-004, R-purchasing-005 and R-purchasing-007. |
+| Q-purchasing-007 | The received date stays editable while a purchase order is Approved, and the shipping fee and payment method only while it is Received. Is that intended? Also, the payment method is chosen from a fixed list of three (credit card, check, cash): is that the full list? | answered | Intended: keep the editing windows. The payment method list of three (credit card, check, cash) is complete. Folded into R-purchasing-009 and R-purchasing-011. |
+| Q-purchasing-008 | When a line's quantity leaves the product below its target level, the app only warns and still saves the line. Keep it as a warning, or make it a hard stop? | answered | Keep it as a warning; the line still saves. Folded into R-purchasing-019. |
+
+## Aligned with the merged specification
+
+- R-purchasing-022 (a reorder adds the product to the vendor's oldest New purchase order, or creates one) said the same as R-inventory-020 and was merged into it at synthesis. It is removed here and its id is not reused; workflow `reorder_product` now lists R-purchasing-001 and R-purchasing-020 for the purchase-order side of that step.
+- Q-purchasing-009 (audit stamps record the signed-in user only) was merged into Q-inventory-006 and is removed here. Its answer is folded into R-purchasing-027, which states the same behaviour as every other audit rule: the signed-in user's full name, no operating-system login fallback, and the fixed name System for imports, start-up jobs and other system jobs.
+- The three audit data macros target `foundation:audit-fields`, the shared audit stamping built with the foundation in S4.
+- The `reorder_product` service is defined once, in the inventory area, with the inputs, outputs and errors of both areas. The `change_purchase_order_vendor` service is removed because the vendor is fixed once a purchase order is saved (Q-purchasing-001).
+
+## Sign-off
+
+This area file is merged into `analysis/rules.md`, which carries the sign-off block for the whole specification.

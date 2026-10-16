@@ -1,0 +1,4802 @@
+{
+  "format_version": 1,
+  "kind": "area",
+  "engagement": "northwind-demo",
+  "spec_version": "1.0",
+  "areas": [
+    {
+      "id": "orders",
+      "title": "Orders, Invoicing and Shipping",
+      "status": "kept",
+      "queries": [
+        "qryCompanies",
+        "qryCompanyList",
+        "qryContacts",
+        "qryCustomerOrderList",
+        "qryCustomers",
+        "qryEmployeeLogin",
+        "qryEmployeePrivileges",
+        "qryEmployeeSupervisor",
+        "qryEmployees",
+        "qryInvoice",
+        "qryOrder",
+        "qryOrderLineItems",
+        "qryOrderList",
+        "qryOrderList_DetailStatus",
+        "qryOrderList_DetailStatus_Lowest",
+        "qryOrderTotal",
+        "qryOrders_MostRecent",
+        "qryPrivileges",
+        "qryShipperOrderList",
+        "qryShippers",
+        "qryTitle",
+        "qrycboCompanyType",
+        "qrycboCustomers",
+        "qrycboEmployees",
+        "qrycboOrderDetailStatus",
+        "qrycboOrderStatus",
+        "qrycboShippers",
+        "qrycboStates",
+        "qrycboTaxStatus"
+      ],
+      "forms": [
+        "frmCompanyDetail",
+        "frmCompanyList",
+        "frmCredentials",
+        "frmEmployeeList",
+        "frmEmployeeTitles",
+        "frmLogin",
+        "frmOrderDetails",
+        "frmOrderList",
+        "sfrmCompanyDetail_Contacts",
+        "sfrmCompanyDetail_CustomerOrders",
+        "sfrmCompanyDetail_ShipperOrders",
+        "sfrmEmployee_Privileges",
+        "sfrmOrderLineItems",
+        "sfrmOrders_MostRecent_ByEmployee"
+      ],
+      "reports": [
+        "rptInvoice"
+      ],
+      "procedures": [
+        "Form_frmCompanyDetail.CompanyCantBeDeleted",
+        "Form_frmCompanyDetail.CompanyConfirmDelete",
+        "Form_frmCompanyDetail.CompanyIsActive",
+        "Form_frmCompanyDetail.Form_AfterDelConfirm",
+        "Form_frmCompanyDetail.Form_AfterInsert",
+        "Form_frmCompanyDetail.Form_AfterUpdate",
+        "Form_frmCompanyDetail.Form_BeforeDelConfirm",
+        "Form_frmCompanyDetail.Form_BeforeUpdate",
+        "Form_frmCompanyDetail.Form_Current",
+        "Form_frmCompanyDetail.Form_Delete",
+        "Form_frmCompanyDetail.Form_Load",
+        "Form_frmCompanyDetail.ManageFormOptions",
+        "Form_frmCompanyDetail.cboCompanyTypeID_AfterUpdate",
+        "Form_frmCompanyDetail.cboCompanyTypeID_BeforeUpdate",
+        "Form_frmCompanyDetail.cmdAdd_Click",
+        "Form_frmCompanyDetail.cmdCancel_Click",
+        "Form_frmCompanyDetail.cmdDeleteCompany_Click",
+        "Form_frmCompanyDetail.cmdSave_Click",
+        "Form_frmCompanyDetail.txtWebsite_DblClick",
+        "Form_frmCompanyList.Form_Open",
+        "Form_frmCompanyList.Open_frmCompanyDetail",
+        "Form_frmCompanyList.cmdAddNew_Click",
+        "Form_frmCompanyList.fraFilter_AfterUpdate",
+        "Form_frmCompanyList.txtCompanyID_Click",
+        "Form_frmCredentials.Form_BeforeUpdate",
+        "Form_frmCredentials.Form_Load",
+        "Form_frmCredentials.UserID",
+        "Form_frmCredentials.cmdAddMe_Click",
+        "Form_frmCredentials.cmdExit_Click",
+        "Form_frmEmployeeList.EmployeeCanBeDeleted",
+        "Form_frmEmployeeList.Form_AfterDelConfirm",
+        "Form_frmEmployeeList.Form_AfterInsert",
+        "Form_frmEmployeeList.Form_AfterUpdate",
+        "Form_frmEmployeeList.Form_BeforeDelConfirm",
+        "Form_frmEmployeeList.Form_BeforeUpdate",
+        "Form_frmEmployeeList.Form_Current",
+        "Form_frmEmployeeList.Form_Delete",
+        "Form_frmEmployeeList.RequeryEmployeeList",
+        "Form_frmEmployeeList.cboSupervisorID_Enter",
+        "Form_frmEmployeeList.cboSupervisorID_NotInList",
+        "Form_frmEmployeeList.cmdEmailEmployee_Click",
+        "Form_frmEmployeeList.cmdNewEmployee_Click",
+        "Form_frmEmployeeTitles.Form_Open",
+        "Form_frmLogin.AutoLogin_chk_AfterUpdate",
+        "Form_frmLogin.Form_Load",
+        "Form_frmLogin.Form_Unload",
+        "Form_frmLogin.UserID",
+        "Form_frmLogin.cmdLogin_Click",
+        "Form_frmOrderDetails.AllInvoiceLineItemsHaveStatus",
+        "Form_frmOrderDetails.CustomerID_AfterUpdate",
+        "Form_frmOrderDetails.Form_AfterUpdate",
+        "Form_frmOrderDetails.Form_BeforeDelConfirm",
+        "Form_frmOrderDetails.Form_BeforeInsert",
+        "Form_frmOrderDetails.Form_BeforeUpdate",
+        "Form_frmOrderDetails.Form_Close",
+        "Form_frmOrderDetails.Form_Current",
+        "Form_frmOrderDetails.Form_Delete",
+        "Form_frmOrderDetails.Form_Load",
+        "Form_frmOrderDetails.LockControls",
+        "Form_frmOrderDetails.PaidFieldsFilledOut",
+        "Form_frmOrderDetails.SetFormStatus",
+        "Form_frmOrderDetails.SetLineItemsStatus",
+        "Form_frmOrderDetails.ShippingFeeFilledOut",
+        "Form_frmOrderDetails.ShippingFieldsFilledOut",
+        "Form_frmOrderDetails.cmdAddOrder_Click",
+        "Form_frmOrderDetails.cmdCloseOrder_Click",
+        "Form_frmOrderDetails.cmdCreateInvoice_Click",
+        "Form_frmOrderDetails.cmdDeleteOrder_Click",
+        "Form_frmOrderDetails.cmdPrintInvoice_Click",
+        "Form_frmOrderDetails.cmdReceivePayment_Click",
+        "Form_frmOrderDetails.cmdShipOrder_Click",
+        "Form_frmOrderDetails.sfrmOrderLineItems_Enter",
+        "Form_frmOrderDetails.sfrmOrderLineItems_Exit",
+        "Form_frmOrderList.Form_Open",
+        "Form_frmOrderList.OrderID_Click",
+        "Form_frmOrderList.cmdAddOrder_Click",
+        "Form_frmOrderList.fraFilter_AfterUpdate",
+        "Form_sfrmCompanyDetail_Contacts.Form_AfterUpdate",
+        "Form_sfrmCompanyDetail_Contacts.Form_BeforeUpdate",
+        "Form_sfrmCompanyDetail_CustomerOrders.Detail_DblClick",
+        "Form_sfrmCompanyDetail_CustomerOrders.OpenForm_frmOrderDetails",
+        "Form_sfrmCompanyDetail_ShipperOrders.Detail_DblClick",
+        "Form_sfrmCompanyDetail_ShipperOrders.OpenForm_frmOrderDetails",
+        "Form_sfrmEmployee_Privileges.Form_AfterDelConfirm",
+        "Form_sfrmEmployee_Privileges.Form_AfterInsert",
+        "Form_sfrmEmployee_Privileges.Form_Open",
+        "Form_sfrmEmployee_Privileges.frmLoadedAsSubform",
+        "Form_sfrmOrderLineItems.Form_AfterDelConfirm",
+        "Form_sfrmOrderLineItems.Form_AfterUpdate",
+        "Form_sfrmOrderLineItems.Form_BeforeDelConfirm",
+        "Form_sfrmOrderLineItems.Form_BeforeInsert",
+        "Form_sfrmOrderLineItems.Form_BeforeUpdate",
+        "Form_sfrmOrderLineItems.Form_Current",
+        "Form_sfrmOrderLineItems.Form_Delete",
+        "Form_sfrmOrderLineItems.Form_Error",
+        "Form_sfrmOrderLineItems.ProductID_AfterUpdate",
+        "Form_sfrmOrderLineItems.ProductID_GotFocus",
+        "Form_sfrmOrderLineItems.ProductName_DblClick",
+        "Form_sfrmOrderLineItems.ReallocateInventory",
+        "Form_sfrmOrderLineItems.SetOrderDetailStatus",
+        "Form_sfrmOrderLineItems.cboProductCategories_AfterUpdate",
+        "Form_sfrmOrders_MostRecent_ByEmployee.OrderID_Click",
+        "Report_rptInvoice.Report_NoData",
+        "modCompanies.GetTaxStatusID",
+        "modForms.RequeryListForms",
+        "modGlobal.GetNorthwindAddress",
+        "modGlobal.GetWindowsUserName",
+        "modGlobal.Get_EmployeeFNLN",
+        "modGlobal.Get_UserID",
+        "modGlobal.Get_UserID_ForWindowsUser",
+        "modGlobal.InitializeUser",
+        "modGlobal.OneTimeProcessing",
+        "modGlobal.RecordModifiedString",
+        "modOrders.CloseAllOrderDetailsForms",
+        "modOrders.CloseOrderDetailsForm",
+        "modOrders.OpenOrderDetailsForm",
+        "modOrders.SetDatesToCurrent",
+        "modSecurity.HasPrivilege",
+        "modStartup.GetSystemSetting",
+        "modStartup.GetUserSetting",
+        "modStartup.SaveSystemSetting",
+        "modStartup.SaveUserSetting",
+        "modStartup.Startup",
+        "modTableDataMacros.GetAuditFieldsUserName",
+        "modValidation.HighlightControl",
+        "modValidation.HighlightInvalidControls",
+        "modValidation.IsBoundToRequiredField",
+        "modValidation.IsValidForm",
+        "modValidation.ValidateForm",
+        "modValidation.ValidateForm_RemoveHighlights"
+      ],
+      "tables": [
+        "Companies",
+        "CompanyTypes",
+        "Contacts",
+        "EmployeePrivileges",
+        "Employees",
+        "OrderDetailStatus",
+        "OrderDetails",
+        "OrderStatus",
+        "Orders",
+        "Privileges",
+        "States",
+        "SystemSettings",
+        "TaxStatus",
+        "Titles"
+      ]
+    }
+  ],
+  "rules": [
+    {
+      "id": "R-orders-001",
+      "area": "orders",
+      "statement": "When a new order is started it is pre-filled: the salesperson is the signed-in employee, the tax rate is the default sales tax rate from system settings, the status is New and the order date is the current date and time. The default tax rate is stored in system settings as a whole number of thousandths and divided by 1000 when read.",
+      "trigger": "form:frmOrderDetails.BeforeInsert",
+      "sources": [
+        {
+          "type": "procedure",
+          "ref": "Form_frmOrderDetails.Form_BeforeInsert"
+        },
+        {
+          "type": "procedure",
+          "ref": "modStartup.GetSystemSetting"
+        },
+        {
+          "type": "procedure",
+          "ref": "modGlobal.Get_UserID"
+        },
+        {
+          "type": "table",
+          "ref": "SystemSettings"
+        }
+      ],
+      "tables": [
+        "Orders",
+        "SystemSettings"
+      ],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": []
+    },
+    {
+      "id": "R-orders-002",
+      "area": "orders",
+      "statement": "Choosing the customer of an order sets the order's tax status to that customer's standard tax status; the user may still change it while the order is New.",
+      "trigger": "form:frmOrderDetails.CustomerID.AfterUpdate",
+      "sources": [
+        {
+          "type": "procedure",
+          "ref": "Form_frmOrderDetails.CustomerID_AfterUpdate"
+        },
+        {
+          "type": "procedure",
+          "ref": "modCompanies.GetTaxStatusID"
+        }
+      ],
+      "tables": [
+        "Orders",
+        "Companies"
+      ],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": []
+    },
+    {
+      "id": "R-orders-003",
+      "area": "orders",
+      "statement": "The customer of an order is chosen only from companies whose type is Customer, and the shipper only from companies whose type is Shipper; both choice lists are sorted by company name.",
+      "trigger": "query:qrycboCustomers",
+      "sources": [
+        {
+          "type": "query",
+          "ref": "qrycboCustomers"
+        },
+        {
+          "type": "query",
+          "ref": "qrycboShippers"
+        },
+        {
+          "type": "query",
+          "ref": "qryCustomers"
+        },
+        {
+          "type": "query",
+          "ref": "qryShippers"
+        }
+      ],
+      "tables": [
+        "Companies"
+      ],
+      "confidence": "high",
+      "test_kind": "equivalence",
+      "questions": []
+    },
+    {
+      "id": "R-orders-004",
+      "area": "orders",
+      "statement": "Order lines cannot be entered until the order itself has been saved; trying to do so shows a message and sends the user back to the customer field.",
+      "trigger": "form:frmOrderDetails.sfrmOrderLineItems.Enter",
+      "sources": [
+        {
+          "type": "procedure",
+          "ref": "Form_frmOrderDetails.sfrmOrderLineItems_Enter"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_sfrmOrderLineItems.Form_Error"
+        }
+      ],
+      "tables": [
+        "Orders",
+        "OrderDetails"
+      ],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": []
+    },
+    {
+      "id": "R-orders-005",
+      "area": "orders",
+      "statement": "A record on the order, order line, company, contact or employee screens cannot be saved while any column that the table marks as required is blank; the save is refused with a message and the blank required fields are highlighted until the record is saved.",
+      "trigger": "form:frmOrderDetails.BeforeUpdate",
+      "sources": [
+        {
+          "type": "procedure",
+          "ref": "Form_frmOrderDetails.Form_BeforeUpdate"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmOrderDetails.Form_AfterUpdate"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmOrderDetails.sfrmOrderLineItems_Exit"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_sfrmOrderLineItems.Form_BeforeUpdate"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmCompanyDetail.Form_BeforeUpdate"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmCompanyDetail.cmdSave_Click"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmCompanyDetail.Form_AfterUpdate"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_sfrmCompanyDetail_Contacts.Form_BeforeUpdate"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_sfrmCompanyDetail_Contacts.Form_AfterUpdate"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmEmployeeList.Form_BeforeUpdate"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmEmployeeList.Form_AfterUpdate"
+        },
+        {
+          "type": "procedure",
+          "ref": "modValidation.ValidateForm"
+        },
+        {
+          "type": "procedure",
+          "ref": "modValidation.IsValidForm"
+        },
+        {
+          "type": "procedure",
+          "ref": "modValidation.IsBoundToRequiredField"
+        },
+        {
+          "type": "procedure",
+          "ref": "modValidation.HighlightInvalidControls"
+        },
+        {
+          "type": "procedure",
+          "ref": "modValidation.HighlightControl"
+        },
+        {
+          "type": "procedure",
+          "ref": "modValidation.ValidateForm_RemoveHighlights"
+        }
+      ],
+      "tables": [
+        "Orders",
+        "OrderDetails",
+        "Companies",
+        "Contacts",
+        "Employees"
+      ],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": []
+    },
+    {
+      "id": "R-orders-006",
+      "area": "orders",
+      "statement": "An order line's quantity must be greater than zero.",
+      "trigger": "form:sfrmOrderLineItems.BeforeUpdate",
+      "sources": [
+        {
+          "type": "table",
+          "ref": "OrderDetails"
+        }
+      ],
+      "tables": [
+        "OrderDetails"
+      ],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": []
+    },
+    {
+      "id": "R-orders-007",
+      "area": "orders",
+      "statement": "A product can appear at most once on the same order (one line per order and product).",
+      "trigger": "form:sfrmOrderLineItems.BeforeUpdate",
+      "sources": [
+        {
+          "type": "table",
+          "ref": "OrderDetails"
+        }
+      ],
+      "tables": [
+        "OrderDetails"
+      ],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": []
+    },
+    {
+      "id": "R-orders-008",
+      "area": "orders",
+      "statement": "On an order line the product list can be narrowed to one product category (or show all products); choosing a product copies the product's current list price into the line's unit price, and the line's discount starts at zero. A line whose chosen product has no price gets no product.",
+      "trigger": "form:sfrmOrderLineItems.ProductID.AfterUpdate",
+      "sources": [
+        {
+          "type": "procedure",
+          "ref": "Form_sfrmOrderLineItems.ProductID_AfterUpdate"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_sfrmOrderLineItems.cboProductCategories_AfterUpdate"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_sfrmOrderLineItems.ProductID_GotFocus"
+        },
+        {
+          "type": "table",
+          "ref": "OrderDetails"
+        }
+      ],
+      "tables": [
+        "OrderDetails",
+        "Products"
+      ],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": []
+    },
+    {
+      "id": "R-orders-009",
+      "area": "orders",
+      "statement": "A new order line starts with status New. When the line is saved with both a product and a quantity, its status becomes Allocated if the product's available stock (computed by the inventory area) covers the whole quantity, otherwise No Stock.",
+      "trigger": "form:sfrmOrderLineItems.BeforeUpdate",
+      "sources": [
+        {
+          "type": "procedure",
+          "ref": "Form_sfrmOrderLineItems.Form_BeforeInsert"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_sfrmOrderLineItems.Form_BeforeUpdate"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_sfrmOrderLineItems.SetOrderDetailStatus"
+        }
+      ],
+      "tables": [
+        "OrderDetails",
+        "Products"
+      ],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": []
+    },
+    {
+      "id": "R-orders-010",
+      "area": "orders",
+      "statement": "After an order line is saved, changed to another product, or deleted, stock allocation is run again for the affected product (and for the previous product when the product was changed), so waiting lines of other orders can move between Allocated, On Order and No Stock, oldest order first. Deleting a line asks for confirmation first.",
+      "trigger": "form:sfrmOrderLineItems.AfterUpdate",
+      "sources": [
+        {
+          "type": "procedure",
+          "ref": "Form_sfrmOrderLineItems.Form_AfterUpdate"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_sfrmOrderLineItems.ReallocateInventory"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_sfrmOrderLineItems.Form_Current"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_sfrmOrderLineItems.Form_AfterDelConfirm"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_sfrmOrderLineItems.Form_Delete"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_sfrmOrderLineItems.Form_BeforeDelConfirm"
+        }
+      ],
+      "tables": [
+        "OrderDetails",
+        "Products"
+      ],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": []
+    },
+    {
+      "id": "R-orders-011",
+      "area": "orders",
+      "statement": "Deleting an order asks for confirmation, deletes all its lines with it and re-runs stock allocation for each of those lines' products.",
+      "trigger": "form:frmOrderDetails.Delete",
+      "sources": [
+        {
+          "type": "procedure",
+          "ref": "Form_frmOrderDetails.Form_Delete"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmOrderDetails.Form_BeforeDelConfirm"
+        }
+      ],
+      "tables": [
+        "Orders",
+        "OrderDetails"
+      ],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": []
+    },
+    {
+      "id": "R-orders-012",
+      "area": "orders",
+      "statement": "An order can be deleted only while its status is New or Invoiced; deleting a Shipped, Paid or Closed order is refused with a message, and deleting an unsaved order does nothing.",
+      "trigger": "form:frmOrderDetails.cmdDeleteOrder.Click",
+      "sources": [
+        {
+          "type": "procedure",
+          "ref": "Form_frmOrderDetails.cmdDeleteOrder_Click"
+        }
+      ],
+      "tables": [
+        "Orders"
+      ],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": []
+    },
+    {
+      "id": "R-orders-013",
+      "area": "orders",
+      "statement": "Order lines can be added, changed or deleted only while the order is unsaved or New; once the order is invoiced its lines are read-only.",
+      "trigger": "form:frmOrderDetails.Current",
+      "sources": [
+        {
+          "type": "procedure",
+          "ref": "Form_frmOrderDetails.Form_Current"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmOrderDetails.SetFormStatus"
+        }
+      ],
+      "tables": [
+        "Orders",
+        "OrderDetails"
+      ],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": []
+    },
+    {
+      "id": "R-orders-014",
+      "area": "orders",
+      "statement": "Which order fields can be edited depends on the order status: on an unsaved order the customer, salesperson, notes, shipping fee, tax rate and tax status; when New the notes, shipping fee, tax rate and tax status (customer and salesperson are fixed once saved); when Invoiced the notes, shipped date and shipper; when Shipped the notes, payment method and paid date; when Paid only the notes; when Closed nothing. Order number, status, order date, invoice date, tax amount and total are never edited by hand. No order is enforced between the order, invoice, shipped and paid dates; the new app adds no date checks.",
+      "trigger": "form:frmOrderDetails.Current",
+      "sources": [
+        {
+          "type": "procedure",
+          "ref": "Form_frmOrderDetails.LockControls"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmOrderDetails.Form_Current"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmOrderDetails.SetFormStatus"
+        }
+      ],
+      "tables": [
+        "Orders"
+      ],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": [
+        "Q-orders-002"
+      ]
+    },
+    {
+      "id": "R-orders-015",
+      "area": "orders",
+      "statement": "Creating the invoice is allowed only for a New order that has at least one line, all of whose lines are Allocated (no partial invoices), and whose shipping fee is filled in (zero is accepted, blank is not; the blank field is highlighted). It saves the order, opens the invoice, sets the status to Invoiced, stamps the invoice date with the current date and time and sets every line to Invoiced. Partial invoices and backorders stay unsupported.",
+      "trigger": "form:frmOrderDetails.cmdCreateInvoice.Click",
+      "sources": [
+        {
+          "type": "procedure",
+          "ref": "Form_frmOrderDetails.cmdCreateInvoice_Click"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmOrderDetails.AllInvoiceLineItemsHaveStatus"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmOrderDetails.ShippingFeeFilledOut"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmOrderDetails.SetLineItemsStatus"
+        }
+      ],
+      "tables": [
+        "Orders",
+        "OrderDetails"
+      ],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": [
+        "Q-orders-003",
+        "Q-orders-012"
+      ]
+    },
+    {
+      "id": "R-orders-016",
+      "area": "orders",
+      "statement": "Shipping is allowed only for an Invoiced order and needs the shipped date, the shipper and the shipping fee (missing ones are highlighted and the user is told); it sets the order to Shipped and every line to Shipped. The shipped date may be any date; no check against the order or invoice date.",
+      "trigger": "form:frmOrderDetails.cmdShipOrder.Click",
+      "sources": [
+        {
+          "type": "procedure",
+          "ref": "Form_frmOrderDetails.cmdShipOrder_Click"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmOrderDetails.ShippingFieldsFilledOut"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmOrderDetails.SetLineItemsStatus"
+        }
+      ],
+      "tables": [
+        "Orders",
+        "OrderDetails"
+      ],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": [
+        "Q-orders-002"
+      ]
+    },
+    {
+      "id": "R-orders-017",
+      "area": "orders",
+      "statement": "Receiving payment is allowed only for a Shipped order and needs the payment method (one of the fixed methods offered by the order screen) and the paid date (missing ones are highlighted and the user is told); it sets the order to Paid. The paid date may be any date; no check against the order or shipped date.",
+      "trigger": "form:frmOrderDetails.cmdReceivePayment.Click",
+      "sources": [
+        {
+          "type": "procedure",
+          "ref": "Form_frmOrderDetails.cmdReceivePayment_Click"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmOrderDetails.PaidFieldsFilledOut"
+        }
+      ],
+      "tables": [
+        "Orders"
+      ],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": [
+        "Q-orders-002"
+      ]
+    },
+    {
+      "id": "R-orders-018",
+      "area": "orders",
+      "statement": "Closing is allowed only for a Paid order and only after the user confirms; it sets the order to Closed, after which nothing on the order can be edited.",
+      "trigger": "form:frmOrderDetails.cmdCloseOrder.Click",
+      "sources": [
+        {
+          "type": "procedure",
+          "ref": "Form_frmOrderDetails.cmdCloseOrder_Click"
+        }
+      ],
+      "tables": [
+        "Orders"
+      ],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": []
+    },
+    {
+      "id": "R-orders-019",
+      "area": "orders",
+      "statement": "Once an order is past New, its invoice can be opened again at any time; reopening it never changes the order or its lines. On an unsaved or New order the reprint action is not offered.",
+      "trigger": "form:frmOrderDetails.cmdPrintInvoice.Click",
+      "sources": [
+        {
+          "type": "procedure",
+          "ref": "Form_frmOrderDetails.cmdPrintInvoice_Click"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmOrderDetails.Form_Current"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmOrderDetails.SetFormStatus"
+        }
+      ],
+      "tables": [
+        "Orders"
+      ],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": []
+    },
+    {
+      "id": "R-orders-020",
+      "area": "orders",
+      "statement": "The invoice is a printable document for one order: the invoice number is the order number; it shows the date it is printed (not the stored invoice date, so a reprint carries the new date), the customer's name and address (as bill-to and ship-to), the salesperson's full name and the trading company's own address (the company whose type is the trading company itself); one row per line with product code, product name, quantity, unit price, discount and extended price = quantity x unit price x (1 - discount); then subtotal = sum of extended prices, tax = tax rate x subtotal when the order's tax status is Taxable and 0 otherwise (shipping is not taxed), shipping = the order's shipping fee, and total = subtotal + tax + shipping.",
+      "trigger": "query:qryInvoice",
+      "sources": [
+        {
+          "type": "report",
+          "ref": "rptInvoice"
+        },
+        {
+          "type": "query",
+          "ref": "qryInvoice"
+        },
+        {
+          "type": "procedure",
+          "ref": "modGlobal.GetNorthwindAddress"
+        }
+      ],
+      "tables": [
+        "Orders",
+        "OrderDetails",
+        "Companies",
+        "Employees",
+        "Products"
+      ],
+      "confidence": "high",
+      "test_kind": "equivalence",
+      "questions": [
+        "Q-orders-001",
+        "Q-orders-003"
+      ]
+    },
+    {
+      "id": "R-orders-021",
+      "area": "orders",
+      "statement": "Opening the invoice for an order that has no lines shows a 'nothing to print' message instead of an empty invoice.",
+      "trigger": "report:rptInvoice.NoData",
+      "sources": [
+        {
+          "type": "procedure",
+          "ref": "Report_rptInvoice.Report_NoData"
+        }
+      ],
+      "tables": [
+        "Orders",
+        "OrderDetails"
+      ],
+      "confidence": "medium",
+      "test_kind": "rule",
+      "questions": []
+    },
+    {
+      "id": "R-orders-022",
+      "area": "orders",
+      "statement": "The order screen shows each line's price = quantity x (1 - discount) x unit price, the lines' subtotal, the tax amount = tax rate x subtotal when the order's tax status is Taxable and 0 otherwise, and the order total = subtotal + tax amount + shipping fee (a blank fee counts as 0). A shipping fee of zero is accepted and is never taxed.",
+      "trigger": "form:frmOrderDetails.Current",
+      "sources": [
+        {
+          "type": "form",
+          "ref": "frmOrderDetails"
+        },
+        {
+          "type": "form",
+          "ref": "sfrmOrderLineItems"
+        }
+      ],
+      "tables": [
+        "Orders",
+        "OrderDetails"
+      ],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": [
+        "Q-orders-003"
+      ]
+    },
+    {
+      "id": "R-orders-023",
+      "area": "orders",
+      "statement": "An order's total is the sum over its lines of quantity x (1 - discount) x unit price, without tax and shipping; an order without lines has no total (blank).",
+      "trigger": "query:qryOrderTotal",
+      "sources": [
+        {
+          "type": "query",
+          "ref": "qryOrderTotal"
+        }
+      ],
+      "tables": [
+        "Orders",
+        "OrderDetails"
+      ],
+      "confidence": "high",
+      "test_kind": "equivalence",
+      "questions": []
+    },
+    {
+      "id": "R-orders-024",
+      "area": "orders",
+      "statement": "The order list shows every order whose customer is a Customer-type company, newest order number first, with the customer name, the salesperson's full name, the order total, the order status name, the order date without its time, and the least advanced status among its lines (the line status with the lowest sort order; blank when the order has no lines).",
+      "trigger": "query:qryOrderList",
+      "sources": [
+        {
+          "type": "query",
+          "ref": "qryOrderList"
+        },
+        {
+          "type": "query",
+          "ref": "qryOrderList_DetailStatus"
+        },
+        {
+          "type": "query",
+          "ref": "qryOrderList_DetailStatus_Lowest"
+        }
+      ],
+      "tables": [
+        "Orders",
+        "OrderDetails",
+        "OrderDetailStatus",
+        "OrderStatus",
+        "Companies",
+        "Employees"
+      ],
+      "confidence": "high",
+      "test_kind": "equivalence",
+      "questions": []
+    },
+    {
+      "id": "R-orders-025",
+      "area": "orders",
+      "statement": "The order list has four filters: Open orders (every status except Closed), Recent orders (order date within the last 30 days; when there are none the user is told), My orders (salesperson is the signed-in employee) and All orders. Any filter left over from an earlier session is cleared when the list opens and the selected filter is applied. The list opens with the Open orders filter selected.",
+      "trigger": "form:frmOrderList.fraFilter.AfterUpdate",
+      "sources": [
+        {
+          "type": "procedure",
+          "ref": "Form_frmOrderList.fraFilter_AfterUpdate"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmOrderList.Form_Open"
+        }
+      ],
+      "tables": [
+        "Orders"
+      ],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": [
+        "Q-orders-009"
+      ]
+    },
+    {
+      "id": "R-orders-026",
+      "area": "orders",
+      "statement": "The order list footer shows the number of orders and the sum of their order totals for the rows currently shown.",
+      "trigger": "form:frmOrderList.Current",
+      "sources": [
+        {
+          "type": "form",
+          "ref": "frmOrderList"
+        }
+      ],
+      "tables": [
+        "Orders",
+        "OrderDetails"
+      ],
+      "confidence": "medium",
+      "test_kind": "rule",
+      "questions": []
+    },
+    {
+      "id": "R-orders-027",
+      "area": "orders",
+      "statement": "The employee screen's recent orders list takes the 20 most recent orders of all employees (newest order number first), then shows only those that belong to the selected employee, with date, total, status, salesperson and customer; an employee with no order among those 20 sees an empty list.",
+      "trigger": "query:qryOrders_MostRecent",
+      "sources": [
+        {
+          "type": "query",
+          "ref": "qryOrders_MostRecent"
+        },
+        {
+          "type": "form",
+          "ref": "sfrmOrders_MostRecent_ByEmployee"
+        },
+        {
+          "type": "form",
+          "ref": "frmEmployeeList"
+        }
+      ],
+      "tables": [
+        "Orders",
+        "Employees"
+      ],
+      "confidence": "medium",
+      "test_kind": "equivalence",
+      "questions": [
+        "Q-orders-004"
+      ]
+    },
+    {
+      "id": "R-orders-028",
+      "area": "orders",
+      "statement": "For a Customer company the company screen lists all its orders (newest first) with salesperson, shipper, total and status; for a Shipper company it lists the orders it shipped with salesperson, customer, total and status; for a Vendor it shows its purchase orders (purchasing area); for the trading company itself it shows no orders.",
+      "trigger": "query:qryCustomerOrderList",
+      "sources": [
+        {
+          "type": "query",
+          "ref": "qryCustomerOrderList"
+        },
+        {
+          "type": "query",
+          "ref": "qryShipperOrderList"
+        },
+        {
+          "type": "form",
+          "ref": "sfrmCompanyDetail_CustomerOrders"
+        },
+        {
+          "type": "form",
+          "ref": "sfrmCompanyDetail_ShipperOrders"
+        }
+      ],
+      "tables": [
+        "Orders",
+        "Companies",
+        "Employees",
+        "OrderStatus"
+      ],
+      "confidence": "high",
+      "test_kind": "equivalence",
+      "questions": []
+    },
+    {
+      "id": "R-orders-029",
+      "area": "orders",
+      "statement": "Orders are opened from the order list, from a company's order lists and from an employee's recent orders, and a new order is started from the order list; each opens the order screen for that order (or a blank new order), several orders can be open side by side, and when an order screen closes the open list screens are refreshed. Double-clicking a line's product opens that product's screen.",
+      "trigger": "form:frmOrderList.OrderID.Click",
+      "sources": [
+        {
+          "type": "procedure",
+          "ref": "modOrders.OpenOrderDetailsForm"
+        },
+        {
+          "type": "procedure",
+          "ref": "modOrders.CloseOrderDetailsForm"
+        },
+        {
+          "type": "procedure",
+          "ref": "modOrders.CloseAllOrderDetailsForms"
+        },
+        {
+          "type": "procedure",
+          "ref": "modForms.RequeryListForms"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmOrderDetails.Form_Load"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmOrderDetails.Form_Close"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmOrderDetails.cmdAddOrder_Click"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmOrderList.OrderID_Click"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmOrderList.cmdAddOrder_Click"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_sfrmCompanyDetail_CustomerOrders.Detail_DblClick"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_sfrmCompanyDetail_CustomerOrders.OpenForm_frmOrderDetails"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_sfrmCompanyDetail_ShipperOrders.Detail_DblClick"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_sfrmCompanyDetail_ShipperOrders.OpenForm_frmOrderDetails"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_sfrmOrders_MostRecent_ByEmployee.OrderID_Click"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_sfrmOrderLineItems.ProductName_DblClick"
+        }
+      ],
+      "tables": [
+        "Orders"
+      ],
+      "confidence": "high",
+      "test_kind": "e2e",
+      "questions": []
+    },
+    {
+      "id": "R-orders-030",
+      "area": "orders",
+      "statement": "An order moves only forward through New, Invoiced, Shipped, Paid and Closed, one step at a time and only through its actions (create invoice, ship, receive payment, close); the next available action is highlighted on the order screen and actions offered out of turn are refused with a message.",
+      "trigger": "form:frmOrderDetails.Current",
+      "sources": [
+        {
+          "type": "procedure",
+          "ref": "Form_frmOrderDetails.cmdCreateInvoice_Click"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmOrderDetails.cmdShipOrder_Click"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmOrderDetails.cmdReceivePayment_Click"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmOrderDetails.cmdCloseOrder_Click"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmOrderDetails.SetFormStatus"
+        },
+        {
+          "type": "form",
+          "ref": "frmOrderDetails"
+        },
+        {
+          "type": "report",
+          "ref": "rptInvoice"
+        }
+      ],
+      "tables": [
+        "Orders",
+        "OrderDetails",
+        "OrderStatus"
+      ],
+      "confidence": "high",
+      "test_kind": "e2e",
+      "questions": []
+    },
+    {
+      "id": "R-orders-031",
+      "area": "orders",
+      "statement": "Every table with audit columns records who created a row and when, and who last changed it and when: inserting sets created-by, created-on, modified-by and modified-on; updating sets modified-by and modified-on and keeps the original created-by and created-on even if an update tries to change or blank them. The name recorded is the signed-in employee's full name (first then last); there is no fallback to the operating-system login. Rows written by imports, start-up jobs and other system jobs, where nobody is signed in, carry the fixed name System.",
+      "trigger": "datamacro:Orders.BeforeChange",
+      "sources": [
+        {
+          "type": "data_macro",
+          "ref": "Companies.BeforeChange"
+        },
+        {
+          "type": "data_macro",
+          "ref": "CompanyTypes.BeforeChange"
+        },
+        {
+          "type": "data_macro",
+          "ref": "Contacts.BeforeChange"
+        },
+        {
+          "type": "data_macro",
+          "ref": "EmployeePrivileges.BeforeChange"
+        },
+        {
+          "type": "data_macro",
+          "ref": "Employees.BeforeChange"
+        },
+        {
+          "type": "data_macro",
+          "ref": "OrderDetailStatus.BeforeChange"
+        },
+        {
+          "type": "data_macro",
+          "ref": "OrderDetails.BeforeChange"
+        },
+        {
+          "type": "data_macro",
+          "ref": "OrderStatus.BeforeChange"
+        },
+        {
+          "type": "data_macro",
+          "ref": "Orders.BeforeChange"
+        },
+        {
+          "type": "data_macro",
+          "ref": "Privileges.BeforeChange"
+        },
+        {
+          "type": "data_macro",
+          "ref": "Strings.BeforeChange"
+        },
+        {
+          "type": "data_macro",
+          "ref": "TaxStatus.BeforeChange"
+        },
+        {
+          "type": "data_macro",
+          "ref": "Titles.BeforeChange"
+        },
+        {
+          "type": "procedure",
+          "ref": "modTableDataMacros.GetAuditFieldsUserName"
+        }
+      ],
+      "tables": [
+        "Companies",
+        "CompanyTypes",
+        "Contacts",
+        "EmployeePrivileges",
+        "Employees",
+        "OrderDetailStatus",
+        "OrderDetails",
+        "OrderStatus",
+        "Orders",
+        "Privileges",
+        "Strings",
+        "TaxStatus",
+        "Titles"
+      ],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": []
+    },
+    {
+      "id": "R-orders-032",
+      "area": "orders",
+      "statement": "The order, company and employee screens show a one-line history of the record: when and by whom it was created and when and by whom it was last modified, leaving out the parts that are blank.",
+      "trigger": "form:frmOrderDetails.Current",
+      "sources": [
+        {
+          "type": "procedure",
+          "ref": "modGlobal.RecordModifiedString"
+        },
+        {
+          "type": "form",
+          "ref": "frmCompanyDetail"
+        },
+        {
+          "type": "form",
+          "ref": "frmEmployeeList"
+        }
+      ],
+      "tables": [
+        "Orders",
+        "Companies",
+        "Employees"
+      ],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": []
+    },
+    {
+      "id": "R-orders-033",
+      "area": "orders",
+      "statement": "A company cannot be deleted while it has orders as customer, orders as shipper or purchase orders as vendor; the user is told how many of each. Otherwise the user confirms (the message says how many contacts and vendor-product links will go too) and the company is deleted together with its contacts and its vendor-product links. The cascade to contacts and vendor-product links is kept.",
+      "trigger": "form:frmCompanyDetail.Delete",
+      "sources": [
+        {
+          "type": "procedure",
+          "ref": "Form_frmCompanyDetail.Form_Delete"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmCompanyDetail.CompanyIsActive"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmCompanyDetail.CompanyCantBeDeleted"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmCompanyDetail.CompanyConfirmDelete"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmCompanyDetail.cmdDeleteCompany_Click"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmCompanyDetail.Form_BeforeDelConfirm"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmCompanyDetail.Form_AfterDelConfirm"
+        }
+      ],
+      "tables": [
+        "Companies",
+        "Orders",
+        "PurchaseOrders",
+        "Contacts",
+        "ProductVendors"
+      ],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": [
+        "Q-orders-007"
+      ]
+    },
+    {
+      "id": "R-orders-034",
+      "area": "orders",
+      "statement": "A company's type cannot be changed while it has orders as customer, orders as shipper, purchase orders as vendor or vendor-product links; the change is undone and the user is told why.",
+      "trigger": "form:frmCompanyDetail.cboCompanyTypeID.BeforeUpdate",
+      "sources": [
+        {
+          "type": "procedure",
+          "ref": "Form_frmCompanyDetail.cboCompanyTypeID_BeforeUpdate"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmCompanyDetail.CompanyIsActive"
+        }
+      ],
+      "tables": [
+        "Companies",
+        "Orders",
+        "PurchaseOrders",
+        "ProductVendors"
+      ],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": []
+    },
+    {
+      "id": "R-orders-035",
+      "area": "orders",
+      "statement": "The company screen is titled with the company type and shows the related list that fits the type (customer orders, shipped orders, or purchase orders), switching as soon as the type changes.",
+      "trigger": "form:frmCompanyDetail.Current",
+      "sources": [
+        {
+          "type": "procedure",
+          "ref": "Form_frmCompanyDetail.ManageFormOptions"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmCompanyDetail.Form_Current"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmCompanyDetail.cboCompanyTypeID_AfterUpdate"
+        }
+      ],
+      "tables": [
+        "Companies",
+        "CompanyTypes"
+      ],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": []
+    },
+    {
+      "id": "R-orders-036",
+      "area": "orders",
+      "statement": "Saving changes on the company screen asks the user to confirm; answering no discards the unsaved changes. The other screens keep saving without asking.",
+      "trigger": "form:frmCompanyDetail.BeforeUpdate",
+      "sources": [
+        {
+          "type": "procedure",
+          "ref": "Form_frmCompanyDetail.Form_BeforeUpdate"
+        }
+      ],
+      "tables": [
+        "Companies"
+      ],
+      "confidence": "medium",
+      "test_kind": "rule",
+      "questions": [
+        "Q-orders-006"
+      ]
+    },
+    {
+      "id": "R-orders-037",
+      "area": "orders",
+      "statement": "The company list is read-only and can be filtered to Customers, Shippers, Vendors or all companies (the heading follows the filter). Opening a company or adding one from the list opens the company screen restricted to the same filter, with a new company defaulting to the filtered type; only one company screen can be open at a time.",
+      "trigger": "form:frmCompanyList.fraFilter.AfterUpdate",
+      "sources": [
+        {
+          "type": "form",
+          "ref": "frmCompanyList"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmCompanyList.fraFilter_AfterUpdate"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmCompanyList.Form_Open"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmCompanyList.Open_frmCompanyDetail"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmCompanyList.cmdAddNew_Click"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmCompanyList.txtCompanyID_Click"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmCompanyDetail.Form_Load"
+        }
+      ],
+      "tables": [
+        "Companies",
+        "CompanyTypes"
+      ],
+      "confidence": "medium",
+      "test_kind": "rule",
+      "questions": []
+    },
+    {
+      "id": "R-orders-038",
+      "area": "orders",
+      "statement": "Typing a customer name that does not exist yet in the order's customer field opens the company screen on a new company with that name filled in.",
+      "trigger": "form:frmCompanyDetail.Load",
+      "sources": [
+        {
+          "type": "procedure",
+          "ref": "Form_frmCompanyDetail.Form_Load"
+        }
+      ],
+      "tables": [
+        "Companies"
+      ],
+      "confidence": "medium",
+      "test_kind": "rule",
+      "questions": []
+    },
+    {
+      "id": "R-orders-039",
+      "area": "orders",
+      "statement": "Company lists show companies sorted by name with a one-line business address built from street, city, state and zip, plus the company type and standard tax status names; contacts are sorted by last then first name.",
+      "trigger": "query:qryCompanyList",
+      "sources": [
+        {
+          "type": "query",
+          "ref": "qryCompanies"
+        },
+        {
+          "type": "query",
+          "ref": "qryCompanyList"
+        },
+        {
+          "type": "query",
+          "ref": "qryContacts"
+        }
+      ],
+      "tables": [
+        "Companies",
+        "CompanyTypes",
+        "TaxStatus",
+        "Contacts"
+      ],
+      "confidence": "high",
+      "test_kind": "equivalence",
+      "questions": []
+    },
+    {
+      "id": "R-orders-040",
+      "area": "orders",
+      "statement": "An employee cannot be deleted while they have orders, have submitted purchase orders, supervise other employees or hold privileges; the user is told every reason. Otherwise the user confirms the delete by the employee's name.",
+      "trigger": "form:frmEmployeeList.Delete",
+      "sources": [
+        {
+          "type": "procedure",
+          "ref": "Form_frmEmployeeList.EmployeeCanBeDeleted"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmEmployeeList.Form_Delete"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmEmployeeList.Form_BeforeDelConfirm"
+        }
+      ],
+      "tables": [
+        "Employees",
+        "Orders",
+        "PurchaseOrders",
+        "EmployeePrivileges"
+      ],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": []
+    },
+    {
+      "id": "R-orders-041",
+      "area": "orders",
+      "statement": "An employee cannot be their own supervisor: the supervisor list leaves out the employee being edited. Typing a supervisor who is not an employee offers to start a new employee record.",
+      "trigger": "form:frmEmployeeList.cboSupervisorID.Enter",
+      "sources": [
+        {
+          "type": "query",
+          "ref": "qryEmployeeSupervisor"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmEmployeeList.cboSupervisorID_Enter"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmEmployeeList.cboSupervisorID_NotInList"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmEmployeeList.Form_Current"
+        }
+      ],
+      "tables": [
+        "Employees"
+      ],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": []
+    },
+    {
+      "id": "R-orders-042",
+      "area": "orders",
+      "statement": "After a new employee is saved, the privilege assignment screen opens for that employee so privileges can be granted straight away.",
+      "trigger": "form:frmEmployeeList.AfterInsert",
+      "sources": [
+        {
+          "type": "procedure",
+          "ref": "Form_frmEmployeeList.Form_AfterInsert"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_sfrmEmployee_Privileges.Form_Open"
+        }
+      ],
+      "tables": [
+        "Employees",
+        "EmployeePrivileges"
+      ],
+      "confidence": "medium",
+      "test_kind": "rule",
+      "questions": []
+    },
+    {
+      "id": "R-orders-043",
+      "area": "orders",
+      "statement": "An employee's full name is shown as first name then last name in choice lists (sorted that way) and as last name, first name for the employee list (sorted that way).",
+      "trigger": "query:qryEmployees",
+      "sources": [
+        {
+          "type": "query",
+          "ref": "qryEmployees"
+        },
+        {
+          "type": "query",
+          "ref": "qrycboEmployees"
+        }
+      ],
+      "tables": [
+        "Employees"
+      ],
+      "confidence": "high",
+      "test_kind": "equivalence",
+      "questions": []
+    },
+    {
+      "id": "R-orders-044",
+      "area": "orders",
+      "statement": "An employee's courtesy title must be one of the titles in the titles list; a title that is not in the list can be added from the employee screen through a small title-entry screen pre-filled with the typed value.",
+      "trigger": "form:frmEmployeeTitles.Open",
+      "sources": [
+        {
+          "type": "query",
+          "ref": "qryTitle"
+        },
+        {
+          "type": "procedure",
+          "ref": "Form_frmEmployeeTitles.Form_Open"
+        },
+        {
+          "type": "table",
+          "ref": "Employees"
+        }
+      ],
+      "tables": [
+        "Employees",
+        "Titles"
+      ],
+      "confidence": "medium",
+      "test_kind": "rule",
+      "questions": []
+    },
+    {
+      "id": "R-orders-045",
+      "area": "orders",
+      "statement": "Phone numbers of companies, contacts and employees are entered as a ten-digit number shown as 3-3-4 digits, optionally followed by an extension of up to eight characters. Only this US format is accepted; international numbers are not.",
+      "trigger": "form:frmCompanyDetail.BeforeUpdate",
+      "sources": [
+        {
+          "type": "table",
+          "ref": "Companies"
+        },
+        {
+          "type": "table",
+          "ref": "Contacts"
+        },
+        {
+          "type": "table",
+          "ref": "Employees"
+        }
+      ],
+      "tables": [
+        "Companies",
+        "Contacts",
+        "Employees"
+      ],
+      "confidence": "medium",
+      "test_kind": "rule",
+      "questions": [
+        "Q-orders-010"
+      ]
+    },
+    {
+      "id": "R-orders-046",
+      "area": "orders",
+      "statement": "Names are unique: a company name once per company type, a contact's first and last name once per company, an employee's first and last name once (a duplicate is refused with a message), an operating-system login on at most one employee, and status, type, tax status, privilege and title names once each.",
+      "trigger": "form:frmCompanyDetail.BeforeUpdate",
+      "sources": [
+        {
+          "type": "table",
+          "ref": "Companies"
+        },
+        {
+          "type": "table",
+          "ref": "Contacts"
+        },
+        {
+          "type": "table",
+          "ref": "Employees"
+        },
+        {
+          "type": "table",
+          "ref": "OrderStatus"
+        },
+        {
+          "type": "table",
+          "ref": "OrderDetailStatus"
+        },
+        {
+          "type": "table",
+          "ref": "CompanyTypes"
+        },
+        {
+          "type": "table",
+          "ref": "TaxStatus"
+        },
+        {
+          "type": "table",
+          "ref": "Privileges"
+        },
+        {
+          "type": "table",
+          "ref": "Titles"
+        }
+      ],
+      "tables": [
+        "Companies",
+        "Contacts",
+        "Employees",
+        "OrderStatus",
+        "OrderDetailStatus",
+        "CompanyTypes",
+        "TaxStatus",
+        "Privileges",
+        "Titles"
+      ],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": []
+    },
+    {
+      "id": "R-orders-047",
+      "area": "orders",
+      "statement": "Order statuses, order line statuses, tax statuses and company types are fixed code lists that the logic depends on by identity (order: New, Invoiced, Shipped, Paid, Closed; line: New, Allocated, No Stock, On Order, Invoiced, Shipped; tax: Tax Exempt, Taxable; company: Customer, Shipper, Vendor and the trading company itself). Status choice lists are sorted by their sort order, company types by name, tax statuses by code and states by state name.",
+      "trigger": "query:qrycboOrderStatus",
+      "sources": [
+        {
+          "type": "query",
+          "ref": "qrycboOrderStatus"
+        },
+        {
+          "type": "query",
+          "ref": "qrycboOrderDetailStatus"
+        },
+        {
+          "type": "query",
+          "ref": "qrycboTaxStatus"
+        },
+        {
+          "type": "query",
+          "ref": "qrycboCompanyType"
+        },
+        {
+          "type": "query",
+          "ref": "qrycboStates"
+        },
+        {
+          "type": "table",
+          "ref": "OrderStatus"
+        },
+        {
+          "type": "table",
+          "ref": "OrderDetailStatus"
+        },
+        {
+          "type": "table",
+          "ref": "TaxStatus"
+        },
+        {
+          "type": "table",
+          "ref": "CompanyTypes"
+        },
+        {
+          "type": "table",
+          "ref": "States"
+        }
+      ],
+      "tables": [
+        "OrderStatus",
+        "OrderDetailStatus",
+        "TaxStatus",
+        "CompanyTypes",
+        "States"
+      ],
+      "confidence": "high",
+      "test_kind": "equivalence",
+      "questions": []
+    },
+    {
+      "id": "R-orders-048",
+      "area": "orders",
+      "statement": "A new company's standard tax status defaults to Tax Exempt until the user picks another. Customers also default to Tax Exempt.",
+      "trigger": "form:frmCompanyDetail.BeforeUpdate",
+      "sources": [
+        {
+          "type": "table",
+          "ref": "Companies"
+        }
+      ],
+      "tables": [
+        "Companies",
+        "TaxStatus"
+      ],
+      "confidence": "medium",
+      "test_kind": "rule",
+      "questions": [
+        "Q-orders-011"
+      ]
+    },
+    {
+      "id": "R-orders-049",
+      "area": "orders",
+      "statement": "At start-up (the auto-run macro, when the database is trusted) the start-up routine runs: on the very first run only, guarded by the first-run flag in system settings, it moves every date in every table forward by the number of days between the latest order date and today (never backwards) so the sample data looks current, then sets the flag so this never runs again; it then shows the welcome screen when that setting is on, asks the user to sign in and opens the order list. The new app keeps the date shift as a one-off start-up command guarded by the same first-run flag; rows it changes are stamped with the name System (R-orders-031).",
+      "trigger": "schedule:startup",
+      "sources": [
+        {
+          "type": "macro",
+          "ref": "AutoExec"
+        },
+        {
+          "type": "procedure",
+          "ref": "modStartup.Startup"
+        },
+        {
+          "type": "procedure",
+          "ref": "modGlobal.OneTimeProcessing"
+        },
+        {
+          "type": "procedure",
+          "ref": "modOrders.SetDatesToCurrent"
+        },
+        {
+          "type": "procedure",
+          "ref": "modStartup.SaveSystemSetting"
+        }
+      ],
+      "tables": [
+        "SystemSettings",
+        "Orders"
+      ],
+      "confidence": "high",
+      "test_kind": "rule",
+      "questions": [
+        "Q-orders-005"
+      ]
+    },
+    {
+      "id": "R-orders-050",
+      "area": "orders",
+      "statement": "After the user signs in, the order list is the first screen shown.",
+      "trigger": "form:frmLogin.cmdLogin.Click",
+      "sources": [
+        {
+          "type": "form",
+          "ref": "frmOrderList"
+        },
+        {
+          "type": "procedure",
+          "ref": "modStartup.Startup"
+        }
+      ],
+      "tables": [
+        "Orders"
+      ],
+      "confidence": "high",
+      "test_kind": "e2e",
+      "questions": []
+    }
+  ],
+  "objects": [
+    {
+      "type": "data_macro",
+      "name": "Companies.BeforeChange",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "foundation:audit-fields",
+      "reason": null
+    },
+    {
+      "type": "data_macro",
+      "name": "CompanyTypes.BeforeChange",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "foundation:audit-fields",
+      "reason": null
+    },
+    {
+      "type": "data_macro",
+      "name": "Contacts.BeforeChange",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "foundation:audit-fields",
+      "reason": null
+    },
+    {
+      "type": "data_macro",
+      "name": "EmployeePrivileges.BeforeChange",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "foundation:audit-fields",
+      "reason": null
+    },
+    {
+      "type": "data_macro",
+      "name": "Employees.BeforeChange",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "foundation:audit-fields",
+      "reason": null
+    },
+    {
+      "type": "data_macro",
+      "name": "OrderDetailStatus.BeforeChange",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "foundation:audit-fields",
+      "reason": null
+    },
+    {
+      "type": "data_macro",
+      "name": "OrderDetails.BeforeChange",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "foundation:audit-fields",
+      "reason": null
+    },
+    {
+      "type": "data_macro",
+      "name": "OrderStatus.BeforeChange",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "foundation:audit-fields",
+      "reason": null
+    },
+    {
+      "type": "data_macro",
+      "name": "Orders.BeforeChange",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "foundation:audit-fields",
+      "reason": null
+    },
+    {
+      "type": "data_macro",
+      "name": "Privileges.BeforeChange",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "foundation:audit-fields",
+      "reason": null
+    },
+    {
+      "type": "data_macro",
+      "name": "Strings.BeforeChange",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "foundation:audit-fields",
+      "reason": null
+    },
+    {
+      "type": "data_macro",
+      "name": "TaxStatus.BeforeChange",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "foundation:audit-fields",
+      "reason": null
+    },
+    {
+      "type": "data_macro",
+      "name": "Titles.BeforeChange",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "foundation:audit-fields",
+      "reason": null
+    },
+    {
+      "type": "form",
+      "name": "_Design",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "layout sample of the template with no record source and no behaviour"
+    },
+    {
+      "type": "form",
+      "name": "frmAbout",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "about box of the Access template"
+    },
+    {
+      "type": "form",
+      "name": "frmAdmin",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "launcher for the template's maintenance tools (demo data, messages, settings); privileges go to foundation roles, settings to the Django admin, product categories to the inventory area"
+    },
+    {
+      "type": "form",
+      "name": "frmCompanyDetail",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "form",
+      "name": "frmCompanyList",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "form",
+      "name": "frmCredentials",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "foundation:sign-in",
+      "reason": "first-run self-registration of an unknown Windows user as an employee; replaced by the foundation's local sign-in and user admin (S4)"
+    },
+    {
+      "type": "form",
+      "name": "frmEmployeeList",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "form",
+      "name": "frmEmployeeTitles",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": "small entry screen that adds one title to the titles list; covered by the title rule's procedure, no rule of its own"
+    },
+    {
+      "type": "form",
+      "name": "frmGenericDialog",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "generic message box used by other screens; web messages replace it"
+    },
+    {
+      "type": "form",
+      "name": "frmLogin",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "foundation:sign-in",
+      "reason": "Windows-user login picker; replaced by the foundation's local sign-in (S4), so it holds no area rule"
+    },
+    {
+      "type": "form",
+      "name": "frmNorthwindFeatures",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "help catalogue of the Access template's features"
+    },
+    {
+      "type": "form",
+      "name": "frmOrderDetails",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "form",
+      "name": "frmOrderList",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "form",
+      "name": "frmStartup",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "shown only when Access has not trusted the database; no web equivalent"
+    },
+    {
+      "type": "form",
+      "name": "frmWelcome",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "welcome screen of the Access template"
+    },
+    {
+      "type": "form",
+      "name": "sfrmAdmin_DeleteTestData",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "admin tool that wipes the template's sample data"
+    },
+    {
+      "type": "form",
+      "name": "sfrmAdmin_InternetOrders",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "admin tool that generates random sample orders"
+    },
+    {
+      "type": "form",
+      "name": "sfrmAdmin_ResetDates",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "admin tool that shifts sample dates on demand; the first-run shift is kept by the start-up rule"
+    },
+    {
+      "type": "form",
+      "name": "sfrmAdmin_Strings",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "editor for the Access message texts, which are dropped"
+    },
+    {
+      "type": "form",
+      "name": "sfrmAdmin_SystemSettings",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "settings grid of the admin screen; the settings table is kept and edited through the Django admin"
+    },
+    {
+      "type": "form",
+      "name": "sfrmCompanyDetail_Contacts",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": "contacts grid of the company screen; plain data entry under the shared required-field rule, no rule of its own"
+    },
+    {
+      "type": "form",
+      "name": "sfrmCompanyDetail_CustomerOrders",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "form",
+      "name": "sfrmCompanyDetail_ShipperOrders",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "form",
+      "name": "sfrmEmployee_Privileges",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "foundation:roles",
+      "reason": "grants privileges to employees; becomes role assignment in the foundation (S4)"
+    },
+    {
+      "type": "form",
+      "name": "sfrmOrderLineItems",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "form",
+      "name": "sfrmOrders_MostRecent_ByEmployee",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "macro",
+      "name": "AutoExec",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.jobs",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmAbout.cmdClose_Click",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "part of the dropped about box"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmAdmin.Form_Open",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "part of the dropped admin launcher"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmAdmin.UpdateSubLabels",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "part of the dropped admin launcher"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmAdmin.cmdDeleteTestData_Click",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "part of the dropped admin launcher"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmAdmin.cmdInternetOrders_Click",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "part of the dropped admin launcher"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmAdmin.cmdPrivileges_Click",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "part of the dropped admin launcher"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmAdmin.cmdProductCategories_Click",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "part of the dropped admin launcher"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmAdmin.cmdRelationshipsDiagram_Click",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "part of the dropped admin launcher"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmAdmin.cmdResetDates_Click",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "part of the dropped admin launcher"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmAdmin.cmdStrings_Click",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "part of the dropped admin launcher"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmAdmin.cmdSystemSettings_Click",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "part of the dropped admin launcher"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmCompanyDetail.CompanyCantBeDeleted",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.services",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmCompanyDetail.CompanyConfirmDelete",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.services",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmCompanyDetail.CompanyIsActive",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.services",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmCompanyDetail.Form_AfterDelConfirm",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmCompanyDetail.Form_AfterInsert",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": "refreshes the company list after a new company is saved; screen refresh only, no rule"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmCompanyDetail.Form_AfterUpdate",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmCompanyDetail.Form_BeforeDelConfirm",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmCompanyDetail.Form_BeforeUpdate",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmCompanyDetail.Form_Current",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmCompanyDetail.Form_Delete",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.services",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmCompanyDetail.Form_Load",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmCompanyDetail.Form_Open",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "clears a filter left by an earlier Access session; the web screen has no persisted filter"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmCompanyDetail.ManageFormOptions",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmCompanyDetail.cboCompanyTypeID_AfterUpdate",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmCompanyDetail.cboCompanyTypeID_BeforeUpdate",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.services",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmCompanyDetail.cmdAdd_Click",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": "starts a new company record (tells the user when already on one); plain add action, no rule"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmCompanyDetail.cmdCancel_Click",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": "discards unsaved edits and returns to the company the user came from, or closes; plain cancel action, no rule"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmCompanyDetail.cmdClickToMap_Click",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "opens the address in a retired consumer map site (not needed, client answer to Q-orders-008)"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmCompanyDetail.cmdDeleteCompany_Click",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmCompanyDetail.cmdEmail_Click",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "e-mails the Access screen through the mail client (not needed, client answer to Q-orders-008)"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmCompanyDetail.cmdSave_Click",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmCompanyDetail.cmdShowFilter_Click",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "shows the raw filter expression in a dialog"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmCompanyDetail.txtBusinessPhone_Click",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "places the cursor at the start of an empty masked field; Access input behaviour only"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmCompanyDetail.txtWebsite_DblClick",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": "opens the company's website; becomes an ordinary link, no rule"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmCompanyList.Form_Open",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmCompanyList.Open_frmCompanyDetail",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmCompanyList.cmdAddNew_Click",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmCompanyList.cmdLabelWizard_Click",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "starts the Access mailing-label wizard (not needed, client answer to Q-orders-008)"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmCompanyList.cmdShowFilter_Click",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "shows the raw filter expression in a dialog"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmCompanyList.cmdShowHideFields_Click",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "opens the Access unhide-columns dialog"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmCompanyList.fraFilter_AfterUpdate",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmCompanyList.txtCompanyID_Click",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmCredentials.Form_BeforeUpdate",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "foundation:sign-in",
+      "reason": "part of the first-run self-registration of a Windows user; replaced by the foundation's local sign-in, no area rule"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmCredentials.Form_Load",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "foundation:sign-in",
+      "reason": "part of the first-run self-registration of a Windows user; replaced by the foundation's local sign-in, no area rule"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmCredentials.UserID",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "foundation:sign-in",
+      "reason": "part of the first-run self-registration of a Windows user; replaced by the foundation's local sign-in, no area rule"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmCredentials.cmdAddMe_Click",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "foundation:sign-in",
+      "reason": "part of the first-run self-registration of a Windows user; replaced by the foundation's local sign-in, no area rule"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmCredentials.cmdExit_Click",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "foundation:sign-in",
+      "reason": "part of the first-run self-registration of a Windows user; replaced by the foundation's local sign-in, no area rule"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmEmployeeList.EmployeeCanBeDeleted",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.services",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmEmployeeList.Form_AfterDelConfirm",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": "shows or hides the new-employee button after a delete; screen state only, no rule"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmEmployeeList.Form_AfterInsert",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmEmployeeList.Form_AfterUpdate",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmEmployeeList.Form_BeforeDelConfirm",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmEmployeeList.Form_BeforeUpdate",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmEmployeeList.Form_Current",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmEmployeeList.Form_Delete",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.services",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmEmployeeList.RequeryEmployeeList",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": "reloads the list and stays on the same employee after a save; screen refresh only, no rule"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmEmployeeList.cboSupervisorID_Enter",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmEmployeeList.cboSupervisorID_NotInList",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmEmployeeList.cmdEmailEmployee_Click",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": "starts an e-mail to the employee signed with the sender's name; becomes a mail link, no rule"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmEmployeeList.cmdNewEmployee_Click",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": "starts a new employee record; plain add action, no rule"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmEmployeeTitles.Form_Open",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmGenericDialog.Form_Load",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "part of the dropped generic message box"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmGenericDialog.cmdCancelClose_Click",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "part of the dropped generic message box"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmGenericDialog.cmdOK_Click",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "part of the dropped generic message box"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmLogin.AutoLogin_chk_AfterUpdate",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "foundation:sign-in",
+      "reason": "part of the Windows-user login picker (pick an employee, optional auto-login, quit when closed without signing in); replaced by the foundation's local sign-in, no area rule"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmLogin.Form_Load",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "foundation:sign-in",
+      "reason": "part of the Windows-user login picker (pick an employee, optional auto-login, quit when closed without signing in); replaced by the foundation's local sign-in, no area rule"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmLogin.Form_Unload",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "foundation:sign-in",
+      "reason": "part of the Windows-user login picker (pick an employee, optional auto-login, quit when closed without signing in); replaced by the foundation's local sign-in, no area rule"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmLogin.UserID",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "foundation:sign-in",
+      "reason": "part of the Windows-user login picker (pick an employee, optional auto-login, quit when closed without signing in); replaced by the foundation's local sign-in, no area rule"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmLogin.cmdLogin_Click",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "foundation:sign-in",
+      "reason": "part of the Windows-user login picker (pick an employee, optional auto-login, quit when closed without signing in); replaced by the foundation's local sign-in, no area rule"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmNorthwindFeatures.txtHelpKeywords_Click",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "part of the dropped feature help catalogue"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmOrderDetails.AllInvoiceLineItemsHaveStatus",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.services",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmOrderDetails.CustomerID_AfterUpdate",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.services",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmOrderDetails.Form_AfterInsert",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "only adds the new order to the dropped recently-used list"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmOrderDetails.Form_AfterUpdate",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmOrderDetails.Form_BeforeDelConfirm",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmOrderDetails.Form_BeforeInsert",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.services",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmOrderDetails.Form_BeforeUpdate",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmOrderDetails.Form_Close",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmOrderDetails.Form_Current",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmOrderDetails.Form_Delete",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.services",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmOrderDetails.Form_Load",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmOrderDetails.Form_Open",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "empty handler (work is done on load)"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmOrderDetails.LockControls",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmOrderDetails.PaidFieldsFilledOut",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.services",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmOrderDetails.SetFormStatus",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmOrderDetails.SetLineItemsStatus",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.services",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmOrderDetails.ShippingFeeFilledOut",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.services",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmOrderDetails.ShippingFieldsFilledOut",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.services",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmOrderDetails.cmdAddOrder_Click",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmOrderDetails.cmdCloseOrder_Click",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.services",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmOrderDetails.cmdCreateInvoice_Click",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.services",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmOrderDetails.cmdDeleteOrder_Click",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.services",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmOrderDetails.cmdPrintInvoice_Click",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmOrderDetails.cmdReceivePayment_Click",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.services",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmOrderDetails.cmdShipOrder_Click",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.services",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmOrderDetails.sfrmOrderLineItems_Enter",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmOrderDetails.sfrmOrderLineItems_Exit",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmOrderList.Form_Open",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmOrderList.OrderID_Click",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmOrderList.cmdAddOrder_Click",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmOrderList.cmdShowFilter_Click",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "shows the raw filter expression in a dialog; the web list shows its filter controls"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmOrderList.fraFilter_AfterUpdate",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmWelcome.Form_Close",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "part of the dropped welcome screen"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmWelcome.Form_Open",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "part of the dropped welcome screen"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_frmWelcome.cmdGetStarted_Click",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "part of the dropped welcome screen"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_sfrmAdmin_DeleteTestData.cmdRemoveTestData_Click",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "wipes the template's sample data; demo tool"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_sfrmAdmin_InternetOrders.cmdCreate_Click",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "generates random sample orders; demo tool"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_sfrmAdmin_InternetOrders.txtCount_BeforeUpdate",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "input check of the dropped sample-order generator"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_sfrmAdmin_ResetDates.cmdResetDates_Click",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "on-demand sample date shift; demo tool"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_sfrmAdmin_Strings.Form_AfterDelConfirm",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "empty handler of the dropped message-text editor"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_sfrmAdmin_Strings.Form_AfterInsert",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "empty handler of the dropped message-text editor"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_sfrmAdmin_SystemSettings.Form_AfterDelConfirm",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "empty handler of the dropped settings grid"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_sfrmAdmin_SystemSettings.Form_AfterInsert",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "empty handler of the dropped settings grid"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_sfrmCompanyDetail_Contacts.Form_AfterUpdate",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_sfrmCompanyDetail_Contacts.Form_BeforeUpdate",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_sfrmCompanyDetail_Contacts.txtPrimaryPhone_Click",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "places the cursor at the start of an empty masked field; Access input behaviour only"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_sfrmCompanyDetail_Contacts.txtSecondaryPhone_Click",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "places the cursor at the start of an empty masked field; Access input behaviour only"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_sfrmCompanyDetail_CustomerOrders.Detail_DblClick",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_sfrmCompanyDetail_CustomerOrders.OpenForm_frmOrderDetails",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_sfrmCompanyDetail_ShipperOrders.Detail_DblClick",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_sfrmCompanyDetail_ShipperOrders.OpenForm_frmOrderDetails",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_sfrmEmployee_Privileges.Form_AfterDelConfirm",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "foundation:roles",
+      "reason": "refreshes the admin screen's privilege count when shown inside it; screen plumbing of the privilege grid, no rule"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_sfrmEmployee_Privileges.Form_AfterInsert",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "foundation:roles",
+      "reason": "refreshes the admin screen's privilege count when shown inside it; screen plumbing of the privilege grid, no rule"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_sfrmEmployee_Privileges.Form_Open",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "foundation:roles",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_sfrmEmployee_Privileges.frmLoadedAsSubform",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "foundation:roles",
+      "reason": "refreshes the admin screen's privilege count when shown inside it; screen plumbing of the privilege grid, no rule"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_sfrmOrderLineItems.Form_AfterDelConfirm",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.services",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_sfrmOrderLineItems.Form_AfterUpdate",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.services",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_sfrmOrderLineItems.Form_BeforeDelConfirm",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_sfrmOrderLineItems.Form_BeforeInsert",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.services",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_sfrmOrderLineItems.Form_BeforeUpdate",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.services",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_sfrmOrderLineItems.Form_Current",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_sfrmOrderLineItems.Form_Delete",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_sfrmOrderLineItems.Form_Error",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_sfrmOrderLineItems.ProductCategoryName_GotFocus",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "moves keyboard focus between two grid columns; layout only"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_sfrmOrderLineItems.ProductID_AfterUpdate",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.services",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_sfrmOrderLineItems.ProductID_GotFocus",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_sfrmOrderLineItems.ProductName_DblClick",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_sfrmOrderLineItems.ProductName_GotFocus",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "moves keyboard focus to the product list; layout only"
+    },
+    {
+      "type": "procedure",
+      "name": "Form_sfrmOrderLineItems.ReallocateInventory",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.services",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_sfrmOrderLineItems.SetOrderDetailStatus",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.services",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_sfrmOrderLineItems.cboProductCategories_AfterUpdate",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Form_sfrmOrders_MostRecent_ByEmployee.OrderID_Click",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "Report_rptInvoice.Report_Activate",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "shows the report group on the Access ribbon"
+    },
+    {
+      "type": "procedure",
+      "name": "Report_rptInvoice.Report_Close",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "hides the report group on the Access ribbon"
+    },
+    {
+      "type": "procedure",
+      "name": "Report_rptInvoice.Report_NoData",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.reports",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "clsErrorHandler.Class_Initialize",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "Access error dialog and text-file error log; the web app uses framework logging"
+    },
+    {
+      "type": "procedure",
+      "name": "clsErrorHandler.ErrorHandlerExample",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "Access error dialog and text-file error log; the web app uses framework logging"
+    },
+    {
+      "type": "procedure",
+      "name": "clsErrorHandler.ErrorHandlerExample_EventProcedure",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "Access error dialog and text-file error log; the web app uses framework logging"
+    },
+    {
+      "type": "procedure",
+      "name": "clsErrorHandler.HandleError",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "Access error dialog and text-file error log; the web app uses framework logging"
+    },
+    {
+      "type": "procedure",
+      "name": "clsErrorHandler.LogErrorToFile",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "Access error dialog and text-file error log; the web app uses framework logging"
+    },
+    {
+      "type": "procedure",
+      "name": "modCompanies.GetRandomCustomerID",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "random customer for the dropped sample-order generator"
+    },
+    {
+      "type": "procedure",
+      "name": "modCompanies.GetTaxStatusID",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.services",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "modDAO.GetRandomPkValue",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "Access object-model helper (random key, data-macro and property probes); no business behaviour"
+    },
+    {
+      "type": "procedure",
+      "name": "modDAO.HasDataMacro",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "Access object-model helper (random key, data-macro and property probes); no business behaviour"
+    },
+    {
+      "type": "procedure",
+      "name": "modDAO.HasField",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "Access object-model helper (random key, data-macro and property probes); no business behaviour"
+    },
+    {
+      "type": "procedure",
+      "name": "modDAO.HasProperty",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "Access object-model helper (random key, data-macro and property probes); no business behaviour"
+    },
+    {
+      "type": "procedure",
+      "name": "modDebug.DumpTempVars",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "developer debugging helper"
+    },
+    {
+      "type": "procedure",
+      "name": "modDebug.NotImplemented",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "developer debugging helper"
+    },
+    {
+      "type": "procedure",
+      "name": "modFiles.FileExists",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "file helper used only by the Access first run"
+    },
+    {
+      "type": "procedure",
+      "name": "modFiles.StringToFile",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "file helper used only by the Access first run"
+    },
+    {
+      "type": "procedure",
+      "name": "modForms.ControlCurrentView",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "Access view probe used to colour highlighted fields; the web forms mark errors themselves"
+    },
+    {
+      "type": "procedure",
+      "name": "modForms.ControlDefaultView",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "Access view probe used to colour highlighted fields; the web forms mark errors themselves"
+    },
+    {
+      "type": "procedure",
+      "name": "modForms.IsFormOpen",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "Access window probe; no business behaviour"
+    },
+    {
+      "type": "procedure",
+      "name": "modForms.RequeryListForms",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "modGlobal.AddToMRU",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "maintains the dropped recently-used list"
+    },
+    {
+      "type": "procedure",
+      "name": "modGlobal.GetNorthwindAddress",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.reports",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "modGlobal.GetWindowsUserName",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "foundation:sign-in",
+      "reason": "reads the operating-system login used to find the employee and as the audit name when nobody is signed in; replaced by the signed-in user with no operating-system fallback (system jobs stamp System)"
+    },
+    {
+      "type": "procedure",
+      "name": "modGlobal.Get_EmployeeFNLN",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "foundation:sign-in",
+      "reason": "full name of the signed-in employee for the window title; the foundation shows the signed-in user"
+    },
+    {
+      "type": "procedure",
+      "name": "modGlobal.Get_UserID",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "foundation:sign-in",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "modGlobal.Get_UserID_ForWindowsUser",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "foundation:sign-in",
+      "reason": "maps the Windows login to an employee for auto-login; replaced by local sign-in"
+    },
+    {
+      "type": "procedure",
+      "name": "modGlobal.InitializeUser",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "foundation:sign-in",
+      "reason": "start-up sign-in flow (register unknown Windows users, auto-login or show the login picker); replaced by local sign-in"
+    },
+    {
+      "type": "procedure",
+      "name": "modGlobal.OneTimeProcessing",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.jobs",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "modGlobal.RecordModifiedString",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "modGlobal.RemoveFromMRU",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "maintains the dropped recently-used list"
+    },
+    {
+      "type": "procedure",
+      "name": "modGlobal.SetCtrlCurrencyFormat",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "re-applies Access currency formats for regional settings at first run"
+    },
+    {
+      "type": "procedure",
+      "name": "modGlobal.ToAccessDate",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "formats dates for Access SQL text"
+    },
+    {
+      "type": "procedure",
+      "name": "modGlobal.g_dbApp",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "returns the Access database handle"
+    },
+    {
+      "type": "procedure",
+      "name": "modMath.GetRandom",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "random numbers for the dropped sample-order generator"
+    },
+    {
+      "type": "procedure",
+      "name": "modMath.MaxValue",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "generic helper not used by any kept behaviour"
+    },
+    {
+      "type": "procedure",
+      "name": "modOrders.CloseAllOrderDetailsForms",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "modOrders.CloseOrderDetailsForm",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "modOrders.CreateRandomOrders",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "generates random sample orders for the dropped admin tool"
+    },
+    {
+      "type": "procedure",
+      "name": "modOrders.GetRandomProductID",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "random product for the dropped sample-order generator"
+    },
+    {
+      "type": "procedure",
+      "name": "modOrders.OpenOrderDetailsForm",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "modOrders.SetDatesToCurrent",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.jobs",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "modRibbonCallback.ActivateTab",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "Access ribbon callback (navigation buttons and recently-used list); the web navigation bar replaces it"
+    },
+    {
+      "type": "procedure",
+      "name": "modRibbonCallback.RibbonFinish",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "Access ribbon callback (navigation buttons and recently-used list); the web navigation bar replaces it"
+    },
+    {
+      "type": "procedure",
+      "name": "modRibbonCallback.Ribbon_RefreshMRU",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "Access ribbon callback (navigation buttons and recently-used list); the web navigation bar replaces it"
+    },
+    {
+      "type": "procedure",
+      "name": "modRibbonCallback.cmdAbout_OnAction",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "Access ribbon callback (navigation buttons and recently-used list); the web navigation bar replaces it"
+    },
+    {
+      "type": "procedure",
+      "name": "modRibbonCallback.cmdAddOrder_OnAction",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "Access ribbon callback (navigation buttons and recently-used list); the web navigation bar replaces it"
+    },
+    {
+      "type": "procedure",
+      "name": "modRibbonCallback.cmdAdmin_OnAction",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "Access ribbon callback (navigation buttons and recently-used list); the web navigation bar replaces it"
+    },
+    {
+      "type": "procedure",
+      "name": "modRibbonCallback.cmdCustomers_OnAction",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "Access ribbon callback (navigation buttons and recently-used list); the web navigation bar replaces it"
+    },
+    {
+      "type": "procedure",
+      "name": "modRibbonCallback.cmdEmployees_OnAction",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "Access ribbon callback (navigation buttons and recently-used list); the web navigation bar replaces it"
+    },
+    {
+      "type": "procedure",
+      "name": "modRibbonCallback.cmdExitApplication_OnAction",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "Access ribbon callback (navigation buttons and recently-used list); the web navigation bar replaces it"
+    },
+    {
+      "type": "procedure",
+      "name": "modRibbonCallback.cmdExportToExcel_OnAction",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "Access export of the current list to Excel (not needed, client answer to Q-orders-008)"
+    },
+    {
+      "type": "procedure",
+      "name": "modRibbonCallback.cmdFeatures_OnAction",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "Access ribbon callback (navigation buttons and recently-used list); the web navigation bar replaces it"
+    },
+    {
+      "type": "procedure",
+      "name": "modRibbonCallback.cmdNorthwindDocumentation_OnAction",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "Access ribbon callback (navigation buttons and recently-used list); the web navigation bar replaces it"
+    },
+    {
+      "type": "procedure",
+      "name": "modRibbonCallback.cmdOrders_OnAction",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "Access ribbon callback (navigation buttons and recently-used list); the web navigation bar replaces it"
+    },
+    {
+      "type": "procedure",
+      "name": "modRibbonCallback.ddMRU_GetItemCount",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "Access ribbon callback (navigation buttons and recently-used list); the web navigation bar replaces it"
+    },
+    {
+      "type": "procedure",
+      "name": "modRibbonCallback.ddMRU_GetItemID",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "Access ribbon callback (navigation buttons and recently-used list); the web navigation bar replaces it"
+    },
+    {
+      "type": "procedure",
+      "name": "modRibbonCallback.ddMRU_GetItemLabel",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "Access ribbon callback (navigation buttons and recently-used list); the web navigation bar replaces it"
+    },
+    {
+      "type": "procedure",
+      "name": "modRibbonCallback.ddMRU_GetSelectedItemIndex",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "Access ribbon callback (navigation buttons and recently-used list); the web navigation bar replaces it"
+    },
+    {
+      "type": "procedure",
+      "name": "modRibbonCallback.ddMRU_OnAction",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "Access ribbon callback (navigation buttons and recently-used list); the web navigation bar replaces it"
+    },
+    {
+      "type": "procedure",
+      "name": "modRibbonCallback.ddMRU_OnChange",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "Access ribbon callback (navigation buttons and recently-used list); the web navigation bar replaces it"
+    },
+    {
+      "type": "procedure",
+      "name": "modRibbonCallback.ribbonLoaded",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "Access ribbon callback (navigation buttons and recently-used list); the web navigation bar replaces it"
+    },
+    {
+      "type": "procedure",
+      "name": "modSecurity.HasPrivilege",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "foundation:roles",
+      "reason": "checks whether the signed-in employee holds a privilege; the only privilege (approve purchase orders) is used by purchasing and becomes a role check in the foundation"
+    },
+    {
+      "type": "procedure",
+      "name": "modStartup.CloseAllForms",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "closes Access windows on exit"
+    },
+    {
+      "type": "procedure",
+      "name": "modStartup.CloseAllReports",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "closes Access windows on exit"
+    },
+    {
+      "type": "procedure",
+      "name": "modStartup.Finish",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "Access shutdown routine"
+    },
+    {
+      "type": "procedure",
+      "name": "modStartup.GetSystemSetting",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.services",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "modStartup.GetUserSetting",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "foundation:sign-in",
+      "reason": "reads the auto-login preference; replaced by the foundation's sign-in session"
+    },
+    {
+      "type": "procedure",
+      "name": "modStartup.SaveSystemSetting",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.jobs",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "modStartup.SaveUserSetting",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "foundation:sign-in",
+      "reason": "stores the auto-login preference; replaced by the foundation's sign-in session"
+    },
+    {
+      "type": "procedure",
+      "name": "modStartup.SetAppTitle",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "puts the app name, version and user in the Access title bar; the web layout shows the signed-in user"
+    },
+    {
+      "type": "procedure",
+      "name": "modStartup.Startup",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.jobs",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "modStrings.GetString",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "message-text and argument-string helper; the new app keeps messages in templates and passes parameters in URLs"
+    },
+    {
+      "type": "procedure",
+      "name": "modStrings.StringFormat",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "message-text and argument-string helper; the new app keeps messages in templates and passes parameters in URLs"
+    },
+    {
+      "type": "procedure",
+      "name": "modStrings.StringFormatSQL",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "message-text and argument-string helper; the new app keeps messages in templates and passes parameters in URLs"
+    },
+    {
+      "type": "procedure",
+      "name": "modStrings.StringToDictionary",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "message-text and argument-string helper; the new app keeps messages in templates and passes parameters in URLs"
+    },
+    {
+      "type": "procedure",
+      "name": "modTableDataMacros.AddDataMacros",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "installs the audit data macros on Access first run; the audit rule is kept in the model layer"
+    },
+    {
+      "type": "procedure",
+      "name": "modTableDataMacros.GetAuditFieldsUserName",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "foundation:audit-fields",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "modValidation.HighlightControl",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "modValidation.HighlightInvalidControls",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "modValidation.IsBoundToRequiredField",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "modValidation.IsValidForm",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "modValidation.ValidateForm",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "procedure",
+      "name": "modValidation.ValidateForm_RemoveHighlights",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.views",
+      "reason": null
+    },
+    {
+      "type": "query",
+      "name": "qryCompanies",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.saved_queries",
+      "reason": null
+    },
+    {
+      "type": "query",
+      "name": "qryCompanyList",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.saved_queries",
+      "reason": null
+    },
+    {
+      "type": "query",
+      "name": "qryContacts",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.saved_queries",
+      "reason": null
+    },
+    {
+      "type": "query",
+      "name": "qryCustomerOrderList",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.saved_queries",
+      "reason": null
+    },
+    {
+      "type": "query",
+      "name": "qryCustomers",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.saved_queries",
+      "reason": null
+    },
+    {
+      "type": "query",
+      "name": "qryEmployeeLogin",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "foundation:sign-in",
+      "reason": "employee list behind the first-run registration screen; replaced by the foundation's user admin"
+    },
+    {
+      "type": "query",
+      "name": "qryEmployeePrivileges",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "foundation:roles",
+      "reason": "privilege grants per employee; becomes role membership in the foundation"
+    },
+    {
+      "type": "query",
+      "name": "qryEmployeeSupervisor",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.saved_queries",
+      "reason": null
+    },
+    {
+      "type": "query",
+      "name": "qryEmployees",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.saved_queries",
+      "reason": null
+    },
+    {
+      "type": "query",
+      "name": "qryInvoice",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.saved_queries",
+      "reason": null
+    },
+    {
+      "type": "query",
+      "name": "qryMRU",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "feeds the dropped recently-used ribbon list"
+    },
+    {
+      "type": "query",
+      "name": "qryOrder",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.saved_queries",
+      "reason": "record source of the order screen (the order with its status name); its unit proves it, no rule"
+    },
+    {
+      "type": "query",
+      "name": "qryOrderLineItems",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.saved_queries",
+      "reason": "record source of the order lines grid (lines with product and category names); its unit proves it, no rule"
+    },
+    {
+      "type": "query",
+      "name": "qryOrderList",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.saved_queries",
+      "reason": null
+    },
+    {
+      "type": "query",
+      "name": "qryOrderList_DetailStatus",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.saved_queries",
+      "reason": null
+    },
+    {
+      "type": "query",
+      "name": "qryOrderList_DetailStatus_Lowest",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.saved_queries",
+      "reason": null
+    },
+    {
+      "type": "query",
+      "name": "qryOrderTotal",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.saved_queries",
+      "reason": null
+    },
+    {
+      "type": "query",
+      "name": "qryOrders_MostRecent",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.saved_queries",
+      "reason": null
+    },
+    {
+      "type": "query",
+      "name": "qryOrders_MostRecent_Customer",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "unused: no form, report, query or code refers to it"
+    },
+    {
+      "type": "query",
+      "name": "qryOrders_MostRecent_Employee",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "unused: no form, report, query or code refers to it"
+    },
+    {
+      "type": "query",
+      "name": "qryOrders_MostRecent_ModifiedOn",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "unused: no form, report, query or code refers to it"
+    },
+    {
+      "type": "query",
+      "name": "qryPrivileges",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "foundation:roles",
+      "reason": "privilege names sorted by name; becomes the foundation's role list"
+    },
+    {
+      "type": "query",
+      "name": "qryShipperOrderList",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.saved_queries",
+      "reason": null
+    },
+    {
+      "type": "query",
+      "name": "qryShippers",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.saved_queries",
+      "reason": null
+    },
+    {
+      "type": "query",
+      "name": "qryStrings",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "feeds the dropped message-text editor"
+    },
+    {
+      "type": "query",
+      "name": "qrySystemSettings",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "feeds only the dropped admin sub-screens; settings are edited through the Django admin"
+    },
+    {
+      "type": "query",
+      "name": "qryTitle",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.saved_queries",
+      "reason": null
+    },
+    {
+      "type": "query",
+      "name": "qrycboCompanyType",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.saved_queries",
+      "reason": null
+    },
+    {
+      "type": "query",
+      "name": "qrycboCustomers",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.saved_queries",
+      "reason": null
+    },
+    {
+      "type": "query",
+      "name": "qrycboEmployees",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.saved_queries",
+      "reason": null
+    },
+    {
+      "type": "query",
+      "name": "qrycboOrderDetailStatus",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.saved_queries",
+      "reason": null
+    },
+    {
+      "type": "query",
+      "name": "qrycboOrderStatus",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.saved_queries",
+      "reason": null
+    },
+    {
+      "type": "query",
+      "name": "qrycboShippers",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.saved_queries",
+      "reason": null
+    },
+    {
+      "type": "query",
+      "name": "qrycboStates",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.saved_queries",
+      "reason": null
+    },
+    {
+      "type": "query",
+      "name": "qrycboTaxStatus",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.saved_queries",
+      "reason": null
+    },
+    {
+      "type": "report",
+      "name": "rptInvoice",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "orders.reports",
+      "reason": null
+    },
+    {
+      "type": "table",
+      "name": "Companies",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "legacy.models",
+      "reason": null
+    },
+    {
+      "type": "table",
+      "name": "CompanyTypes",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "legacy.models",
+      "reason": null
+    },
+    {
+      "type": "table",
+      "name": "Contacts",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "legacy.models",
+      "reason": null
+    },
+    {
+      "type": "table",
+      "name": "EmployeePrivileges",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "foundation:roles",
+      "reason": null
+    },
+    {
+      "type": "table",
+      "name": "Employees",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "legacy.models",
+      "reason": null
+    },
+    {
+      "type": "table",
+      "name": "MRU",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "recently-used list behind the Access ribbon; the web app's lists and browser history replace it"
+    },
+    {
+      "type": "table",
+      "name": "NorthwindFeatures",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "help catalogue of the Access template's own features; no business data"
+    },
+    {
+      "type": "table",
+      "name": "OrderDetailStatus",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "legacy.models",
+      "reason": null
+    },
+    {
+      "type": "table",
+      "name": "OrderDetails",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "legacy.models",
+      "reason": null
+    },
+    {
+      "type": "table",
+      "name": "OrderStatus",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "legacy.models",
+      "reason": null
+    },
+    {
+      "type": "table",
+      "name": "Orders",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "legacy.models",
+      "reason": null
+    },
+    {
+      "type": "table",
+      "name": "Privileges",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "foundation:roles",
+      "reason": null
+    },
+    {
+      "type": "table",
+      "name": "States",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "legacy.models",
+      "reason": null
+    },
+    {
+      "type": "table",
+      "name": "Strings",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "legacy.models",
+      "reason": null
+    },
+    {
+      "type": "table",
+      "name": "SystemSettings",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "legacy.models",
+      "reason": null
+    },
+    {
+      "type": "table",
+      "name": "TaxStatus",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "legacy.models",
+      "reason": null
+    },
+    {
+      "type": "table",
+      "name": "Titles",
+      "decision": "keep",
+      "area": "orders",
+      "target_component": "legacy.models",
+      "reason": null
+    },
+    {
+      "type": "table",
+      "name": "UserSettings",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "per-machine auto-login preference for the Windows user; local sign-in (foundation) replaces it"
+    },
+    {
+      "type": "table",
+      "name": "Welcome",
+      "decision": "drop",
+      "area": "orders",
+      "target_component": null,
+      "reason": "welcome-screen text and the data-macro template used by the Access first run; no business data"
+    }
+  ],
+  "lookups": [
+    {
+      "table": "Orders",
+      "column": "OrderStatusID",
+      "copy_values": true,
+      "values": null,
+      "rule": "R-orders-030"
+    },
+    {
+      "table": "OrderDetails",
+      "column": "OrderDetailStatusID",
+      "copy_values": true,
+      "values": null,
+      "rule": "R-orders-009"
+    },
+    {
+      "table": "Orders",
+      "column": "TaxStatusID",
+      "copy_values": true,
+      "values": null,
+      "rule": "R-orders-020"
+    },
+    {
+      "table": "Companies",
+      "column": "StandardTaxStatusID",
+      "copy_values": true,
+      "values": null,
+      "rule": "R-orders-048"
+    },
+    {
+      "table": "Companies",
+      "column": "CompanyTypeID",
+      "copy_values": true,
+      "values": null,
+      "rule": "R-orders-003"
+    },
+    {
+      "table": "Orders",
+      "column": "PaymentMethod",
+      "copy_values": true,
+      "values": null,
+      "rule": "R-orders-017"
+    },
+    {
+      "table": "Employees",
+      "column": "Title",
+      "copy_values": true,
+      "values": null,
+      "rule": "R-orders-044"
+    },
+    {
+      "table": "SystemSettings",
+      "column": "SettingID",
+      "copy_values": true,
+      "values": null,
+      "rule": "R-orders-001"
+    }
+  ],
+  "relations": [
+    {
+      "table": "OrderDetails",
+      "fk": "OrderID",
+      "on_delete": "CASCADE",
+      "rule": "R-orders-011"
+    },
+    {
+      "table": "OrderDetails",
+      "fk": "OrderDetailStatusID",
+      "on_delete": "PROTECT",
+      "rule": "R-orders-047"
+    },
+    {
+      "table": "Orders",
+      "fk": "CustomerID",
+      "on_delete": "PROTECT",
+      "rule": "R-orders-033"
+    },
+    {
+      "table": "Orders",
+      "fk": "ShipperID",
+      "on_delete": "PROTECT",
+      "rule": "R-orders-033"
+    },
+    {
+      "table": "Orders",
+      "fk": "EmployeeID",
+      "on_delete": "PROTECT",
+      "rule": "R-orders-040"
+    },
+    {
+      "table": "Orders",
+      "fk": "OrderStatusID",
+      "on_delete": "PROTECT",
+      "rule": "R-orders-047"
+    },
+    {
+      "table": "Orders",
+      "fk": "TaxStatusID",
+      "on_delete": "PROTECT",
+      "rule": "R-orders-047"
+    },
+    {
+      "table": "Contacts",
+      "fk": "CompanyID",
+      "on_delete": "CASCADE",
+      "rule": "R-orders-033"
+    },
+    {
+      "table": "Companies",
+      "fk": "CompanyTypeID",
+      "on_delete": "PROTECT",
+      "rule": "R-orders-034"
+    },
+    {
+      "table": "Companies",
+      "fk": "StandardTaxStatusID",
+      "on_delete": "PROTECT",
+      "rule": "R-orders-047"
+    },
+    {
+      "table": "Companies",
+      "fk": "StateAbbrev",
+      "on_delete": "PROTECT",
+      "rule": "R-orders-047"
+    },
+    {
+      "table": "Employees",
+      "fk": "SupervisorID",
+      "on_delete": "PROTECT",
+      "rule": "R-orders-040"
+    },
+    {
+      "table": "Employees",
+      "fk": "Title",
+      "on_delete": "PROTECT",
+      "rule": "R-orders-044"
+    },
+    {
+      "table": "EmployeePrivileges",
+      "fk": "EmployeeID",
+      "on_delete": "PROTECT",
+      "rule": "R-orders-040"
+    },
+    {
+      "table": "EmployeePrivileges",
+      "fk": "PrivilegeID",
+      "on_delete": "PROTECT",
+      "rule": "R-orders-042"
+    }
+  ],
+  "workflows": [
+    {
+      "id": "order_to_ship",
+      "title": "Order entry to invoice (printable PDF) to shipping",
+      "forms": [
+        "frmOrderList",
+        "frmOrderDetails",
+        "sfrmOrderLineItems"
+      ],
+      "reports": [
+        "rptInvoice"
+      ],
+      "rules": [
+        "R-orders-050",
+        "R-orders-029",
+        "R-orders-030",
+        "R-orders-001",
+        "R-orders-009",
+        "R-orders-015",
+        "R-orders-016",
+        "R-orders-017",
+        "R-orders-018",
+        "R-orders-020"
+      ],
+      "steps": [
+        "sign in and land on the order list",
+        "start a new order and choose the customer",
+        "save the order header",
+        "add order lines (each line is allocated or marked no stock)",
+        "create the invoice and download it as a PDF",
+        "enter shipped date, shipper and shipping fee and ship the order",
+        "enter payment method and paid date and receive payment",
+        "close the order"
+      ]
+    }
+  ],
+  "services": [
+    {
+      "name": "create_invoice",
+      "area": "orders",
+      "inputs": [
+        "order id"
+      ],
+      "outputs": [
+        "order status Invoiced with invoice date",
+        "all lines Invoiced",
+        "invoice PDF"
+      ],
+      "errors": [
+        "order not saved",
+        "order is not New",
+        "order has no lines",
+        "a line is not Allocated",
+        "shipping fee missing"
+      ]
+    },
+    {
+      "name": "ship_order",
+      "area": "orders",
+      "inputs": [
+        "order id",
+        "shipped date",
+        "shipper id",
+        "shipping fee"
+      ],
+      "outputs": [
+        "order status Shipped",
+        "all lines Shipped"
+      ],
+      "errors": [
+        "order not saved",
+        "order is not Invoiced",
+        "shipped date, shipper or shipping fee missing"
+      ]
+    },
+    {
+      "name": "receive_payment",
+      "area": "orders",
+      "inputs": [
+        "order id",
+        "payment method",
+        "paid date"
+      ],
+      "outputs": [
+        "order status Paid"
+      ],
+      "errors": [
+        "order not saved",
+        "order is not Shipped",
+        "payment method or paid date missing"
+      ]
+    },
+    {
+      "name": "close_order",
+      "area": "orders",
+      "inputs": [
+        "order id"
+      ],
+      "outputs": [
+        "order status Closed"
+      ],
+      "errors": [
+        "order not saved",
+        "order is not Paid"
+      ]
+    },
+    {
+      "name": "delete_order",
+      "area": "orders",
+      "inputs": [
+        "order id"
+      ],
+      "outputs": [
+        "order and its lines deleted",
+        "stock re-allocated for the lines' products"
+      ],
+      "errors": [
+        "order not saved",
+        "order is Shipped, Paid or Closed"
+      ]
+    },
+    {
+      "name": "save_order_line",
+      "area": "orders",
+      "inputs": [
+        "order id",
+        "product id",
+        "quantity",
+        "discount",
+        "previous product id"
+      ],
+      "outputs": [
+        "line status Allocated or No Stock",
+        "unit price from the product",
+        "stock re-allocated for the old and new product"
+      ],
+      "errors": [
+        "order not saved",
+        "order is not New",
+        "quantity not above zero",
+        "product already on the order",
+        "required field missing"
+      ]
+    },
+    {
+      "name": "delete_order_line",
+      "area": "orders",
+      "inputs": [
+        "order line id"
+      ],
+      "outputs": [
+        "line deleted",
+        "stock re-allocated for its product"
+      ],
+      "errors": [
+        "order is not New"
+      ]
+    },
+    {
+      "name": "delete_company",
+      "area": "orders",
+      "inputs": [
+        "company id"
+      ],
+      "outputs": [
+        "company, its contacts and its vendor-product links deleted"
+      ],
+      "errors": [
+        "company has orders as customer, orders as shipper or purchase orders"
+      ]
+    },
+    {
+      "name": "change_company_type",
+      "area": "orders",
+      "inputs": [
+        "company id",
+        "company type id"
+      ],
+      "outputs": [
+        "company type changed"
+      ],
+      "errors": [
+        "company has orders, shipments, purchase orders or vendor-product links"
+      ]
+    },
+    {
+      "name": "delete_employee",
+      "area": "orders",
+      "inputs": [
+        "employee id"
+      ],
+      "outputs": [
+        "employee deleted"
+      ],
+      "errors": [
+        "employee has orders",
+        "employee submitted purchase orders",
+        "employee supervises others",
+        "employee holds privileges"
+      ]
+    },
+    {
+      "name": "first_run",
+      "area": "orders",
+      "inputs": [
+        "today's date"
+      ],
+      "outputs": [
+        "all dates shifted forward by the gap to the latest order date",
+        "first-run flag set"
+      ],
+      "errors": []
+    }
+  ],
+  "open_questions": [
+    {
+      "id": "Q-orders-001",
+      "text": "The printed invoice shows the date it is printed, not the stored invoice date, so a reprint carries a new date. Should the invoice show the stored invoice date instead? (Assumption until answered: keep the original behaviour.) Answer (2026-10-16, demo client): keep the original: the invoice shows the date it is printed.",
+      "status": "answered"
+    },
+    {
+      "id": "Q-orders-002",
+      "text": "The original enforces no rules on the invoice, shipped and paid dates (they can be any date, also before the order date). Should the new app require shipped date and paid date to be on or after the order date (and paid on or after shipped)? (Assumption: no extra date checks.) Answer (2026-10-16, demo client): no extra date checks.",
+      "status": "answered"
+    },
+    {
+      "id": "Q-orders-003",
+      "text": "Tax is charged on the line subtotal only, never on the shipping fee, and a shipping fee of zero is accepted while a blank fee blocks invoicing. Is that correct for your business? (Assumption: keep as is.) Answer (2026-10-16, demo client): keep as is: tax on the line subtotal only, zero fee accepted, blank fee blocks invoicing.",
+      "status": "answered"
+    },
+    {
+      "id": "Q-orders-004",
+      "text": "The employee screen's recent orders list is built from the 20 most recent orders overall and then narrowed to the employee, so an employee may see fewer than 20 or none. Should it show the employee's own 20 most recent orders instead? (Assumption: keep the current behaviour, as R-orders-027 states and its equivalence unit proves. If you choose the employee's own 20 most recent before sign-off, R-orders-027 is restated and proven by a rule test instead; after sign-off it is a change order.) Answer (2026-10-16, demo client): keep the current behaviour (R-orders-027, proven by its equivalence unit).",
+      "status": "answered"
+    },
+    {
+      "id": "Q-orders-005",
+      "text": "On the first start the original shifts every date in the database forward so the sample data looks current. Keep this as a one-off start-up command in the new app (useful for demo data), or drop it? (Assumption: keep as a one-off command guarded by the first-run flag.) Answer (2026-10-16, demo client): keep as a one-off start-up command guarded by the first-run flag.",
+      "status": "answered"
+    },
+    {
+      "id": "Q-orders-006",
+      "text": "Saving a company asks 'do you want to save your changes?' while other screens save without asking. Keep the confirmation for companies? (Assumption: keep.) Answer (2026-10-16, demo client): keep the confirmation for companies.",
+      "status": "answered"
+    },
+    {
+      "id": "Q-orders-007",
+      "text": "Deleting a company that has no orders or purchase orders also deletes its contacts and vendor-product links after one confirmation. Is that cascade wanted? (Assumption: yes.) Answer (2026-10-16, demo client): yes, keep the cascade.",
+      "status": "answered"
+    },
+    {
+      "id": "Q-orders-008",
+      "text": "These Access conveniences are dropped and replaced by standard web features: the recently-used list on the ribbon, export of any list to Excel, the mailing-label wizard, the 'click to map' link, e-mailing the company screen, the show-filter and show/hide-columns buttons. Is any of them needed in the new app? Answer (2026-10-16, demo client): none is needed; the xlsx export of lists (admin export), browser bookmarks and the list filters replace them; no mailing labels, map link or e-mailing of the company screen.",
+      "status": "answered"
+    },
+    {
+      "id": "Q-orders-009",
+      "text": "Which order list filter should be selected when the list opens? The design does not record the default. (Assumption: Open orders.) Answer (2026-10-16, demo client): Open orders.",
+      "status": "answered"
+    },
+    {
+      "id": "Q-orders-010",
+      "text": "Phone numbers are forced into a US ten-digit format with an optional extension. Keep the US format, or accept international numbers? (Assumption: keep the US format.) Answer (2026-10-16, demo client): keep the US format.",
+      "status": "answered"
+    },
+    {
+      "id": "Q-orders-011",
+      "text": "A new company is tax exempt by default. Should new customers default to Taxable instead? (Assumption: keep exempt.) Answer (2026-10-16, demo client): keep Tax Exempt as the default.",
+      "status": "answered"
+    },
+    {
+      "id": "Q-orders-012",
+      "text": "An order can be invoiced only when every line is Allocated (no partial invoices or backorders). Is that still the rule? (Assumption: yes.) Answer (2026-10-16, demo client): yes, every line must be Allocated.",
+      "status": "answered"
+    }
+  ],
+  "signed": null
+}
