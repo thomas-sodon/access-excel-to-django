@@ -1,0 +1,10 @@
+OrderID,EmployeeFNLN,OrderDate,OrderTotal,OrderStatusName,CustomerID,myCompanyID,CustomerName
+4,Katherine Boyd,2023-10-31T00:00:00,1917.5000,Responsibility Economy Commercial,41,12,Anderson Inc
+9,Adam Steele,2023-03-03T00:00:00,\N,After Simply Alone,8,26,Collins-Bailey
+10,Brenda Russell,2023-02-03T00:00:00,\N,Piece Matter,40,47,Bowman PLC
+13,Andrea Patel,2025-03-18T00:00:00,\N,Alone Smile,6,2,"Acevedo, Johnson and Woods"
+15,Benjamin Williams,2025-02-28T00:00:00,\N,Piece Matter,20,6,Johnson LLC
+20,Debra Contreras,2025-08-28T00:00:00,\N,Alone Smile,41,11,Anderson Inc
+21,Walter Good,2023-07-09T00:00:00,\N,After Simply Alone,20,15,Johnson LLC
+22,Daniel Madden,2025-06-19T00:00:00,11592.8380,Responsibility Economy Commercial,36,50,"Little, Williamson and Davis"
+46,Annette Owen,2025-05-08T00:00:00,\N,After Simply Alone,8,25,Collins-Bailey

@@ -1,0 +1,3 @@
+# Written by golden record: canonical outputs are byte-exact (CSV records end in CRLF),
+# so git must store them unchanged. Do not edit.
+* -text

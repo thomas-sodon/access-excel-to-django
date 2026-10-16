@@ -1,0 +1,8 @@
+OrderID,EmployeeFNLN,OrderDate,OrderTotal,OrderStatusName,CustomerID,myCompanyID,CustomerName
+11,Cheryl Ellis,2023-07-16T11:59:27,\N,Interview,17,4,Davila Inc
+15,Cynthia Reyes,2023-02-03T00:00:00,\N,Lawyer Challenge Everyone,17,30,Davila Inc
+24,Sharon Moore,2023-07-30T01:41:02,7550.3600,Lawyer Challenge Everyone,12,\N,Delacruz-Frazier
+28,Karla James,2024-01-22T12:59:55,\N,Lawyer Challenge Everyone,40,41,Solomon-Banks
+38,Jessica Pace east owner add question p,2024-10-15T14:30:09,\N,Interview,42,1,Shaw Ltd
+40,Donna Jones,2024-02-01T09:51:08,\N,Lawyer Challenge Everyone,2,11,Ross Ltd
+43,Samuel Wilson,2023-03-19T01:46:07,1849.6755,Lawyer Challenge Everyone,27,\N,"Lester, Robinson and James"

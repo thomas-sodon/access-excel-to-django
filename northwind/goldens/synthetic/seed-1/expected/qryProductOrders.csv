@@ -1,0 +1,51 @@
+OrderID,ProductID,OrderDate,Quantity,UnitPrice,ExtendedPrice,OrderStatus,ProductStatus
+11,10,2024-07-05T00:00:00,63,67.0800,4226.0400,Responsibility Economy Commercial,Foot This Term
+11,27,2024-07-05T00:00:00,9,145.8600,1312.7400,Responsibility Economy Commercial,Foot This Term
+11,34,2024-07-05T00:00:00,11,239.7600,2637.3600,Responsibility Economy Commercial,Heart
+12,39,2023-01-17T00:00:00,14,4.5400,63.5600,Relationship Kid Fear,Foot This Term
+14,32,2025-01-31T00:00:00,44,37.6000,1654.4000,Relationship Kid Fear,Follow Republican
+16,27,2025-06-10T00:00:00,31,242.5600,7519.3600,Responsibility Economy Commercial,Heart
+16,34,2025-06-10T00:00:00,43,43.4800,1869.6400,Responsibility Economy Commercial,Space Spring
+16,9,2025-06-10T00:00:00,49,100.6100,4929.8900,Responsibility Economy Commercial,Class Shoulder
+18,23,2024-07-24T00:00:00,90,181.0300,16292.7000,After Simply Alone,Difference Require Scientist
+19,40,2025-02-27T00:00:00,40,133.7100,5348.4000,After Simply Alone,Foot This Term
+22,34,2025-06-19T00:00:00,56,1.3300,74.4800,Responsibility Economy Commercial,Foot This Term
+22,40,2025-06-19T00:00:00,13,196.8600,2559.1800,Responsibility Economy Commercial,Heart
+22,49,2025-06-19T00:00:00,45,234.2200,10539.9000,Responsibility Economy Commercial,Heart
+24,21,2024-12-21T00:00:00,22,44.8800,987.3600,Alone Smile,Class Shoulder
+24,23,2024-12-21T00:00:00,79,14.6700,1158.9300,Alone Smile,Difference Require Scientist
+24,28,2024-12-21T00:00:00,9,152.5900,1373.3100,Alone Smile,Follow Republican
+25,3,2023-01-11T00:00:00,28,61.9400,1734.3200,Piece Matter,Heart
+27,43,2025-03-31T00:00:00,98,41.7000,4086.6000,Piece Matter,Difference Require Scientist
+29,24,2023-08-21T00:00:00,82,81.3300,6669.0600,Piece Matter,Foot This Term
+29,40,2023-08-21T00:00:00,21,11.8600,249.0600,Piece Matter,Space Spring
+29,7,2023-08-21T00:00:00,54,69.8700,3772.9800,Piece Matter,Class Shoulder
+3,20,2025-04-17T00:00:00,92,48.5700,4468.4400,Responsibility Economy Commercial,Space Spring
+3,41,2025-04-17T00:00:00,98,177.0200,17347.9600,Responsibility Economy Commercial,Space Spring
+31,5,2025-03-15T00:00:00,56,211.9800,11870.8800,Relationship Kid Fear,Heart
+33,9,2024-09-16T00:00:00,71,138.0900,9804.3900,Responsibility Economy Commercial,Heart
+34,10,2023-12-25T00:00:00,11,11.4900,126.3900,Alone Smile,Space Spring
+34,16,2023-12-25T00:00:00,35,240.5500,8419.2500,Alone Smile,Difference Require Scientist
+34,35,2023-12-25T00:00:00,17,113.4300,1928.3100,Alone Smile,Class Shoulder
+35,24,2025-09-09T00:00:00,80,169.0600,13524.8000,Relationship Kid Fear,Follow Republican
+35,26,2025-09-09T00:00:00,48,68.7800,3301.4400,Relationship Kid Fear,Space Spring
+35,42,2025-09-09T00:00:00,26,171.1800,4450.6800,Relationship Kid Fear,Class Shoulder
+35,8,2025-09-09T00:00:00,15,155.6700,2335.0500,Relationship Kid Fear,Follow Republican
+38,33,2023-04-26T00:00:00,48,220.9800,10607.0400,After Simply Alone,Follow Republican
+38,40,2023-04-26T00:00:00,96,238.5000,22896.0000,After Simply Alone,Class Shoulder
+38,48,2023-04-26T00:00:00,16,57.0300,912.4800,After Simply Alone,Follow Republican
+39,18,2024-09-19T00:00:00,100,200.5000,20050.0000,After Simply Alone,Foot This Term
+4,15,2023-10-31T00:00:00,65,29.5000,1917.5000,Responsibility Economy Commercial,Foot This Term
+41,35,2025-01-23T00:00:00,92,181.0100,16652.9200,After Simply Alone,Heart
+42,26,2025-02-08T00:00:00,19,68.1900,1295.6100,Alone Smile,Heart
+42,8,2025-02-08T00:00:00,25,225.0900,5627.2500,Alone Smile,Class Shoulder
+43,21,2025-04-07T00:00:00,37,96.7000,3577.9000,Relationship Kid Fear,Heart
+47,10,2024-01-19T00:00:00,55,141.6500,7790.7500,Relationship Kid Fear,Follow Republican
+47,20,2024-01-19T00:00:00,10,1.8500,18.5000,Relationship Kid Fear,Class Shoulder
+48,49,2025-08-04T00:00:00,58,112.1000,6501.8000,After Simply Alone,Space Spring
+49,23,2023-04-08T00:00:00,87,37.9600,3302.5200,Piece Matter,Space Spring
+5,27,2024-06-13T00:00:00,84,142.8000,11995.2000,Responsibility Economy Commercial,Difference Require Scientist
+5,40,2024-06-13T00:00:00,28,11.2700,315.5600,Responsibility Economy Commercial,Difference Require Scientist
+50,40,2023-03-23T00:00:00,57,225.7600,12868.3200,Relationship Kid Fear,Heart
+7,38,2025-03-09T00:00:00,87,84.6800,7367.1600,Relationship Kid Fear,Space Spring
+8,20,2024-03-20T00:00:00,35,59.7500,2091.2500,Alone Smile,Difference Require Scientist

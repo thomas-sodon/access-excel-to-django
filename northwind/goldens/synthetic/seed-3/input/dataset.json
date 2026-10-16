@@ -1,0 +1,1219 @@
+{
+  "format_version": 1,
+  "kind": "synthetic",
+  "load_order": [
+    "Catalog_TableOfContents",
+    "CompanyTypes",
+    "Learn",
+    "NorthwindFeatures",
+    "OrderDetailStatus",
+    "OrderStatus",
+    "Privileges",
+    "ProductCategories",
+    "Products",
+    "PurchaseOrderStatus",
+    "States",
+    "StockTake",
+    "Strings",
+    "SystemSettings",
+    "TaxStatus",
+    "Companies",
+    "Contacts",
+    "ProductVendors",
+    "Titles",
+    "Employees",
+    "EmployeePrivileges",
+    "MRU",
+    "Orders",
+    "OrderDetails",
+    "PurchaseOrders",
+    "PurchaseOrderDetails",
+    "UserSettings",
+    "Welcome"
+  ],
+  "name": "seed-3",
+  "schema_sha256": "301aeeaf6414d71515b78666b5ef87dad13ede703ce797d5a16f50a95e6c2074",
+  "seed": 3,
+  "tables": [
+    {
+      "columns": [
+        {
+          "name": "TocTitle",
+          "type": "text"
+        },
+        {
+          "name": "TocPage",
+          "type": "integer"
+        }
+      ],
+      "file": "tables/Catalog_TableOfContents.csv",
+      "name": "Catalog_TableOfContents",
+      "omitted_columns": [],
+      "rows": 50,
+      "sha256": "f2d2dee545cbf219f66f9f4b770829c5c57f4dda6837e0c9643eaafd67d89332"
+    },
+    {
+      "columns": [
+        {
+          "name": "CompanyTypeID",
+          "type": "autonumber"
+        },
+        {
+          "name": "CompanyType",
+          "type": "text"
+        },
+        {
+          "name": "AddedBy",
+          "type": "text"
+        },
+        {
+          "name": "AddedOn",
+          "type": "datetime"
+        },
+        {
+          "name": "ModifiedBy",
+          "type": "text"
+        },
+        {
+          "name": "ModifiedOn",
+          "type": "datetime"
+        }
+      ],
+      "file": "tables/CompanyTypes.csv",
+      "name": "CompanyTypes",
+      "omitted_columns": [],
+      "rows": 4,
+      "sha256": "8c4fb1f101346d1174892d11af7352d8d825e152c0155c7912539252199e3429"
+    },
+    {
+      "columns": [
+        {
+          "name": "ID",
+          "type": "autonumber"
+        },
+        {
+          "name": "SectionNo",
+          "type": "integer"
+        },
+        {
+          "name": "SectionText",
+          "type": "memo"
+        }
+      ],
+      "file": "tables/Learn.csv",
+      "name": "Learn",
+      "omitted_columns": [],
+      "rows": 50,
+      "sha256": "0adbf0d7a5e6319bdf1b3387d4f9c7af0b77b6a822733e86762551f2cef8cc06"
+    },
+    {
+      "columns": [
+        {
+          "name": "NorthwindFeaturesID",
+          "type": "autonumber"
+        },
+        {
+          "name": "ItemName",
+          "type": "text"
+        },
+        {
+          "name": "Description",
+          "type": "text"
+        },
+        {
+          "name": "Navigation",
+          "type": "text"
+        },
+        {
+          "name": "LearnMore",
+          "type": "hyperlink"
+        },
+        {
+          "name": "HelpKeywords",
+          "type": "text"
+        },
+        {
+          "name": "OpenMethod",
+          "type": "longinteger"
+        }
+      ],
+      "file": "tables/NorthwindFeatures.csv",
+      "name": "NorthwindFeatures",
+      "omitted_columns": [],
+      "rows": 50,
+      "sha256": "5c84b677f4c4f6a01bca60c1523687509937b2fef5e2bdbbaf1c6be8212cdc61"
+    },
+    {
+      "columns": [
+        {
+          "name": "OrderDetailStatusID",
+          "type": "autonumber"
+        },
+        {
+          "name": "OrderDetailStatusName",
+          "type": "text"
+        },
+        {
+          "name": "SortOrder",
+          "type": "byte"
+        },
+        {
+          "name": "AddedBy",
+          "type": "text"
+        },
+        {
+          "name": "AddedOn",
+          "type": "datetime"
+        },
+        {
+          "name": "ModifiedBy",
+          "type": "text"
+        },
+        {
+          "name": "ModifiedOn",
+          "type": "datetime"
+        }
+      ],
+      "file": "tables/OrderDetailStatus.csv",
+      "name": "OrderDetailStatus",
+      "omitted_columns": [],
+      "rows": 6,
+      "sha256": "bf88256b396b957b8cdd5d2647669fe5eefaf1f464ae65f429febc19db5e6fd9"
+    },
+    {
+      "columns": [
+        {
+          "name": "OrderStatusID",
+          "type": "autonumber"
+        },
+        {
+          "name": "OrderStatusCode",
+          "type": "text"
+        },
+        {
+          "name": "OrderStatusName",
+          "type": "text"
+        },
+        {
+          "name": "SortOrder",
+          "type": "byte"
+        },
+        {
+          "name": "AddedBy",
+          "type": "text"
+        },
+        {
+          "name": "AddedOn",
+          "type": "datetime"
+        },
+        {
+          "name": "ModifiedBy",
+          "type": "text"
+        },
+        {
+          "name": "ModifiedOn",
+          "type": "datetime"
+        }
+      ],
+      "file": "tables/OrderStatus.csv",
+      "name": "OrderStatus",
+      "omitted_columns": [],
+      "rows": 5,
+      "sha256": "96e15848b28d1274f15452f12cede52dbb5d515435b71e8fad834f94bf0e1cf2"
+    },
+    {
+      "columns": [
+        {
+          "name": "PrivilegeID",
+          "type": "autonumber"
+        },
+        {
+          "name": "PrivilegeName",
+          "type": "text"
+        },
+        {
+          "name": "AddedBy",
+          "type": "text"
+        },
+        {
+          "name": "AddedOn",
+          "type": "datetime"
+        },
+        {
+          "name": "ModifiedBy",
+          "type": "text"
+        },
+        {
+          "name": "ModifiedOn",
+          "type": "datetime"
+        }
+      ],
+      "file": "tables/Privileges.csv",
+      "name": "Privileges",
+      "omitted_columns": [],
+      "rows": 1,
+      "sha256": "792f78b01a63b10e3e01019f8efa75bbd19204eb5b79d133f22cb488da026834"
+    },
+    {
+      "columns": [
+        {
+          "name": "ProductCategoryID",
+          "type": "autonumber"
+        },
+        {
+          "name": "ProductCategoryName",
+          "type": "text"
+        },
+        {
+          "name": "ProductCategoryCode",
+          "type": "text"
+        },
+        {
+          "name": "ProductCategoryDesc",
+          "type": "text"
+        },
+        {
+          "name": "AddedBy",
+          "type": "text"
+        },
+        {
+          "name": "AddedOn",
+          "type": "datetime"
+        },
+        {
+          "name": "ModifiedBy",
+          "type": "text"
+        },
+        {
+          "name": "ModifiedOn",
+          "type": "datetime"
+        }
+      ],
+      "file": "tables/ProductCategories.csv",
+      "name": "ProductCategories",
+      "omitted_columns": [
+        {
+          "name": "ProductCategoryImage",
+          "reason": "complex",
+          "type": "complex"
+        }
+      ],
+      "rows": 50,
+      "sha256": "2f70c51f47e5bcc976b5e0d2460375e16a3c13b6bb3717110911f7b814e849cb"
+    },
+    {
+      "columns": [
+        {
+          "name": "ProductID",
+          "type": "autonumber"
+        },
+        {
+          "name": "ProductCode",
+          "type": "text"
+        },
+        {
+          "name": "ProductName",
+          "type": "text"
+        },
+        {
+          "name": "ProductDescription",
+          "type": "memo"
+        },
+        {
+          "name": "StandardUnitCost",
+          "type": "currency"
+        },
+        {
+          "name": "UnitPrice",
+          "type": "currency"
+        },
+        {
+          "name": "ReorderLevel",
+          "type": "integer"
+        },
+        {
+          "name": "TargetLevel",
+          "type": "integer"
+        },
+        {
+          "name": "QuantityPerUnit",
+          "type": "text"
+        },
+        {
+          "name": "Discontinued",
+          "type": "yesno"
+        },
+        {
+          "name": "MinimumReorderQuantity",
+          "type": "integer"
+        },
+        {
+          "name": "ProductCategoryID",
+          "type": "longinteger"
+        },
+        {
+          "name": "AddedBy",
+          "type": "text"
+        },
+        {
+          "name": "AddedOn",
+          "type": "datetime"
+        },
+        {
+          "name": "ModifiedBy",
+          "type": "text"
+        },
+        {
+          "name": "ModifiedOn",
+          "type": "datetime"
+        }
+      ],
+      "file": "tables/Products.csv",
+      "name": "Products",
+      "omitted_columns": [],
+      "rows": 50,
+      "sha256": "6614aebb63c494fc741a10430b55ff97e4388a0db3622ff05ebb6d383c60e2b2"
+    },
+    {
+      "columns": [
+        {
+          "name": "StatusID",
+          "type": "autonumber"
+        },
+        {
+          "name": "StatusName",
+          "type": "text"
+        },
+        {
+          "name": "SortOrder",
+          "type": "byte"
+        },
+        {
+          "name": "AddedBy",
+          "type": "text"
+        },
+        {
+          "name": "AddedOn",
+          "type": "datetime"
+        },
+        {
+          "name": "ModifiedBy",
+          "type": "text"
+        },
+        {
+          "name": "ModifiedOn",
+          "type": "datetime"
+        }
+      ],
+      "file": "tables/PurchaseOrderStatus.csv",
+      "name": "PurchaseOrderStatus",
+      "omitted_columns": [],
+      "rows": 5,
+      "sha256": "e80aed6bbe6391855227845d7351070cf716ac7e453eab3be1a473b0e88e5902"
+    },
+    {
+      "columns": [
+        {
+          "name": "StateAbbrev",
+          "type": "text"
+        },
+        {
+          "name": "StateName",
+          "type": "text"
+        }
+      ],
+      "file": "tables/States.csv",
+      "name": "States",
+      "omitted_columns": [],
+      "rows": 50,
+      "sha256": "63b6b0ec3ae1493607ab39feb8d5124c3a50a068063e982f08307c7bb9251043"
+    },
+    {
+      "columns": [
+        {
+          "name": "StockTakeID",
+          "type": "autonumber"
+        },
+        {
+          "name": "StockTakeDate",
+          "type": "datetime"
+        },
+        {
+          "name": "ProductID",
+          "type": "longinteger"
+        },
+        {
+          "name": "QuantityOnHand",
+          "type": "integer"
+        },
+        {
+          "name": "ExpectedQuantity",
+          "type": "longinteger"
+        },
+        {
+          "name": "AddedBy",
+          "type": "text"
+        },
+        {
+          "name": "AddedOn",
+          "type": "datetime"
+        },
+        {
+          "name": "ModifiedBy",
+          "type": "text"
+        },
+        {
+          "name": "ModifiedOn",
+          "type": "datetime"
+        }
+      ],
+      "file": "tables/StockTake.csv",
+      "name": "StockTake",
+      "omitted_columns": [],
+      "rows": 50,
+      "sha256": "789e23c16a8e5b9952f6ade32020836ae0a92e4e975782feda79dad9d54ad30c"
+    },
+    {
+      "columns": [
+        {
+          "name": "StringID",
+          "type": "autonumber"
+        },
+        {
+          "name": "StringData",
+          "type": "memo"
+        },
+        {
+          "name": "AddedBy",
+          "type": "text"
+        },
+        {
+          "name": "AddedOn",
+          "type": "datetime"
+        },
+        {
+          "name": "ModifiedBy",
+          "type": "text"
+        },
+        {
+          "name": "ModifiedOn",
+          "type": "datetime"
+        }
+      ],
+      "file": "tables/Strings.csv",
+      "name": "Strings",
+      "omitted_columns": [],
+      "rows": 50,
+      "sha256": "d349a02264bcbdebe073f1fe046a04bc4963a3cefe78ab08e1b27759b548ab8b"
+    },
+    {
+      "columns": [
+        {
+          "name": "SettingID",
+          "type": "autonumber"
+        },
+        {
+          "name": "SettingName",
+          "type": "text"
+        },
+        {
+          "name": "SettingValue",
+          "type": "text"
+        },
+        {
+          "name": "Notes",
+          "type": "text"
+        }
+      ],
+      "file": "tables/SystemSettings.csv",
+      "name": "SystemSettings",
+      "omitted_columns": [],
+      "rows": 5,
+      "sha256": "9c91823951bcd578ddc2ed1067934d860c092c64de341058a264684ff2d825f3"
+    },
+    {
+      "columns": [
+        {
+          "name": "TaxStatusID",
+          "type": "byte"
+        },
+        {
+          "name": "TaxStatus",
+          "type": "text"
+        },
+        {
+          "name": "AddedBy",
+          "type": "text"
+        },
+        {
+          "name": "AddedOn",
+          "type": "datetime"
+        },
+        {
+          "name": "ModifiedBy",
+          "type": "text"
+        },
+        {
+          "name": "ModifiedOn",
+          "type": "datetime"
+        }
+      ],
+      "file": "tables/TaxStatus.csv",
+      "name": "TaxStatus",
+      "omitted_columns": [],
+      "rows": 2,
+      "sha256": "716f6fcb42c679e558b00d40bc74beaddfb8038f6b815fac2065e4bfb6a45aa4"
+    },
+    {
+      "columns": [
+        {
+          "name": "CompanyID",
+          "type": "autonumber"
+        },
+        {
+          "name": "CompanyName",
+          "type": "text"
+        },
+        {
+          "name": "CompanyTypeID",
+          "type": "longinteger"
+        },
+        {
+          "name": "BusinessPhone",
+          "type": "text"
+        },
+        {
+          "name": "Address",
+          "type": "text"
+        },
+        {
+          "name": "City",
+          "type": "text"
+        },
+        {
+          "name": "StateAbbrev",
+          "type": "text"
+        },
+        {
+          "name": "Zip",
+          "type": "text"
+        },
+        {
+          "name": "Website",
+          "type": "hyperlink"
+        },
+        {
+          "name": "Notes",
+          "type": "memo"
+        },
+        {
+          "name": "StandardTaxStatusID",
+          "type": "byte"
+        },
+        {
+          "name": "AddedBy",
+          "type": "text"
+        },
+        {
+          "name": "AddedOn",
+          "type": "datetime"
+        },
+        {
+          "name": "ModifiedBy",
+          "type": "text"
+        },
+        {
+          "name": "ModifiedOn",
+          "type": "datetime"
+        }
+      ],
+      "file": "tables/Companies.csv",
+      "name": "Companies",
+      "omitted_columns": [],
+      "rows": 50,
+      "sha256": "79b5e36b7330d3551b3324613ebe6028f90383ab994534abc1593bba8944a14a"
+    },
+    {
+      "columns": [
+        {
+          "name": "ContactID",
+          "type": "autonumber"
+        },
+        {
+          "name": "CompanyID",
+          "type": "longinteger"
+        },
+        {
+          "name": "LastName",
+          "type": "text"
+        },
+        {
+          "name": "FirstName",
+          "type": "text"
+        },
+        {
+          "name": "EmailAddress",
+          "type": "text"
+        },
+        {
+          "name": "JobTitle",
+          "type": "text"
+        },
+        {
+          "name": "PrimaryPhone",
+          "type": "text"
+        },
+        {
+          "name": "SecondaryPhone",
+          "type": "text"
+        },
+        {
+          "name": "Notes",
+          "type": "memo"
+        },
+        {
+          "name": "AddedBy",
+          "type": "text"
+        },
+        {
+          "name": "AddedOn",
+          "type": "datetime"
+        },
+        {
+          "name": "ModifiedBy",
+          "type": "text"
+        },
+        {
+          "name": "ModifiedOn",
+          "type": "datetime"
+        }
+      ],
+      "file": "tables/Contacts.csv",
+      "name": "Contacts",
+      "omitted_columns": [],
+      "rows": 50,
+      "sha256": "c17a8ef45e40dc4a79795af087f9316e36b13b9cdee1a2237dcdd5002f7e19ed"
+    },
+    {
+      "columns": [
+        {
+          "name": "ProductVendorID",
+          "type": "autonumber"
+        },
+        {
+          "name": "ProductID",
+          "type": "longinteger"
+        },
+        {
+          "name": "VendorID",
+          "type": "longinteger"
+        },
+        {
+          "name": "AddedBy",
+          "type": "text"
+        },
+        {
+          "name": "AddedOn",
+          "type": "datetime"
+        },
+        {
+          "name": "ModifiedBy",
+          "type": "text"
+        },
+        {
+          "name": "ModifiedOn",
+          "type": "datetime"
+        }
+      ],
+      "file": "tables/ProductVendors.csv",
+      "name": "ProductVendors",
+      "omitted_columns": [],
+      "rows": 50,
+      "sha256": "577bc5a1af28901e1c814c90bc28a7608bc4d5485cbc3bb9853f6c37683fa971"
+    },
+    {
+      "columns": [
+        {
+          "name": "Title",
+          "type": "text"
+        },
+        {
+          "name": "AddedBy",
+          "type": "text"
+        },
+        {
+          "name": "AddedOn",
+          "type": "datetime"
+        },
+        {
+          "name": "ModifiedBy",
+          "type": "text"
+        },
+        {
+          "name": "ModifiedOn",
+          "type": "datetime"
+        }
+      ],
+      "file": "tables/Titles.csv",
+      "name": "Titles",
+      "omitted_columns": [],
+      "rows": 2,
+      "sha256": "2c3626cbb04f08d6745f0bbfa6408915b6af9fd5548a53ee5dc44d47d70533ce"
+    },
+    {
+      "columns": [
+        {
+          "name": "EmployeeID",
+          "type": "autonumber"
+        },
+        {
+          "name": "FirstName",
+          "type": "text"
+        },
+        {
+          "name": "LastName",
+          "type": "text"
+        },
+        {
+          "name": "EmailAddress",
+          "type": "text"
+        },
+        {
+          "name": "JobTitle",
+          "type": "text"
+        },
+        {
+          "name": "PrimaryPhone",
+          "type": "text"
+        },
+        {
+          "name": "SecondaryPhone",
+          "type": "text"
+        },
+        {
+          "name": "Title",
+          "type": "text"
+        },
+        {
+          "name": "Notes",
+          "type": "memo"
+        },
+        {
+          "name": "SupervisorID",
+          "type": "longinteger"
+        },
+        {
+          "name": "WindowsUserName",
+          "type": "text"
+        },
+        {
+          "name": "AddedBy",
+          "type": "text"
+        },
+        {
+          "name": "AddedOn",
+          "type": "datetime"
+        },
+        {
+          "name": "ModifiedBy",
+          "type": "text"
+        },
+        {
+          "name": "ModifiedOn",
+          "type": "datetime"
+        }
+      ],
+      "file": "tables/Employees.csv",
+      "name": "Employees",
+      "omitted_columns": [
+        {
+          "name": "Attachments",
+          "reason": "complex",
+          "type": "complex"
+        }
+      ],
+      "rows": 50,
+      "sha256": "454ab624ebc9374964f4c22483d01ad4e6718c3a415de919957dddb0864d401c"
+    },
+    {
+      "columns": [
+        {
+          "name": "EmployeePrivilegeID",
+          "type": "autonumber"
+        },
+        {
+          "name": "EmployeeID",
+          "type": "longinteger"
+        },
+        {
+          "name": "PrivilegeID",
+          "type": "longinteger"
+        },
+        {
+          "name": "AddedBy",
+          "type": "text"
+        },
+        {
+          "name": "AddedOn",
+          "type": "datetime"
+        },
+        {
+          "name": "ModifiedBy",
+          "type": "text"
+        },
+        {
+          "name": "ModifiedOn",
+          "type": "datetime"
+        }
+      ],
+      "file": "tables/EmployeePrivileges.csv",
+      "name": "EmployeePrivileges",
+      "omitted_columns": [],
+      "rows": 50,
+      "sha256": "8bfb5941e420f695738e34e3e09e4d2c9722a785d592f098e3c3ab13a6ea6220"
+    },
+    {
+      "columns": [
+        {
+          "name": "MRU_ID",
+          "type": "autonumber"
+        },
+        {
+          "name": "EmployeeID",
+          "type": "longinteger"
+        },
+        {
+          "name": "TableName",
+          "type": "text"
+        },
+        {
+          "name": "PKValue",
+          "type": "longinteger"
+        },
+        {
+          "name": "DateAdded",
+          "type": "datetime"
+        }
+      ],
+      "file": "tables/MRU.csv",
+      "name": "MRU",
+      "omitted_columns": [],
+      "rows": 50,
+      "sha256": "96004488744958f462de89370709af82dd8b9e06fbb984ef56c9964fcd65c83f"
+    },
+    {
+      "columns": [
+        {
+          "name": "OrderID",
+          "type": "autonumber"
+        },
+        {
+          "name": "EmployeeID",
+          "type": "longinteger"
+        },
+        {
+          "name": "CustomerID",
+          "type": "longinteger"
+        },
+        {
+          "name": "OrderDate",
+          "type": "datetime"
+        },
+        {
+          "name": "InvoiceDate",
+          "type": "datetime"
+        },
+        {
+          "name": "ShippedDate",
+          "type": "datetime"
+        },
+        {
+          "name": "ShipperID",
+          "type": "longinteger"
+        },
+        {
+          "name": "ShippingFee",
+          "type": "currency"
+        },
+        {
+          "name": "TaxRate",
+          "type": "single"
+        },
+        {
+          "name": "TaxStatusID",
+          "type": "byte"
+        },
+        {
+          "name": "PaymentMethod",
+          "type": "text"
+        },
+        {
+          "name": "PaidDate",
+          "type": "datetime"
+        },
+        {
+          "name": "Notes",
+          "type": "memo"
+        },
+        {
+          "name": "OrderStatusID",
+          "type": "longinteger"
+        },
+        {
+          "name": "AddedBy",
+          "type": "text"
+        },
+        {
+          "name": "AddedOn",
+          "type": "datetime"
+        },
+        {
+          "name": "ModifiedBy",
+          "type": "text"
+        },
+        {
+          "name": "ModifiedOn",
+          "type": "datetime"
+        }
+      ],
+      "file": "tables/Orders.csv",
+      "name": "Orders",
+      "omitted_columns": [],
+      "rows": 50,
+      "sha256": "670264876fb6501ea22be9102498cef1442b2d3a49a4ea4c63a1040a6ddb9e26"
+    },
+    {
+      "columns": [
+        {
+          "name": "OrderDetailID",
+          "type": "autonumber"
+        },
+        {
+          "name": "OrderID",
+          "type": "longinteger"
+        },
+        {
+          "name": "ProductID",
+          "type": "longinteger"
+        },
+        {
+          "name": "Quantity",
+          "type": "integer"
+        },
+        {
+          "name": "UnitPrice",
+          "type": "currency"
+        },
+        {
+          "name": "Discount",
+          "type": "single"
+        },
+        {
+          "name": "OrderDetailStatusID",
+          "type": "longinteger"
+        },
+        {
+          "name": "AddedBy",
+          "type": "text"
+        },
+        {
+          "name": "AddedOn",
+          "type": "datetime"
+        },
+        {
+          "name": "ModifiedBy",
+          "type": "text"
+        },
+        {
+          "name": "ModifiedOn",
+          "type": "datetime"
+        }
+      ],
+      "file": "tables/OrderDetails.csv",
+      "name": "OrderDetails",
+      "omitted_columns": [],
+      "rows": 50,
+      "sha256": "9d00694bae4f5a1349a3a9412336389df3779f44f649eceb12b3c6f09e40599f"
+    },
+    {
+      "columns": [
+        {
+          "name": "PurchaseOrderID",
+          "type": "autonumber"
+        },
+        {
+          "name": "VendorID",
+          "type": "longinteger"
+        },
+        {
+          "name": "SubmittedByID",
+          "type": "longinteger"
+        },
+        {
+          "name": "SubmittedDate",
+          "type": "datetime"
+        },
+        {
+          "name": "ApprovedByID",
+          "type": "longinteger"
+        },
+        {
+          "name": "ApprovedDate",
+          "type": "datetime"
+        },
+        {
+          "name": "StatusID",
+          "type": "longinteger"
+        },
+        {
+          "name": "ReceivedDate",
+          "type": "datetime"
+        },
+        {
+          "name": "ShippingFee",
+          "type": "currency"
+        },
+        {
+          "name": "TaxAmount",
+          "type": "currency"
+        },
+        {
+          "name": "PaymentDate",
+          "type": "datetime"
+        },
+        {
+          "name": "PaymentAmount",
+          "type": "currency"
+        },
+        {
+          "name": "PaymentMethod",
+          "type": "text"
+        },
+        {
+          "name": "Notes",
+          "type": "memo"
+        },
+        {
+          "name": "AddedBy",
+          "type": "text"
+        },
+        {
+          "name": "AddedOn",
+          "type": "datetime"
+        },
+        {
+          "name": "ModifiedBy",
+          "type": "text"
+        },
+        {
+          "name": "ModifiedOn",
+          "type": "datetime"
+        }
+      ],
+      "file": "tables/PurchaseOrders.csv",
+      "name": "PurchaseOrders",
+      "omitted_columns": [],
+      "rows": 50,
+      "sha256": "2ef0319ff8b7cf19522859f61fb910ae79e0e9824dd345e9cdb9fbff83236d86"
+    },
+    {
+      "columns": [
+        {
+          "name": "PurchaseOrderDetailID",
+          "type": "autonumber"
+        },
+        {
+          "name": "PurchaseOrderID",
+          "type": "longinteger"
+        },
+        {
+          "name": "ProductID",
+          "type": "longinteger"
+        },
+        {
+          "name": "Quantity",
+          "type": "integer"
+        },
+        {
+          "name": "UnitCost",
+          "type": "currency"
+        },
+        {
+          "name": "ReceivedDate",
+          "type": "datetime"
+        },
+        {
+          "name": "AddedBy",
+          "type": "text"
+        },
+        {
+          "name": "AddedOn",
+          "type": "datetime"
+        },
+        {
+          "name": "ModifiedBy",
+          "type": "text"
+        },
+        {
+          "name": "ModifiedOn",
+          "type": "datetime"
+        }
+      ],
+      "file": "tables/PurchaseOrderDetails.csv",
+      "name": "PurchaseOrderDetails",
+      "omitted_columns": [],
+      "rows": 50,
+      "sha256": "a7df4cfd9b2a2d75a15954c145dfa93bbbb3e2acc84646184ca0bc7977b9998b"
+    },
+    {
+      "columns": [
+        {
+          "name": "SettingID",
+          "type": "autonumber"
+        },
+        {
+          "name": "SettingName",
+          "type": "text"
+        },
+        {
+          "name": "SettingValue",
+          "type": "text"
+        },
+        {
+          "name": "Notes",
+          "type": "text"
+        }
+      ],
+      "file": "tables/UserSettings.csv",
+      "name": "UserSettings",
+      "omitted_columns": [],
+      "rows": 50,
+      "sha256": "8d66a4f91440e318b62e2058bb59171b3d5fc39f9763c906237ba25766abef40"
+    },
+    {
+      "columns": [
+        {
+          "name": "ID",
+          "type": "autonumber"
+        },
+        {
+          "name": "Welcome",
+          "type": "memo"
+        },
+        {
+          "name": "Learn",
+          "type": "memo"
+        },
+        {
+          "name": "DataMacro",
+          "type": "memo"
+        }
+      ],
+      "file": "tables/Welcome.csv",
+      "name": "Welcome",
+      "omitted_columns": [],
+      "rows": 50,
+      "sha256": "4d911283ddc4bffd621388574c406cfae5cfe7bd05522b793e5155961c2e0e1a"
+    }
+  ]
+}

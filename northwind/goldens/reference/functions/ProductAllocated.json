@@ -1,0 +1,9 @@
+{
+  "args": [
+    "product_id"
+  ],
+  "choice": "subquery",
+  "function": "ProductAllocated",
+  "rewrite": "Nz((SELECT Sum(fa_od.Quantity) FROM OrderDetails AS fa_od WHERE fa_od.ProductID = {product_id} AND fa_od.OrderDetailStatusID = 1), 0)",
+  "rule": "R-inventory-003"
+}

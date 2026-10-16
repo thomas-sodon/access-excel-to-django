@@ -1,0 +1,7 @@
+{
+  "args": [],
+  "choice": "subquery",
+  "function": "reportParameterStartDate",
+  "rewrite": "DateAdd(\"m\", -3, DateValue((SELECT Max(fs_o.OrderDate) FROM Orders AS fs_o)))",
+  "rule": "R-reports-003"
+}
