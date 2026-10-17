@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg height="291.33" role="img" viewBox="0 0 364 291.33" width="364" xmlns="http://www.w3.org/2000/svg">
+ <title>sfrmProductDetail_PurchaseOrders: Reconstructed from the Access form definition; not a screenshot</title>
+ <rect fill="#ffffff" height="291.33" stroke="none" width="364" x="0" y="0" />
+ <text fill="#222" font-family="sans-serif" font-size="14" font-weight="bold" x="8" y="19">sfrmProductDetail_PurchaseOrders</text>
+ <g class="section" data-kind="detail" data-name="Detail">
+  <rect fill="#dfe3ea" height="16" stroke="#9aa" width="348" x="8" y="36" />
+  <text fill="#334" font-family="sans-serif" font-size="10" x="12" y="48">Detail (Detail)</text>
+  <rect fill="#f7f7f7" height="205.33" stroke="#9aa" width="348" x="8" y="52" />
+ </g>
+ <g class="ctl" data-name="txtPOID" data-type="TextBox">
+  <rect fill="#fff" height="20" stroke="#888" width="215.33" x="136.67" y="74" />
+  <text fill="#999" font-family="sans-serif" font-size="11" x="139.67" y="88">txtPOID</text>
+ </g>
+ <g class="ctl" data-name="Label0" data-type="Label">
+  <text fill="#222" font-family="sans-serif" font-size="11" x="10" y="88">PO ID</text>
+ </g>
+ <g class="ctl" data-name="ProductID" data-type="TextBox">
+  <rect fill="#fff" height="21" stroke="#888" width="215.33" x="136.67" y="52" />
+  <text fill="#999" font-family="sans-serif" font-size="11" x="139.67" y="66.5">ProductID</text>
+ </g>
+ <g class="ctl" data-name="Label86" data-type="Label">
+  <text fill="#222" font-family="sans-serif" font-size="11" x="10" y="66.5">Product ID</text>
+ </g>
+ <g class="ctl" data-name="Quantity" data-type="TextBox">
+  <rect fill="#fff" height="22.67" stroke="#888" width="215.33" x="136.67" y="164.67" />
+  <text fill="#999" font-family="sans-serif" font-size="11" x="139.67" y="180">Quantity</text>
+ </g>
+ <g class="ctl" data-name="Label87" data-type="Label">
+  <text fill="#222" font-family="sans-serif" font-size="11" x="10" y="180">Quantity</text>
+ </g>
+ <g class="ctl" data-name="UnitCost" data-type="TextBox">
+  <rect fill="#fff" height="22.67" stroke="#888" width="215.33" x="136.67" y="188" />
+  <text fill="#999" font-family="sans-serif" font-size="11" x="139.67" y="203.33">UnitCost</text>
+ </g>
+ <g class="ctl" data-name="Label88" data-type="Label">
+  <text fill="#222" font-family="sans-serif" font-size="11" x="10" y="203.33">Unit Cost</text>
+ </g>
+ <g class="ctl" data-name="ReceivedDate" data-type="TextBox">
+  <rect fill="#fff" height="22.67" stroke="#888" width="215.33" x="136.67" y="234.67" />
+  <text fill="#999" font-family="sans-serif" font-size="11" x="139.67" y="250">ReceivedDate</text>
+ </g>
+ <g class="ctl" data-name="Label89" data-type="Label">
+  <text fill="#222" font-family="sans-serif" font-size="11" x="10" y="250">Date Received</text>
+ </g>
+ <g class="ctl" data-name="PODate" data-type="TextBox">
+  <rect fill="#fff" height="22.67" stroke="#888" width="215.33" x="136.67" y="118" />
+  <text fill="#999" font-family="sans-serif" font-size="11" x="139.67" y="133.33">PODate</text>
+ </g>
+ <g class="ctl" data-name="Label174" data-type="Label">
+  <text fill="#222" font-family="sans-serif" font-size="11" x="10" y="133.33">PO Date</text>
+ </g>
+ <g class="ctl" data-name="POStatus" data-type="TextBox">
+  <rect fill="#fff" height="22.67" stroke="#888" width="215.33" x="136.67" y="141.33" />
+  <text fill="#999" font-family="sans-serif" font-size="11" x="139.67" y="156.67">POStatus</text>
+ </g>
+ <g class="ctl" data-name="Label179" data-type="Label">
+  <text fill="#222" font-family="sans-serif" font-size="11" x="10" y="156.67">PO Status</text>
+ </g>
+ <g class="ctl" data-name="ExtendedCost" data-type="TextBox">
+  <rect fill="#fff" height="22.67" stroke="#888" width="215.33" x="136.67" y="211.33" />
+  <text fill="#999" font-family="sans-serif" font-size="11" x="139.67" y="226.67">ExtendedCost</text>
+ </g>
+ <g class="ctl" data-name="Label201" data-type="Label">
+  <text fill="#222" font-family="sans-serif" font-size="11" x="10" y="226.67">Extended Cost</text>
+ </g>
+ <g class="ctl" data-name="CompanyName" data-type="TextBox">
+  <rect fill="#fff" height="22.67" stroke="#888" width="215.33" x="136.67" y="94.67" />
+  <text fill="#999" font-family="sans-serif" font-size="11" x="139.67" y="110">CompanyName</text>
+ </g>
+ <g class="ctl" data-name="Label206" data-type="Label">
+  <text fill="#222" font-family="sans-serif" font-size="11" x="10" y="110">Vendor</text>
+ </g>
+ <text fill="#555" font-family="sans-serif" font-size="11" font-style="italic" x="8" y="282.33">Reconstructed from the Access form definition; not a screenshot</text>
+</svg>

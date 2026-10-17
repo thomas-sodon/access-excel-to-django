@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg height="266" role="img" viewBox="0 0 908 266" width="908" xmlns="http://www.w3.org/2000/svg">
+ <title>frmProductList: Reconstructed from the Access form definition; not a screenshot</title>
+ <rect fill="#ffffff" height="266" stroke="none" width="908" x="0" y="0" />
+ <text fill="#222" font-family="sans-serif" font-size="14" font-weight="bold" x="8" y="19">frmProductList</text>
+ <g class="section" data-kind="form_header" data-name="FormHeader">
+  <rect fill="#dfe3ea" height="16" stroke="#9aa" width="892" x="8" y="36" />
+  <text fill="#334" font-family="sans-serif" font-size="10" x="12" y="48">Form header (FormHeader)</text>
+  <rect fill="#eef0f3" height="84" stroke="#9aa" width="892" x="8" y="52" />
+ </g>
+ <g class="section" data-kind="detail" data-name="Detail">
+  <rect fill="#dfe3ea" height="16" stroke="#9aa" width="892" x="8" y="136" />
+  <text fill="#334" font-family="sans-serif" font-size="10" x="12" y="148">Detail (Detail)</text>
+  <rect fill="#f7f7f7" height="64" stroke="#9aa" width="892" x="8" y="152" />
+ </g>
+ <g class="section" data-kind="form_footer" data-name="FormFooter">
+  <rect fill="#dfe3ea" height="16" stroke="#9aa" width="892" x="8" y="216" />
+  <text fill="#334" font-family="sans-serif" font-size="10" x="12" y="228">Form footer (FormFooter)</text>
+  <rect fill="#eef0f3" height="0" stroke="#9aa" width="892" x="8" y="232" />
+ </g>
+ <g class="ctl" data-name="imgNorthwindTradersLogo" data-type="Image">
+  <rect fill="#f4f4f4" height="48" stroke="#888" width="48" x="16" y="56" />
+  <line stroke="#bbb" x1="16" x2="64" y1="56" y2="104" />
+  <line stroke="#bbb" x1="64" x2="16" y1="56" y2="104" />
+  <text fill="#777" font-family="sans-serif" font-size="10" text-anchor="middle" x="40" y="84">image</text>
+ </g>
+ <g class="ctl" data-name="Auto_Header0" data-type="Label">
+  <text fill="#222" font-family="sans-serif" font-size="11" x="70" y="84">Products</text>
+ </g>
+ <g class="ctl" data-name="BoxCaptions" data-type="Rectangle">
+  <rect fill="none" height="24" stroke="#bbb" width="892" x="8" y="112" />
+ </g>
+ <g class="ctl" data-name="cmdExport" data-type="CommandButton">
+  <rect fill="#eef1f6" height="24" rx="4" ry="4" stroke="#667" width="160" x="68" y="112" />
+  <text fill="#222" font-family="sans-serif" font-size="11" text-anchor="middle" x="148" y="128">Export to Excel</text>
+ </g>
+ <g class="ctl" data-name="cmdAddProduct" data-type="CommandButton">
+  <rect fill="#eef1f6" height="24" rx="4" ry="4" stroke="#667" width="115" x="748" y="112" />
+  <text fill="#222" font-family="sans-serif" font-size="11" text-anchor="middle" x="805.5" y="128">Add Product</text>
+ </g>
+ <g class="ctl" data-name="cmdInfo" data-type="CommandButton">
+  <rect fill="#eef1f6" height="24" rx="4" ry="4" stroke="#667" width="24" x="863.93" y="60" />
+  <text fill="#222" font-family="sans-serif" font-size="11" text-anchor="middle" x="875.93" y="76">In…</text>
+ </g>
+ <g class="ctl" data-name="ProductID" data-type="TextBox">
+  <rect fill="#fff" height="24" stroke="#888" width="60" x="12" y="192" />
+  <text fill="#999" font-family="sans-serif" font-size="11" x="15" y="208">ProductID</text>
+ </g>
+ <g class="ctl" data-name="Label0" data-type="Label" opacity="0.45">
+  <text fill="#222" font-family="sans-serif" font-size="11" x="14" y="176">Product …</text>
+ </g>
+ <g class="ctl" data-name="Label9" data-type="Label" opacity="0.45">
+  <text fill="#222" font-family="sans-serif" font-size="11" x="838" y="176">Disconti…</text>
+ </g>
+ <g class="ctl" data-name="QuantityOnOrder" data-type="TextBox">
+  <rect fill="#fff" height="24" stroke="#888" width="68" x="552" y="192" />
+  <text fill="#999" font-family="sans-serif" font-size="11" x="555" y="208">QuantityO…</text>
+ </g>
+ <g class="ctl" data-name="Label196" data-type="Label" opacity="0.45">
+  <text fill="#222" font-family="sans-serif" font-size="11" x="554" y="176">Qty On Or…</text>
+ </g>
+ <g class="ctl" data-name="ToSell" data-type="TextBox">
+  <rect fill="#fff" height="24" stroke="#888" width="68" x="480" y="192" />
+  <text fill="#999" font-family="sans-serif" font-size="11" x="483" y="208">ToSell</text>
+ </g>
+ <g class="ctl" data-name="Label170" data-type="Label" opacity="0.45">
+  <text fill="#222" font-family="sans-serif" font-size="11" x="482" y="176">Available </text>
+ </g>
+ <g class="ctl" data-name="Allocated" data-type="TextBox">
+  <rect fill="#fff" height="24" stroke="#888" width="68" x="408" y="192" />
+  <text fill="#999" font-family="sans-serif" font-size="11" x="411" y="208">Allocated</text>
+ </g>
+ <g class="ctl" data-name="lblAllocated" data-type="Label" opacity="0.45">
+  <text fill="#222" font-family="sans-serif" font-size="11" x="410" y="176">Allocated</text>
+ </g>
+ <g class="ctl" data-name="MinimumReorderQuantity" data-type="TextBox">
+  <rect fill="#fff" height="24" stroke="#888" width="68" x="768" y="192" />
+  <text fill="#999" font-family="sans-serif" font-size="11" x="771" y="208">MinimumRe…</text>
+ </g>
+ <g class="ctl" data-name="Label10" data-type="Label" opacity="0.45">
+  <text fill="#222" font-family="sans-serif" font-size="11" x="770" y="176">Min. Reor…</text>
+ </g>
+ <g class="ctl" data-name="Discontinued" data-type="CheckBox">
+  <rect fill="#fff" height="12" stroke="#555" width="12" x="864" y="198" />
+ </g>
+ <g class="ctl" data-name="TargetLevel" data-type="TextBox">
+  <rect fill="#fff" height="24" stroke="#888" width="68" x="696" y="192" />
+  <text fill="#999" font-family="sans-serif" font-size="11" x="699" y="208">TargetLev…</text>
+ </g>
+ <g class="ctl" data-name="Label7" data-type="Label" opacity="0.45">
+  <text fill="#222" font-family="sans-serif" font-size="11" x="698" y="176">Target Le…</text>
+ </g>
+ <g class="ctl" data-name="ReorderLevel" data-type="TextBox">
+  <rect fill="#fff" height="24" stroke="#888" width="68" x="624" y="192" />
+  <text fill="#999" font-family="sans-serif" font-size="11" x="627" y="208">ReorderLe…</text>
+ </g>
+ <g class="ctl" data-name="Label6" data-type="Label" opacity="0.45">
+  <text fill="#222" font-family="sans-serif" font-size="11" x="626" y="176">Reorder L…</text>
+ </g>
+ <g class="ctl" data-name="ProductName" data-type="TextBox">
+  <rect fill="#fff" height="24" stroke="#888" width="160" x="176" y="192" />
+  <text fill="#999" font-family="sans-serif" font-size="11" x="179" y="208">ProductName</text>
+ </g>
+ <g class="ctl" data-name="Label2" data-type="Label" opacity="0.45">
+  <text fill="#222" font-family="sans-serif" font-size="11" x="178" y="176">Product </text>
+ </g>
+ <g class="ctl" data-name="ProductCode" data-type="TextBox">
+  <rect fill="#fff" height="24" stroke="#888" width="96" x="76" y="192" />
+  <text fill="#999" font-family="sans-serif" font-size="11" x="79" y="208">ProductCode</text>
+ </g>
+ <g class="ctl" data-name="Label1" data-type="Label" opacity="0.45">
+  <text fill="#222" font-family="sans-serif" font-size="11" x="78" y="176">Product  Code</text>
+ </g>
+ <g class="ctl" data-name="NoStock" data-type="TextBox">
+  <rect fill="#fff" height="24" stroke="#888" width="64" x="340" y="192" />
+  <text fill="#999" font-family="sans-serif" font-size="11" x="343" y="208">NoStock</text>
+ </g>
+ <g class="ctl" data-name="Label290" data-type="Label" opacity="0.45">
+  <text fill="#222" font-family="sans-serif" font-size="11" x="342" y="176">No Stock</text>
+ </g>
+ <text fill="#555" font-family="sans-serif" font-size="11" font-style="italic" x="8" y="257">Reconstructed from the Access form definition; not a screenshot</text>
+</svg>

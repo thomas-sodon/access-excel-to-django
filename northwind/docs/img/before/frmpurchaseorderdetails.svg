@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg height="726" role="img" viewBox="0 0 952 726" width="952" xmlns="http://www.w3.org/2000/svg">
+ <title>frmPurchaseOrderDetails: Reconstructed from the Access form definition; not a screenshot</title>
+ <rect fill="#ffffff" height="726" stroke="none" width="952" x="0" y="0" />
+ <text fill="#222" font-family="sans-serif" font-size="14" font-weight="bold" x="8" y="19">frmPurchaseOrderDetails</text>
+ <g class="section" data-kind="form_header" data-name="FormHeader">
+  <rect fill="#dfe3ea" height="16" stroke="#9aa" width="936" x="8" y="36" />
+  <text fill="#334" font-family="sans-serif" font-size="10" x="12" y="48">Form header (FormHeader)</text>
+  <rect fill="#eef0f3" height="64" stroke="#9aa" width="936" x="8" y="52" />
+ </g>
+ <g class="section" data-kind="detail" data-name="Detail">
+  <rect fill="#dfe3ea" height="16" stroke="#9aa" width="936" x="8" y="116" />
+  <text fill="#334" font-family="sans-serif" font-size="10" x="12" y="128">Detail (Detail)</text>
+  <rect fill="#f7f7f7" height="508" stroke="#9aa" width="936" x="8" y="132" />
+ </g>
+ <g class="section" data-kind="form_footer" data-name="FormFooter">
+  <rect fill="#dfe3ea" height="16" stroke="#9aa" width="936" x="8" y="640" />
+  <text fill="#334" font-family="sans-serif" font-size="10" x="12" y="652">Form footer (FormFooter)</text>
+  <rect fill="#eef0f3" height="36" stroke="#9aa" width="936" x="8" y="656" />
+ </g>
+ <g class="ctl" data-name="imgNorthwindTradersLogo" data-type="Image">
+  <rect fill="#f4f4f4" height="36" stroke="#888" width="48" x="16" y="56" />
+  <line stroke="#bbb" x1="16" x2="64" y1="56" y2="92" />
+  <line stroke="#bbb" x1="64" x2="16" y1="56" y2="92" />
+  <text fill="#777" font-family="sans-serif" font-size="10" text-anchor="middle" x="40" y="78">image</text>
+ </g>
+ <g class="ctl" data-name="Auto_Header0" data-type="Label">
+  <text fill="#222" font-family="sans-serif" font-size="11" x="70" y="78">Purchase Order</text>
+ </g>
+ <g class="ctl" data-name="boxHeaderControls" data-type="Rectangle">
+  <rect fill="none" height="24" stroke="#bbb" width="936" x="8" y="92" />
+ </g>
+ <g class="ctl" data-name="cmdAddPO" data-type="CommandButton">
+  <rect fill="#eef1f6" height="24" rx="4" ry="4" stroke="#667" width="108" x="8" y="92" />
+  <text fill="#222" font-family="sans-serif" font-size="11" text-anchor="middle" x="62" y="108">Add PO</text>
+ </g>
+ <g class="ctl" data-name="cmdDeletePO" data-type="CommandButton">
+  <rect fill="#eef1f6" height="24" rx="4" ry="4" stroke="#667" width="104" x="804" y="92" />
+  <text fill="#222" font-family="sans-serif" font-size="11" text-anchor="middle" x="856" y="108">Delete PO</text>
+ </g>
+ <g class="ctl" data-name="cmdAddNostock" data-type="CommandButton">
+  <rect fill="#eef1f6" height="24" rx="4" ry="4" stroke="#667" width="147.2" x="160" y="92" />
+  <text fill="#222" font-family="sans-serif" font-size="11" text-anchor="middle" x="233.6" y="108">Add Reorder Items</text>
+ </g>
+ <g class="ctl" data-name="cmdInfo" data-type="CommandButton">
+  <rect fill="#eef1f6" height="24" rx="4" ry="4" stroke="#667" width="24" x="908" y="60" />
+  <text fill="#222" font-family="sans-serif" font-size="11" text-anchor="middle" x="920" y="76">In…</text>
+ </g>
+ <g class="ctl" data-name="PurchaseOrderID" data-type="TextBox">
+  <rect fill="#fff" height="24" stroke="#888" width="100" x="136" y="204" />
+  <text fill="#999" font-family="sans-serif" font-size="11" x="139" y="220">PurchaseOrderID</text>
+ </g>
+ <g class="ctl" data-name="Label9" data-type="Label">
+  <text fill="#222" font-family="sans-serif" font-size="11" x="14" y="220">Purchase Order ID</text>
+ </g>
+ <g class="ctl" data-name="SubmittedDate" data-type="TextBox">
+  <rect fill="#fff" height="24" stroke="#888" width="100" x="464" y="268" />
+  <text fill="#999" font-family="sans-serif" font-size="11" x="467" y="284">SubmittedDate</text>
+ </g>
+ <g class="ctl" data-name="Label12" data-type="Label">
+  <text fill="#222" font-family="sans-serif" font-size="11" x="358" y="284">Submitted Date</text>
+ </g>
+ <g class="ctl" data-name="PaymentDate" data-type="TextBox">
+  <rect fill="#fff" height="24" stroke="#888" width="100" x="820" y="332" />
+  <text fill="#999" font-family="sans-serif" font-size="11" x="823" y="348">PaymentDate</text>
+ </g>
+ <g class="ctl" data-name="Label21" data-type="Label">
+  <text fill="#222" font-family="sans-serif" font-size="11" x="710" y="348">Payment Date</text>
+ </g>
+ <g class="ctl" data-name="Notes" data-type="TextBox">
+  <rect fill="#fff" height="60" stroke="#888" width="328" x="16" y="352" />
+  <text fill="#999" font-family="sans-serif" font-size="11" x="19" y="386">Notes</text>
+ </g>
+ <g class="ctl" data-name="Label48" data-type="Label">
+  <text fill="#222" font-family="sans-serif" font-size="11" x="18" y="344">Notes</text>
+ </g>
+ <g class="ctl" data-name="Label152" data-type="Label">
+  <text fill="#222" font-family="sans-serif" font-size="11" x="138" y="426">TIP: Use Shift+F2 for Zoom window</text>
+ </g>
+ <g class="ctl" data-name="VendorID" data-type="ComboBox">
+  <rect fill="#fff" height="24" stroke="#888" width="216" x="136" y="236" />
+  <rect fill="#e8e8e8" height="20" stroke="#888" width="14" x="338" y="236" />
+  <path d="M341.5 244 L348.5 244 L345 249 Z" fill="#555" />
+  <text fill="#999" font-family="sans-serif" font-size="11" x="139" y="250">VendorID</text>
+ </g>
+ <g class="ctl" data-name="Label15" data-type="Label">
+  <text fill="#222" font-family="sans-serif" font-size="11" x="26" y="252">Vendor</text>
+ </g>
+ <g class="ctl" data-name="sfrmPurchaseOrderLineItems" data-type="Subform">
+  <rect fill="#fafafa" height="188" stroke="#777" stroke-dasharray="6 4" width="568" x="16" y="444" />
+  <text fill="#666" font-family="sans-serif" font-size="11" text-anchor="middle" x="300" y="542">subform: sfrmPurchaseOrderLineItems</text>
+ </g>
+ <g class="ctl" data-name="ShippingFee" data-type="TextBox">
+  <rect fill="#fff" height="24" stroke="#888" width="100" x="820" y="236" />
+  <text fill="#999" font-family="sans-serif" font-size="11" x="823" y="252">ShippingFee</text>
+ </g>
+ <g class="ctl" data-name="Label161" data-type="Label">
+  <text fill="#222" font-family="sans-serif" font-size="11" x="718" y="252">4: Shipping Fee</text>
+ </g>
+ <g class="ctl" data-name="txtTaxAmount" data-type="TextBox">
+  <rect fill="#fff" height="24" stroke="#888" width="100" x="820" y="268" />
+  <text fill="#999" font-family="sans-serif" font-size="11" x="823" y="284">txtTaxAmount</text>
+ </g>
+ <g class="ctl" data-name="Label164" data-type="Label">
+  <text fill="#222" font-family="sans-serif" font-size="11" x="738" y="284">Tax Amount</text>
+ </g>
+ <g class="ctl" data-name="PaymentMethod" data-type="ComboBox">
+  <rect fill="#fff" height="24" stroke="#888" width="100" x="820" y="204" />
+  <rect fill="#e8e8e8" height="20" stroke="#888" width="14" x="906" y="204" />
+  <path d="M909.5 212 L916.5 212 L913 217 Z" fill="#555" />
+  <text fill="#999" font-family="sans-serif" font-size="11" x="823" y="218">PaymentMethod</text>
+ </g>
+ <g class="ctl" data-name="Label165" data-type="Label">
+  <text fill="#222" font-family="sans-serif" font-size="11" x="690" y="220">4: Payment Method</text>
+ </g>
+ <g class="ctl" data-name="txtTotal" data-type="TextBox">
+  <rect fill="#fff" height="24" stroke="#888" width="100" x="820" y="300" />
+  <text fill="#999" font-family="sans-serif" font-size="11" x="823" y="316">txtTotal</text>
+ </g>
+ <g class="ctl" data-name="Label167" data-type="Label">
+  <text fill="#222" font-family="sans-serif" font-size="11" x="738" y="316">Total</text>
+ </g>
+ <g class="ctl" data-name="ApprovedDate" data-type="TextBox">
+  <rect fill="#fff" height="24" stroke="#888" width="100" x="464" y="352" />
+  <text fill="#999" font-family="sans-serif" font-size="11" x="467" y="368">ApprovedDate</text>
+ </g>
+ <g class="ctl" data-name="Label169" data-type="Label">
+  <text fill="#222" font-family="sans-serif" font-size="11" x="354" y="368">Approved Date</text>
+ </g>
+ <g class="ctl" data-name="txtTaxRate" data-type="TextBox" opacity="0.45">
+  <rect fill="#fff" height="21" stroke="#888" width="164" x="136" y="264" />
+  <text fill="#999" font-family="sans-serif" font-size="11" x="139" y="278.5">txtTaxRate</text>
+ </g>
+ <g class="ctl" data-name="ReceivedDate" data-type="TextBox">
+  <rect fill="#fff" height="24" stroke="#888" width="100" x="464" y="408" />
+  <text fill="#999" font-family="sans-serif" font-size="11" x="467" y="424">ReceivedDate</text>
+ </g>
+ <g class="ctl" data-name="Label175" data-type="Label">
+  <text fill="#222" font-family="sans-serif" font-size="11" x="354" y="424">Received Date</text>
+ </g>
+ <g class="ctl" data-name="StatusName" data-type="TextBox">
+  <rect fill="#fff" height="24" stroke="#888" width="100" x="464" y="204" />
+  <text fill="#999" font-family="sans-serif" font-size="11" x="467" y="220">StatusName</text>
+ </g>
+ <g class="ctl" data-name="Label155" data-type="Label">
+  <text fill="#222" font-family="sans-serif" font-size="11" x="370" y="220">PO Status</text>
+ </g>
+ <g class="ctl" data-name="SubmittedBy" data-type="TextBox">
+  <rect fill="#fff" height="24" stroke="#888" width="212" x="464" y="236" />
+  <text fill="#999" font-family="sans-serif" font-size="11" x="467" y="252">SubmittedBy</text>
+ </g>
+ <g class="ctl" data-name="Label6" data-type="Label">
+  <text fill="#222" font-family="sans-serif" font-size="11" x="370" y="252">Submitted By</text>
+ </g>
+ <g class="ctl" data-name="ApprovedBy" data-type="TextBox">
+  <rect fill="#fff" height="24" stroke="#888" width="212" x="464" y="320" />
+  <text fill="#999" font-family="sans-serif" font-size="11" x="467" y="336">ApprovedBy</text>
+ </g>
+ <g class="ctl" data-name="Label171" data-type="Label">
+  <text fill="#222" font-family="sans-serif" font-size="11" x="370" y="336">Approved By</text>
+ </g>
+ <g class="ctl" data-name="StatusID" data-type="TextBox" opacity="0.45">
+  <rect fill="#fff" height="20" stroke="#888" width="56" x="564" y="208" />
+  <text fill="#999" font-family="sans-serif" font-size="11" x="567" y="222">StatusID</text>
+ </g>
+ <g class="ctl" data-name="SubmittedByID" data-type="TextBox" opacity="0.45">
+  <rect fill="#fff" height="20" stroke="#888" width="56" x="620" y="260" />
+  <text fill="#999" font-family="sans-serif" font-size="11" x="623" y="274">Submitt…</text>
+ </g>
+ <g class="ctl" data-name="ApprovedByID" data-type="TextBox" opacity="0.45">
+  <rect fill="#fff" height="20" stroke="#888" width="56" x="620" y="344" />
+  <text fill="#999" font-family="sans-serif" font-size="11" x="623" y="358">Approve…</text>
+ </g>
+ <g class="ctl" data-name="lblWorkflow" data-type="Label">
+  <text fill="#222" font-family="sans-serif" font-size="11" x="18" y="156">-------------------------- Workflow ------------------------------------</text>
+ </g>
+ <g class="ctl" data-name="cmdSubmitPO" data-type="CommandButton">
+  <rect fill="#eef1f6" height="24" rx="4" ry="4" stroke="#667" width="136" x="16" y="168" />
+  <text fill="#222" font-family="sans-serif" font-size="11" text-anchor="middle" x="84" y="184">1: Submit PO</text>
+ </g>
+ <g class="ctl" data-name="cmdApprovePO" data-type="CommandButton">
+  <rect fill="#eef1f6" height="24" rx="4" ry="4" stroke="#667" width="120" x="160" y="168" />
+  <text fill="#222" font-family="sans-serif" font-size="11" text-anchor="middle" x="220" y="184">2: Approve PO</text>
+ </g>
+ <g class="ctl" data-name="cmdReceivePO" data-type="CommandButton">
+  <rect fill="#eef1f6" height="24" rx="4" ry="4" stroke="#667" width="148" x="288" y="168" />
+  <text fill="#222" font-family="sans-serif" font-size="11" text-anchor="middle" x="362" y="184">3: Receive  PO</text>
+ </g>
+ <g class="ctl" data-name="cmdClosePO" data-type="CommandButton">
+  <rect fill="#eef1f6" height="24" rx="4" ry="4" stroke="#667" width="136" x="444" y="168" />
+  <text fill="#222" font-family="sans-serif" font-size="11" text-anchor="middle" x="512" y="184">4: Close PO</text>
+ </g>
+ <g class="ctl" data-name="TaxAmount" data-type="TextBox" opacity="0.45">
+  <rect fill="#fff" height="20" stroke="#888" width="100" x="820" y="356" />
+  <text fill="#999" font-family="sans-serif" font-size="11" x="823" y="370">TaxAmount</text>
+ </g>
+ <g class="ctl" data-name="PaymentAmount" data-type="TextBox" opacity="0.45">
+  <rect fill="#fff" height="20" stroke="#888" width="100" x="820" y="376" />
+  <text fill="#999" font-family="sans-serif" font-size="11" x="823" y="390">PaymentAmount</text>
+ </g>
+ <g class="ctl" data-name="txtModified" data-type="TextBox">
+  <rect fill="#fff" height="21" stroke="#888" width="584" x="352" y="664" />
+  <text fill="#999" font-family="sans-serif" font-size="11" x="355" y="678.5">txtModified</text>
+ </g>
+ <text fill="#555" font-family="sans-serif" font-size="11" font-style="italic" x="8" y="717">Reconstructed from the Access form definition; not a screenshot</text>
+</svg>
