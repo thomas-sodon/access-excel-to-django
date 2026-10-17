@@ -9,7 +9,7 @@ The original is Microsoft's Northwind 2.0 Developer Edition, an Access database 
 
 ### Before and after
 
-| Before: the Access order form, reconstructed from its definition | After: the same order in the Django app |
+| Before: the Access order form, reconstructed from its definition | After: the same screen in the Django app |
 |---|---|
 | ![Access order form, reconstructed](northwind/docs/img/before/frmorderdetails.svg) | ![Django order screen with its invoice](northwind/docs/img/after/order_to_ship-05-invoice.png) |
 

@@ -19,7 +19,7 @@ This page lists what we hold of the original application's data, where it is, un
 | Copies on a Windows + Access machine | none (no machine was used) | |
 | The engagement records (`engagement.json`, `answers.md`, `log.md`, `runs/`) | no (names, counts, hashes) | the engagement's history |
 
-On 2026-10-17 a purge dry run listed 13 top-level entries of the private directory (1,707 files) and 5 local databases.
+On 2026-10-17 a purge dry run listed 13 top-level entries of the private directory (3,402 files, about 81 MB; the count grows as each run adds logs and results) and 5 local databases.
 
 ## Where it is
 
