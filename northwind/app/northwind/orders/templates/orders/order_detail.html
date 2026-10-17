@@ -78,24 +78,7 @@
     </dl>
   </div>
   {% include "orders/order_lines.html#order-lines" %}
-  <table class="table table-sm w-auto ms-auto" id="order-amounts">
-    <tr>
-      <th>Subtotal</th>
-      <td class="text-end">{{ amounts.subtotal|money }}</td>
-    </tr>
-    <tr>
-      <th>Tax</th>
-      <td class="text-end">{{ amounts.tax|money }}</td>
-    </tr>
-    <tr>
-      <th>Shipping fee</th>
-      <td class="text-end">{{ amounts.shipping|money }}</td>
-    </tr>
-    <tr>
-      <th>Total</th>
-      <td class="text-end fw-bold">{{ amounts.total|money }}</td>
-    </tr>
-  </table>
+  {% include "orders/order_lines.html#order-amounts" %}
   <h2 class="h5">Next step</h2>
   <div class="d-flex flex-wrap gap-3 mb-3" id="order-actions">
     <form method="post"

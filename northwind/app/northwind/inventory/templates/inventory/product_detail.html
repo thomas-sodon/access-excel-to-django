@@ -13,11 +13,7 @@
     <div class="d-flex gap-2">
       <a class="btn btn-primary"
          href="{% url 'inventory:product_update' object.pk %}">Edit</a>
-      {% if actions.reorder %}
-        <a class="btn btn-warning"
-           id="reorder"
-           href="{% url 'inventory:product_reorder' object.pk %}">Reorder</a>
-      {% endif %}
+      {% if actions.reorder %}<a class="btn btn-warning" id="reorder" href="{{ reorder_url }}">Reorder</a>{% endif %}
       {% if actions.delete %}
         <a class="btn btn-outline-danger"
            href="{% url 'inventory:product_delete' object.pk %}">Delete</a>

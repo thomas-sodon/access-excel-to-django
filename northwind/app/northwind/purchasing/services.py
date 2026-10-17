@@ -45,6 +45,8 @@ from . import queries
 if TYPE_CHECKING:
     import datetime as dt
 
+    from northwind.legacy.models import Employee
+
 #: The rule ids the refusals name.
 R_002 = "R-purchasing-002"
 R_004 = "R-purchasing-004"
@@ -105,6 +107,30 @@ def _require_status(po: PurchaseOrder, status: int, rule: str, action: str) -> N
             f"is {_status_label(po.status_id)}."
         )
         raise refuse(rule, msg)
+
+
+NOT_AN_EMPLOYEE = (
+    "your sign-in is not linked to an employee (the employee whose e-mail address "
+    "is the one you sign in with), so you cannot be recorded as the {role}. Ask an "
+    "administrator to give your employee record your sign-in e-mail address."
+)
+
+
+def acting_employee(user: Any) -> Employee | None:
+    """The signed-in user's employee record (domain.people.signed_in_employee),
+    the one recorded as submitter or approver (R-purchasing-004, R-purchasing-005)."""
+    return signed_in_employee(user)
+
+
+def _require_employee(user: Any, rule: str, role: str) -> Employee:
+    """The employee to record as submitter or approver. A user without one is
+    refused: the original always records the signed-in employee, so a submitted or
+    approved purchase order never has a blank submitter or approver
+    (R-purchasing-004, R-purchasing-005)."""
+    employee = acting_employee(user)
+    if employee is None:
+        raise refuse(rule, NOT_AN_EMPLOYEE.format(role=role))
+    return employee
 
 
 def _key(value: Any) -> int | None:
@@ -215,11 +241,13 @@ def save_purchase_order(
 def submit_purchase_order(po: PurchaseOrder | int, user: Any = None) -> PurchaseOrder:
     """Submit a New purchase order (R-purchasing-003, R-purchasing-004): the
     signed-in user's employee becomes the submitter, now the submitted date and
-    time, and the status Submitted."""
+    time, and the status Submitted. A user without an employee record is refused,
+    so a submitted purchase order always has its submitter."""
     po = _reload(po)
     _require_status(po, Status.NEW, R_004, "submitted")
+    submitter = _require_employee(user, R_004, "submitter")
     with transaction.atomic(), acting_for(user):
-        po.submitted_by = signed_in_employee(user)
+        po.submitted_by = submitter
         po.submitted_date = now()
         po.status_id = Status.SUBMITTED
         po.save()
@@ -248,7 +276,8 @@ def approve_purchase_order(po: PurchaseOrder | int, user: Any = None) -> Purchas
     """Approve a Submitted purchase order (R-purchasing-003, R-purchasing-005,
     R-purchasing-006): only a user with the approve-purchase-order privilege, who
     may also be its submitter. Records the approver and now, sets Approved and
-    re-runs the stock allocation of its products."""
+    re-runs the stock allocation of its products. A user without an employee
+    record is refused, so an approved purchase order always has its approver."""
     po = _reload(po)
     _require_status(po, Status.SUBMITTED, R_005, "approved")
     if not can_approve(user):
@@ -256,8 +285,9 @@ def approve_purchase_order(po: PurchaseOrder | int, user: Any = None) -> Purchas
             R_005,
             "you do not have the privilege to approve purchase orders.",
         )
+    approver = _require_employee(user, R_005, "approver")
     with transaction.atomic(), acting_for(user):
-        po.approved_by = signed_in_employee(user)
+        po.approved_by = approver
         po.approved_date = now()
         po.status_id = Status.APPROVED
         po.save()

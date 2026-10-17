@@ -28,7 +28,15 @@
       <tbody>
         {% for line, price in lines %}
           <tr>
-            <td>{{ line.product_name }}</td>
+            <td>
+              {# The product opens the inventory area's product screen (R-orders-029). #}
+              {% product_url line.product_id as product_href %}
+              {% if product_href %}
+                <a href="{{ product_href }}">{{ line.product_name }}</a>
+              {% else %}
+                {{ line.product_name }}
+              {% endif %}
+            </td>
             <td>{{ line.product_category_name }}</td>
             <td class="text-end">{{ line.quantity }}</td>
             <td class="text-end">{{ line.unit_price|money }}</td>
@@ -76,4 +84,30 @@
     {% endif %}
   </div>
 {% endpartialdef order-lines %}
+{# The amounts sit beside the lines on the order screen. An HTMX swap of #}
+{# #order-lines also sends them out of band (amounts_oob), so Subtotal, Tax #}
+{# and Total follow the lines (R-orders-022). #}
+{% partialdef order-amounts %}
+<table class="table table-sm w-auto ms-auto"
+       id="order-amounts"
+       {% if amounts_oob %}hx-swap-oob="true"{% endif %}>
+  <tr>
+    <th>Subtotal</th>
+    <td class="text-end">{{ amounts.subtotal|money }}</td>
+  </tr>
+  <tr>
+    <th>Tax</th>
+    <td class="text-end">{{ amounts.tax|money }}</td>
+  </tr>
+  <tr>
+    <th>Shipping fee</th>
+    <td class="text-end">{{ amounts.shipping|money }}</td>
+  </tr>
+  <tr>
+    <th>Total</th>
+    <td class="text-end fw-bold">{{ amounts.total|money }}</td>
+  </tr>
+</table>
+{% endpartialdef order-amounts %}
+{% partial order-amounts %}
 {% endblock content %}

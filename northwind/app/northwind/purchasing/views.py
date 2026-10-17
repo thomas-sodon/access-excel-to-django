@@ -159,6 +159,9 @@ class PurchaseOrderDetailView(AreaAccessMixin, DetailView):
                 "can_edit": bool(services.editable_fields(po)),
                 "can_delete": po.status_id in services.WORKFLOW[:2],
                 "can_approve": services.can_approve(self.request.user),
+                "is_employee": (
+                    services.acting_employee(self.request.user) is not None
+                ),
                 "receive_form": ReceiveForm(purchase_order=po),
                 "close_form": CloseForm(purchase_order=po),
             },

@@ -1,5 +1,7 @@
 """Every screen of the Products and Inventory area: an anonymous user is sent to the
 sign-in page, a user without the role gets 403 and a user with the role gets 200.
+Every list and list panel keeps its record links unboosted, so a record opens as its
+own page and not inside the list.
 
 SCREENS is the contract's parametrize table (docs/contracts.md#feature-app-contract):
 it names every rules.json object of the area with type form or report and decision
@@ -7,10 +9,14 @@ keep (the area keeps no report, so there is no PDF row), plus the other routes o
 the area. The tests after it walk the screens' writes through the services.
 """
 
+from collections.abc import Callable
 from decimal import Decimal
+from html.parser import HTMLParser
 from http import HTTPStatus
 from io import BytesIO
 from typing import NamedTuple
+from urllib.parse import parse_qs
+from urllib.parse import urlsplit
 
 import pytest
 from django.conf import settings
@@ -21,6 +27,7 @@ from openpyxl import load_workbook
 from northwind.core.roles import role_names
 from northwind.core.roles import role_permissions
 from northwind.legacy import factories as f
+from northwind.legacy.models import OrderDetail
 from northwind.legacy.models import Product
 from northwind.legacy.models import ProductCategory
 from northwind.legacy.models import ProductVendor
@@ -348,3 +355,206 @@ def test_detail_page_states(staff_client):
         {"find": str(product.pk)},
     )
     assert jump.status_code == HTTPStatus.FOUND
+
+
+# ------------------------------------------------------------ HTMX boost on lists
+
+#: The URLconf with stand-ins for the orders and purchasing screens, so the record
+#: links of the panels render when this area runs alone.
+OTHER_AREA_URLS = "northwind.inventory.tests.other_area_urls"
+
+
+def product_page_of(product: Product) -> str:
+    return reverse("inventory:form_frmProductDetail", kwargs={"pk": product.pk})
+
+
+def product_page(link: ProductVendor) -> str:
+    return product_page_of(link.product)
+
+
+def order_page(link: ProductVendor) -> str:
+    order_id = OrderDetail.objects.get(product=link.product).order_id
+    return reverse("orders:form_frmOrderDetails", kwargs={"pk": order_id})
+
+
+def purchase_order_page(link: ProductVendor) -> str:
+    number = PurchaseOrderDetail.objects.get(product=link.product).purchase_order_id
+    return reverse("purchasing:form_frmPurchaseOrderDetails", kwargs={"pk": number})
+
+
+def category_page(link: ProductVendor) -> str:
+    category = link.product.product_category_id
+    return reverse("inventory:category_update", kwargs={"pk": category})
+
+
+class Listing(NamedTuple):
+    screen: Screen
+    opens: Callable[[ProductVendor], str]  # the page a record link opens
+    sortable: bool  # the header has sort links
+    boosted: bool  # its container boosts the sort and paging links into itself
+
+
+#: Every list and list panel of the area that links to records.
+LISTS = [
+    Listing(SCREENS[0], product_page, sortable=True, boosted=True),
+    Listing(
+        Screen(
+            "sfrmProductDetail_Orders",
+            "form_sfrmProductDetail_Orders",
+            "legacy.view_orderdetail",
+            "product",
+        ),
+        order_page,
+        sortable=False,
+        boosted=True,
+    ),
+    Listing(
+        Screen(
+            "sfrmProductDetail_PurchaseOrders",
+            "form_sfrmProductDetail_PurchaseOrders",
+            "legacy.view_purchaseorderdetail",
+            "product",
+        ),
+        purchase_order_page,
+        sortable=False,
+        boosted=True,
+    ),
+    Listing(
+        Screen(
+            "sfrmProductCategories",
+            "form_sfrmProductCategories",
+            "legacy.view_productcategory",
+        ),
+        category_page,
+        sortable=True,
+        boosted=False,
+    ),
+]
+
+VOID_ELEMENTS = frozenset(
+    {"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta"}
+    | {"source", "track", "wbr"},
+)
+
+
+class LinkBoosts(HTMLParser):
+    """The hx-boost value in force on each link and each table cell: its own, else
+    the nearest ancestor's (htmx inherits hx-boost, so a link inside a boosted
+    container loads with HTMX into the container's hx-target unless a closer element
+    says hx-boost="false"). Also each link's href by its id."""
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.open: list[tuple[str, str | None]] = []
+        self.boosts: dict[str, set[str | None]] = {}
+        self.cells: set[str | None] = set()
+        self.by_id: dict[str, str] = {}
+
+    def handle_starttag(self, tag, attrs):
+        attributes = dict(attrs)
+        inherited = self.open[-1][1] if self.open else None
+        boost = attributes.get("hx-boost", inherited)
+        href = attributes.get("href")
+        if tag == "a" and href:
+            self.boosts.setdefault(href, set()).add(boost)
+            if attributes.get("id"):
+                self.by_id[attributes["id"]] = href
+        if tag == "td":
+            self.cells.add(boost)
+        if tag not in VOID_ELEMENTS:
+            self.open.append((tag, boost))
+
+    def handle_endtag(self, tag):
+        for depth in range(len(self.open) - 1, -1, -1):
+            if self.open[depth][0] == tag:
+                del self.open[depth:]
+                return
+
+
+def scan(content: bytes) -> LinkBoosts:
+    parser = LinkBoosts()
+    parser.feed(content.decode())
+    parser.close()
+    return parser
+
+
+def listing_id(listing: Listing) -> str:
+    return screen_id(listing.screen)
+
+
+@pytest.mark.urls(OTHER_AREA_URLS)
+@pytest.mark.parametrize("htmx", [False, True], ids=["page", "htmx-partial"])
+@pytest.mark.parametrize("listing", LISTS, ids=listing_id)
+def test_record_links_of_a_list_are_not_boosted(
+    client,
+    user_with_role,
+    link,
+    listing,
+    htmx,
+):
+    """A record link opens its page normally; the sort links swap only the table."""
+    client.force_login(user_with_role(role_granting(listing.screen.permission)))
+    headers = {"HX-Request": "true"} if htmx else {}
+    page = scan(client.get(url_of(listing.screen, link), headers=headers).content)
+    assert page.cells, "the list shows no row"
+    assert "true" not in page.cells
+    record_url = listing.opens(link)
+    assert record_url in page.boosts, "the list shows no link to the record"
+    assert "true" not in page.boosts[record_url]
+    sort_links = [
+        href for href in page.boosts if "sort" in parse_qs(urlsplit(href).query)
+    ]
+    if listing.sortable:
+        assert sort_links, "the list table has no sort link"
+    expected = {"true"} if listing.boosted else {None}
+    assert all(page.boosts[href] == expected for href in sort_links)
+
+
+# ------------------------------------------------------- reorder and vendor dialog
+
+
+@pytest.fixture
+def two_vendors():
+    """A product short of its target with two linked vendors, by name."""
+    product = f.ProductFactory(target_level=8, minimum_reorder_quantity=1)
+    f.StockTakeFactory(product=product, quantity_on_hand=0)
+    first = f.ProductVendorFactory(
+        product=product,
+        vendor=f.VendorFactory(company_name="Alpha vendor"),
+    )
+    second = f.ProductVendorFactory(
+        product=product,
+        vendor=f.VendorFactory(company_name="Beta vendor"),
+    )
+    return product, first.vendor, second.vendor
+
+
+@pytest.mark.urls(OTHER_AREA_URLS)
+def test_reorder_button_opens_the_vendor_dialog(staff_client, two_vendors):
+    """R-inventory-018: the product page's Reorder goes through the purchasing
+    area's vendor dialog, which returns to this area's reorder screen."""
+    product, _, _ = two_vendors
+    page = scan(staff_client.get(product_page_of(product)).content)
+    button = urlsplit(page.by_id["reorder"])
+    dialog = reverse("purchasing:form_frmSelectVendorDialog", kwargs={"pk": product.pk})
+    assert button.path == dialog
+    reorder = reverse("inventory:product_reorder", kwargs={"pk": product.pk})
+    assert parse_qs(button.query) == {"next": [reorder]}
+
+
+def test_reorder_preselects_the_vendor_the_dialog_chose(staff_client, two_vendors):
+    """R-inventory-018: back from the vendor dialog (`?product=&vendor=`), the
+    reorder screen has that vendor selected; a vendor the product does not have is
+    ignored, and without one the screen asks for it."""
+    product, _, beta = two_vendors
+    url = reverse("inventory:product_reorder", kwargs={"pk": product.pk})
+    chosen = staff_client.get(url, {"product": product.pk, "vendor": beta.pk})
+    assert chosen.context["form"]["vendor"].value() == beta.pk
+    stranger = f.VendorFactory()
+    ignored = staff_client.get(url, {"product": product.pk, "vendor": stranger.pk})
+    assert ignored.context["form"]["vendor"].value() is None
+    assert staff_client.get(url).context["form"]["vendor"].value() is None
+    response = staff_client.post(url, {"vendor": beta.pk})
+    assert response.status_code == HTTPStatus.FOUND
+    line = PurchaseOrderDetail.objects.get(product=product)
+    assert line.purchase_order.vendor_id == beta.pk

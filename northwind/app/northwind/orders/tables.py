@@ -7,7 +7,13 @@ import django_tables2 as tables
 from .templatetags.orders_tags import money
 from .templatetags.orders_tags import phone
 
-ATTRS = {"class": "table table-sm table-striped"}
+#: hx-boost for the parts of a list table. Each list template boosts its
+#: #record-table container, so the sort links (thead) and the paging links swap only
+#: the table. The rows and the footer switch the boost off: a record link opens its
+#: page as a normal page load, never inside the list (R-orders-029).
+UNBOOSTED_ROWS = {"tbody": {"hx-boost": "false"}, "tfoot": {"hx-boost": "false"}}
+
+ATTRS = {"class": "table table-sm table-striped", **UNBOOSTED_ROWS}
 
 
 class MoneyColumn(tables.Column):

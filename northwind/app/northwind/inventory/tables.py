@@ -11,7 +11,13 @@ from northwind.legacy.models import StockTake
 
 from .links import other_area_url
 
-ATTRS = {"class": "table table-sm table-striped align-middle"}
+#: hx-boost for the parts of a table. The list and the panels boost their container,
+#: so the sort links (thead) and the paging links swap only the table or the panel.
+#: The rows and the footer switch the boost off: a record link opens its page as a
+#: normal page load, never inside the list (templates/feature-app tables.py).
+UNBOOSTED_ROWS = {"tbody": {"hx-boost": "false"}, "tfoot": {"hx-boost": "false"}}
+
+ATTRS = {"class": "table table-sm table-striped align-middle", **UNBOOSTED_ROWS}
 NUMBER = {"td": {"class": "text-end"}, "th": {"class": "text-end"}}
 
 

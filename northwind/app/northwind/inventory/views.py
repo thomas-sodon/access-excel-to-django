@@ -53,6 +53,7 @@ from .forms import ReorderForm
 from .forms import StockTakeForm
 from .forms import VendorLinkForm
 from .links import other_area_url
+from .links import reorder_entry_url
 from .reports import product_list_export
 from .tables import CategoryTable
 from .tables import ProductOrderTable
@@ -141,6 +142,7 @@ class ProductDetailView(InventoryAccessMixin, DetailView):
             levels=levels,
             attention=services.needs_reorder_attention(self.object, levels),
             actions=services.product_actions(self.object),
+            reorder_url=reorder_entry_url(self.object.pk),
             find_choices=queries.all_products_by_name().values_list(
                 "pk",
                 "product_name",
@@ -252,6 +254,19 @@ class ProductReorderView(InventoryAccessMixin, SingleObjectMixin, FormView):
         if self.object is None:
             self.object = super().get_object(queryset)
         return self.object
+
+    def get_initial(self):
+        """The vendor the vendor dialog chose (`?vendor=<id>`, R-inventory-018) is
+        preselected when it is one of the product's vendors."""
+        initial = super().get_initial()
+        chosen = self.request.GET.get("vendor", "").strip()
+        if chosen.isdigit():
+            linked = {
+                vendor.pk for vendor in services.linked_vendors(self.get_object())
+            }
+            if int(chosen) in linked:
+                initial["vendor"] = int(chosen)
+        return initial
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()

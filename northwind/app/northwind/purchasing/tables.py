@@ -6,7 +6,13 @@ from northwind.legacy.models import PurchaseOrder
 
 from . import queries
 
-TABLE_ATTRS = {"class": "table table-sm table-striped"}
+#: hx-boost for the parts of a list table. list.html and
+#: vendor_purchase_orders.html boost their container, so the sort links (thead) and
+#: the paging links swap only the table. The rows and the footer switch the boost
+#: off: a record link opens its page as a normal page load, never inside the list.
+UNBOOSTED_ROWS = {"tbody": {"hx-boost": "false"}, "tfoot": {"hx-boost": "false"}}
+
+TABLE_ATTRS = {"class": "table table-sm table-striped", **UNBOOSTED_ROWS}
 
 
 class PurchaseOrderListTable(tables.Table):

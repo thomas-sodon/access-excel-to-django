@@ -20,14 +20,26 @@
   </form>
 {% endblock content %}
 {% block inline_javascript %}
+  {# R-purchasing-023: a double-click on a vendor confirms it. crispy-bootstrap5 #}
+  {# renders each choice as <div class="form-check"> holding the radio and, beside #}
+  {# it, <label for="<radio id>">, so the handler sits on that container (the #}
+  {# radio and its label both bubble to it), else on the radio and its label. #}
   <script>
     document.addEventListener("DOMContentLoaded", function() {
       var dialog = document.getElementById("vendor-dialog");
       dialog.querySelectorAll("input[type=radio]").forEach(function(radio) {
-        var target = radio.closest("label") || radio;
-        target.addEventListener("dblclick", function() {
-          radio.checked = true;
-          dialog.querySelector("button[name=ok]").click();
+        var container = radio.closest(".form-check");
+        var targets = container ? [container] : [radio];
+        if (!container && radio.id) {
+          dialog.querySelectorAll("label[for='" + radio.id + "']").forEach(function(label) {
+            targets.push(label);
+          });
+        }
+        targets.forEach(function(target) {
+          target.addEventListener("dblclick", function() {
+            radio.checked = true;
+            dialog.querySelector("button[name=ok]").click();
+          });
         });
       });
     });

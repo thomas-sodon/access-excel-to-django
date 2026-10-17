@@ -7,6 +7,9 @@
 {% endblock title %}
 {% block content %}
   <h1 class="h3 my-3">Purchase orders of {{ vendor }}</h1>
+  {# The container boosts the sort and paging links, which swap only this partial. #}
+  {# The table switches the boost off on its rows (tables.UNBOOSTED_ROWS), so a #}
+  {# purchase order link loads its page normally instead of inside the panel. #}
   {% partialdef vendor-pos inline %}
   <div id="vendor-pos"
        hx-boost="true"

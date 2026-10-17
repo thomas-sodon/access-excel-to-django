@@ -6,12 +6,15 @@ SCREENS is the contract's parametrize table (docs/contracts.md#feature-app-contr
 it names every rules.json object of the area with type form or report and decision
 keep (frmPurchaseOrderDetails, frmPurchaseOrderList, frmSelectVendorDialog,
 sfrmCompanyDetail_VendorPurchaseOrders, sfrmPurchaseOrderLineItems; the area keeps
-no reports). The tests after it drive the screens' actions through the views.
+no reports). The tests after it drive the screens' actions through the views. Every
+list keeps its record links unboosted (LISTS), so a purchase order opens as its own
+page and not inside the list.
 """
 # Expected values are worked out by hand in each test.
 # ruff: noqa: PLR2004
 
 from decimal import Decimal
+from html.parser import HTMLParser
 from http import HTTPStatus
 from typing import NamedTuple
 
@@ -147,8 +150,11 @@ def messages_of(response) -> list[str]:
 
 
 @pytest.fixture
-def staff_client(client, user_with_role):
-    client.force_login(user_with_role("staff"))
+def staff_client(client, user_with_role, employee_for):
+    """A staff user whose sign-in e-mail is an employee's, so they can submit."""
+    user = user_with_role("staff")
+    employee_for(user)
+    client.force_login(user)
     return client
 
 
@@ -184,7 +190,34 @@ def test_create_then_submit_through_the_screens(staff_client, statuses, vendor):
     )
     assert po.status_id == Status.NEW
     staff_client.post(reverse("purchasing:submit", kwargs={"pk": po.pk}))
-    assert PurchaseOrder.objects.get(pk=po.pk).status_id == Status.SUBMITTED
+    po = PurchaseOrder.objects.select_related("submitted_by").get(pk=po.pk)
+    assert po.status_id == Status.SUBMITTED
+    assert (po.submitted_by.first_name, po.submitted_by.last_name) == ("Ann", "Buyer")
+    response = staff_client.get(
+        reverse("purchasing:form_frmPurchaseOrderDetails", kwargs={"pk": po.pk}),
+    )
+    assert b"Ann Buyer" in response.content
+
+
+def test_submit_without_an_employee_record_is_refused_on_screen(
+    client,
+    user_with_role,
+    record,
+):
+    """R-purchasing-004: a signed-in user whose e-mail is no employee's sees why
+    Submit cannot record them, and the refusal names the rule; nothing changes."""
+    client.force_login(user_with_role("staff"))
+    po = record["po"]
+    detail = reverse("purchasing:form_frmPurchaseOrderDetails", kwargs={"pk": po.pk})
+    assert b'id="po-not-employee"' in client.get(detail).content
+    response = client.post(reverse("purchasing:submit", kwargs={"pk": po.pk}))
+    assert any("R-purchasing-004" in text for text in messages_of(response))
+    po = PurchaseOrder.objects.get(pk=po.pk)
+    assert (po.status_id, po.submitted_by_id, po.submitted_date) == (
+        Status.NEW,
+        None,
+        None,
+    )
 
 
 def test_staff_cannot_approve(staff_client, record):
@@ -313,3 +346,130 @@ def test_vendor_tab_lists_only_submitted(staff_client, record, make_po, vendor):
     )
     assert response.context["po_count"] == 1
     assert [row.record.pk for row in response.context["table"].rows] == [shown.pk]
+
+
+# --------------------------------------------------------------- HTMX boost
+
+#: Every list and list panel of the area that links to purchase orders, with the url
+#: name of the page its record links open.
+LISTS = [
+    (SCREENS[0], "form_frmPurchaseOrderDetails"),
+    (SCREENS[-1], "form_frmPurchaseOrderDetails"),
+]
+
+VOID_ELEMENTS = frozenset(
+    {"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta"}
+    | {"source", "track", "wbr"},
+)
+
+
+class LinkBoosts(HTMLParser):
+    """The hx-boost value in force on each link: its own, else the nearest ancestor's.
+
+    htmx inherits hx-boost, so a link inside a boosted container loads with HTMX into
+    the container's hx-target unless a closer element says hx-boost="false".
+    """
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.open: list[tuple[str, str | None]] = []
+        self.boosts: dict[str, set[str | None]] = {}
+
+    def handle_starttag(self, tag, attrs):
+        attributes = dict(attrs)
+        inherited = self.open[-1][1] if self.open else None
+        boost = attributes.get("hx-boost", inherited)
+        if tag == "a" and attributes.get("href"):
+            self.boosts.setdefault(attributes["href"], set()).add(boost)
+        if tag not in VOID_ELEMENTS:
+            self.open.append((tag, boost))
+
+    def handle_endtag(self, tag):
+        for depth in range(len(self.open) - 1, -1, -1):
+            if self.open[depth][0] == tag:
+                del self.open[depth:]
+                return
+
+
+def link_boosts(content: bytes) -> dict[str, set[str | None]]:
+    """Each link's href, with the hx-boost values in force where it appears."""
+    parser = LinkBoosts()
+    parser.feed(content.decode())
+    parser.close()
+    return parser.boosts
+
+
+@pytest.mark.parametrize(
+    ("screen", "opens"),
+    LISTS,
+    ids=[screen_id(screen) for screen, _ in LISTS],
+)
+def test_record_links_of_a_list_are_not_boosted(staff_client, record, screen, opens):
+    """A purchase order link opens its page normally; the sort links swap only the
+    table."""
+    from northwind.legacy.factories import EmployeeFactory  # noqa: PLC0415
+
+    po = record["po"]
+    po.submitted_by = EmployeeFactory()  # the vendor tab lists submitted ones only
+    po.save()
+    boosts = link_boosts(staff_client.get(url_of(screen, record)).content)
+    record_url = reverse(f"purchasing:{opens}", kwargs={"pk": po.pk})
+    assert record_url in boosts, "the list shows no link to the purchase order"
+    assert "true" not in boosts[record_url]
+    sort_links = [href for href in boosts if "sort=" in href]
+    assert sort_links, "the list table has no sort link"
+    assert all(boosts[href] == {"true"} for href in sort_links)
+
+
+class ChoiceContainers(HTMLParser):
+    """For each radio of the vendor dialog: the classes of its enclosing elements,
+    and the label ids that sit in the same .form-check container."""
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.open: list[tuple[str, str]] = []
+        self.radios: dict[str, int] = {}  # radio id -> depth of its .form-check
+        self.labels: dict[str, int] = {}  # label for -> depth of its .form-check
+
+    def container_depth(self) -> int:
+        for depth in range(len(self.open) - 1, -1, -1):
+            if "form-check" in self.open[depth][1].split():
+                return depth
+        return -1
+
+    def handle_starttag(self, tag, attrs):
+        attributes = dict(attrs)
+        if tag == "input" and attributes.get("type") == "radio":
+            self.radios[attributes.get("id") or ""] = self.container_depth()
+        if tag == "label" and attributes.get("for"):
+            self.labels[attributes["for"]] = self.container_depth()
+        if tag not in VOID_ELEMENTS:
+            self.open.append((tag, attributes.get("class") or ""))
+
+    def handle_endtag(self, tag):
+        for depth in range(len(self.open) - 1, -1, -1):
+            if self.open[depth][0] == tag:
+                del self.open[depth:]
+                return
+
+
+def test_vendor_dialog_double_click_reaches_the_label(staff_client, record):
+    """R-purchasing-023: a double-click on a vendor confirms it. The handler sits on
+    each choice's .form-check container, which holds both the radio and the label
+    beside it (crispy-bootstrap5 renders the label next to the input, not around it),
+    so a double-click on the vendor's name reaches it."""
+    url = reverse(
+        "purchasing:form_frmSelectVendorDialog",
+        kwargs={"pk": record["product"].pk},
+    )
+    content = staff_client.get(url, {"next": "/purchasing/"}).content
+    parser = ChoiceContainers()
+    parser.feed(content.decode())
+    parser.close()
+    assert len(parser.radios) == 2  # the product's two vendors
+    for radio_id, depth in parser.radios.items():
+        assert radio_id, "each vendor radio has an id"
+        assert depth >= 0, "each vendor radio sits in a .form-check container"
+        assert parser.labels.get(radio_id) == depth, "its label is in that container"
+    assert b'radio.closest(".form-check")' in content
+    assert b'addEventListener("dblclick"' in content

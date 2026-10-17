@@ -16,9 +16,11 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core.exceptions import ValidationError
+from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
+from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.http import url_has_allowed_host_and_scheme
 from django.views import View
@@ -266,7 +268,6 @@ class OrderDetailView(AreaAccessMixin, DetailView):
         order = self.object
         context.update(order_context(order))
         context.update(
-            amounts=services.order_amounts(order),
             next_action=services.next_action(order),
             can_reprint=services.can_reprint_invoice(order),
             editable=bool(services.editable_order_fields(order)),
@@ -290,7 +291,8 @@ class OrderDetailView(AreaAccessMixin, DetailView):
 
 def order_context(order: Order, form: OrderLineForm | None = None) -> dict:
     """The order lines partial's context (sfrmOrderLineItems): lines with their
-    price, and the add form while the order is New (R-orders-013)."""
+    price, the order's amounts (R-orders-022) and the add form while the order is
+    New (R-orders-013)."""
     lines = (
         queries.order_lines().filter(order=order).select_related("order_detail_status")
     )
@@ -299,6 +301,7 @@ def order_context(order: Order, form: OrderLineForm | None = None) -> dict:
         "order": order,
         "lines": [(line, services.line_price(line)) for line in lines],
         "lines_open": lines_open,
+        "amounts": services.order_amounts(order),
         "line_form": form or (OrderLineForm() if lines_open else None),
     }
 
@@ -476,10 +479,22 @@ class OrderLinesView(AreaAccessMixin, View):
     template_name = "orders/order_lines.html"
 
     def render_lines(self, order, form=None):
-        template = self.template_name
-        if self.request.htmx:
-            template = f"{template}#order-lines"
-        return render(self.request, template, order_context(order, form))
+        context = order_context(order, form)
+        if not self.request.htmx:
+            return render(self.request, self.template_name, context)
+        # The swap replaces #order-lines; the amounts beside it on the order screen
+        # come along out of band, so they follow the lines (R-orders-022).
+        lines = render_to_string(
+            f"{self.template_name}#order-lines",
+            context,
+            request=self.request,
+        )
+        amounts = render_to_string(
+            f"{self.template_name}#order-amounts",
+            {**context, "amounts_oob": True},
+            request=self.request,
+        )
+        return HttpResponse(lines + amounts)
 
     def get(self, request, pk: int):
         order = get_object_or_404(Order, pk=pk)

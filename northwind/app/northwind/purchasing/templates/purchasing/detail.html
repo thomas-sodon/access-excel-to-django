@@ -123,6 +123,9 @@
           {% csrf_token %}
           <button type="submit" class="btn btn-outline-secondary">Add all No Stock products</button>
         </form>
+        {% if not is_employee %}
+          <span class="text-muted" id="po-not-employee">Submitting needs an employee record with your sign-in e-mail address.</span>
+        {% endif %}
       {% elif status == "Submitted" %}
         <form method="post"
               action="{% url 'purchasing:approve' object.pk %}"
@@ -132,6 +135,9 @@
         </form>
         {% if not can_approve %}
           <span class="text-muted">Approving needs the approve-purchase-order privilege.</span>
+        {% endif %}
+        {% if not is_employee %}
+          <span class="text-muted" id="po-not-employee">Approving needs an employee record with your sign-in e-mail address.</span>
         {% endif %}
       {% elif status == "Approved" %}
         {% crispy receive_form %}

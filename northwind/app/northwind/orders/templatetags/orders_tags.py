@@ -5,6 +5,8 @@ from __future__ import annotations
 from decimal import Decimal
 
 from django import template
+from django.urls import NoReverseMatch
+from django.urls import reverse
 
 from northwind.orders import services
 
@@ -38,3 +40,13 @@ def phone(value) -> str:
 def history(instance) -> str:
     """The record's one-line history (R-orders-032)."""
     return services.record_history(instance)
+
+
+@register.simple_tag
+def product_url(product_id) -> str:
+    """The inventory area's product screen that an order line's product opens
+    (R-orders-029), or "" while that area is not loaded (MP_ONLY_AREAS)."""
+    try:
+        return reverse("inventory:form_frmProductDetail", kwargs={"pk": product_id})
+    except NoReverseMatch:
+        return ""

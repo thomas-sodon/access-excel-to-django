@@ -22,6 +22,7 @@ from northwind.legacy import audit
 from northwind.legacy.choices import OrderDetailStatusCode
 from northwind.legacy.choices import PaymentMethod
 from northwind.legacy.choices import PurchaseOrderStatusCode as Status
+from northwind.legacy.factories import EmployeeFactory
 from northwind.legacy.factories import OrderDetailFactory
 from northwind.legacy.factories import ProductFactory
 from northwind.legacy.factories import ProductVendorFactory
@@ -156,6 +157,23 @@ def test_submit_is_refused_unless_new(make_po, user_with_role):
     assert po.submitted_date == dt.datetime(2024, 2, 1, 9, 0)  # noqa: DTZ001
 
 
+def test_submit_is_refused_without_an_employee_record(make_po, user_with_role):
+    """R-purchasing-004: the submitter is the signed-in user's employee record (the
+    employee with the user's e-mail address). A user without one is refused, so a
+    Submitted purchase order never has a blank submitter; nothing changes."""
+    user = user_with_role("staff")
+    EmployeeFactory(email_address="someone.else@example.org")
+    po = make_po(Status.NEW)
+    with refused("R-purchasing-004"):
+        services.submit_purchase_order(po, user=user)
+    po = fresh(po)
+    assert (po.status_id, po.submitted_by_id, po.submitted_date) == (
+        Status.NEW,
+        None,
+        None,
+    )
+
+
 # ---------------------------------------------------------------- R-005
 
 
@@ -188,6 +206,21 @@ def test_approver_may_approve_own_purchase_order(
     assert recent(po.approved_date)
 
 
+def test_approve_is_refused_without_an_employee_record(make_po, user_with_role):
+    """R-purchasing-005: an approver whose sign-in e-mail is no employee's cannot be
+    recorded as approver, so the approval is refused and the purchase order stays
+    Submitted without approver or approved date."""
+    po = make_po(Status.SUBMITTED)
+    with refused("R-purchasing-005"):
+        services.approve_purchase_order(po, user=user_with_role("approver"))
+    po = fresh(po)
+    assert (po.status_id, po.approved_by_id, po.approved_date) == (
+        Status.SUBMITTED,
+        None,
+        None,
+    )
+
+
 # ---------------------------------------------------------------- R-006
 
 
@@ -195,6 +228,7 @@ def test_allocation_reruns_after_approve_and_receive(
     po_with_line,
     product,
     user_with_role,
+    employee_for,
 ):
     """R-purchasing-006: approving re-runs allocation, so a waiting order line of 5
     (No Stock, nothing in stock) fits in the 10 now on order and becomes On Order;
@@ -207,7 +241,9 @@ def test_allocation_reruns_after_approve_and_receive(
     )
     po.status_id = Status.SUBMITTED
     po.save()
-    services.approve_purchase_order(po, user=user_with_role("approver"))
+    approver = user_with_role("approver")
+    employee_for(approver)
+    services.approve_purchase_order(po, user=approver)
     assert fresh(waiting).order_detail_status_id == OrderDetailStatusCode.ON_ORDER
     services.receive_purchase_order(po, confirmed=True)
     assert fresh(waiting).order_detail_status_id == OrderDetailStatusCode.ALLOCATED
@@ -252,13 +288,16 @@ def test_received_quantity_raises_available_stock(
     po_with_line,
     product,
     user_with_role,
+    employee_for,
 ):
     """R-purchasing-008: while Approved the 10 ordered count as on order; once
     received they count as stock bought, so the product's physical stock is 10."""
     po, _line = po_with_line
     po.status_id = Status.SUBMITTED
     po.save()
-    services.approve_purchase_order(po, user=user_with_role("approver"))
+    approver = user_with_role("approver")
+    employee_for(approver)
+    services.approve_purchase_order(po, user=approver)
     assert inventory.product_on_order(product) == 10
     assert inventory.product_available(product) == 0
     services.receive_purchase_order(po, confirmed=True)
