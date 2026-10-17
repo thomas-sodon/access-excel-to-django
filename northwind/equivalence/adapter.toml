@@ -1,0 +1,12 @@
+# How the equivalence harness starts the Django app (docs/contracts.md#harness).
+# Written by S4.data; `toolkit vendor-harness` leaves it alone.
+format_version = 1
+adapter = "django"
+project_dir = "../app"
+python = ["uv", "run", "--project", "../app", "python"]
+settings = "config.settings.test"
+entrypoint = "northwind.core.equivalence:DjangoAdapter"
+
+[databases]
+postgresql = "PG_URL"
+mssql = "MSSQL_URL"

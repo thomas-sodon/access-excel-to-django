@@ -1,0 +1,213 @@
+# Northwind app CI, written by `toolkit new-app` (do not edit by hand).
+# Synthetic data only: no toolkit, no secrets, no engagement data. The SQL Server password below
+# is a throwaway for the CI service container and is used nowhere else.
+name: northwind
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "northwind/**"
+      - ".github/workflows/northwind.yml"
+  pull_request:
+    paths:
+      - "northwind/**"
+      - ".github/workflows/northwind.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: northwind-${{ github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    working-directory: northwind/app
+
+jobs:
+  lint:
+    runs-on: ubuntu-24.04
+    env:
+      # The settings need a database URL; makemigrations --check only warns when no server answers.
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/northwind_demo
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10
+        with:
+          version: "0.13.1"
+      - run: uv sync --locked
+      - run: sudo apt-get install -y libpangoft2-1.0-0 libharfbuzz-subset0
+      - run: uv run ruff check .
+      - run: uv run ruff format --check .
+      - run: uv run djlint . --check --profile=django
+      - run: uv run djlint . --lint --profile=django
+      - run: uv run python manage.py makemigrations --check --dry-run
+
+  test-postgres:
+    runs-on: ubuntu-24.04
+    services:
+      postgres:
+        image: postgres:16.15@sha256:ca0bd484cb98bf4b24eb1010e73fb3fcbd6714d240fbc1a10eea5b7dbecb641d
+        env:
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 20
+    env:
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/northwind_demo
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10
+        with:
+          version: "0.13.1"
+      - run: uv sync --locked
+      - run: sudo apt-get install -y libpangoft2-1.0-0 libharfbuzz-subset0
+      - run: uv run pytest -q --create-db --ignore=tests/e2e --junitxml=junit-postgres.xml
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: junit-northwind-postgres
+          path: northwind/app/junit-postgres.xml
+          if-no-files-found: ignore
+
+  test-mssql:
+    runs-on: ubuntu-24.04
+    services:
+      mssql:
+        image: mcr.microsoft.com/mssql/server:2022-latest@sha256:cf8f0ab2ebe61feec2eed2629061a07d247f791c2a8ddda74a4ac9f06a291718
+        env:
+          ACCEPT_EULA: "Y"
+          MSSQL_PID: Developer
+          MSSQL_SA_PASSWORD: Ci-0nly-Throwaway
+        ports:
+          - 1433:1433
+        options: >-
+          --health-cmd "/opt/mssql-tools18/bin/sqlcmd -C -S localhost -U sa -P Ci-0nly-Throwaway -Q 'SELECT 1' -b -o /dev/null"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 20
+    env:
+      DATABASE_URL: mssql://sa:Ci-0nly-Throwaway@localhost:1433/northwind_demo
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10
+        with:
+          version: "0.13.1"
+      - run: uv sync --locked
+      - run: sudo apt-get install -y libpangoft2-1.0-0 libharfbuzz-subset0
+      - run: sudo ACCEPT_EULA=Y apt-get install -y unixodbc
+      - run: uv run pytest -q --create-db --ignore=tests/e2e --junitxml=junit-mssql.xml
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: junit-northwind-mssql
+          path: northwind/app/junit-mssql.xml
+          if-no-files-found: ignore
+
+  harness:
+    # The vendored equivalence harness on the synthetic seeds. No DATABASE_URL: the plugin sets it
+    # from PG_URL or MSSQL_URL (adapter.toml databases) plus /northwind, so the test database is
+    # test_northwind. The 0.90 gate is enforced locally by the S5 and S6 exit criteria.
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        db: [postgresql, mssql]
+    services:
+      postgres:
+        image: postgres:16.15@sha256:ca0bd484cb98bf4b24eb1010e73fb3fcbd6714d240fbc1a10eea5b7dbecb641d
+        env:
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 20
+      mssql:
+        image: mcr.microsoft.com/mssql/server:2022-latest@sha256:cf8f0ab2ebe61feec2eed2629061a07d247f791c2a8ddda74a4ac9f06a291718
+        env:
+          ACCEPT_EULA: "Y"
+          MSSQL_PID: Developer
+          MSSQL_SA_PASSWORD: Ci-0nly-Throwaway
+        ports:
+          - 1433:1433
+        options: >-
+          --health-cmd "/opt/mssql-tools18/bin/sqlcmd -C -S localhost -U sa -P Ci-0nly-Throwaway -Q 'SELECT 1' -b -o /dev/null"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 20
+    env:
+      PG_URL: postgres://postgres:postgres@localhost:5432
+      MSSQL_URL: mssql://sa:Ci-0nly-Throwaway@localhost:1433
+      EQ_DB: ${{ matrix.db }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10
+        with:
+          version: "0.13.1"
+      - run: uv sync --locked
+      - run: sudo apt-get install -y libpangoft2-1.0-0 libharfbuzz-subset0
+      - run: sudo ACCEPT_EULA=Y apt-get install -y unixodbc
+      - name: equivalence on seed-1, seed-2 and seed-3
+        run: |
+          export EQUIVALENCE_PRIVATE="$RUNNER_TEMP/equivalence-private"
+          mkdir -p "$EQUIVALENCE_PRIVATE"
+          status=0
+          for seed in seed-1 seed-2 seed-3; do
+            uv run python -m pytest -c pyproject.toml --rootdir . ../equivalence/tests -p equivalence.plugin --create-db --eq-adapter ../equivalence/adapter.toml --eq-dataset "$seed" --eq-db "$EQ_DB" --eq-allow-not-implemented --junitxml "junit-equivalence-$seed-$EQ_DB.xml" -p no:cacheprovider || status=1
+          done
+          exit "$status"
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: junit-northwind-harness-${{ matrix.db }}
+          path: northwind/app/junit-equivalence-*.xml
+          if-no-files-found: ignore
+
+  e2e:
+    # Runs only once tests/e2e/ holds test_*.py (hashFiles is not available in a job-level if).
+    # The e2e tests load seed-1. No screenshots or video in CI.
+    runs-on: ubuntu-24.04
+    services:
+      postgres:
+        image: postgres:16.15@sha256:ca0bd484cb98bf4b24eb1010e73fb3fcbd6714d240fbc1a10eea5b7dbecb641d
+        env:
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 20
+    env:
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/northwind_demo
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10
+        if: hashFiles('northwind/app/tests/e2e/test_*.py') != ''
+        with:
+          version: "0.13.1"
+      - if: hashFiles('northwind/app/tests/e2e/test_*.py') != ''
+        run: uv sync --locked
+      - if: hashFiles('northwind/app/tests/e2e/test_*.py') != ''
+        run: sudo apt-get install -y libpangoft2-1.0-0 libharfbuzz-subset0
+      - if: hashFiles('northwind/app/tests/e2e/test_*.py') != ''
+        run: uv run playwright install --with-deps chromium
+      - if: hashFiles('northwind/app/tests/e2e/test_*.py') != ''
+        env:
+          DJANGO_ALLOW_ASYNC_UNSAFE: "true"
+        run: uv run pytest -q --create-db tests/e2e --junitxml=junit-e2e.xml
+      - uses: actions/upload-artifact@v7
+        if: always() && hashFiles('northwind/app/tests/e2e/test_*.py') != ''
+        with:
+          name: junit-northwind-e2e
+          path: northwind/app/junit-e2e.xml
+          if-no-files-found: ignore
