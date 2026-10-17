@@ -13,6 +13,7 @@
     "saved_queries.py": "bb079c43440b7038f3e9927f004760891f066796caafb8bf05b19e3a1a5c88b6",
     "testing.py": "4e2aad634f12a121f4c2bf9bfbcd01eda5182100fa7286d8d2e128b2c7df3be5",
     "tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tests/fixtures/engagement_kind/.gitattributes": "32d685de3778de4801ccc3c4a60c27ee80950119c2c83433f2d69f5a08a4ec3d",
     "tests/fixtures/engagement_kind/dataset.json": "278b348270538355d523999ab41d3abec617de80b28f2981f9b3a3e9479baf4b",
     "tests/fixtures/engagement_kind/tables/Example.csv": "903b2d9c1fe5f432c954fc5b9e0272955d8d97f66d73f4fc98d47e7f6cd26c6e",
     "tests/test_create_demo_users.py": "ee76b896964a09e00d43edb966cadc65e6ecd6c63a480c93c4ebc3afa449af85",
