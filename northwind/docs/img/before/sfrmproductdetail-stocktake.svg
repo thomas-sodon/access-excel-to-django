@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg height="230" role="img" viewBox="0 0 300 230" width="300" xmlns="http://www.w3.org/2000/svg">
+ <title>sfrmProductDetail_StockTake: Reconstructed from the Access form definition; not a screenshot</title>
+ <rect fill="#ffffff" height="230" stroke="none" width="300" x="0" y="0" />
+ <text fill="#222" font-family="sans-serif" font-size="14" font-weight="bold" x="8" y="19">sfrmProductDetail_StockTake</text>
+ <g class="section" data-kind="detail" data-name="Detail">
+  <rect fill="#dfe3ea" height="16" stroke="#9aa" width="284" x="8" y="36" />
+  <text fill="#334" font-family="sans-serif" font-size="10" x="12" y="48">Detail (Detail)</text>
+  <rect fill="#f7f7f7" height="144" stroke="#9aa" width="284" x="8" y="52" />
+ </g>
+ <g class="ctl" data-name="StockTakeID" data-type="TextBox">
+  <rect fill="#fff" height="21" stroke="#888" width="96" x="153.33" y="70" />
+  <text fill="#999" font-family="sans-serif" font-size="11" x="156.33" y="84.5">StockTakeID</text>
+ </g>
+ <g class="ctl" data-name="Label0" data-type="Label">
+  <text fill="#222" font-family="sans-serif" font-size="11" x="32" y="84.5">StockTakeID</text>
+ </g>
+ <g class="ctl" data-name="StockTakeDate" data-type="TextBox">
+  <rect fill="#fff" height="21.33" stroke="#888" width="96" x="153.33" y="136" />
+  <text fill="#999" font-family="sans-serif" font-size="11" x="156.33" y="150.67">StockTakeDate</text>
+ </g>
+ <g class="ctl" data-name="Label1" data-type="Label">
+  <text fill="#222" font-family="sans-serif" font-size="11" x="32" y="150.67">StockTake Date</text>
+ </g>
+ <g class="ctl" data-name="ProductID" data-type="TextBox">
+  <rect fill="#fff" height="21.33" stroke="#888" width="96" x="153.33" y="92" />
+  <text fill="#999" font-family="sans-serif" font-size="11" x="156.33" y="106.67">ProductID</text>
+ </g>
+ <g class="ctl" data-name="Label2" data-type="Label">
+  <text fill="#222" font-family="sans-serif" font-size="11" x="32" y="106.67">ProductID</text>
+ </g>
+ <g class="ctl" data-name="QuantityOnHand" data-type="TextBox">
+  <rect fill="#fff" height="21.33" stroke="#888" width="96" x="153.33" y="114" />
+  <text fill="#999" font-family="sans-serif" font-size="11" x="156.33" y="128.67">QuantityOnHand</text>
+ </g>
+ <g class="ctl" data-name="Label3" data-type="Label">
+  <text fill="#222" font-family="sans-serif" font-size="11" x="32" y="128.67">Quantity On Hand</text>
+ </g>
+ <g class="ctl" data-name="ExpectedQuantity" data-type="TextBox">
+  <rect fill="#fff" height="25.33" stroke="#888" width="96" x="153.33" y="158" />
+  <text fill="#999" font-family="sans-serif" font-size="11" x="156.33" y="174.67">ExpectedQuant…</text>
+ </g>
+ <g class="ctl" data-name="Label16" data-type="Label">
+  <text fill="#222" font-family="sans-serif" font-size="11" x="32" y="174.67">Expected Quantity</text>
+ </g>
+ <text fill="#555" font-family="sans-serif" font-size="11" font-style="italic" x="8" y="221">Reconstructed from the Access form definition; not a screenshot</text>
+</svg>

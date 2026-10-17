@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg height="198" role="img" viewBox="0 0 536 198" width="536" xmlns="http://www.w3.org/2000/svg">
+ <title>sfrmPurchaseOrderLineItems: Reconstructed from the Access form definition; not a screenshot</title>
+ <rect fill="#ffffff" height="198" stroke="none" width="536" x="0" y="0" />
+ <text fill="#222" font-family="sans-serif" font-size="14" font-weight="bold" x="8" y="19">sfrmPurchaseOrderLineItems</text>
+ <g class="section" data-kind="form_header" data-name="FormHeader">
+  <rect fill="#dfe3ea" height="16" stroke="#9aa" width="520" x="8" y="36" />
+  <text fill="#334" font-family="sans-serif" font-size="10" x="12" y="48">Form header (FormHeader)</text>
+  <rect fill="#eef0f3" height="24" stroke="#9aa" width="520" x="8" y="52" />
+ </g>
+ <g class="section" data-kind="detail" data-name="Detail">
+  <rect fill="#dfe3ea" height="16" stroke="#9aa" width="520" x="8" y="76" />
+  <text fill="#334" font-family="sans-serif" font-size="10" x="12" y="88">Detail (Detail)</text>
+  <rect fill="#f7f7f7" height="24" stroke="#9aa" width="520" x="8" y="92" />
+ </g>
+ <g class="section" data-kind="form_footer" data-name="FormFooter">
+  <rect fill="#dfe3ea" height="16" stroke="#9aa" width="520" x="8" y="116" />
+  <text fill="#334" font-family="sans-serif" font-size="10" x="12" y="128">Form footer (FormFooter)</text>
+  <rect fill="#eef0f3" height="32" stroke="#9aa" width="520" x="8" y="132" />
+ </g>
+ <g class="ctl" data-name="boxHeaderControls" data-type="Rectangle">
+  <rect fill="none" height="24" stroke="#bbb" width="520" x="8" y="52" />
+ </g>
+ <g class="ctl" data-name="Label0" data-type="Label">
+  <text fill="#222" font-family="sans-serif" font-size="11" x="14" y="68">#</text>
+ </g>
+ <g class="ctl" data-name="Label1" data-type="Label">
+  <text fill="#222" font-family="sans-serif" font-size="11" x="58" y="68">Product</text>
+ </g>
+ <g class="ctl" data-name="Label2" data-type="Label">
+  <text fill="#222" font-family="sans-serif" font-size="11" x="290" y="68">Quantity</text>
+ </g>
+ <g class="ctl" data-name="Label3" data-type="Label">
+  <text fill="#222" font-family="sans-serif" font-size="11" x="358" y="68">Unit Cost</text>
+ </g>
+ <g class="ctl" data-name="Label122" data-type="Label">
+  <text fill="#222" font-family="sans-serif" font-size="11" x="438" y="68">Cost</text>
+ </g>
+ <g class="ctl" data-name="PurchaseOrderDetailID" data-type="TextBox">
+  <rect fill="#fff" height="24" stroke="#888" width="40" x="12" y="92" />
+  <text fill="#999" font-family="sans-serif" font-size="11" x="15" y="108">Purc…</text>
+ </g>
+ <g class="ctl" data-name="UnitCost" data-type="TextBox">
+  <rect fill="#fff" height="24" stroke="#888" width="72" x="360" y="92" />
+  <text fill="#999" font-family="sans-serif" font-size="11" x="363" y="108">UnitCost</text>
+ </g>
+ <g class="ctl" data-name="Quantity" data-type="TextBox">
+  <rect fill="#fff" height="24" stroke="#888" width="72" x="284" y="92" />
+  <text fill="#999" font-family="sans-serif" font-size="11" x="287" y="108">Quantity</text>
+ </g>
+ <g class="ctl" data-name="ProductID" data-type="ComboBox">
+  <rect fill="#fff" height="24" stroke="#888" width="224" x="56" y="92" />
+  <rect fill="#e8e8e8" height="20" stroke="#888" width="14" x="266" y="92" />
+  <path d="M269.5 100 L276.5 100 L273 105 Z" fill="#555" />
+  <text fill="#999" font-family="sans-serif" font-size="11" x="59" y="106">ProductID</text>
+ </g>
+ <g class="ctl" data-name="Price" data-type="TextBox">
+  <rect fill="#fff" height="24" stroke="#888" width="88" x="436" y="92" />
+  <text fill="#999" font-family="sans-serif" font-size="11" x="439" y="108">Price</text>
+ </g>
+ <g class="ctl" data-name="txtSubTotal" data-type="TextBox">
+  <rect fill="#fff" height="24" stroke="#888" width="88" x="436" y="136" />
+  <text fill="#999" font-family="sans-serif" font-size="11" x="439" y="152">txtSubTotal</text>
+ </g>
+ <g class="ctl" data-name="Label124" data-type="Label">
+  <text fill="#222" font-family="sans-serif" font-size="11" x="358" y="152.97">SubTotal</text>
+ </g>
+ <text fill="#555" font-family="sans-serif" font-size="11" font-style="italic" x="8" y="189">Reconstructed from the Access form definition; not a screenshot</text>
+</svg>

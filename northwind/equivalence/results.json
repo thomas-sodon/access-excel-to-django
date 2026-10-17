@@ -1,0 +1,152 @@
+{
+  "cells": [
+    {
+      "dataset": "engagement",
+      "db": "postgresql",
+      "errors": 0,
+      "failed": 0,
+      "not_implemented": 0,
+      "not_passed": [],
+      "passed": 54,
+      "rate": 1.0,
+      "skipped": 0,
+      "suite": "equivalence",
+      "total": 54
+    },
+    {
+      "dataset": "engagement",
+      "db": "mssql",
+      "errors": 0,
+      "failed": 0,
+      "not_implemented": 0,
+      "not_passed": [],
+      "passed": 54,
+      "rate": 1.0,
+      "skipped": 0,
+      "suite": "equivalence",
+      "total": 54
+    },
+    {
+      "dataset": "seed-1",
+      "db": "postgresql",
+      "errors": 0,
+      "failed": 0,
+      "not_implemented": 0,
+      "not_passed": [],
+      "passed": 52,
+      "rate": 1.0,
+      "skipped": 0,
+      "suite": "equivalence",
+      "total": 52
+    },
+    {
+      "dataset": "seed-1",
+      "db": "mssql",
+      "errors": 0,
+      "failed": 0,
+      "not_implemented": 0,
+      "not_passed": [],
+      "passed": 52,
+      "rate": 1.0,
+      "skipped": 0,
+      "suite": "equivalence",
+      "total": 52
+    },
+    {
+      "dataset": "seed-2",
+      "db": "postgresql",
+      "errors": 0,
+      "failed": 0,
+      "not_implemented": 0,
+      "not_passed": [],
+      "passed": 54,
+      "rate": 1.0,
+      "skipped": 0,
+      "suite": "equivalence",
+      "total": 54
+    },
+    {
+      "dataset": "seed-2",
+      "db": "mssql",
+      "errors": 0,
+      "failed": 0,
+      "not_implemented": 0,
+      "not_passed": [],
+      "passed": 54,
+      "rate": 1.0,
+      "skipped": 0,
+      "suite": "equivalence",
+      "total": 54
+    },
+    {
+      "dataset": "seed-3",
+      "db": "postgresql",
+      "errors": 0,
+      "failed": 0,
+      "not_implemented": 0,
+      "not_passed": [],
+      "passed": 54,
+      "rate": 1.0,
+      "skipped": 0,
+      "suite": "equivalence",
+      "total": 54
+    },
+    {
+      "dataset": "seed-3",
+      "db": "mssql",
+      "errors": 0,
+      "failed": 0,
+      "not_implemented": 0,
+      "not_passed": [],
+      "passed": 54,
+      "rate": 1.0,
+      "skipped": 0,
+      "suite": "equivalence",
+      "total": 54
+    },
+    {
+      "dataset": "fixtures",
+      "db": "postgresql",
+      "errors": 0,
+      "failed": 0,
+      "not_implemented": 0,
+      "passed": 157,
+      "rate": 1.0,
+      "skipped": 0,
+      "suite": "rules",
+      "total": 157
+    },
+    {
+      "dataset": "fixtures",
+      "db": "mssql",
+      "errors": 0,
+      "failed": 0,
+      "not_implemented": 0,
+      "passed": 157,
+      "rate": 1.0,
+      "skipped": 0,
+      "suite": "rules",
+      "total": 157
+    },
+    {
+      "dataset": "seed-1",
+      "db": "postgresql",
+      "errors": 0,
+      "failed": 0,
+      "not_implemented": 0,
+      "passed": 5,
+      "rate": 1.0,
+      "skipped": 0,
+      "suite": "e2e",
+      "total": 5
+    }
+  ],
+  "date": "2026-10-17",
+  "engagement": "northwind-demo",
+  "format_version": 1,
+  "gate": {
+    "min_cell_rate": 1.0,
+    "pooled_rate": 1.0,
+    "threshold": 0.9
+  }
+}
