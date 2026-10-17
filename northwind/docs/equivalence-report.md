@@ -65,7 +65,7 @@ Unit tests count every kept unit of the kind once per cell where it is character
 
 **Kept rules with a test.**
 
-| Test kind | Kept rules | With a test | Proven by |
+| Test kind | Kept rules | With a test | Checked by |
 |---|---|---|---|
 | rule | 88 | 88 | a rule test whose docstring starts with the rule id (`*/tests/test_rules.py`) |
 | equivalence | 23 | 23 | a kept unit that implements one of the rule's sources |
@@ -103,7 +103,7 @@ Unit tests count every kept unit of the kind once per cell where it is character
 | tables | 28 |
 | vba_nonblank_lines | 6,886 |
 
-Access report layouts and report-level totals are proven by the S5 view tests (test_views.py), rule tests and end-to-end tests, not by goldens (the Access reference adapter's render_document raises NotImplementedError).
+Access report layouts and report-level totals are checked by the S5 view tests (test_views.py), rule tests and end-to-end tests (not compared with Access), not by goldens (the Access reference adapter's render_document raises NotImplementedError).
 
 ## Rule tests and end-to-end tests
 
