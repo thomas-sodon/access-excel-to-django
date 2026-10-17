@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% load orders_tags %}
+
+{% block title %}
+  {{ company.company_type_name }}: {{ company }}
+{% endblock title %}
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center my-3">
+    {# Titled with the company type (R-orders-035). #}
+    <h1 class="h3" id="company-heading">{{ company.company_type_name }}: {{ company }}</h1>
+    <div>
+      <a class="btn btn-outline-primary"
+         href="{% url 'orders:company_update' company.pk %}">Edit</a>
+      <a class="btn btn-outline-danger"
+         href="{% url 'orders:company_delete' company.pk %}">Delete</a>
+    </div>
+  </div>
+  <div class="row">
+    <dl class="col-md-6 row">
+      <dt class="col-5">Business phone</dt>
+      <dd class="col-7">
+        {{ company.business_phone|phone }}
+      </dd>
+      <dt class="col-5">Address</dt>
+      <dd class="col-7">
+        {{ company.business_address }}
+      </dd>
+      <dt class="col-5">Website</dt>
+      <dd class="col-7">
+        {{ company.website|default:"" }}
+      </dd>
+      <dt class="col-5">Standard tax status</dt>
+      <dd class="col-7">
+        {{ company.tax_status_name }}
+      </dd>
+      <dt class="col-5">Notes</dt>
+      <dd class="col-7">
+        {{ company.notes|default:""|linebreaksbr }}
+      </dd>
+    </dl>
+    <div class="col-md-6" id="related-list">
+      {% if related %}<h2 class="h5">{{ related_heading }}</h2>{% endif %}
+      {% if related == "customer_orders" %}
+        {% include "orders/company_orders.html#customer-orders" %}
+      {% elif related == "shipper_orders" %}
+        {% include "orders/company_orders.html#shipper-orders" %}
+      {% elif related == "purchase_orders" %}
+        {% include "orders/company_orders.html#purchase-orders" %}
+      {% endif %}
+    </div>
+  </div>
+  {% include "orders/company_contacts.html#contacts" %}
+  <p class="text-muted small" id="record-history">{{ company|history }}</p>
+  <p>
+    <a href="{% url 'orders:form_frmCompanyList' %}">Back to the company list</a>
+  </p>
+{% endblock content %}

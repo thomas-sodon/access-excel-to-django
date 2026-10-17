@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% load partials orders_tags %}
+
+{% block title %}
+  {{ employee.full_name_fnln }}
+{% endblock title %}
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center my-3">
+    <h1 class="h3">{{ employee.title|default:"" }} {{ employee.full_name_fnln }}</h1>
+    <div>
+      <a class="btn btn-outline-primary"
+         href="{% url 'orders:employee_update' employee.pk %}">Edit</a>
+      <a class="btn btn-outline-secondary"
+         href="{% url 'orders:form_sfrmEmployee_Privileges' employee.pk %}">Privileges</a>
+      <a class="btn btn-outline-danger"
+         href="{% url 'orders:employee_delete' employee.pk %}">Delete</a>
+    </div>
+  </div>
+  <dl class="row">
+    <dt class="col-3">Job title</dt>
+    <dd class="col-9">
+      {{ employee.job_title }}
+    </dd>
+    <dt class="col-3">E-mail</dt>
+    <dd class="col-9">
+      {{ employee.email_address|default:"" }}
+    </dd>
+    <dt class="col-3">Primary phone</dt>
+    <dd class="col-9">
+      {{ employee.primary_phone|phone }}
+    </dd>
+    <dt class="col-3">Secondary phone</dt>
+    <dd class="col-9">
+      {{ employee.secondary_phone|phone }}
+    </dd>
+    <dt class="col-3">Supervisor</dt>
+    <dd class="col-9">
+      {{ employee.supervisor|default:"" }}
+    </dd>
+    <dt class="col-3">Privileges</dt>
+    <dd class="col-9">
+      {% for grant in grants %}
+        {{ grant.privilege }}
+        {% if not forloop.last %},{% endif %}
+      {% empty %}
+        none
+      {% endfor %}
+    </dd>
+    <dt class="col-3">Notes</dt>
+    <dd class="col-9">
+      {{ employee.notes|default:""|linebreaksbr }}
+    </dd>
+  </dl>
+  <h2 class="h5">Recent orders</h2>
+  {% partialdef recent-orders inline %}
+  {# The employee's orders among the 20 most recent orders of all employees (R-orders-027). #}
+  <table class="table table-sm table-striped" id="recent-orders">
+    <thead>
+      <tr>
+        <th>Order #</th>
+        <th>Order date</th>
+        <th class="text-end">Total</th>
+        <th>Status</th>
+        <th>Salesperson</th>
+        <th>Customer</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for order in recent_orders %}
+        <tr>
+          <td>
+            <a href="{% url 'orders:form_frmOrderDetails' order.pk %}">{{ order.pk }}</a>
+          </td>
+          <td>{{ order.order_date|date:"n/j/Y" }}</td>
+          <td class="text-end">{{ order.order_total|money }}</td>
+          <td>{{ order.order_status_name }}</td>
+          <td>{{ order.full_name_fnln }}</td>
+          <td>{{ order.company_name }}</td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="6" class="text-muted">No recent orders.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endpartialdef recent-orders %}
+<p class="text-muted small" id="record-history">{{ employee|history }}</p>
+<p>
+  <a href="{% url 'orders:form_frmEmployeeList' %}">Back to the employee list</a>
+</p>
+{% endblock content %}

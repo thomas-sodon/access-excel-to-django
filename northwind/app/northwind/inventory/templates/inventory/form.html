@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}
+  Products and Inventory
+{% endblock title %}
+{% block content %}
+  <h1 class="h3 my-3">
+    {% if object %}
+      {{ object }}
+    {% else %}
+      New
+    {% endif %}
+  </h1>
+  {% crispy form %}
+  <p class="mt-3">
+    <a href="{% url 'inventory:form_sfrmProductCategories' %}">Back to the categories</a>
+  </p>
+{% endblock content %}

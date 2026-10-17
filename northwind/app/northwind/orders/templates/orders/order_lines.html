@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags partials orders_tags %}
+
+{% block title %}
+  Order {{ order.pk }}: lines
+{% endblock title %}
+{% block content %}
+  <h1 class="h3 my-3">
+    <a href="{% url 'orders:form_frmOrderDetails' order.pk %}">Order {{ order.pk }}</a>: lines
+  </h1>
+  {% partialdef order-lines inline %}
+  <div id="order-lines">
+    <h2 class="h5">Lines</h2>
+    <table class="table table-sm table-striped">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Category</th>
+          <th class="text-end">Quantity</th>
+          <th class="text-end">Unit price</th>
+          <th class="text-end">Discount</th>
+          <th class="text-end">Price</th>
+          <th>Status</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for line, price in lines %}
+          <tr>
+            <td>
+              {# The product opens the inventory area's product screen (R-orders-029). #}
+              {% product_url line.product_id as product_href %}
+              {% if product_href %}
+                <a href="{{ product_href }}">{{ line.product_name }}</a>
+              {% else %}
+                {{ line.product_name }}
+              {% endif %}
+            </td>
+            <td>{{ line.product_category_name }}</td>
+            <td class="text-end">{{ line.quantity }}</td>
+            <td class="text-end">{{ line.unit_price|money }}</td>
+            <td class="text-end">{{ line.discount|percent }}</td>
+            <td class="text-end">{{ price|money }}</td>
+            <td>{{ line.order_detail_status }}</td>
+            <td>
+              {% if lines_open %}
+                <a href="{% url 'orders:order_line_update' order.pk line.pk %}">Edit</a>
+                <a href="{% url 'orders:order_line_delete' order.pk line.pk %}">Delete</a>
+              {% endif %}
+            </td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="8" class="text-muted">No lines yet.</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% if line_form %}
+      <form method="post"
+            action="{% url 'orders:form_sfrmOrderLineItems' order.pk %}"
+            hx-post="{% url 'orders:form_sfrmOrderLineItems' order.pk %}"
+            hx-target="#order-lines"
+            hx-swap="outerHTML"
+            class="row g-2 align-items-end">
+        {% csrf_token %}
+        {{ line_form.non_field_errors }}
+        <div class="col-md-3"
+             hx-get="{% url 'orders:form_sfrmOrderLineItems' order.pk %}"
+             hx-trigger="change"
+             hx-include="closest form"
+             hx-target="#order-lines"
+             hx-swap="outerHTML">{{ line_form.category|as_crispy_field }}</div>
+        <div class="col-md-3">{{ line_form.product|as_crispy_field }}</div>
+        <div class="col-md-2">{{ line_form.quantity|as_crispy_field }}</div>
+        <div class="col-md-2">{{ line_form.discount|as_crispy_field }}</div>
+        <div class="col-md-2">
+          <button type="submit" class="btn btn-primary mb-3">Add line</button>
+        </div>
+      </form>
+    {% elif not lines_open %}
+      <p class="text-muted small">Lines can be changed only while the order is New.</p>
+    {% endif %}
+  </div>
+{% endpartialdef order-lines %}
+{# The amounts sit beside the lines on the order screen. An HTMX swap of #}
+{# #order-lines also sends them out of band (amounts_oob), so Subtotal, Tax #}
+{# and Total follow the lines (R-orders-022). #}
+{% partialdef order-amounts %}
+<table class="table table-sm w-auto ms-auto"
+       id="order-amounts"
+       {% if amounts_oob %}hx-swap-oob="true"{% endif %}>
+  <tr>
+    <th>Subtotal</th>
+    <td class="text-end">{{ amounts.subtotal|money }}</td>
+  </tr>
+  <tr>
+    <th>Tax</th>
+    <td class="text-end">{{ amounts.tax|money }}</td>
+  </tr>
+  <tr>
+    <th>Shipping fee</th>
+    <td class="text-end">{{ amounts.shipping|money }}</td>
+  </tr>
+  <tr>
+    <th>Total</th>
+    <td class="text-end fw-bold">{{ amounts.total|money }}</td>
+  </tr>
+</table>
+{% endpartialdef order-amounts %}
+{% partial order-amounts %}
+{% endblock content %}

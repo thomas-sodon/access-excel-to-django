@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}
+  Products and Inventory: delete {{ object }}
+{% endblock title %}
+{% block content %}
+  <h1 class="h3 my-3">Delete {{ object }}?</h1>
+  {% crispy form %}
+  <p class="mt-3">
+    <a href="{{ cancel_url }}">Cancel</a>
+  </p>
+{% endblock content %}

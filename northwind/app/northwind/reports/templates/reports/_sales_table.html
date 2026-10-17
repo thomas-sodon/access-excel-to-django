@@ -1,0 +1,33 @@
+{% load reports_format %}
+
+<table class="report-table">
+  <thead>
+    <tr>
+      <th>{{ report.report.period_title }}</th>
+      <th>{{ report.report.series_title }}</th>
+      <th class="amount">Order Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for group in report.groups %}
+      <tr class="group-header">
+        <td colspan="3">{{ group.label }}</td>
+      </tr>
+      {% for row in group.rows %}
+        <tr>
+          <td>{{ row.period_label }}</td>
+          <td>{{ row.series_name }}</td>
+          <td class="amount">{{ row.total|currency }}</td>
+        </tr>
+      {% endfor %}
+      <tr class="subtotal">
+        <td colspan="2">Total Orders for {{ group.label }}</td>
+        <td class="amount">{{ group.subtotal|currency }}</td>
+      </tr>
+    {% endfor %}
+    <tr class="grand-total">
+      <td colspan="2">Grand Total</td>
+      <td class="amount">{{ report.grand_total|currency }}</td>
+    </tr>
+  </tbody>
+</table>

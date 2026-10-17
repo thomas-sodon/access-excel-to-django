@@ -1,0 +1,31 @@
+<table class="table table-sm w-auto" id="product-levels">
+  <caption class="caption-top">Stock levels</caption>
+  <tbody>
+    <tr>
+      <th scope="row">Quantity to sell</th>
+      <td class="text-end">{{ levels.to_sell }}</td>
+    </tr>
+    <tr>
+      <th scope="row">No stock (waiting order lines)</th>
+      <td class="text-end">{{ levels.no_stock }}</td>
+    </tr>
+    <tr>
+      <th scope="row">Allocated</th>
+      <td class="text-end">{{ levels.allocated }}</td>
+    </tr>
+    <tr>
+      <th scope="row">On order</th>
+      <td class="text-end">{{ levels.on_order }}</td>
+    </tr>
+    <tr {% if attention %}class="table-warning"{% endif %}>
+      <th scope="row">Suggested reorder quantity</th>
+      <td class="text-end">
+        {% if attention %}
+          <strong>{{ levels.reorder_quantity }}</strong>
+        {% else %}
+          {{ levels.reorder_quantity }}
+        {% endif %}
+      </td>
+    </tr>
+  </tbody>
+</table>

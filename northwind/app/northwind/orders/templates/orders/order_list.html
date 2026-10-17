@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags django_tables2 partials orders_tags %}
+
+{% block title %}
+  Orders
+{% endblock title %}
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center my-3">
+    <h1 class="h3">Orders</h1>
+    <div>
+      <a class="btn btn-outline-secondary"
+         href="{% url 'orders:form_frmCompanyList' %}">Companies</a>
+      <a class="btn btn-outline-secondary"
+         href="{% url 'orders:form_frmEmployeeList' %}">Employees</a>
+      <a class="btn btn-primary" href="{% url 'orders:order_create' %}">New order</a>
+    </div>
+  </div>
+  <form method="get"
+        class="row g-2 align-items-end"
+        hx-get="{% url 'orders:form_frmOrderList' %}"
+        hx-target="#record-table"
+        hx-swap="outerHTML"
+        hx-push-url="true"
+        hx-trigger="change, submit">
+    <div class="col-auto">{{ filter.form.show|as_crispy_field }}</div>
+    <div class="col-auto">{{ filter.form.q|as_crispy_field }}</div>
+    <div class="col-auto">
+      <button type="submit" class="btn btn-secondary btn-sm mb-3">Filter</button>
+    </div>
+  </form>
+  {# The container boosts the sort and paging links, which swap only this partial. #}
+  {# The table switches the boost off on its rows (tables.UNBOOSTED_ROWS), so a #}
+  {# record link loads its page normally instead of inside the list. #}
+  {% partialdef record-table inline %}
+  <div id="record-table"
+       hx-boost="true"
+       hx-target="#record-table"
+       hx-swap="outerHTML">
+    {% if no_recent_orders %}<div class="alert alert-info">There are no recent orders.</div>{% endif %}
+    {% render_table table %}
+    <p class="fw-semibold" id="order-list-footer">{{ footer_count }} orders, total {{ footer_total|money }}</p>
+  </div>
+{% endpartialdef record-table %}
+{% endblock content %}

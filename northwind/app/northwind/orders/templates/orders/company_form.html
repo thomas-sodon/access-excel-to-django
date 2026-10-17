@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}
+  {{ title }}
+{% endblock title %}
+{% block content %}
+  <h1 class="h3 my-3">{{ title }}</h1>
+  <form method="post">
+    {% csrf_token %}
+    {% if confirm %}
+      {# Saving a company asks first; No discards the changes (R-orders-036). #}
+      <div class="alert alert-info" id="confirm-save">
+        <p class="mb-2">Do you want to save your changes?</p>
+        <button type="submit" name="confirmed" value="yes" class="btn btn-primary">Yes</button>
+        <a class="btn btn-secondary" href="{{ cancel_url }}">No</a>
+      </div>
+    {% endif %}
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a class="btn btn-link" href="{{ cancel_url }}">Cancel</a>
+  </form>
+{% endblock content %}

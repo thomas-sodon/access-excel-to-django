@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}
+  Select a vendor
+{% endblock title %}
+{% block content %}
+  <h1 class="h3 my-3">Select a vendor</h1>
+  <p id="vendor-prompt">
+    {{ product }} has several vendors. Select the vendor to reorder it from, then OK (or Cancel).
+    A double-click on a vendor confirms it.
+  </p>
+  <form method="post" id="vendor-dialog">
+    {% csrf_token %}
+    <input type="hidden" name="next" value="{{ next }}" />
+    {% crispy form %}
+    <button type="submit" name="ok" class="btn btn-primary">OK</button>
+    <button type="submit" name="cancel" class="btn btn-secondary">Cancel</button>
+  </form>
+{% endblock content %}
+{% block inline_javascript %}
+  {# R-purchasing-023: a double-click on a vendor confirms it. crispy-bootstrap5 #}
+  {# renders each choice as <div class="form-check"> holding the radio and, beside #}
+  {# it, <label for="<radio id>">, so the handler sits on that container (the #}
+  {# radio and its label both bubble to it), else on the radio and its label. #}
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var dialog = document.getElementById("vendor-dialog");
+      dialog.querySelectorAll("input[type=radio]").forEach(function(radio) {
+        var container = radio.closest(".form-check");
+        var targets = container ? [container] : [radio];
+        if (!container && radio.id) {
+          dialog.querySelectorAll("label[for='" + radio.id + "']").forEach(function(label) {
+            targets.push(label);
+          });
+        }
+        targets.forEach(function(target) {
+          target.addEventListener("dblclick", function() {
+            radio.checked = true;
+            dialog.querySelector("button[name=ok]").click();
+          });
+        });
+      });
+    });
+  </script>
+{% endblock inline_javascript %}

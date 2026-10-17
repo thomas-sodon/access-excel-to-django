@@ -1,0 +1,18 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      {% block title %}
+      {% endblock title %}
+    </title>
+    {# Local stylesheet only, so the PDF renders offline; it sets A4 and the page footer. #}
+    <link href="{% static 'reports/reports.css' %}" rel="stylesheet" />
+  </head>
+  <body class="report report-pdf">
+    {% block content %}
+    {% endblock content %}
+  </body>
+</html>

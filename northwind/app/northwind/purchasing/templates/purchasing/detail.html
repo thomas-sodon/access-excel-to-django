@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags purchasing_tags %}
+
+{% block title %}
+  Purchase order {{ object.pk }}
+{% endblock title %}
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center my-3">
+    <h1 class="h3">Purchase order {{ object.pk }}</h1>
+    <div>
+      {% if can_edit %}
+        <a class="btn btn-primary"
+           href="{% url 'purchasing:update' object.pk %}">Edit</a>
+      {% endif %}
+      <a class="btn btn-secondary"
+         href="{% url 'purchasing:print' object.pk %}">Print</a>
+      <a class="btn btn-secondary"
+         href="{% url 'purchasing:print' object.pk %}?format=pdf">PDF</a>
+      {% if can_delete %}
+        <form method="post"
+              action="{% url 'purchasing:delete' object.pk %}"
+              class="d-inline"
+              onsubmit="return confirm('Delete this purchase order and all its lines?');">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-outline-danger">Delete</button>
+        </form>
+      {% endif %}
+    </div>
+  </div>
+  <ol class="list-inline" id="po-workflow">
+    {% for label, done in steps %}
+      <li class="list-inline-item">
+        <span class="badge {% if done %}text-bg-success{% else %}text-bg-light border{% endif %}">
+          {{ label }}
+          {% if done %}(done){% endif %}
+        </span>
+      </li>
+    {% endfor %}
+  </ol>
+  <div class="row">
+    <div class="col-md-6">
+      <dl class="row">
+        <dt class="col-sm-5">Vendor</dt>
+        <dd class="col-sm-7">
+          {{ object.vendor }}
+        </dd>
+        <dt class="col-sm-5">Status</dt>
+        <dd class="col-sm-7">
+          {{ object.status_name }}
+        </dd>
+        <dt class="col-sm-5">Submitted by</dt>
+        <dd class="col-sm-7">
+          {{ object.submitted_by_name|default_if_none:"" }}
+        </dd>
+        <dt class="col-sm-5">Submitted</dt>
+        <dd class="col-sm-7">
+          {{ object.submitted_date|default_if_none:"" }}
+        </dd>
+        <dt class="col-sm-5">Approved by</dt>
+        <dd class="col-sm-7">
+          {{ object.approved_by_name|default_if_none:"" }}
+        </dd>
+        <dt class="col-sm-5">Approved</dt>
+        <dd class="col-sm-7">
+          {{ object.approved_date|default_if_none:"" }}
+        </dd>
+        <dt class="col-sm-5">Received</dt>
+        <dd class="col-sm-7">
+          {{ object.received_date|default_if_none:"" }}
+        </dd>
+        <dt class="col-sm-5">Notes</dt>
+        <dd class="col-sm-7">
+          {{ object.notes|default_if_none:""|linebreaksbr }}
+        </dd>
+      </dl>
+    </div>
+    <div class="col-md-6">
+      <dl class="row" id="po-amounts">
+        <dt class="col-sm-5">Shipping fee</dt>
+        <dd class="col-sm-7">
+          {{ object.shipping_fee|money }}
+        </dd>
+        <dt class="col-sm-5">Tax</dt>
+        <dd class="col-sm-7">
+          {% if object.tax_amount is not None %}
+            {{ object.tax_amount|money }}
+          {% else %}
+            {{ amounts.tax|money }}
+          {% endif %}
+        </dd>
+        <dt class="col-sm-5">Total</dt>
+        <dd class="col-sm-7">
+          {% if object.payment_amount is not None %}
+            {{ object.payment_amount|money }}
+          {% else %}
+            {{ amounts.total|money }}
+          {% endif %}
+        </dd>
+        <dt class="col-sm-5">Payment method</dt>
+        <dd class="col-sm-7">
+          {{ object.get_payment_method_display|default_if_none:"" }}
+        </dd>
+        <dt class="col-sm-5">Payment date</dt>
+        <dd class="col-sm-7">
+          {{ object.payment_date|default_if_none:"" }}
+        </dd>
+      </dl>
+    </div>
+  </div>
+  <div class="card my-3">
+    <div class="card-body" id="po-actions">
+      {% if status == "New" %}
+        <form method="post"
+              action="{% url 'purchasing:submit' object.pk %}"
+              class="d-inline">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        <form method="post"
+              action="{% url 'purchasing:add_no_stock' object.pk %}"
+              class="d-inline">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-outline-secondary">Add all No Stock products</button>
+        </form>
+        {% if not is_employee %}
+          <span class="text-muted" id="po-not-employee">Submitting needs an employee record with your sign-in e-mail address.</span>
+        {% endif %}
+      {% elif status == "Submitted" %}
+        <form method="post"
+              action="{% url 'purchasing:approve' object.pk %}"
+              class="d-inline">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-primary">Approve</button>
+        </form>
+        {% if not can_approve %}
+          <span class="text-muted">Approving needs the approve-purchase-order privilege.</span>
+        {% endif %}
+        {% if not is_employee %}
+          <span class="text-muted" id="po-not-employee">Approving needs an employee record with your sign-in e-mail address.</span>
+        {% endif %}
+      {% elif status == "Approved" %}
+        {% crispy receive_form %}
+      {% elif status == "Received" %}
+        {% crispy close_form %}
+      {% else %}
+        <span class="text-muted">This purchase order is closed and read-only.</span>
+      {% endif %}
+    </div>
+  </div>
+  <h2 class="h5">Line items</h2>
+  {% include "purchasing/lines.html#lines" %}
+  <p class="text-muted small" id="po-audit">
+    Created by {{ object.added_by|default_if_none:"" }} on {{ object.added_on|default_if_none:"" }};
+    last changed by {{ object.modified_by|default_if_none:"" }} on {{ object.modified_on|default_if_none:"" }}.
+  </p>
+  <p>
+    <a href="{% url 'purchasing:form_frmPurchaseOrderList' %}">Back to the list</a>
+  </p>
+{% endblock content %}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+  Fall Catalog
+{% endblock title %}
+{% block css %}
+  {{ block.super }}
+  <link href="{% static 'reports/reports.css' %}" rel="stylesheet" />
+{% endblock css %}
+{% block content %}
+  <div class="report my-3">
+    <p class="no-print">
+      <a href="{{ back_url }}">Back to the catalog</a>
+      <a class="btn btn-secondary btn-sm ms-3" href="{{ pdf_url }}">PDF</a>
+    </p>
+    {% include part_template %}
+  </div>
+{% endblock content %}

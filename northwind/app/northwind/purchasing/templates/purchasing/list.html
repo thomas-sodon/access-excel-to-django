@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags django_tables2 partials purchasing_tags %}
+
+{% block title %}
+  Purchase orders
+{% endblock title %}
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center my-3">
+    <h1 class="h3">Purchase orders</h1>
+    {% if perms.legacy.add_purchaseorder %}
+      <a class="btn btn-primary" href="{% url 'purchasing:create' %}">New purchase order</a>
+    {% endif %}
+  </div>
+  <form method="get"
+        hx-get="{% url 'purchasing:form_frmPurchaseOrderList' %}"
+        hx-target="#po-table"
+        hx-swap="outerHTML"
+        hx-push-url="true"
+        hx-trigger="change, submit">
+    {{ filter.form|crispy }}
+    <button type="submit" class="btn btn-secondary btn-sm">Filter</button>
+  </form>
+  {# The container boosts the sort and paging links, which swap only this partial. #}
+  {# The table switches the boost off on its rows (tables.UNBOOSTED_ROWS), so a #}
+  {# purchase order link loads its page normally instead of inside the list. #}
+  {% partialdef po-table inline %}
+  <div id="po-table"
+       hx-boost="true"
+       hx-target="#po-table"
+       hx-swap="outerHTML">
+    {% render_table table %}
+    <p class="fw-bold" id="po-footer">
+      Purchase orders: {{ po_count }}.
+      Total cost: {{ po_total_cost|money }}
+    </p>
+  </div>
+{% endpartialdef po-table %}
+{% endblock content %}

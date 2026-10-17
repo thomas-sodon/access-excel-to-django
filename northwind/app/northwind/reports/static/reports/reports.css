@@ -1,0 +1,210 @@
+/* Sales and Catalog Reports: the report pages on screen, in print and as A4 PDFs
+   (WeasyPrint). Local file only, so the PDFs render offline. */
+
+@page {
+  size: A4;
+  margin: 15mm 12mm 18mm;
+
+  @bottom-left {
+    content: string(footer);
+    font-family: "DejaVu Sans", Arial, sans-serif;
+    font-size: 8pt;
+  }
+
+  @bottom-right {
+    content: "Page " counter(page) " of " counter(pages);
+    font-family: "DejaVu Sans", Arial, sans-serif;
+    font-size: 8pt;
+  }
+}
+
+/* The footer text of every page: the report's production time, or the catalog title. */
+.report-footer {
+  string-set: footer content();
+  font-size: 8pt;
+  color: #555;
+}
+
+.report-pdf {
+  font-family: "DejaVu Sans", Arial, sans-serif;
+  font-size: 9.5pt;
+  color: #000;
+  background: #fff;
+}
+
+.report h1 {
+  font-size: 16pt;
+  margin: 0 0 4pt;
+}
+
+.report h2 {
+  font-size: 12pt;
+  margin: 10pt 0 4pt;
+}
+
+.report-criteria {
+  margin: 0 0 8pt;
+}
+
+.report-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 8pt;
+}
+
+.report-table th,
+.report-table td {
+  padding: 2pt 6pt;
+  border-bottom: 0.5pt solid #ccc;
+  text-align: left;
+  vertical-align: top;
+}
+
+.report-table .amount {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.report-table .group-header td {
+  font-weight: bold;
+  background: #f0f0f0;
+}
+
+.report-table .subtotal td,
+.report-table .grand-total td {
+  font-weight: bold;
+  border-top: 1pt solid #000;
+}
+
+.report-table .grand-total td {
+  border-bottom: 2pt double #000;
+}
+
+.report-table tr {
+  break-inside: avoid;
+}
+
+.report-table thead {
+  display: table-header-group;
+}
+
+/* The printed chart: one bar per salesperson or product. */
+.chart-bars {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 10pt;
+}
+
+.chart-bars td {
+  padding: 1pt 4pt;
+}
+
+.chart-bars .bar-cell {
+  width: 55%;
+}
+
+.chart-bars .bar {
+  height: 8pt;
+  background: #4e79a7;
+}
+
+.chart-box {
+  position: relative;
+  max-width: 900px;
+  margin-bottom: 1rem;
+}
+
+/* The catalog. */
+.catalog-page {
+  break-after: page;
+}
+
+.catalog-section {
+  break-before: page;
+}
+
+.catalog-cover h1 {
+  font-size: 28pt;
+  margin: 40pt 0 20pt;
+}
+
+.catalog-category-head {
+  display: flex;
+  gap: 12pt;
+  margin-bottom: 8pt;
+}
+
+.catalog-image {
+  flex: 0 0 90pt;
+  width: 90pt;
+  height: 90pt;
+  border: 0.5pt solid #999;
+  background: #eee;
+  color: #777;
+  font-size: 32pt;
+  line-height: 90pt;
+  text-align: center;
+}
+
+.catalog-figures {
+  margin: 4pt 0 0;
+}
+
+.catalog-figures dt,
+.catalog-figures dd {
+  display: inline;
+  margin: 0;
+}
+
+.catalog-figures dd {
+  margin-right: 12pt;
+}
+
+.catalog-note {
+  font-style: italic;
+}
+
+.toc {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.toc td {
+  padding: 2pt 0;
+  border-bottom: 0.5pt dotted #777;
+}
+
+.toc .toc-page {
+  width: 40pt;
+  text-align: right;
+}
+
+.order-form-lines td {
+  height: 14pt;
+}
+
+.write-line {
+  border-bottom: 0.5pt solid #000;
+  min-height: 14pt;
+  margin-bottom: 6pt;
+}
+
+.catalog-ship-via ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.tick-box {
+  display: inline-block;
+  width: 9pt;
+  height: 9pt;
+  border: 0.75pt solid #000;
+  margin-right: 4pt;
+  vertical-align: middle;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}

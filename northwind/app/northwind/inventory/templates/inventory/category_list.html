@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% load django_tables2 %}
+
+{% block title %}
+  Products and Inventory: categories
+{% endblock title %}
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center my-3 flex-wrap gap-2">
+    <h1 class="h3 mb-0">Product categories</h1>
+    <div class="d-flex gap-2">
+      <a class="btn btn-primary" href="{% url 'inventory:category_create' %}">New category</a>
+      <a class="btn btn-outline-secondary"
+         href="{% url 'inventory:form_frmProductList' %}">Products</a>
+    </div>
+  </div>
+  <div class="table-responsive">{% render_table table %}</div>
+{% endblock content %}

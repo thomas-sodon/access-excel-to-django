@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}
+  Purchasing and receiving
+{% endblock title %}
+{% block content %}
+  <h1 class="h3 my-3">
+    {% if object %}
+      Purchase order {{ object.pk }}
+    {% else %}
+      New purchase order
+    {% endif %}
+  </h1>
+  {% if not object %}
+    <p class="text-muted">
+      Choose the vendor and save. Line items can be added once the purchase order is saved;
+      the vendor cannot be changed after that.
+    </p>
+  {% endif %}
+  {% crispy form %}
+  <p>
+    {% if object %}
+      <a href="{% url 'purchasing:form_frmPurchaseOrderDetails' object.pk %}">Back to the purchase order</a>
+    {% else %}
+      <a href="{% url 'purchasing:form_frmPurchaseOrderList' %}">Back to the list</a>
+    {% endif %}
+  </p>
+{% endblock content %}

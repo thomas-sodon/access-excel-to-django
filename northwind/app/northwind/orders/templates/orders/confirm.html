@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}
+  {{ title }}
+{% endblock title %}
+{% block content %}
+  <h1 class="h3 my-3">{{ title }}</h1>
+  {% if refusal %}
+    <div class="alert alert-warning" id="refusal">{{ refusal }}</div>
+    <a class="btn btn-secondary" href="{{ cancel_url }}">Back</a>
+  {% else %}
+    <p id="question">{{ question }}</p>
+    <form method="post">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-danger">Yes</button>
+      <a class="btn btn-secondary" href="{{ cancel_url }}">No</a>
+    </form>
+  {% endif %}
+{% endblock content %}

@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% load partials orders_tags %}
+
+{% block title %}
+  {{ company }}: orders
+{% endblock title %}
+{% block content %}
+  <h1 class="h3 my-3">
+    <a href="{% url 'orders:form_frmCompanyDetail' company.pk %}">{{ company }}</a>
+  </h1>
+  {% partialdef customer-orders inline %}
+  <table class="table table-sm table-striped" id="customer-orders">
+    <thead>
+      <tr>
+        <th>Order #</th>
+        <th>Order date</th>
+        <th>Salesperson</th>
+        <th>Shipper</th>
+        <th class="text-end">Total</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for order in customer_orders %}
+        <tr>
+          <td>
+            <a href="{% url 'orders:form_frmOrderDetails' order.pk %}">{{ order.pk }}</a>
+          </td>
+          <td>{{ order.order_date|date:"n/j/Y" }}</td>
+          <td>{{ order.full_name_fnln }}</td>
+          <td>{{ order.shipper_name|default:"" }}</td>
+          <td class="text-end">{{ order.order_total|money }}</td>
+          <td>{{ order.order_status_name }}</td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="6" class="text-muted">No orders.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endpartialdef customer-orders %}
+{% partialdef shipper-orders inline %}
+<table class="table table-sm table-striped" id="shipper-orders">
+  <thead>
+    <tr>
+      <th>Order #</th>
+      <th>Order date</th>
+      <th>Salesperson</th>
+      <th>Customer</th>
+      <th class="text-end">Total</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for order in shipper_orders %}
+      <tr>
+        <td>
+          <a href="{% url 'orders:form_frmOrderDetails' order.pk %}">{{ order.pk }}</a>
+        </td>
+        <td>{{ order.order_date|date:"n/j/Y" }}</td>
+        <td>{{ order.full_name_fnln }}</td>
+        <td>{{ order.customer_name }}</td>
+        <td class="text-end">{{ order.order_total|money }}</td>
+        <td>{{ order.order_status_name }}</td>
+      </tr>
+    {% empty %}
+      <tr>
+        <td colspan="6" class="text-muted">No orders shipped.</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endpartialdef shipper-orders %}
+{% partialdef purchase-orders %}
+{# A vendor's purchase orders; the purchasing area owns their screens (R-orders-028). #}
+<table class="table table-sm table-striped" id="purchase-orders">
+  <thead>
+    <tr>
+      <th>Purchase order #</th>
+      <th>Status</th>
+      <th>Submitted</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for purchase_order in purchase_orders %}
+      <tr>
+        <td>{{ purchase_order.pk }}</td>
+        <td>{{ purchase_order.status }}</td>
+        <td>{{ purchase_order.submitted_date|date:"n/j/Y"|default:"" }}</td>
+      </tr>
+    {% empty %}
+      <tr>
+        <td colspan="3" class="text-muted">No purchase orders.</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endpartialdef purchase-orders %}
+{% endblock content %}
