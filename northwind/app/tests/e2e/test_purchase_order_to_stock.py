@@ -30,15 +30,23 @@ from playwright.sync_api import expect
 
 from northwind.domain.system_settings import vendor_tax_rate
 from northwind.legacy.choices import PurchaseOrderStatusCode
+from northwind.legacy.models import PurchaseOrder
 from northwind.legacy.models import PurchaseOrderStatus
 from northwind.purchasing import queries as purchasing_queries
+from tests.e2e.helpers import frame
 from tests.e2e.helpers import levels
 from tests.e2e.helpers import link_employee
 from tests.e2e.helpers import number
 
 WORKFLOW = "purchase_order_to_stock"
 SHIPPING_FEE = Decimal("25.00")
-TOLERANCE = Decimal("0.0001")  # the screen shows amounts to four decimals
+TOLERANCE = Decimal("0.0001")  # the stored amounts keep four decimals
+
+
+def shown(amount: Decimal) -> str:
+    """An amount as the purchasing screens show it: two decimals, thousands commas
+    (the area's money filter)."""
+    return f"{amount:,.2f}"
 
 
 def po_status(code: int) -> str:
@@ -110,23 +118,22 @@ def test_purchase_order_to_stock(page: Page, sign_in, shot):  # noqa: PLR0915
     row = lines.locator("tbody tr").filter(has_text=product.product_name)
     expect(row.locator("td").nth(2)).to_have_text(str(quantity))
     subtotal = unit_cost * quantity
-    assert (
-        abs(number(page.locator("#po-subtotal").inner_text()) - subtotal) <= TOLERANCE
-    )
-    shot(page, f"{WORKFLOW}-03-line-items")
+    expect(page.locator("#po-subtotal")).to_have_text(shown(subtotal))
 
     # 4. Submit: Submitted, the first step done, the lines frozen (R-purchasing-004,
     # R-purchasing-012).
     actions = page.locator("#po-actions")
     actions.get_by_role("button", name="Submit").click()
-    expect(page.locator("dt:text-is('Status') + dd")).to_have_text(
-        po_status(PurchaseOrderStatusCode.SUBMITTED),
-    )
+    status = page.locator("dt:text-is('Status') + dd")
+    expect(status).to_have_text(po_status(PurchaseOrderStatusCode.SUBMITTED))
     assert steps_done(page) == ["Submitted"]
     assert approver.last_name in detail(page, "Submitted by")
     expect(
         page.locator("#po-lines").get_by_role("button", name="Add line"),
     ).to_have_count(0)
+    # The heading, vendor, status and the frozen line items with their subtotal.
+    frame(page, page.locator("h1"), status, page.locator("#po-subtotal"))
+    shot(page, f"{WORKFLOW}-04-submitted")
 
     # 5. Approve as the approver: Approved, and the quantity counts as on order
     # (R-purchasing-005, R-purchasing-008).
@@ -182,8 +189,12 @@ def test_purchase_order_to_stock(page: Page, sign_in, shot):  # noqa: PLR0915
     )
     assert steps_done(page) == ["Submitted", "Approved", "Received", "Closed"]
     tax = Decimal(str(vendor_tax_rate())) * subtotal
-    assert abs(number(detail(page, "Tax")) - tax) <= TOLERANCE
     total = subtotal + tax + SHIPPING_FEE
-    assert abs(number(detail(page, "Total")) - total) <= TOLERANCE
+    stored = PurchaseOrder.objects.get(pk=po_number)
+    assert abs(stored.tax_amount - tax) <= TOLERANCE
+    assert abs(stored.payment_amount - total) <= TOLERANCE
+    assert stored.payment_date is not None
+    assert detail(page, "Tax") == shown(stored.tax_amount)
+    assert detail(page, "Total") == shown(stored.payment_amount)
     assert detail(page, "Payment date")
     shot(page, f"{WORKFLOW}-08-closed")

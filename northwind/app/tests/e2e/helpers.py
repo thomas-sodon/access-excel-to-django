@@ -7,6 +7,8 @@ The status names on the screens are the database's labels of the fixed codes
 from __future__ import annotations
 
 import datetime as dt
+import re
+import zlib
 from decimal import ROUND_HALF_UP
 from decimal import Decimal
 from decimal import InvalidOperation
@@ -66,6 +68,104 @@ def read_pdf(download: Download) -> bytes:
     data = Path(download.path()).read_bytes()
     assert data.startswith(b"%PDF-"), f"{download.suggested_filename} is not a PDF"
     return data
+
+
+_OBJECT = re.compile(rb"(\d+)\s+0\s+obj\b(.*?)\bendobj", re.DOTALL)
+_STREAM_START = re.compile(rb"\bstream\r?\n")
+_DIRECT_LENGTH = re.compile(rb"/Length\s+(\d+)(?!\s+\d+\s+R)")
+_HEX = rb"<([0-9a-fA-F]+)>"
+_TEXT_OPERATOR = re.compile(
+    rb"/([^\s/\[\]<>()]+)\s+[\d.]+\s+Tf|\[(.*?)\]\s*TJ|<([0-9a-fA-F]*)>\s*Tj",
+    re.DOTALL,
+)
+
+
+def _pdf_objects(data: bytes) -> dict[int, tuple[bytes, bytes | None]]:
+    """Object number -> (dictionary text, decoded stream or None), including the
+    objects packed in object streams."""
+    objects: dict[int, tuple[bytes, bytes | None]] = {}
+    for match in _OBJECT.finditer(data):
+        body = match.group(2)
+        start = _STREAM_START.search(body)
+        if start is None:
+            objects[int(match.group(1))] = (body, None)
+            continue
+        head = body[: start.start()]
+        length = _DIRECT_LENGTH.search(head)
+        end = start.end() + int(length.group(1)) if length else body.rfind(b"endstream")
+        raw = body[start.end() : end]
+        if b"/FlateDecode" in head:
+            raw = zlib.decompressobj().decompress(raw)
+        objects[int(match.group(1))] = (head, raw)
+    for head, raw in list(objects.values()):
+        if raw is None or b"/ObjStm" not in head:
+            continue
+        first = int(re.search(rb"/First\s+(\d+)", head).group(1))
+        numbers = [int(n) for n in raw[:first].split()]
+        pairs = list(zip(numbers[0::2], numbers[1::2], strict=True))
+        ends = [offset for _, offset in pairs[1:]] + [len(raw) - first]
+        for (number_, offset), end in zip(pairs, ends, strict=True):
+            objects.setdefault(number_, (raw[first + offset : first + end], None))
+    return objects
+
+
+def _to_unicode(cmap: bytes) -> dict[int, str]:
+    table: dict[int, str] = {}
+    for block in re.findall(rb"beginbfchar(.*?)endbfchar", cmap, re.DOTALL):
+        for source, target in re.findall(_HEX + rb"\s*" + _HEX, block):
+            table[int(source, 16)] = bytes.fromhex(target.decode()).decode("utf-16-be")
+    for block in re.findall(rb"beginbfrange(.*?)endbfrange", cmap, re.DOTALL):
+        pattern = _HEX + rb"\s*" + _HEX + rb"\s*" + _HEX
+        for low, high, target in re.findall(pattern, block):
+            base = int(target, 16)
+            for step, code in enumerate(range(int(low, 16), int(high, 16) + 1)):
+                table[code] = chr(base + step)
+    return table
+
+
+def pdf_text(data: bytes) -> str:
+    """The text a reader sees in a PDF that WeasyPrint wrote, one line per text run.
+
+    WeasyPrint draws text as two-byte glyph codes of embedded fonts; each font's
+    ToUnicode map turns them back into characters. Reads only the bytes in memory.
+    """
+    objects = _pdf_objects(data)
+    fonts: dict[bytes, dict[int, str]] = {}
+    # A font resource is a name that refers to a font with a ToUnicode map, whether
+    # the page's font dictionary is inline or an object of its own.
+    for head, _ in objects.values():
+        for name, ref in re.findall(rb"/([^\s/\[\]<>()]+)\s+(\d+)\s+0\s+R", head):
+            font = objects.get(int(ref), (b"", None))[0]
+            cmap_ref = re.search(rb"/ToUnicode\s+(\d+)\s+0\s+R", font)
+            if cmap_ref and name != b"ToUnicode":
+                cmap = objects.get(int(cmap_ref.group(1)), (b"", None))[1]
+                fonts[name] = _to_unicode(cmap or b"")
+    runs = []
+    for _, content in objects.values():
+        if not content or b"BT" not in content:
+            continue
+        table: dict[int, str] = {}
+        for match in _TEXT_OPERATOR.finditer(content):
+            if match.group(1) is not None:
+                table = fonts.get(match.group(1), {})
+                continue
+            hexes = re.findall(_HEX, match.group(2) or b"") or [match.group(3)]
+            codes = b"".join(bytes.fromhex(h.decode()) for h in hexes)
+            runs.append(
+                "".join(
+                    table.get(int.from_bytes(codes[i : i + 2], "big"), "")
+                    for i in range(0, len(codes) - 1, 2)
+                ),
+            )
+    return "\n".join(runs)
+
+
+def frame(page: Page, top: Locator, *whole: Locator) -> None:
+    """Scroll `top` to the top of the viewport and check that the user sees each of
+    `whole` entirely (for a screenshot that cuts off no form or button)."""
+    scroll_to(top)
+    for locator in whole:
+        expect(locator).to_be_in_viewport(ratio=1)
 
 
 def levels(page: Page) -> dict[str, int]:

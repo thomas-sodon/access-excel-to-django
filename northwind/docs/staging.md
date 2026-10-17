@@ -90,7 +90,7 @@ Run every step as the service account, from `<checkout>/northwind/app`, with the
 
    Give staff accounts a role in the admin (Users, then Groups): `staff`, or `approver` for people who approve purchase orders.
 
-   Link every account that submits or approves purchase orders to its employee. A purchase order records the signed-in employee as submitter and approver, and refuses a user without one (rules R-purchasing-004 and R-purchasing-005). An account is linked to the employee whose e-mail address is the account's sign-in e-mail. Set that address on the employee's record.
+   Link every account that submits or approves purchase orders to its employee. A purchase order records the signed-in employee as submitter and approver, and refuses a user without one (rules R-purchasing-004 and R-purchasing-005). An account is linked to the employee whose e-mail address equals the account's sign-in e-mail, ignoring case. Without that link the account cannot submit or approve purchase orders. Set that address on the employee's record.
 
 6. **Demo users (optional).** For a demo or the gate's click-through, create one user per role (`staff@example.com`, `approver@example.com`) and `admin@example.com`. The password is read from `DEMO_PASSWORD` for this one command:
 

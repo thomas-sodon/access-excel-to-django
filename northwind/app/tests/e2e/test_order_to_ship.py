@@ -13,7 +13,8 @@ Workflow rules shown on the way: R-orders-001 (a new order is pre-filled with th
 default tax rate), R-orders-009 (a line is Allocated or No Stock), R-orders-015
 (invoicing needs every line Allocated and opens the invoice), R-orders-016 (ship),
 R-orders-017 (receive payment), R-orders-018 (close after confirming) and
-R-orders-020 (the invoice and its PDF show the order total).
+R-orders-020 (the invoice and its PDF show the order number and the order total; the
+PDF's text is read in memory).
 
 Each step is a page action followed by an assertion on what the user sees. Expected
 figures are worked out from what the test entered (quantity x unit price, tax rate,
@@ -37,10 +38,12 @@ from northwind.legacy.models import OrderDetailStatus
 from northwind.legacy.models import OrderStatus
 from northwind.legacy.models import Product
 from northwind.orders import services as order_services
+from tests.e2e.helpers import frame
 from tests.e2e.helpers import local_input
 from tests.e2e.helpers import money
 from tests.e2e.helpers import no_op
 from tests.e2e.helpers import open_from_list
+from tests.e2e.helpers import pdf_text
 from tests.e2e.helpers import read_pdf
 
 WORKFLOW = "order_to_ship"
@@ -96,6 +99,14 @@ def run_order_to_ship(page: Page, sign_in, shot=no_op, pause=no_op) -> int:  # n
     page.locator("#id_employee").select_option(index=1)
     page.locator("#id_shipping_fee").fill(str(SHIPPING_FEE))
     page.locator("#id_tax_status").select_option(str(TaxStatusCode.TAXABLE))
+    form = page.locator("form").filter(has=page.locator("#id_customer"))
+    frame(
+        page,
+        form,
+        page.locator("#id_customer"),
+        page.locator("#id_tax_status"),
+        form.get_by_role("button", name="Save"),
+    )
     shot(page, f"{WORKFLOW}-02-new-order")
     pause(page)
 
@@ -171,13 +182,17 @@ def run_order_to_ship(page: Page, sign_in, shot=no_op, pause=no_op) -> int:  # n
     )
     with page.expect_download() as download:
         page.get_by_role("link", name="Invoice PDF").click()
-    read_pdf(download.value)
+    invoice_pdf = pdf_text(read_pdf(download.value))
+    assert f"Invoice # {order_id}" in invoice_pdf.splitlines()
+    assert money(total) in invoice_pdf.splitlines()
     pause(page)
 
     # 6. Ship: shipped date and shipper (the shipping fee came with the order).
-    expect(actions.get_by_role("button", name="Ship order")).to_have_class(PRIMARY)
+    ship = actions.get_by_role("button", name="Ship order")
+    expect(ship).to_have_class(PRIMARY)
     actions.locator("input[name=shipped_date]").fill(local_input())
     actions.locator("select[name=shipper]").select_option(index=1)
+    frame(page, page.get_by_role("heading", name="Lines", exact=True), ship)
     shot(page, f"{WORKFLOW}-06-ship")
     pause(page)
     actions.get_by_role("button", name="Ship order").click()

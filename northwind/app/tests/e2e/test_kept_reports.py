@@ -39,6 +39,7 @@ from northwind.legacy.models import OrderStatus
 from northwind.orders import queries as order_queries
 from northwind.orders import services as order_services
 from tests.e2e.helpers import open_from_list
+from tests.e2e.helpers import pdf_text
 from tests.e2e.helpers import read_pdf
 from tests.e2e.helpers import scroll_to
 
@@ -92,12 +93,23 @@ def invoiced_order() -> Order:
 
 
 def order_without_lines() -> Order:
-    return (
+    """An order past New without lines from seed 1, or, when the seed has none, a
+    saved order without lines entered through the orders area's services."""
+    existing = (
         Order.objects.exclude(order_status_id=OrderStatusCode.NEW)
         .annotate(line_count=Count("lines"))
         .filter(line_count=0)
         .order_by("pk")
         .first()
+    )
+    if existing is not None:
+        return existing
+    return order_services.save_order(
+        order_services.new_order(),
+        {
+            "customer": order_queries.customers().first(),
+            "employee": order_queries.employee_choices().first(),
+        },
     )
 
 
@@ -136,17 +148,22 @@ def test_kept_reports(page: Page, sign_in, shot):  # noqa: PLR0915
     expect(page.locator("h1 .badge")).to_have_text(status)
     with page.expect_download() as download:
         page.get_by_role("link", name="Invoice PDF").click()
-    read_pdf(download.value)
+    reprint = pdf_text(read_pdf(download.value)).splitlines()
+    assert f"Invoice # {invoiced.pk}" in reprint
     page.get_by_role("link", name="Invoice", exact=True).click()
     expect(page.locator("#invoice-number")).to_contain_text(str(invoiced.pk))
     shot(page, f"{WORKFLOW}-01-invoice")
     page.goto(f"/orders/{invoiced.pk}/")
     expect(page.locator("h1 .badge")).to_have_text(status)
-    # An order without lines has nothing to print (R-orders-021).
+    # An order without lines has nothing to print, on the page and as a PDF
+    # (R-orders-021).
     empty = order_without_lines()
-    if empty is not None:
-        page.goto(f"/orders/{empty.pk}/invoice/")
-        expect(page.locator("#nothing-to-print")).to_contain_text("R-orders-021")
+    page.goto(f"/orders/{empty.pk}/invoice/")
+    expect(page.locator("#nothing-to-print")).to_contain_text("R-orders-021")
+    expect(page.locator("#invoice-lines")).to_have_count(0)
+    page.goto(f"/orders/{empty.pk}/invoice/?format=pdf")
+    expect(page).to_have_url(re.compile(rf"/orders/{empty.pk}/$"))
+    expect(page.locator(".alert", has_text="R-orders-021")).to_be_visible()
 
     # 2. Reports from the main menu: the employee report is preselected with the
     # default period (R-reports-016, R-reports-001, R-reports-002).
