@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags django_tables2 partials %}
+
+{% block title %}
+  Employees
+{% endblock title %}
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center my-3">
+    <h1 class="h3">Employees</h1>
+    <a class="btn btn-primary" href="{% url 'orders:employee_create' %}">New employee</a>
+  </div>
+  <form method="get"
+        class="row g-2 align-items-end"
+        hx-get="{% url 'orders:form_frmEmployeeList' %}"
+        hx-target="#record-table"
+        hx-swap="outerHTML"
+        hx-push-url="true"
+        hx-trigger="change, submit">
+    <div class="col-auto">{{ filter.form.q|as_crispy_field }}</div>
+    <div class="col-auto">
+      <button type="submit" class="btn btn-secondary btn-sm mb-3">Search</button>
+    </div>
+  </form>
+  {% partialdef record-table inline %}
+  <div id="record-table"
+       hx-boost="true"
+       hx-target="#record-table"
+       hx-swap="outerHTML">{% render_table table %}</div>
+{% endpartialdef record-table %}
+{% endblock content %}

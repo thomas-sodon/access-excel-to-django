@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% load static partials %}
+
+{% block title %}
+  {{ report.report.title }}
+{% endblock title %}
+{% block css %}
+  {{ block.super }}
+  <link href="{% static 'reports/reports.css' %}" rel="stylesheet" />
+{% endblock css %}
+{% block javascript %}
+  {{ block.super }}
+  <script defer src="{% static 'reports/vendor/chart.umd.min.js' %}"></script>
+  <script defer src="{% static 'reports/sales_chart.js' %}"></script>
+{% endblock javascript %}
+{% block content %}
+  <div class="report my-3">
+    <p class="no-print">
+      <a href="{{ back_url }}">Back to the report selection</a>
+    </p>
+    <h1>{{ report.report.title }}</h1>
+    <p class="report-criteria" id="report-criteria">{{ report.period.caption }}</p>
+    {% if report.report.interactive %}
+      <form method="get"
+            action="{{ request.path }}"
+            class="no-print mb-3"
+            hx-get="{{ request.path }}"
+            hx-target="#report-body"
+            hx-swap="outerHTML"
+            hx-push-url="true"
+            hx-trigger="change">
+        <input type="hidden"
+               name="start"
+               value="{{ report.period.start|date:'Y-m-d' }}" />
+        <input type="hidden" name="end" value="{{ report.period.end|date:'Y-m-d' }}" />
+        <label for="id_employee" class="form-label">Filter by employee</label>
+        <select id="id_employee" name="employee" class="form-select w-auto">
+          {% for pk, name in report.employees %}
+            <option value="{{ pk }}" {% if pk == report.employee_id %}selected{% endif %}>{{ name }}</option>
+          {% endfor %}
+        </select>
+        <noscript>
+          <button type="submit" class="btn btn-secondary btn-sm">Apply</button>
+        </noscript>
+      </form>
+    {% endif %}
+    {% partialdef report-body inline %}
+    <div id="report-body">
+      <p class="no-print">
+        <a class="btn btn-secondary btn-sm" href="{{ pdf_url }}">PDF</a>
+      </p>
+      <div class="chart-box">
+        <canvas id="sales-chart"
+                data-chart="sales-chart-data"
+                aria-label="Chart of {{ report.report.title }}"
+                role="img"></canvas>
+      </div>
+      {{ report.chart|json_script:"sales-chart-data" }}
+      {% include "reports/_sales_table.html" %}
+      <p class="report-footer">Produced {{ report.produced_at }}</p>
+    </div>
+  {% endpartialdef report-body %}
+</div>
+{% endblock content %}

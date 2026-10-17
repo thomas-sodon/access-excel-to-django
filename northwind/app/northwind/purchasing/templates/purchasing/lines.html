@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags partials %}
+
+{% partialdef line-form %}
+<div id="line-form">
+  {% if line_form %}
+    <form method="post"
+          action="{% url 'purchasing:line_add' object.pk %}"
+          hx-post="{% url 'purchasing:line_add' object.pk %}"
+          hx-target="#po-lines"
+          hx-swap="outerHTML">
+      {% csrf_token %}
+      {% crispy line_form %}
+      <button type="submit" class="btn btn-primary btn-sm">Add line</button>
+    </form>
+  {% endif %}
+</div>
+{% endpartialdef line-form %}
+{% partialdef lines %}
+<div id="po-lines">
+  {% for message in messages %}
+    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
+  {% endfor %}
+  <table class="table table-sm table-striped">
+    <thead>
+      <tr>
+        <th>Line</th>
+        <th>Product</th>
+        <th class="text-end">Quantity</th>
+        <th class="text-end">Unit cost</th>
+        <th class="text-end">Amount</th>
+        <th>Received</th>
+        {% if lines_editable %}<th></th>{% endif %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for line in lines %}
+        <tr>
+          <td>{{ line.pk }}</td>
+          <td>{{ line.product }}</td>
+          <td class="text-end">{{ line.quantity }}</td>
+          <td class="text-end">{{ line.unit_cost }}</td>
+          <td class="text-end">{{ line.amount }}</td>
+          <td>{{ line.received_date|default_if_none:"" }}</td>
+          {% if lines_editable %}
+            <td>
+              <a class="btn btn-sm btn-outline-secondary"
+                 href="{% url 'purchasing:line_update' line.pk %}">Edit</a>
+              <form method="post"
+                    action="{% url 'purchasing:line_delete' line.pk %}"
+                    hx-post="{% url 'purchasing:line_delete' line.pk %}"
+                    hx-target="#po-lines"
+                    hx-swap="outerHTML"
+                    class="d-inline">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+              </form>
+            </td>
+          {% endif %}
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="7" class="text-muted">No line items yet.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+    <tfoot>
+      <tr>
+        <th colspan="4" class="text-end">Subtotal</th>
+        <th class="text-end" id="po-subtotal">{{ amounts.subtotal|default_if_none:"" }}</th>
+        <th colspan="2"></th>
+      </tr>
+    </tfoot>
+  </table>
+  {% if lines_editable %}
+    {% partial line-form %}
+  {% endif %}
+</div>
+{% endpartialdef lines %}
+{% block title %}
+  Purchase order {{ object.pk }}: line items
+{% endblock title %}
+{% block content %}
+  <h1 class="h3 my-3">Purchase order {{ object.pk }}: line items</h1>
+  {% partial lines %}
+  <p>
+    <a href="{% url 'purchasing:form_frmPurchaseOrderDetails' object.pk %}">Back to the purchase order</a>
+  </p>
+{% endblock content %}

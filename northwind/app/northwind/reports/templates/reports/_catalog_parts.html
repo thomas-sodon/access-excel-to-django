@@ -1,0 +1,165 @@
+{% load partials reports_format %}
+
+{# The parts of the product catalog (the original's sub-reports), used by catalog.html, #}
+{# catalog_pdf.html and the sub-report pages. Each expects `catalog` (services.Catalog). #}
+{% partialdef quality %}
+<section class="catalog-quality">
+  <h2>{{ catalog.quality_header }}</h2>
+  <p>{{ catalog.quality_text|linebreaksbr }}</p>
+</section>
+{% endpartialdef quality %}
+{% partialdef gastronomic %}
+<section class="catalog-gastronomic">
+  <h2>{{ catalog.gastronomic_header }}</h2>
+  <p>{{ catalog.gastronomic_text|linebreaksbr }}</p>
+</section>
+{% endpartialdef gastronomic %}
+{% partialdef toc %}
+<section class="catalog-toc">
+  <h2>Table of Contents</h2>
+  {% if catalog.toc is None %}
+    <p class="catalog-note" id="toc-note">
+      Generate the catalog as PDF to build the current table of contents with its page numbers.
+    </p>
+  {% else %}
+    <table class="toc">
+      {% for entry in catalog.toc %}
+        <tr>
+          <td class="toc-title">{{ entry.title }}</td>
+          <td class="toc-page">{{ entry.page|default_if_none:"" }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+  {% endif %}
+</section>
+{% endpartialdef toc %}
+{% partialdef category %}
+<section class="catalog-section" id="{{ section.anchor }}">
+  <h2>{{ section.name }}</h2>
+  <div class="catalog-category-head">
+    <div class="catalog-image"
+         role="img"
+         aria-label="Picture of {{ section.name }}">{{ section.name|slice:":1" }}</div>
+    <div>
+      <p>{{ section.description|default_if_none:"" }}</p>
+      <dl class="catalog-figures">
+        <dt>Items Count:</dt>
+        <dd>
+          {{ section.item_count }}
+        </dd>
+        <dt>Lowest Price:</dt>
+        <dd>
+          {{ section.lowest_price|currency }}
+        </dd>
+        <dt>Highest Price:</dt>
+        <dd>
+          {{ section.highest_price|currency }}
+        </dd>
+        <dt>Total Sales:</dt>
+        <dd>
+          {{ section.total_sales|currency }}
+        </dd>
+      </dl>
+    </div>
+  </div>
+  <table class="report-table">
+    <thead>
+      <tr>
+        <th>Product Name</th>
+        <th>Product ID</th>
+        <th>Quantity Per Unit</th>
+        <th class="amount">Unit Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for product in section.products %}
+        <tr>
+          <td>{{ product.product_name }}</td>
+          <td>{{ product.product_id }}</td>
+          <td>{{ product.quantity_per_unit|default_if_none:"" }}</td>
+          <td class="amount">{{ product.unit_price|currency }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endpartialdef category %}
+{% partialdef ship-via %}
+<div class="catalog-ship-via">
+  <p>Ship Via (check one):</p>
+  <ul class="list-unstyled">
+    {% for name in catalog.shippers %}
+      <li>
+        <span class="tick-box"></span>{{ name }}
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endpartialdef ship-via %}
+{% partialdef order-form %}
+<section class="catalog-order-form">
+  <h2>Order Form</h2>
+  {% for company in catalog.house_companies %}
+    <p class="house-company">
+      {{ company.address }}
+      <br />
+      Phone: {{ company.business_phone|default_if_none:"" }}
+    </p>
+  {% endfor %}
+  <p>{{ catalog.how_to_order|linebreaksbr }}</p>
+  <table class="report-table">
+    <tr>
+      <td>
+        Bill To:
+        <div class="write-line"></div>
+        <div class="write-line"></div>
+        <div class="write-line"></div>
+      </td>
+      <td>
+        Ship To:
+        <div class="write-line"></div>
+        <div class="write-line"></div>
+        <div class="write-line"></div>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">Date of Order: ____________ Date Required: ____________ Customer ID: ____________</td>
+    </tr>
+  </table>
+  <table class="report-table order-form-lines">
+    <thead>
+      <tr>
+        <th>Product ID:</th>
+        <th>Product Name:</th>
+        <th>Unit Price:</th>
+        <th>Quantity:</th>
+        <th>Extended Price:</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for blank in "12345678" %}
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      {% endfor %}
+      <tr>
+        <td colspan="4" class="amount">Subtotal:</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td colspan="4" class="amount">Freight (estimated):</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td colspan="4" class="amount">Total:</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  {% partial ship-via %}
+</section>
+{% endpartialdef order-form %}

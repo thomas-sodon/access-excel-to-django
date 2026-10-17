@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+  Fall Catalog
+{% endblock title %}
+{% block css %}
+  {{ block.super }}
+  <link href="{% static 'reports/reports.css' %}" rel="stylesheet" />
+{% endblock css %}
+{% block content %}
+  <div class="report my-3">
+    <p class="no-print">
+      <a href="{% url 'reports:form_frmReports' %}?report=rptProductCatalog">Back to the report selection</a>
+      <a class="btn btn-primary btn-sm ms-3" href="{{ pdf_url }}">Generate PDF</a>
+    </p>
+    {% include "reports/_catalog_body.html" %}
+  </div>
+{% endblock content %}

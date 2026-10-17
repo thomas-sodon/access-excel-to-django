@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags partials %}
+
+{% block title %}
+  Vendors: {{ object.product_name }}
+{% endblock title %}
+{% block content %}
+  <h1 class="h3 my-3">
+    Vendors:
+    <a href="{% url 'inventory:form_frmProductDetail' object.pk %}">{{ object.product_name }}</a>
+  </h1>
+  {% partialdef panel inline %}
+  <div id="panel-vendors">
+    {% include "inventory/_panel_messages.html" %}
+    <table class="table table-sm table-striped align-middle">
+      <thead>
+        <tr>
+          <th scope="col">Vendor</th>
+          <th scope="col">Linked by</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for link in links %}
+          <tr>
+            <td>
+              {% if link.company_url %}
+                <a href="{{ link.company_url }}">{{ link.vendor }}</a>
+              {% else %}
+                {{ link.vendor }}
+              {% endif %}
+            </td>
+            <td>{{ link.added_by|default:"" }}</td>
+            <td class="text-end">
+              <a class="btn btn-sm btn-outline-danger"
+                 href="{% url 'inventory:product_vendor_remove' object.pk link.pk %}">Remove</a>
+            </td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="3">No vendor is linked to this product.</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <form method="post"
+          action="{{ panel_url }}"
+          class="row g-2 align-items-end"
+          hx-post="{{ panel_url }}"
+          hx-target="#panel-vendors"
+          hx-swap="outerHTML">
+      {% csrf_token %}
+      <div class="col-auto">{{ form|crispy }}</div>
+      <div class="col-auto mb-3">
+        <button type="submit" class="btn btn-primary">Add vendor</button>
+      </div>
+    </form>
+  </div>
+{% endpartialdef panel %}
+{% endblock content %}

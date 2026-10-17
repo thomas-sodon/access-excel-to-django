@@ -1,0 +1,14 @@
+{# The whole product catalog, in the original's order: cover with the quality statement, #}
+{# the gastronomic introduction, the table of contents, one section per category and the #}
+{# order form. Used by catalog.html (preview) and catalog_pdf.html (PDF). #}
+<div class="catalog-page catalog-cover">
+  <p class="report-footer">{{ catalog.title }}</p>
+  <h1>Fall Catalog</h1>
+  {% include "reports/_catalog_parts.html#quality" %}
+</div>
+<div class="catalog-page">{% include "reports/_catalog_parts.html#gastronomic" %}</div>
+<div>{% include "reports/_catalog_parts.html#toc" %}</div>
+{% for section in catalog.sections %}
+  {% include "reports/_catalog_parts.html#category" %}
+{% endfor %}
+<div class="catalog-section">{% include "reports/_catalog_parts.html#order-form" %}</div>

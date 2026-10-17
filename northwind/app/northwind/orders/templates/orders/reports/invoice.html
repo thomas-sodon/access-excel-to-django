@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+
+{% load static orders_tags %}
+
+{% block title %}
+  Invoice {{ order.pk }}
+{% endblock title %}
+{% block css %}
+  {# Local files only, so the PDF renders offline; print.css sets A4. #}
+  <link href="{% static 'css/project.css' %}" rel="stylesheet" />
+  <link href="{% static 'css/print.css' %}" rel="stylesheet" media="print" />
+  <style>
+    @page {
+      size: A4;
+      margin: 15mm 12mm;
+    }
+
+    body {
+      font-family: sans-serif;
+      font-size: 10pt;
+    }
+
+    .invoice-head {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8mm;
+    }
+
+    .invoice-head h1 {
+      font-size: 18pt;
+      margin: 0 0 2mm 0;
+    }
+
+    .parties {
+      display: flex;
+      gap: 12mm;
+      margin-bottom: 6mm;
+    }
+
+    .parties div {
+      flex: 1;
+    }
+
+    .label {
+      font-weight: bold;
+      text-transform: uppercase;
+      font-size: 8pt;
+    }
+
+    table.lines {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    table.lines th {
+      border-bottom: 1px solid #000;
+      text-align: left;
+    }
+
+    table.lines td,
+    table.lines th {
+      padding: 1mm 2mm;
+    }
+
+    .num {
+      text-align: right;
+    }
+
+    table.totals {
+      margin-left: auto;
+      margin-top: 4mm;
+    }
+
+    table.totals td {
+      padding: 1mm 2mm;
+    }
+
+    .no-print {
+      margin: 4mm 0;
+    }
+  </style>
+{% endblock css %}
+{% block javascript %}
+{% endblock javascript %}
+{% block body %}
+  <main class="container">
+    {% if invoice %}
+      <div class="invoice-head">
+        <div id="own-address">
+          {% for line in invoice.own_address %}
+            {{ line }}
+            <br />
+          {% endfor %}
+        </div>
+        <div>
+          <h1 id="invoice-number">Invoice # {{ invoice.number }}</h1>
+          <div id="invoice-date">Invoice Date {{ invoice.printed_on|date:"n/j/Y" }}</div>
+          <div id="sales-person">Sales Person {{ invoice.sales_person }}</div>
+        </div>
+      </div>
+      <div class="parties">
+        <div id="bill-to">
+          <div class="label">Bill To</div>
+          {{ invoice.customer_name }}
+          <br />
+          {{ invoice.address }}
+          <br />
+          {{ invoice.city_line }}
+        </div>
+        <div id="ship-to">
+          <div class="label">Ship To</div>
+          {{ invoice.customer_name }}
+          <br />
+          {{ invoice.address }}
+          <br />
+          {{ invoice.city_line }}
+        </div>
+      </div>
+      <table class="lines" id="invoice-lines">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Product</th>
+            <th class="num">Quantity</th>
+            <th class="num">Unit Price</th>
+            <th class="num">Discount</th>
+            <th class="num">Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for line in invoice.lines %}
+            <tr>
+              <td>{{ line.product_code }}</td>
+              <td>{{ line.product_name }}</td>
+              <td class="num">{{ line.quantity }}</td>
+              <td class="num">{{ line.unit_price|money }}</td>
+              <td class="num">{{ line.discount|percent }}</td>
+              <td class="num">{{ line.extended_price|money }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <table class="totals" id="invoice-totals">
+        <tr>
+          <td>SubTotal</td>
+          <td class="num">{{ invoice.amounts.subtotal|money }}</td>
+        </tr>
+        <tr>
+          <td>Tax</td>
+          <td class="num">{{ invoice.amounts.tax|money }}</td>
+        </tr>
+        <tr>
+          <td>Shipping</td>
+          <td class="num">{{ invoice.amounts.shipping|money }}</td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Total Price</strong>
+          </td>
+          <td class="num">
+            <strong>{{ invoice.amounts.total|money }}</strong>
+          </td>
+        </tr>
+      </table>
+      <div class="no-print">
+        <a href="?format=pdf">PDF</a>
+        · <a href="{% url 'orders:form_frmOrderDetails' order.pk %}">Back to the order</a>
+      </div>
+    {% else %}
+      <p class="alert alert-warning" id="nothing-to-print">{{ nothing_to_print }}</p>
+      <a href="{% url 'orders:form_frmOrderDetails' order.pk %}">Back to the order</a>
+    {% endif %}
+  </main>
+{% endblock body %}

@@ -1,0 +1,9 @@
+{% extends "reports/pdf_base.html" %}
+
+{% block title %}
+  Fall Catalog
+{% endblock title %}
+{% block content %}
+  <p class="report-footer">{{ catalog.title }}</p>
+  {% include part_template %}
+{% endblock content %}

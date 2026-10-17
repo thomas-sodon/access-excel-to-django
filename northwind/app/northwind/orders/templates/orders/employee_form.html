@@ -1,0 +1,17 @@
+{% extends "orders/form.html" %}
+
+{% block after_form %}
+  {# A title that is not in the list yet is added on the small title screen (R-orders-044). #}
+  <form method="get"
+        action="{% url 'orders:form_frmEmployeeTitles' %}"
+        class="row g-2 align-items-end my-3">
+    <input type="hidden" name="next" value="{{ request.get_full_path }}" />
+    <div class="col-auto">
+      <label class="form-label" for="new-title">New title</label>
+      <input class="form-control" id="new-title" name="title" maxlength="20" />
+    </div>
+    <div class="col-auto">
+      <button type="submit" class="btn btn-outline-secondary">Add title</button>
+    </div>
+  </form>
+{% endblock after_form %}

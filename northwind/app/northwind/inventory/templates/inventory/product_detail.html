@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+
+{% block title %}
+  Products and Inventory: {{ object.product_name }}
+{% endblock title %}
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center my-3 flex-wrap gap-2">
+    <h1 class="h3 mb-0">
+      {{ object.product_name }}
+      <small class="text-muted">{{ object.product_code }}</small>
+      {% if object.discontinued %}<span class="badge bg-danger" id="discontinued">Discontinued</span>{% endif %}
+    </h1>
+    <div class="d-flex gap-2">
+      <a class="btn btn-primary"
+         href="{% url 'inventory:product_update' object.pk %}">Edit</a>
+      {% if actions.reorder %}
+        <a class="btn btn-warning"
+           id="reorder"
+           href="{% url 'inventory:product_reorder' object.pk %}">Reorder</a>
+      {% endif %}
+      {% if actions.delete %}
+        <a class="btn btn-outline-danger"
+           href="{% url 'inventory:product_delete' object.pk %}">Delete</a>
+      {% endif %}
+    </div>
+  </div>
+  <form method="get"
+        class="row g-2 mb-3"
+        action="{% url 'inventory:form_frmProductDetail' object.pk %}">
+    <div class="col-auto">
+      <label class="visually-hidden" for="find-product">Find a product</label>
+      <select name="find" id="find-product" class="form-select form-select-sm">
+        {% for pk, name in find_choices %}
+          <option value="{{ pk }}" {% if pk == object.pk %}selected{% endif %}>{{ name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="col-auto">
+      <button class="btn btn-sm btn-secondary" type="submit">Go</button>
+    </div>
+  </form>
+  <div class="row">
+    <div class="col-md-7">
+      <dl class="row">
+        <dt class="col-sm-5">Category</dt>
+        <dd class="col-sm-7">
+          {{ object.product_category }}
+        </dd>
+        <dt class="col-sm-5">Description</dt>
+        <dd class="col-sm-7">
+          {{ object.product_description|default:""|linebreaksbr }}
+        </dd>
+        <dt class="col-sm-5">Quantity per unit</dt>
+        <dd class="col-sm-7">
+          {{ object.quantity_per_unit|default:"" }}
+        </dd>
+        <dt class="col-sm-5">Standard unit cost</dt>
+        <dd class="col-sm-7">
+          {{ object.standard_unit_cost }}
+        </dd>
+        <dt class="col-sm-5">Unit price</dt>
+        <dd class="col-sm-7">
+          {{ object.unit_price }}
+        </dd>
+        <dt class="col-sm-5">Reorder level</dt>
+        <dd class="col-sm-7">
+          {{ object.reorder_level|default_if_none:"" }}
+        </dd>
+        <dt class="col-sm-5">Target level</dt>
+        <dd class="col-sm-7">
+          {{ object.target_level|default_if_none:"" }}
+        </dd>
+        <dt class="col-sm-5">Minimum reorder quantity</dt>
+        <dd class="col-sm-7">
+          {{ object.minimum_reorder_quantity|default_if_none:"" }}
+        </dd>
+      </dl>
+    </div>
+    <div class="col-md-5">{% include "inventory/_levels.html" %}</div>
+  </div>
+  <section class="mt-4">
+    <h2 class="h5">Stock takes</h2>
+    <div hx-get="{% url 'inventory:form_sfrmProductDetail_StockTake' object.pk %}"
+         hx-trigger="load"
+         hx-swap="outerHTML">
+      <a href="{% url 'inventory:form_sfrmProductDetail_StockTake' object.pk %}">Open the stock takes</a>
+    </div>
+  </section>
+  <section class="mt-4">
+    <h2 class="h5">Vendors</h2>
+    <div hx-get="{% url 'inventory:form_sfrmProductDetail_Vendors' object.pk %}"
+         hx-trigger="load"
+         hx-swap="outerHTML">
+      <a href="{% url 'inventory:form_sfrmProductDetail_Vendors' object.pk %}">Open the vendors</a>
+    </div>
+  </section>
+  {% if actions.order_history %}
+    <section class="mt-4">
+      <h2 class="h5">Order history</h2>
+      <div hx-get="{% url 'inventory:form_sfrmProductDetail_Orders' object.pk %}"
+           hx-trigger="revealed"
+           hx-swap="outerHTML">
+        <a href="{% url 'inventory:form_sfrmProductDetail_Orders' object.pk %}">Open the order history</a>
+      </div>
+    </section>
+  {% endif %}
+  {% if actions.purchase_order_history %}
+    <section class="mt-4">
+      <h2 class="h5">Purchase order history</h2>
+      <div hx-get="{% url 'inventory:form_sfrmProductDetail_PurchaseOrders' object.pk %}"
+           hx-trigger="revealed"
+           hx-swap="outerHTML">
+        <a href="{% url 'inventory:form_sfrmProductDetail_PurchaseOrders' object.pk %}">Open the purchase order history</a>
+      </div>
+    </section>
+  {% endif %}
+  <p class="mt-4">
+    <a href="{% url 'inventory:form_frmProductList' %}">Back to the product list</a>
+  </p>
+{% endblock content %}

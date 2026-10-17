@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}
+  Purchase order {{ object.pk }}: line item
+{% endblock title %}
+{% block content %}
+  <h1 class="h3 my-3">
+    Purchase order {{ object.pk }}:
+    {% if line %}
+      line {{ line.pk }}
+    {% else %}
+      new line
+    {% endif %}
+  </h1>
+  <div id="line-form">
+    <form method="post" action="{{ action }}">
+      {% csrf_token %}
+      {% crispy form %}
+      <button type="submit" class="btn btn-primary">Save line</button>
+    </form>
+  </div>
+  <p>
+    <a href="{% url 'purchasing:form_frmPurchaseOrderDetails' object.pk %}">Back to the purchase order</a>
+  </p>
+{% endblock content %}

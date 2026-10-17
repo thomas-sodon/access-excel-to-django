@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% load django_tables2 partials %}
+
+{% block title %}
+  Purchase orders of {{ vendor }}
+{% endblock title %}
+{% block content %}
+  <h1 class="h3 my-3">Purchase orders of {{ vendor }}</h1>
+  {% partialdef vendor-pos inline %}
+  <div id="vendor-pos"
+       hx-boost="true"
+       hx-target="#vendor-pos"
+       hx-swap="outerHTML">
+    {% render_table table %}
+    <p class="fw-bold">Purchase orders: {{ po_count }}</p>
+  </div>
+{% endpartialdef vendor-pos %}
+{% endblock content %}

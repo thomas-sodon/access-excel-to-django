@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags partials orders_tags %}
+
+{% block title %}
+  {{ company }}: contacts
+{% endblock title %}
+{% block content %}
+  <h1 class="h3 my-3">
+    <a href="{% url 'orders:form_frmCompanyDetail' company.pk %}">{{ company }}</a>
+  </h1>
+  {% partialdef contacts inline %}
+  <div id="contacts">
+    <h2 class="h5">Contacts</h2>
+    <table class="table table-sm table-striped">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Job title</th>
+          <th>E-mail</th>
+          <th>Phone</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for contact in contacts %}
+          <tr>
+            <td>{{ contact.last_name }}, {{ contact.first_name }}</td>
+            <td>{{ contact.job_title }}</td>
+            <td>{{ contact.email_address|default:"" }}</td>
+            <td>{{ contact.primary_phone|phone }}</td>
+            <td>
+              <a href="{% url 'orders:contact_update' contact.pk %}">Edit</a>
+              <a href="{% url 'orders:contact_delete' contact.pk %}">Delete</a>
+            </td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="5" class="text-muted">No contacts.</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <details {% if contact_form.errors %}open{% endif %}>
+      <summary>Add a contact</summary>
+      <form method="post"
+            action="{% url 'orders:form_sfrmCompanyDetail_Contacts' company.pk %}"
+            hx-post="{% url 'orders:form_sfrmCompanyDetail_Contacts' company.pk %}"
+            hx-target="#contacts"
+            hx-swap="outerHTML">
+        {% csrf_token %}
+        {{ contact_form|crispy }}
+        <button type="submit" class="btn btn-primary">Add contact</button>
+      </form>
+    </details>
+  </div>
+{% endpartialdef contacts %}
+{% endblock content %}

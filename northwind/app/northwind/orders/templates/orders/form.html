@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}
+  {{ title|default:"Orders, Invoicing and Shipping" }}
+{% endblock title %}
+{% block content %}
+  <h1 class="h3 my-3">{{ title }}</h1>
+  {% block before_form %}
+  {% endblock before_form %}
+  {% crispy form %}
+  {% block after_form %}
+  {% endblock after_form %}
+  <p>
+    <a href="{{ cancel_url }}">Cancel</a>
+  </p>
+{% endblock content %}

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}
+  Select a vendor
+{% endblock title %}
+{% block content %}
+  <h1 class="h3 my-3">Select a vendor</h1>
+  <p id="vendor-prompt">
+    {{ product }} has several vendors. Select the vendor to reorder it from, then OK (or Cancel).
+    A double-click on a vendor confirms it.
+  </p>
+  <form method="post" id="vendor-dialog">
+    {% csrf_token %}
+    <input type="hidden" name="next" value="{{ next }}" />
+    {% crispy form %}
+    <button type="submit" name="ok" class="btn btn-primary">OK</button>
+    <button type="submit" name="cancel" class="btn btn-secondary">Cancel</button>
+  </form>
+{% endblock content %}
+{% block inline_javascript %}
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var dialog = document.getElementById("vendor-dialog");
+      dialog.querySelectorAll("input[type=radio]").forEach(function(radio) {
+        var target = radio.closest("label") || radio;
+        target.addEventListener("dblclick", function() {
+          radio.checked = true;
+          dialog.querySelector("button[name=ok]").click();
+        });
+      });
+    });
+  </script>
+{% endblock inline_javascript %}

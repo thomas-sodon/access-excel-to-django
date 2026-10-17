@@ -1,0 +1,31 @@
+{% extends "reports/pdf_base.html" %}
+
+{% load reports_format %}
+
+{% block title %}
+  {{ report.report.title }}
+{% endblock title %}
+{% block content %}
+  <p class="report-footer">Produced {{ report.produced_at }}</p>
+  <h1>{{ report.report.title }}</h1>
+  <p class="report-criteria">{{ report.period.caption }}</p>
+  {% if report.employee_id %}
+    {% for pk, name in report.employees %}
+      {% if pk == report.employee_id %}<p>Employee: {{ name }}</p>{% endif %}
+    {% endfor %}
+  {% endif %}
+  {# WeasyPrint runs no JavaScript: the printed chart is a bar per series over the period. #}
+  <h2>Sales by {{ report.report.series_title|lower }}</h2>
+  <table class="chart-bars">
+    {% for item in report.series_totals %}
+      <tr>
+        <td>{{ item.name }}</td>
+        <td class="bar-cell">
+          <div class="bar" style="width: {{ item.share|stringformat:'.1f' }}%"></div>
+        </td>
+        <td class="amount">{{ item.total|currency }}</td>
+      </tr>
+    {% endfor %}
+  </table>
+  {% include "reports/_sales_table.html" %}
+{% endblock content %}

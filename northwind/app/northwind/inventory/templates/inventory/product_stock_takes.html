@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags django_tables2 partials %}
+
+{% block title %}
+  Stock takes: {{ object.product_name }}
+{% endblock title %}
+{% block content %}
+  <h1 class="h3 my-3">
+    Stock takes:
+    <a href="{% url 'inventory:form_frmProductDetail' object.pk %}">{{ object.product_name }}</a>
+  </h1>
+  {% partialdef panel inline %}
+  <div id="panel-stock-takes">
+    {% include "inventory/_panel_messages.html" %}
+    {% if mismatch %}
+      <div class="alert alert-warning" id="stock-take-mismatch">
+        The counted quantity ({{ mismatch.counted }}) differs from the expected
+        quantity ({{ mismatch.expected }}). Save this count?
+      </div>
+    {% endif %}
+    <form method="post"
+          action="{{ panel_url }}"
+          class="row g-2 align-items-end mb-3"
+          hx-post="{{ panel_url }}"
+          hx-target="#panel-stock-takes"
+          hx-swap="outerHTML">
+      {% csrf_token %}
+      <div class="col-auto">{{ form|crispy }}</div>
+      <div class="col-auto mb-3">
+        {% if mismatch %}
+          <button type="submit" class="btn btn-warning">Confirm count</button>
+          <a class="btn btn-outline-secondary"
+             href="{{ panel_url }}"
+             hx-get="{{ panel_url }}"
+             hx-target="#panel-stock-takes"
+             hx-swap="outerHTML">Cancel</a>
+        {% else %}
+          <button type="submit" class="btn btn-primary">Record stock take</button>
+        {% endif %}
+      </div>
+    </form>
+    <div class="table-responsive">{% render_table table %}</div>
+  </div>
+{% endpartialdef panel %}
+{% endblock content %}

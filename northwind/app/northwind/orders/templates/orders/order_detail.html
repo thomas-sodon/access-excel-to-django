@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags orders_tags %}
+
+{% block title %}
+  Order {{ order.pk }}
+{% endblock title %}
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center my-3">
+    <h1 class="h3">
+      Order {{ order.pk }} <span class="badge text-bg-secondary">{{ order.order_status_name }}</span>
+    </h1>
+    <div>
+      {% if editable %}
+        <a class="btn btn-outline-primary"
+           href="{% url 'orders:order_update' order.pk %}">Edit</a>
+      {% endif %}
+      {% if can_reprint %}
+        <a class="btn btn-outline-secondary"
+           href="{% url 'orders:report_rptInvoice' order.pk %}">Invoice</a>
+        <a class="btn btn-outline-secondary"
+           href="{% url 'orders:report_rptInvoice' order.pk %}?format=pdf">Invoice PDF</a>
+      {% endif %}
+      {% if can_delete %}
+        <a class="btn btn-outline-danger"
+           href="{% url 'orders:order_delete' order.pk %}">Delete</a>
+      {% endif %}
+    </div>
+  </div>
+  <div class="row">
+    <dl class="col-md-6 row">
+      <dt class="col-5">Customer</dt>
+      <dd class="col-7">
+        <a href="{% url 'orders:form_frmCompanyDetail' order.customer_id %}">{{ order.customer }}</a>
+      </dd>
+      <dt class="col-5">Salesperson</dt>
+      <dd class="col-7">
+        {{ order.full_name_fnln }}
+      </dd>
+      <dt class="col-5">Order date</dt>
+      <dd class="col-7">
+        {{ order.order_date|date:"n/j/Y g:i A" }}
+      </dd>
+      <dt class="col-5">Invoice date</dt>
+      <dd class="col-7">
+        {{ order.invoice_date|date:"n/j/Y g:i A"|default:"" }}
+      </dd>
+      <dt class="col-5">Tax status</dt>
+      <dd class="col-7">
+        {{ order.tax_status }}
+      </dd>
+      <dt class="col-5">Tax rate</dt>
+      <dd class="col-7">
+        {{ order.tax_rate|percent }}
+      </dd>
+    </dl>
+    <dl class="col-md-6 row">
+      <dt class="col-5">Shipped date</dt>
+      <dd class="col-7">
+        {{ order.shipped_date|date:"n/j/Y"|default:"" }}
+      </dd>
+      <dt class="col-5">Shipper</dt>
+      <dd class="col-7">
+        {{ order.shipper|default:"" }}
+      </dd>
+      <dt class="col-5">Payment method</dt>
+      <dd class="col-7">
+        {{ order.payment_method|default:"" }}
+      </dd>
+      <dt class="col-5">Paid date</dt>
+      <dd class="col-7">
+        {{ order.paid_date|date:"n/j/Y"|default:"" }}
+      </dd>
+      <dt class="col-5">Notes</dt>
+      <dd class="col-7">
+        {{ order.notes|default:""|linebreaksbr }}
+      </dd>
+    </dl>
+  </div>
+  {% include "orders/order_lines.html#order-lines" %}
+  <table class="table table-sm w-auto ms-auto" id="order-amounts">
+    <tr>
+      <th>Subtotal</th>
+      <td class="text-end">{{ amounts.subtotal|money }}</td>
+    </tr>
+    <tr>
+      <th>Tax</th>
+      <td class="text-end">{{ amounts.tax|money }}</td>
+    </tr>
+    <tr>
+      <th>Shipping fee</th>
+      <td class="text-end">{{ amounts.shipping|money }}</td>
+    </tr>
+    <tr>
+      <th>Total</th>
+      <td class="text-end fw-bold">{{ amounts.total|money }}</td>
+    </tr>
+  </table>
+  <h2 class="h5">Next step</h2>
+  <div class="d-flex flex-wrap gap-3 mb-3" id="order-actions">
+    <form method="post"
+          action="{% url 'orders:order_action' order.pk 'invoice' %}"
+          class="border rounded p-2 {% if next_action == 'invoice' %}border-primary{% endif %}">
+      {% csrf_token %}
+      <button type="submit"
+              class="btn {% if next_action == 'invoice' %}btn-primary{% else %}btn-outline-secondary{% endif %}">
+        Create invoice
+      </button>
+    </form>
+    <form method="post"
+          action="{% url 'orders:order_action' order.pk 'ship' %}"
+          class="border rounded p-2 {% if next_action == 'ship' %}border-primary{% endif %}">
+      {% csrf_token %}
+      {% if next_action == 'ship' %}
+        {% crispy ship_form %}
+      {% endif %}
+      <button type="submit"
+              class="btn {% if next_action == 'ship' %}btn-primary{% else %}btn-outline-secondary{% endif %}">
+        Ship order
+      </button>
+    </form>
+    <form method="post"
+          action="{% url 'orders:order_action' order.pk 'pay' %}"
+          class="border rounded p-2 {% if next_action == 'pay' %}border-primary{% endif %}">
+      {% csrf_token %}
+      {% if next_action == 'pay' %}
+        {% crispy payment_form %}
+      {% endif %}
+      <button type="submit"
+              class="btn {% if next_action == 'pay' %}btn-primary{% else %}btn-outline-secondary{% endif %}">
+        Receive payment
+      </button>
+    </form>
+    <form method="post"
+          action="{% url 'orders:order_action' order.pk 'close' %}"
+          class="border rounded p-2 {% if next_action == 'close' %}border-primary{% endif %}">
+      {% csrf_token %}
+      {% if next_action == 'close' %}
+        <div class="form-check mb-2">
+          <input class="form-check-input"
+                 type="checkbox"
+                 name="confirmed"
+                 value="yes"
+                 id="confirm-close" />
+          <label class="form-check-label" for="confirm-close">Yes, close this order; it cannot be edited afterwards.</label>
+        </div>
+      {% endif %}
+      <button type="submit"
+              class="btn {% if next_action == 'close' %}btn-primary{% else %}btn-outline-secondary{% endif %}">
+        Close order
+      </button>
+    </form>
+  </div>
+  <p class="text-muted small" id="record-history">{{ order|history }}</p>
+  <p>
+    <a href="{% url 'orders:form_frmOrderList' %}">Back to the order list</a>
+  </p>
+{% endblock content %}

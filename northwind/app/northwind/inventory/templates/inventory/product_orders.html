@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% load django_tables2 partials %}
+
+{% block title %}
+  Order history: {{ object.product_name }}
+{% endblock title %}
+{% block content %}
+  <h1 class="h3 my-3">
+    Order history:
+    <a href="{% url 'inventory:form_frmProductDetail' object.pk %}">{{ object.product_name }}</a>
+  </h1>
+  {% partialdef panel inline %}
+  <div id="panel-orders"
+       class="table-responsive"
+       hx-boost="true"
+       hx-target="#panel-orders"
+       hx-swap="outerHTML">{% render_table table %}</div>
+{% endpartialdef panel %}
+{% endblock content %}

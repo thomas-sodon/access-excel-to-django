@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags partials %}
+
+{% block title %}
+  Reports
+{% endblock title %}
+{% block content %}
+  <h1 class="h3 my-3">Reports</h1>
+  {% partialdef selection inline %}
+  <div id="report-selection" class="row g-4">
+    <div class="col-md-5">
+      <h2 class="h5">Select Report</h2>
+      <div class="list-group">
+        {% for item in reports %}
+          <a class="list-group-item list-group-item-action{% if item.kind.name == selection.report.name %} active{% endif %}"
+             href="{{ item.url }}"
+             hx-get="{{ item.url }}"
+             hx-target="#report-selection"
+             hx-swap="outerHTML"
+             hx-push-url="true">{{ item.kind.title }}</a>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="col-md-7">
+      <p>
+        Selected Report: <strong id="selected-report-name">{{ selection.report.title }}</strong>
+      </p>
+      <form method="get" action="{{ preview_url }}" id="report-criteria">
+        {% if selection.report.takes_period %}
+          <h2 class="h5">Enter Criteria</h2>
+          {% if selection.problem %}<div class="alert alert-warning">{{ selection.problem }}</div>{% endif %}
+          {% crispy form %}
+        {% endif %}
+        <button type="submit" class="btn btn-primary">Preview</button>
+        {% if not selection.report.interactive %}
+          <button type="submit" name="format" value="pdf" class="btn btn-secondary">PDF</button>
+        {% endif %}
+      </form>
+    </div>
+  </div>
+{% endpartialdef selection %}
+{% endblock content %}
