@@ -5,6 +5,7 @@ import django_tables2 as tables
 from northwind.legacy.models import PurchaseOrder
 
 from . import queries
+from .templatetags.purchasing_tags import money
 
 #: hx-boost for the parts of a list table. list.html and
 #: vendor_purchase_orders.html boost their container, so the sort links (thead) and
@@ -13,6 +14,15 @@ from . import queries
 UNBOOSTED_ROWS = {"tbody": {"hx-boost": "false"}, "tfoot": {"hx-boost": "false"}}
 
 TABLE_ATTRS = {"class": "table table-sm table-striped", **UNBOOSTED_ROWS}
+
+
+class MoneyColumn(tables.Column):
+    """A currency amount with two decimals and thousands separators."""
+
+    attrs = {"td": {"class": "text-end"}, "th": {"class": "text-end"}}
+
+    def render(self, value):
+        return money(value)
 
 
 class PurchaseOrderListTable(tables.Table):
@@ -25,7 +35,7 @@ class PurchaseOrderListTable(tables.Table):
     )
     status_name = tables.Column(accessor=queries.STATUS_NAME, verbose_name="Status")
     vendor = tables.Column(accessor="vendor__company_name", verbose_name="Vendor")
-    total_cost = tables.Column(accessor=queries.TOTAL_COST, verbose_name="Total cost")
+    total_cost = MoneyColumn(accessor=queries.TOTAL_COST, verbose_name="Total cost")
     submitted_by_name = tables.Column(
         accessor=queries.SUBMITTED_BY_NAME,
         verbose_name="Submitted by",
@@ -79,8 +89,8 @@ class VendorPurchaseOrderTable(tables.Table):
     received_date = tables.DateTimeColumn(verbose_name="Received")
     payment_date = tables.DateTimeColumn(verbose_name="Paid")
     payment_method = tables.Column(verbose_name="Payment method")
-    payment_amount = tables.Column(verbose_name="Payment amount")
-    extended_cost = tables.Column(
+    payment_amount = MoneyColumn(verbose_name="Payment amount")
+    extended_cost = MoneyColumn(
         accessor=queries.EXTENDED_COST,
         verbose_name="Extended cost",
     )

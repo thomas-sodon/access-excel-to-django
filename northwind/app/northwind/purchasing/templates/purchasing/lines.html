@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% load crispy_forms_tags partials %}
+{% load crispy_forms_tags partials purchasing_tags %}
 
 {% partialdef line-form %}
 <div id="line-form">
@@ -19,9 +19,15 @@
 {% endpartialdef line-form %}
 {% partialdef lines %}
 <div id="po-lines">
-  {% for message in messages %}
-    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
-  {% endfor %}
+  {% comment %}
+    base.html shows the messages on a full page; an HTMX swap of this partial does not
+    reload base.html, so only then does the partial show them itself.
+  {% endcomment %}
+  {% if request.htmx %}
+    {% for message in messages %}
+      <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
   <table class="table table-sm table-striped">
     <thead>
       <tr>
@@ -40,8 +46,8 @@
           <td>{{ line.pk }}</td>
           <td>{{ line.product }}</td>
           <td class="text-end">{{ line.quantity }}</td>
-          <td class="text-end">{{ line.unit_cost }}</td>
-          <td class="text-end">{{ line.amount }}</td>
+          <td class="text-end">{{ line.unit_cost|money }}</td>
+          <td class="text-end">{{ line.amount|money }}</td>
           <td>{{ line.received_date|default_if_none:"" }}</td>
           {% if lines_editable %}
             <td>
@@ -68,7 +74,7 @@
     <tfoot>
       <tr>
         <th colspan="4" class="text-end">Subtotal</th>
-        <th class="text-end" id="po-subtotal">{{ amounts.subtotal|default_if_none:"" }}</th>
+        <th class="text-end" id="po-subtotal">{{ amounts.subtotal|money }}</th>
         <th colspan="2"></th>
       </tr>
     </tfoot>

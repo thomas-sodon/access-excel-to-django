@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% load crispy_forms_tags %}
+{% load crispy_forms_tags purchasing_tags %}
 
 {% block title %}
   Purchase order {{ object.pk }}
@@ -79,22 +79,22 @@
       <dl class="row" id="po-amounts">
         <dt class="col-sm-5">Shipping fee</dt>
         <dd class="col-sm-7">
-          {{ object.shipping_fee|default_if_none:"" }}
+          {{ object.shipping_fee|money }}
         </dd>
         <dt class="col-sm-5">Tax</dt>
         <dd class="col-sm-7">
           {% if object.tax_amount is not None %}
-            {{ object.tax_amount }}
+            {{ object.tax_amount|money }}
           {% else %}
-            {{ amounts.tax|default_if_none:"" }}
+            {{ amounts.tax|money }}
           {% endif %}
         </dd>
         <dt class="col-sm-5">Total</dt>
         <dd class="col-sm-7">
           {% if object.payment_amount is not None %}
-            {{ object.payment_amount }}
+            {{ object.payment_amount|money }}
           {% else %}
-            {{ amounts.total|default_if_none:"" }}
+            {{ amounts.total|money }}
           {% endif %}
         </dd>
         <dt class="col-sm-5">Payment method</dt>

@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% load static %}
+{% load static purchasing_tags %}
 
 {% block title %}
   Purchase order {{ object.pk }}
@@ -61,37 +61,37 @@
           <tr>
             <td>{{ line.product }}</td>
             <td class="num">{{ line.quantity }}</td>
-            <td class="num">{{ line.unit_cost }}</td>
-            <td class="num">{{ line.amount }}</td>
+            <td class="num">{{ line.unit_cost|money }}</td>
+            <td class="num">{{ line.amount|money }}</td>
           </tr>
         {% endfor %}
       </tbody>
       <tfoot>
         <tr>
           <th colspan="3" class="num">Subtotal</th>
-          <td class="num">{{ amounts.subtotal|default_if_none:"" }}</td>
+          <td class="num">{{ amounts.subtotal|money }}</td>
         </tr>
         <tr>
           <th colspan="3" class="num">Tax</th>
           <td class="num">
             {% if object.tax_amount is not None %}
-              {{ object.tax_amount }}
+              {{ object.tax_amount|money }}
             {% else %}
-              {{ amounts.tax|default_if_none:"" }}
+              {{ amounts.tax|money }}
             {% endif %}
           </td>
         </tr>
         <tr>
           <th colspan="3" class="num">Shipping fee</th>
-          <td class="num">{{ object.shipping_fee|default_if_none:"" }}</td>
+          <td class="num">{{ object.shipping_fee|money }}</td>
         </tr>
         <tr>
           <th colspan="3" class="num">Total</th>
           <td class="num">
             {% if object.payment_amount is not None %}
-              {{ object.payment_amount }}
+              {{ object.payment_amount|money }}
             {% else %}
-              {{ amounts.total|default_if_none:"" }}
+              {{ amounts.total|money }}
             {% endif %}
           </td>
         </tr>

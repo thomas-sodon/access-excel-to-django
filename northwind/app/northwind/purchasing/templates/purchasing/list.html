@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% load crispy_forms_tags django_tables2 partials %}
+{% load crispy_forms_tags django_tables2 partials purchasing_tags %}
 
 {% block title %}
   Purchase orders
@@ -32,7 +32,7 @@
     {% render_table table %}
     <p class="fw-bold" id="po-footer">
       Purchase orders: {{ po_count }}.
-      Total cost: {{ po_total_cost|default_if_none:"" }}
+      Total cost: {{ po_total_cost|money }}
     </p>
   </div>
 {% endpartialdef po-table %}

@@ -23,12 +23,14 @@ from django.conf import settings
 from django.contrib.messages import get_messages
 from django.shortcuts import resolve_url
 from django.urls import reverse
+from django.utils.html import escape
 
 from northwind.core.roles import role_names
 from northwind.core.roles import role_permissions
 from northwind.legacy.choices import PurchaseOrderStatusCode as Status
 from northwind.legacy.factories import ProductFactory
 from northwind.legacy.factories import ProductVendorFactory
+from northwind.legacy.factories import PurchaseOrderDetailFactory
 from northwind.legacy.factories import VendorFactory
 from northwind.legacy.models import PurchaseOrder
 from northwind.legacy.models import PurchaseOrderDetail
@@ -307,6 +309,64 @@ def test_htmx_line_delete(staff_client, record):
     )
     assert b'id="po-lines"' in response.content
     assert not PurchaseOrderDetail.objects.filter(pk=line.pk).exists()
+
+
+def test_amounts_show_two_decimals_with_separators(staff_client, record):
+    """Money on the purchase order, its lines and the list shows two decimals and
+    thousands separators, as in the orders area; the stored values keep four."""
+    po = record["po"]
+    PurchaseOrderDetailFactory(
+        purchase_order=po,
+        product=ProductFactory(),
+        quantity=1000,
+        unit_cost=Decimal("1234.5678"),
+    )
+    detail = staff_client.get(
+        reverse("purchasing:form_frmPurchaseOrderDetails", kwargs={"pk": po.pk}),
+    ).content
+    assert b"1,234.57" in detail  # the unit cost
+    assert b"1,234,567.80" in detail  # 1000 x 1234.5678
+    assert b"1,234,592.80" in detail  # subtotal: 25.00 + 1,234,567.80
+    assert b"1234567.8000" not in detail
+    printed = staff_client.get(reverse("purchasing:print", kwargs={"pk": po.pk}))
+    assert b"1,234,592.80" in printed.content
+    listed = staff_client.get(reverse("purchasing:form_frmPurchaseOrderList"))
+    assert b"1,234,592.80" in listed.content
+    assert b"1234592.8000" not in listed.content
+
+
+def test_a_message_shows_once_on_the_purchase_order_page(
+    staff_client,
+    record,
+    vendor,
+):
+    """base.html shows the messages on a full page, so the line items partial
+    inside the page does not repeat them; an HTMX swap of the partial shows its
+    own (here the R-purchasing-019 warning of a line saved below the target
+    level)."""
+    po = record["po"]
+    response = staff_client.post(
+        reverse("purchasing:submit", kwargs={"pk": po.pk}),
+        follow=True,
+    )
+    texts = [str(message) for message in response.context["messages"]]
+    assert texts
+    for text in texts:
+        assert response.content.count(escape(text).encode()) == 1, text
+    po.status_id = Status.NEW
+    po.save()
+    other = ProductFactory(minimum_reorder_quantity=10, target_level=20)
+    ProductVendorFactory(product=other, vendor=vendor)
+    response = staff_client.post(
+        reverse("purchasing:line_add", kwargs={"pk": po.pk}),
+        {"product": other.pk, "quantity": "10", "unit_cost": "1"},
+        headers={"HX-Request": "true"},
+    )
+    # minimum 10 is met; 0 in stock + 10 stays 10 below the target level of 20
+    assert PurchaseOrderDetail.objects.filter(product=other).exists()
+    assert b"<html" not in response.content
+    assert b"alert-warning" in response.content
+    assert b"R-purchasing-019" in response.content
 
 
 def test_vendor_dialog(staff_client, record):
