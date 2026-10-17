@@ -127,7 +127,7 @@ def report_rows(page: Page):
     )
 
 
-def test_kept_reports(page: Page, sign_in, shot):  # noqa: PLR0915
+def test_kept_reports(page: Page, sign_in, shot, htmx_ready):  # noqa: PLR0915
     invoiced = invoiced_order()
     status = str(OrderStatus.objects.get(pk=invoiced.order_status_id))
     dates = Order.objects.aggregate(first=Min("order_date"), last=Max("order_date"))
@@ -198,6 +198,7 @@ def test_kept_reports(page: Page, sign_in, shot):  # noqa: PLR0915
     expect(page.locator("tr.grand-total")).to_be_visible()
     all_rows = report_rows(page).count()
     salesperson = page.locator("#id_employee option").nth(1).inner_text().strip()
+    htmx_ready(page, "form[hx-trigger=change]")
     page.locator("#id_employee").select_option(index=1)
     expect(page).to_have_url(re.compile(r"employee=\d+"))
     names = {
