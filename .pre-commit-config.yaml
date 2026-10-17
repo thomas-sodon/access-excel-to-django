@@ -22,3 +22,16 @@ repos:
     rev: v0.17.1
     hooks:
       - id: ruff-check
+  # northwind app hooks (toolkit new-app), scoped to ^northwind/app/
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.17.1
+    hooks:
+      - id: ruff-format
+        files: '^northwind/app/'
+  - repo: https://github.com/Riverside-Healthcare/djLint
+    rev: v1.36.4
+    hooks:
+      - id: djlint-reformat-django
+        files: '^northwind/app/'
+      - id: djlint-django
+        files: '^northwind/app/'
