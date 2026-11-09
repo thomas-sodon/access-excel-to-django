@@ -6,7 +6,7 @@ permissions:
   contents: read
 jobs:
   hooks:
-    runs-on: ubuntu-24.04
+    runs-on: metronome-light
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
